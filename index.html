@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="consentia-agenda-version" content="4.0.0">
+<meta name="consentia-agenda-firma" content="AbFDLWGjcuDu5Z45AZVszSS0R8jlDyjVWwNPjbf16RlvyrrzYKfcZBAei6aKcpdP0IpVps3TwjAEORi4xyaDCQ==">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-htIcy2a9b+gf88koSD4u5HJl8WKQLXx4ggIZGvgAunE='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#111113">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Agenda y calculadora · Consentía Studio</title>
+<!-- Consentía Studio · agenda y calculadora (solo consulta), para el móvil y para el ordenador.
+     Las agendas y las listas de precios están cifradas: esta página las descarga de GitHub y las descifra AQUÍ,
+     en el navegador, con la contraseña que escribes. La contraseña no se envía a ningún sitio.
+     La calculadora calcula con los precios de cada centro; no cobra ni guarda nada.
+     En el aparato no se guarda nada: ni la contraseña ni sus claves (se escribe cada vez que se abre la página). -->
+<style>
+:root{--ink:#111113;--pink:#ff2b91;--muted:#77736c;--line:#e4e0d8;--bg:#f4f2ee;--good:#1d8a4a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.35 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--ink);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:5}
+header .t{display:flex;align-items:center;justify-content:space-between;gap:8px}
+header b{letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+header button{background:transparent;color:#fff;border:1px solid #444;border-radius:4px;padding:6px 10px;font:inherit;font-size:12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px}
+.tabs button{flex:none;background:#26262a;color:#ddd;border:0;border-radius:16px;padding:6px 12px;font:inherit;font-size:13px}
+.tabs button.on{background:var(--pink);color:#fff}
+/* (3.2.1) El selector de fechas, como el de la agenda del programa: botones blancos con borde y letra en mayúsculas
+   (‹ HOY ›) y el recuadro de la fecha, que despliega el calendario. */
+.days{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:var(--hh,56px);z-index:4}
+.days button{background:#fff;color:var(--ink);border:1px solid #bdb9b1;border-radius:2px;min-width:38px;height:38px;font:inherit;font-size:18px;line-height:1;padding:0;-webkit-tap-highlight-color:transparent}
+.days button:active{border-color:var(--ink)}
+.days .hoy{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;min-width:auto;padding:0 12px}
+.days .d{flex:1;min-width:0;display:flex;align-items:center;gap:8px;justify-content:flex-start;padding:0 10px;font-size:14px;font-weight:800;text-align:left}
+.days .d span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.days .d svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.days .d svg .f{fill:var(--ink);stroke:none}
+.days .d i{font-style:normal;font-size:11px;color:var(--muted)}
+/* El calendario (en una ficha) */
+.cal{padding:2px 0 4px}
+.calH{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.calH b{font-size:16px;text-transform:capitalize}
+.sheet .cal button{margin:0;width:auto;background:transparent;color:var(--ink);border-radius:8px;padding:0;font-weight:700}
+.sheet .cal .calNav{width:44px;height:40px;border:1px solid var(--line);font-size:20px}
+.calG{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.calW{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
+.sheet .cal .calD{height:42px;font-size:15px}
+.sheet .cal .calD.out{color:#bdb9b1}
+.sheet .cal .calD.nopub{opacity:.45}
+.sheet .cal .calD.today{color:var(--pink);font-weight:900}
+.sheet .cal .calD.sel{background:var(--ink);color:#fff;opacity:1}
+.calF{display:flex;align-items:center;gap:12px;margin-top:8px}
+.sheet .cal .calHoy{border:1px solid #bdb9b1;padding:8px 14px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+.calF small{color:var(--muted);font-size:12px}
+/* (3.2.1) Cabinas (como en el programa: el nombre en su color) y el estado de WhatsApp de cada cita. */
+.cabPill{display:inline-block;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px;border-radius:99px;font-size:9.5px;font-weight:800;line-height:1.55;vertical-align:1px;margin-left:4px}
+.ap .apTop{display:flex;align-items:center;gap:4px;min-width:0}.ap .apTop .t{flex:1;min-width:0}
+.ap .ic{display:flex;align-items:center;gap:3px;flex:none}.ap .ic .cabPill{margin-left:0;max-width:64px}
+.waSt{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;font-size:9.5px;font-weight:900;line-height:1;vertical-align:-3px;margin-left:4px;flex:none}
+.ap .ic .waSt{margin-left:0}
+.waSt.ok{background:#1f5fbf;color:#fff}.waSt.chg{background:#f08c00;color:#fff}
+.waSt.sent{background:#e3f5ea;color:#1f9d55;border:1px solid #9fd8b4}.waSt.pend{background:#fff3d6;color:#b07000;border:1px dashed #d9a400}
+.waSt svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sheet .waLine{display:flex;align-items:center;gap:6px;font-size:13px;color:#44423d;margin-top:6px}.sheet .waLine .waSt{margin:0}
+.status .cabSel{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:5px 6px;font:inherit;font-size:12px;font-weight:700;max-width:46%}
+.status .cabSel.on{border-color:var(--ink);background:var(--ink);color:#fff}
+main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
+.emp{background:#fff;border:1px solid var(--line);border-radius:6px;margin:10px 0;overflow:hidden}
+.emp h3{margin:0;padding:9px 12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.it{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid #f0ede7;border-left:4px solid var(--c,#999)}
+.it:last-child{border-bottom:0}
+.it .h{font:700 13px ui-monospace,Consolas,monospace;white-space:nowrap;min-width:92px}
+.it .w b{display:block}.it .w small{color:var(--muted)}
+.it.x{opacity:.5}.it.x b{text-decoration:line-through}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:1px}
+.tag.c{background:#e3f4e9;color:var(--good)}.tag.o{background:#fff4d6;color:#7a5600}
+.ap.offer{background:repeating-linear-gradient(135deg,rgba(255,255,255,.92) 0 7px,var(--bg) 7px 14px);border:1.5px dashed var(--c);border-left:4px solid var(--c)}
+.ap.done.paid{background:var(--bg)}.ap.done.paid>*{opacity:.9}
+/* (2.2.2) Igual que en la agenda del programa (renderer/css/app.css): notas de la cita y de la clienta, hueco ofrecido,
+   vacaciones y canceladas minimizadas en la cabecera. */
+.apNote{display:block;font-size:10.5px;font-weight:800;line-height:1.3;padding:1px 5px;margin:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#ffd84d;color:#3d2c00;border-radius:2px}
+.apNote.cl{background:#c2103f;color:#fff}
+.ap.done>.apNote{opacity:.9}
+.it .apNote{margin:2px 0;display:block;width:fit-content;max-width:100%}
+.it .offTag{display:block;width:fit-content}
+.sheet .apNote{display:inline-block;white-space:pre-line;font-size:13px;padding:4px 8px;max-width:100%;margin:4px 0}
+.offTag{display:inline-block;font-size:9.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;background:#fff4d6;color:#7a5600;padding:0 5px;margin:1px 0}
+.gcol .bk.vac{background:repeating-linear-gradient(135deg,#0e7c6b 0 7px,#11907c 7px 14px);border-color:#0b5f52}.gcol .bk.vac span{background:#0b5f52}
+.gh small.cl.vac{background:#0e7c6b}.it.blk.vac{background:repeating-linear-gradient(135deg,#0e7c6b 0 7px,#11907c 7px 14px)}
+.gh .goneChip{flex:none;margin-left:auto;border:1px solid #e3dfd7;background:#f4f2ee;color:#77756f;font:inherit;font-weight:800;font-size:10.5px;padding:2px 7px;border-radius:999px}
+.it.paid{background:var(--bg)}.tag.x{background:#eee;color:#555}.tag.n{background:#fde4ec;color:#a3164c}
+.blk{background:repeating-linear-gradient(135deg,#111 0 7px,#2b2b2b 7px 14px);color:#fff;border-left-color:#000}
+.blk .w b{text-transform:uppercase;letter-spacing:.1em}
+.none{color:var(--muted);padding:10px 12px;font-size:13px}
+.note{font-size:12px;color:var(--muted);text-align:center;margin:14px 0}
+.warn{background:#fff4d6;border:1px solid #ecd18c;color:#5c3d00;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
+.bad{background:#fde4ec;border:1px solid #eeb3c4;color:#6d0a28;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
+/* La entrada: el nombre, la contraseña y el logotipo. No se desplaza (ni «rebota» en el móvil). */
+html.lock,html.lock body{height:100%;overflow:hidden;overscroll-behavior:none}
+html.lock body{position:fixed;top:0;left:0;right:0;bottom:0}
+.login{max-width:360px;margin:0 auto;padding:13vh 24px 0;text-align:center}
+.login h1{margin:0 0 26px;font-size:20px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:var(--ink)}
+.login .logo{display:block;width:88px;height:88px;margin:30px auto 0}
+.login p{color:var(--muted);font-size:14px;margin:0 0 16px}
+.login input[type=password]{display:block;width:100%;font:inherit;font-size:17px;text-align:center;padding:14px;border:1px solid #d6d2ca;border-radius:14px;background:#fff;-webkit-appearance:none;appearance:none}
+.login input[type=password]:focus{outline:0;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,145,.18)}
+.login button{width:100%;margin-top:12px;background:var(--ink);color:#fff;border:0;border-radius:14px;padding:14px;font:inherit;font-size:16px;font-weight:600}
+.login button[disabled]{opacity:.6}
+/* (2.2.1) La entrada: fondo de mármol claro con su textura (dibujado en la propia página, «data:», sin cargar nada de
+   fuera), una línea rosa abajo (los colores de la marca, como el resto) y la casilla y el botón más cuidados (candado, ver la contraseña, flecha). */
+html.lock body{background:#f4f2ee} /* (3.2.1) la entrada, limpia: sin las líneas ni las vetas de antes; solo los logotipos */
+.lockBg{display:none}
+.login{position:relative;z-index:1;max-width:350px}
+.lockLogos{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0}
+.lockLogo{position:absolute;display:block;user-select:none;-webkit-user-drag:none}
+.login h1{position:relative;font-size:19px;font-weight:500;letter-spacing:.3em;text-indent:.3em;margin:0 0 40px}
+.login h1::after{display:none} /* (3.2.1) sin la rayita rosa debajo del nombre */
+.pwBox{display:flex;align-items:center;height:58px;background:rgba(255,255,255,.8);border:1px solid #d6d2ca;border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 32px -16px rgba(17,17,19,.22);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:border-color .15s,box-shadow .15s}
+.pwBox:focus-within{border-color:var(--pink);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 4px rgba(255,43,145,.16),0 14px 32px -16px rgba(17,17,19,.22)}
+.login svg{width:20px;height:20px;fill:none;stroke:#77736c;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pwBox>svg{margin-left:18px}
+.login .pwBox input{flex:1;min-width:0;height:100%;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 8px 0 12px;font:inherit;font-size:16px;text-align:left;color:var(--ink);-webkit-appearance:none;appearance:none}
+.login .pwBox input:focus{outline:0;box-shadow:none}
+.login .pwBox input::placeholder{color:#9a968f}
+.login .pwEye{flex:none;width:52px;height:100%;margin:0;padding:0;border:0;border-radius:0 18px 18px 0;background:transparent;box-shadow:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.login .pwEye:active{transform:none;box-shadow:none}
+.login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;margin-top:14px;padding:0;border-radius:18px;background:linear-gradient(180deg,#2b2b30,#111113);font-weight:600;letter-spacing:.02em;box-shadow:0 16px 30px -14px rgba(17,17,19,.6);transition:transform .15s,box-shadow .15s}
+.login #entrar:active{transform:translateY(1px);box-shadow:0 8px 16px -10px rgba(17,17,19,.6)}
+.login #entrar svg{stroke:#fff;width:18px;height:18px}
+.login .logo{width:84px;height:84px;margin:0 auto 22px}
+.login .bad,.login .warn{text-align:left;margin-top:14px}
+.status{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin:8px 0}
+.status span{flex:1;min-width:0}
+.status button{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:5px 9px;font:inherit;font-size:12px;font-weight:700}
+.status button.lnk,.warn button.lnk{border:0;background:none;padding:0;text-decoration:underline;font-weight:700;font:inherit;font-weight:700;color:inherit}
+/* «Hay una versión más nueva de esta página»: barra dentro de la cabecera (siempre a la vista), con su botón. */
+.upd{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:#fff4d6;color:#5c3d00;border-top:1px solid #ecd18c;padding:9px 12px;font-size:13.5px;font-weight:700;line-height:1.35}
+.upd span{flex:1 1 200px;min-width:0}
+.upd small{flex:1 1 100%;font-weight:400;font-size:12px}
+.upd button{flex:none;background:var(--ink);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:inherit;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+/* Vista en columnas, como la agenda del programa: una columna por trabajadora y las horas hacia abajo. */
+main.wide{max-width:none;padding:0}
+main.wide .warn,main.wide .bad{margin:8px 12px}
+main.wide .status{margin:6px 12px}
+.gw{overflow:auto;background:#fff;border-top:1px solid var(--line);overscroll-behavior:contain}
+.g{display:grid;position:relative;min-width:100%}
+.gc,.gh{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--ink)}
+.gc{left:0;z-index:8}
+.gh{z-index:6;border-left:1px solid #e7e3dc;padding:7px 8px;min-height:48px;display:flex;gap:6px;align-items:flex-start;min-width:0}
+.gh .dot{margin-top:3px}
+.gh div{min-width:0}
+.gh b{display:block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh small{display:block;font-size:10px;font-weight:700;color:var(--muted);line-height:1.25}
+.gh small.cl{display:block;width:max-content;background:#111;color:#fff;text-transform:uppercase;letter-spacing:.1em;font-weight:900;padding:1px 5px;margin-top:2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gt{position:sticky;left:0;z-index:5;background:#faf9f6;border-right:1px solid var(--line)}
+.gt span{position:absolute;right:5px;font:700 10px ui-monospace,Consolas,monospace;color:#8a867e;transform:translateY(-6px)}
+.gcol{position:relative;border-left:1px solid #e7e3dc}
+.gcol .ln{position:absolute;left:0;right:0;border-top:1px solid #f0ede7}
+.gcol .ln.hr{border-top-color:#ddd9d1}
+.gcol .off{position:absolute;left:0;right:0;background:repeating-linear-gradient(135deg,#f3f1ec 0 6px,#ebe8e1 6px 12px)}
+.gcol .bk{position:absolute;left:2px;right:2px;background:repeating-linear-gradient(135deg,#111 0 7px,#2b2b2b 7px 14px);border:1px solid #000;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2}
+.gcol .bk span{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;background:#111;padding:2px 6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ap{position:absolute;border-left:4px solid var(--c,#ff2b91);background:linear-gradient(var(--bg,#ffe3f0),var(--bg,#ffe3f0)),#fff;padding:4px 6px 3px;font-size:11px;line-height:1.25;overflow:hidden;z-index:3;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.ap b{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap .t{display:block;font:700 10px "Cascadia Mono",Consolas,ui-monospace,monospace;color:#56534e;white-space:nowrap;overflow:hidden}
+.ap .s{display:block;color:#44423d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap.done{background:repeating-linear-gradient(135deg,var(--bg) 0 8px,rgba(255,255,255,.55) 8px 16px),#fff}
+.ap.done>*{opacity:.66}
+.now{position:absolute;left:0;right:0;border-top:2px solid var(--pink);z-index:4;pointer-events:none}
+.sheetBack{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(17,17,19,.45);z-index:20;display:flex;align-items:flex-end}
+.sheet{background:#fff;width:100%;max-height:86vh;overflow:auto;border-radius:18px 18px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet::before{content:'';display:block;width:36px;height:5px;border-radius:3px;background:#d6d2ca;margin:0 auto 12px}
+.sheet h2{margin:2px 0;font-size:19px}
+@media (min-width:720px){.sheetBack{align-items:center;justify-content:center}.sheet{max-width:440px;border-radius:18px;padding-bottom:18px}.sheet::before{display:none}}
+.sheet .h{font:700 13px ui-monospace,Consolas,monospace;color:#56534e}
+.sheet p{margin:8px 0 0}
+.sheet .who{color:var(--muted);font-size:13px}
+.sheet .row{padding:9px 0;border-bottom:1px solid #f0ede7}
+.sheet button{width:100%;margin-top:14px;background:var(--ink);color:#fff;border:0;border-radius:13px;padding:13px;font:inherit;font-size:16px;font-weight:600}
+/* Agenda y calculadora en la misma pantalla: en el ordenador, una al lado de la otra; en el móvil, dos pestañas abajo. */
+.split{display:block}
+.split.m-calc .pA,.split.m-agenda .pC{display:none}
+/* La barra de abajo, como el «control segmentado» de un iPhone: dos botones dentro de una pista redondeada, el
+   elegido en blanco y con su icono en rosa, sobre una barra translúcida. --mh es lo que mide la barra (sin el margen
+   de seguridad del móvil): lo usan también el hueco que se deja debajo del contenido y el total de la calculadora. */
+:root{--mh:67px}
+.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#f7f6f3;border-top:1px solid rgba(17,17,19,.12)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.modes{background:rgba(247,246,243,.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}
+.modes .seg{display:flex;gap:2px;max-width:520px;margin:0 auto;padding:3px;border-radius:14px;background:rgba(118,118,128,.16)}
+.modes button{position:relative;flex:1 1 0;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;border:0;border-radius:11px;background:transparent;color:#5b5b61;font:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .12s ease-out,color .15s}
+.modes button svg{flex:none;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.modes button svg .f{fill:currentColor;stroke:none}
+.modes button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modes button.on{background:#fff;color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
+.modes button.on.go{animation:segOn .18s ease-out}
+.modes button.on svg{color:var(--pink)}
+.modes button:active{transform:scale(.97)}
+.modes button:focus-visible{outline:2px solid var(--pink);outline-offset:1px}
+/* Lo que lleva sumada la cuenta: una insignia en la esquina del botón (no le quita sitio al nombre). */
+.modes small{position:absolute;top:-8px;right:-3px;font:700 12px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff;background:var(--pink);border-radius:999px;padding:4px 8px;box-shadow:0 0 0 2px #f7f6f3}
+.modes small:empty{display:none}
+@keyframes segOn{from{transform:scale(.96);box-shadow:none}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.modes button,.modes button.on.go{animation:none;transition:none}}
+body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--mh) + 18px + env(safe-area-inset-bottom))}
+/* La calculadora. Sin título: arriba, tres pestañas como un control segmentado; debajo, lo que se puede añadir; y la
+   cuenta, en una barra abajo que se abre al tocarla (en el ordenador, siempre a la vista debajo de la lista).
+   Los extras se eligen por su grupo (como las categorías de los servicios) y, si tienen foto, se ven en baldosas
+   con la foto; al tocar uno sube su ficha, con la foto en grande y lo justo que hay que decir (nº de uñas…). */
+.pC{background:var(--bg)}
+.calc{display:flex;flex-direction:column;min-height:60vh}
+.cTabs{order:0;display:flex;gap:2px;margin:12px 12px 0;padding:3px;border-radius:12px;background:rgba(118,118,128,.16)}
+.cTabs button{flex:1 1 0;min-width:0;height:36px;border:0;border-radius:9px;background:transparent;color:#5b5b61;font:inherit;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.cTabs button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.06)}
+.cBody{order:1;padding:12px 12px 16px}
+.cSearch{display:block;width:100%;font:inherit;font-size:16px;padding:10px 12px;border:0;border-radius:11px;background:rgba(118,118,128,.14);margin-bottom:10px;-webkit-appearance:none;appearance:none}
+.cSearch:focus{outline:2px solid var(--pink);background:#fff}
+.cCats{display:flex;gap:6px;overflow-x:auto;margin:0 -12px;padding:0 12px 10px;scrollbar-width:none}
+.cCats::-webkit-scrollbar{display:none}
+.cCats button{flex:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;color:#44423d;-webkit-tap-highlight-color:transparent}
+.cCats button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.cCats button i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--pink);margin-left:6px;vertical-align:2px}
+.cList{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(17,17,19,.05)}
+.cItem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:0;border-bottom:1px solid #f0ede7;padding:12px 14px;font:inherit;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.cItem:last-child{border-bottom:0}
+.cItem b{flex:1;min-width:0;font-weight:600}
+.cItem small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:1px}
+.cItem .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cItem .p.x{color:var(--pink);font-size:13.5px;max-width:46%;white-space:normal;text-align:right}
+.cItem:active,.xCard:active{background:#fff0f7}
+.xGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.xCard{display:flex;flex-direction:column;text-align:left;background:#fff;border:0;border-radius:14px;overflow:hidden;padding:0;font:inherit;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,19,.06);-webkit-tap-highlight-color:transparent}
+.xCard .ph{display:block;width:100%;aspect-ratio:1/1;background:#efece6}
+.xCard .ph img{display:block;width:100%;height:100%;object-fit:cover}
+.xCard .ph.no{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffe9f3,#f4f2ee);color:#e2a9c4;font:500 34px Didot,"Bodoni 72","Times New Roman",serif}
+.xCard .tx{display:block;padding:9px 11px 11px}
+.xCard b{display:block;font-size:14px;font-weight:600;line-height:1.25}
+.xCard small{display:block;margin-top:3px;font-size:12.5px;font-weight:700;color:var(--pink)}
+.cHint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
+/* (3.2.1) Índice de categorías / grupos y «‹ volver» */
+.cIndex .cItem b{font-weight:700}.cIndex .chev{flex:none;font-size:22px;line-height:1;color:#b9b6b0}
+.cBack{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.cBack .back{flex:none;border:1px solid #7c4dff;background:#7c4dff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:700;color:#fff;-webkit-tap-highlight-color:transparent} /* (3.2.3) «‹ Categorías» y «‹ Extras», en morado */
+.cBack .back:active{background:#6a3df0}
+.cSec+.cSec{margin-top:12px}.cSecName{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 4px 6px}
+.cBack b{flex:1;min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Ficha de un extra */
+.sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:#f4f2ee;margin-bottom:12px}
+.sheet .xPrecio{color:var(--pink);font-weight:700;margin-top:2px}
+.sheet .xAyuda{color:#44423d;font-size:13.5px;line-height:1.4}
+.stp{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #f0ede7}
+.sheet .xAyuda+.stp,.sheet .xPrecio+.stp{margin-top:12px}
+.stp>span{font-weight:600}
+.stp>div{display:flex;align-items:center;background:rgba(118,118,128,.14);border-radius:11px}
+.sheet .stp button{width:46px;height:40px;margin:0;padding:0;border:0;border-radius:11px;background:transparent;color:var(--ink);font:400 24px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.sheet .stp button[disabled]{opacity:.3}
+.stp output{min-width:64px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.stp input{width:128px;font:inherit;font-size:17px;font-weight:700;text-align:right;padding:9px 12px;border:1px solid #d6d2ca;border-radius:11px;background:#fff}
+.stp input:focus{outline:0;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,145,.18)}
+.xRes{margin-top:10px;padding:11px 12px;border-radius:12px;background:#f4f2ee;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+.xRes.no{background:#fff4d6;color:#5c3d00;font-weight:600}
+.xRes:empty{display:none}
+.sheet button.calcBtn{background:var(--pink);margin-top:14px}
+.sheet button.calcBtn+button{margin-top:8px;background:transparent;color:var(--ink)}
+/* La cuenta */
+.tkBack{display:none}
+.cTicket{order:2;display:none;background:#fff}
+.cTicket h4{margin:0 0 4px;font-size:17px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cTicket h4 span{flex:1}
+.cTicket h4 button{border:0;background:rgba(118,118,128,.14);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink)}
+.cTicket h4 button.x{width:30px;height:30px;padding:0;font-size:18px;line-height:1}
+.cTicket h4 #vaciar{background:var(--pink);color:#fff}
+.cTicket .cHint{margin:0 0 6px}
+.cLine{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f0ede7}
+.cLine div{flex:1;min-width:0;font-weight:600}.cLine small{display:block;color:var(--muted);font-size:12.5px;font-weight:400}
+.cLine .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cLine button{flex:none;border:0;background:rgba(118,118,128,.14);border-radius:50%;width:28px;height:28px;font:inherit;font-size:17px;line-height:1;color:#5b5b61}
+.cDisc{padding:10px 0 2px}
+.cDisc>span{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:#5b5b61;margin-bottom:6px}
+.cDisc>span b{color:var(--good);font-variant-numeric:tabular-nums}
+.cDisc div{display:flex;flex-wrap:wrap;gap:6px}
+.cDisc button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:#44423d}
+.cDisc button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.cTotal{order:3;position:fixed;left:12px;right:12px;bottom:calc(var(--mh) + 10px + env(safe-area-inset-bottom));z-index:8;width:auto;margin:0;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;padding:10px 16px;border:0;border-radius:16px;background:var(--ink);color:#fff;font:inherit;text-align:left;box-shadow:0 8px 22px rgba(17,17,19,.22);-webkit-tap-highlight-color:transparent;transition:background .2s}
+.cTotal span{display:flex;align-items:center;gap:8px;min-width:0;font-size:15px;font-weight:600}
+.cTotal span i{font-style:normal;font-size:12.5px;font-weight:700;min-width:22px;text-align:center;background:var(--pink);border-radius:999px;padding:2px 7px}
+.cTotal span small{font-size:13px;font-weight:400;color:#b9b6b0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cTotal span svg{flex:none;width:16px;height:16px;fill:none;stroke:#b9b6b0;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.calc.tk .cTotal span svg{transform:rotate(180deg)}
+.cTotal b{flex:none;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+.cTotal.flash{background:var(--pink)}
+@media (max-width:1039px){
+  .cBody{padding-bottom:84px}
+  .calc.tk .tkBack{display:block;position:fixed;top:0;left:0;right:0;bottom:0;z-index:6;background:rgba(17,17,19,.4)}
+  .calc.tk .cTicket{display:block;position:fixed;left:0;right:0;bottom:0;z-index:7;max-height:74vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(var(--mh) + 84px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(17,17,19,.2)}
+}
+@media (min-width:1040px){
+  .split{display:grid;grid-template-columns:minmax(0,1fr) 400px;align-items:start}
+  .split.m-calc .pA,.split.m-agenda .pC{display:block}
+  .modes{display:none}
+  body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:0}
+  .pC{position:sticky;top:var(--hh,56px);height:calc(100vh - var(--hh,56px));overflow:hidden;border-left:1px solid var(--line)}
+  .calc{height:100%;min-height:0}
+  .cBody{flex:1 1 auto;overflow:auto;min-height:140px}
+  .cCats{flex-wrap:wrap;overflow:visible;margin:0;padding:0 0 10px}
+  /* (3.2.2) En el ordenador la cuenta y el total van DENTRO de la columna de la calculadora, uno debajo del otro: la
+     cuenta ocupa lo que haga falta (como mucho el 52 % del alto; si no cabe, se desplaza ella) y la lista de arriba
+     encoge. El total ya no hereda las distancias de la barra flotante del móvil (left/right/bottom): antes, con
+     «position:relative», esas distancias lo movían hacia arriba y hacia la derecha y tapaba la cuenta. */
+  .cTicket{display:none;flex:0 1 auto;min-height:0;max-height:52%;overflow:auto;overscroll-behavior:contain;border-top:1px solid var(--line);padding:12px 14px 6px}
+  .calc.tk .cTicket{display:block;position:relative;z-index:7}
+  .cTicket h4 button.x{display:none}
+  .cTotal{flex:none;position:relative;left:auto;right:auto;bottom:auto;z-index:8;width:100%;border-radius:0;box-shadow:none;cursor:pointer}
+  /* (3.2.1) Con la cuenta abierta, en el ordenador también se oscurece el resto de la pantalla (igual que en el móvil);
+     tocando fuera se cierra. */
+  .calc.tk .tkBack{display:block;position:fixed;top:0;left:0;right:0;bottom:0;z-index:6;background:rgba(17,17,19,.4)}
+  body.tkOpen .pC{z-index:30}
+}
+.other{display:flex;gap:6px;margin-top:8px}.other input{flex:1;font:inherit;padding:8px;border:1px solid #bdb9b1;border-radius:4px}.other button{border:0;background:var(--ink);color:#fff;border-radius:4px;padding:0 12px;font:inherit}
+/* (3.2.4) Color de cada servicio (el de su categoría) y estrella de las clientas VIP */
+.svM{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:0;flex:none;box-shadow:0 0 0 1.5px rgba(255,255,255,.85)}
+.svI{white-space:normal}
+.svP{opacity:.7}
+.vipStar{color:#f5b400;font-weight:400;margin-left:.25em;font-style:normal}
+.cItem b .svM{width:9px;height:9px;margin-right:7px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function () {
+  'use strict';
+  var FORMAT = 'consentia-agenda-1', MIN_ITER = 100000, MAX_ITER = 5000000, BR_RE = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/, MAIN_RE = /^(main|master|gh-pages|head)$/i, OLD_RE = /^agenda-[0-9a-f]{16,64}$/, ZONE_RE = /^[a-z0-9][a-z0-9-]{0,59}$/, SHA_RE = /^[0-9a-f]{40,64}$/, LS_BR = 'consentia-agenda-ramas', LS_VW = 'consentia-agenda-vista';
+  var PX = 1.5, COL_W = 112, TIME_W = 42; // píxeles por minuto, ancho mínimo de cada columna y de la columna de las horas
+  var PAGE_V = (document.querySelector('meta[name="consentia-agenda-version"]') || {}).content || '', SS_RL = 'consentia-agenda-recarga', SS_MAN = 'consentia-agenda-recarga-a-mano';
+  var app = document.getElementById('app');
+  // El logotipo (la C con la estrella), reducido a 176 px, dentro de la propia página: no se carga nada de fuera.
+  var LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACwCAMAAACYaRRsAAAAYFBMVEUAAAARERMRERIQEBIQEBIRERIQEBIUFBERERENDRAODhIODhIODhIPDxInJwAPDxIoKCgAAC4PDxERESI/PwAzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6i7dIAAAAIHRSTlMA/dGQbk6xFDErSWuJqQbNBgXiDwQFAAAAAAAAAAAAAGM6LtcAAAWzSURBVHja7Z3pcus6CIAtEGhx0tOz3Pd/1RsvSZzIThMLZHnGTNs/bdTPGCQEyG6aQw455JBDXkkIsbWIyMyXn9ZSWP5bH4nIbcfq6HQGkwgwkp/9AHa/po1oI7J5IWB9TcARwfwo0Lo6gMM7tIOg3x6YZiyB0RJFH4KP0T6aygNyeWBHiXLZhsTvaXoP2g2BE1xemqRcxLst+42A/bMxsH9t6rc/tFsAO3zGjT97582SXXHgxBrsOyuWv36KCwO7Z2sA/94Hv69KBlcSOHW2Dz47IS4FbJP14CNfHa8WSgEn3mZOHw4A19tSBDgx38/028tIbG0BYJ8ubSsuehzklz6wT2OwNQF4mAxAZXmNy/VbTeCQ8q79d1wCOKRxL6723RLAKS985U/mesAzkboXuHw1YDRyBjFdo7WArZFV8E3FVGyCyFNw05w0gR2IK/g6qVMpA16zJs/ZhAowzSUZSEYLKsCzmRInowYqZBDmLBSZKAB7o2IRoycrAM+nJZ3QwFTG47otWaXAv+cVjFK+QWUUbGK1wAuJ9VArsDdqJtzQ+XzmIAyM88DcVCphIfl/qhXYLgDbWoGXallxZxZhQqXA7RKw25lF/HE7swioVMG0BFzrNIx7A14s0GOdvM7sDDjuDdguAtud+VytwL92BuxgZ8De7AyYDuB37DCsj1xbZeC5/XLXKBDlZzUZYIAw+y+hVmB+RhsL2bh+QGUN42PUZzOq1518qQOTnw7EuaWTF+uGCPA3tBeru3rerS6cMbQysDNt1y7ib7ND9tYAtE2iG6V3vElbTkYtTdskmr4NM150OmlzabMG1AX+O4xC5tTzMmRvDIy2DePE8vqOJXB5A5YADjx0Fvr8YrA2cMOniwmP+u31HJvKgXHkhf4re2erDoyI42CtSHJGX8ND6BBG/w61A9t77zNfwSsGHhY3oPtOAXzNwEPsMGh1mNFO2TrWBMZJoNP3y2LzG3OJ9YDHyXecx+i6xNnMsqgasB1PJQDeJgu6/sLWBzxGvugCsPeh9zi8JxawMuDbaZWH2BXDnZirAn7aiMPklKAN4wVhNcDBTg8xEgE6118Ccp8nBYz9NbGrAdhZvp0HG8+Jdk7XnW7rBvPDiTCwtF7H0sCDbjFM8hLNdwuTbEoLYys/VWES9Hx8rdMwPo51uQ+w3kWkN6FPZ2+7HQekZWu3/uiw8q7ZG+y2y4KZW2XgYLBzOb8b4C57KVsE1gZGA6KtLeqZn/xMRNn88D+WLpawdiJFuhVHuWRA4kV29aKMdOOlVdcwyPY6KdfpzuL1Sd1KKBrRVW5YOzUTKd0sL8v7Kr7M9+4+eyIM/GJtRhGPBun+QlYGFu9+Q0XgU27J6LNpgiWUId/AGXSB5ZvflgNMEWCFthbWa8d1rNGW3ir2D1sjz/vCiCViqy8FYthbD/ziTOwrBV5syK31HMfixEbNzmyi2qM9YV8t2osHLOs9nrYUAEG1wEtu56sltprz2pfGAgSKXkdGYadkFb0OVRwYtMKfMX7FMhOFhBE7pVWTdR7XcA1V5CccrzUTY+bTjT7zO4E7qXdEmlXmCdJbgoLKUWFWXOSjwtrhVQNVlI8nWPVI9zdLq9hrB9YgbMWsHfXNPNCOs6cI1Y3AzPrR5t4w3YcSREGj4CJbwyhmFFYw5PvMKtbpKBTLbqSPQrXreYtsvZ0A8ThGqZ035xJf58diG2+bR+yheHouPpsFfrDvJYljUtmh0PsN93ajbGLy3O/3FBZ4u+xnouSfbfJ+zq9tNpD01QCvkSftw1vl72Py/Prl5+3T/Y7whhWdRMtmbA1/NIWHN6JsnLwPOPfWG0vee+eC99Se+MVLTzYRy+++ouWNV0oUsoz3mLmm2pMfmsFfvWioukeeOW8XXuAD3FZbYnCBLDKM4H/g4oGtr7Uy/QB+Ufjl+7/mkEMOOeSQQw45pCL5H6AxJmEsvijVAAAAAElFTkSuQmCC';
+  // Repositorio: https://USUARIO.github.io/REPOSITORIO/ (o ?repo=usuario/nombre solo en este ordenador, para pruebas).
+  var cfg = (function () {
+    var q = new URLSearchParams(location.search), h = location.hostname, seg = location.pathname.split('/').filter(Boolean);
+    if (/\.github\.io$/i.test(h) && seg.length) return { repo: h.split('.')[0] + '/' + seg[0], api: 'https://api.github.com', raw: 'https://raw.githubusercontent.com' };
+    if (h !== 'localhost' && h !== '127.0.0.1') return { repo: '', api: '', raw: '' };
+    return { repo: q.get('repo') || '', api: q.get('api') || 'https://api.github.com', raw: q.get('raw') || 'https://raw.githubusercontent.com' };
+  })();
+  // Esta página nunca usa «service workers»: si alguien hubiera instalado uno, se quita.
+  try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { var here = location.origin + '/' + (location.pathname.split('/').filter(Boolean)[0] || '') + '/'; rs.forEach(function (r) { if (r.scope === location.origin + '/' || r.scope.indexOf(here) === 0) r.unregister(); }); }).catch(function () { }); } catch (e) { }
+  // pws: contraseñas escritas en esta visita. keys: claves ya calculadas (por sal). Las dos, solo en memoria: al
+  // cerrar o recargar la página hay que escribir la contraseña otra vez.
+  // fotos: las fotos de los extras de cada centro, por la huella que trae su lista de precios (se bajan una vez).
+  var st = { pws: [], keys: {}, branches: [], centers: [], cur: 0, day: today(), msg: '', bad: '', loading: false, ready: false, lastCheck: null, cached: false, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', xGrp: '', xCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
+  st.want = wanted(); // centro pedido en la dirección (…/#getafe)
+
+  /* ---------- en el aparato no se guarda nada ---------- */
+  // Hasta la 2.0.2 había un «Recordar en este aparato» que guardaba las claves (no la contraseña) en el navegador.
+  // Ya no: lo que hubiera dejado se borra al abrir la página y al salir.
+  function forget() { try { localStorage.removeItem(LS_BR); localStorage.removeItem(LS_VW); } catch (e) { } try { if (window.indexedDB) indexedDB.deleteDatabase('consentia-agenda'); } catch (e) { } }
+
+  function el(tag, attrs, kids) { var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') Object.keys(attrs.on).forEach(function (ev) { e.addEventListener(ev, attrs.on[ev]); }); else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
+  // Iconos de la barra de abajo (trazo, 24×24). Cada pieza: [etiqueta, atributos]; la clase «f» va rellena.
+  var ICON = {
+    agenda: [['rect', { x: 3.5, y: 5, width: 17, height: 15.5, rx: 3.5 }], ['path', { d: 'M3.5 10h17M8 3v4M16 3v4' }], ['circle', { class: 'f', cx: 8.2, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 12, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 15.8, cy: 14.6, r: 1.15 }]],
+    calc: [['rect', { x: 5, y: 3, width: 14, height: 18, rx: 3.5 }], ['rect', { x: 8, y: 6, width: 8, height: 3.6, rx: 1.2 }], ['circle', { class: 'f', cx: 8.8, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 8.8, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 17, r: 1.1 }]]
+  };
+  function svg(parts) { var NS = 'http://www.w3.org/2000/svg', s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); parts.forEach(function (p) { var n = document.createElementNS(NS, p[0]); Object.keys(p[1]).forEach(function (k) { n.setAttribute(k, p[1][k]); }); s.appendChild(n); }); return s; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function addDays(k, n) { var p = k.split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2] + n); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function longDay(k) { var p = String(k).split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]); var t = d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }); return t.charAt(0).toUpperCase() + t.slice(1); }
+  function ago(iso) { var m = Math.round((Date.now() - Date.parse(iso)) / 60000); if (!(m >= 0)) return ''; if (m < 1) return 'ahora mismo'; if (m < 60) return 'hace ' + m + ' min'; var h = Math.floor(m / 60); if (h < 48) return 'hace ' + h + ' h'; return 'hace ' + Math.floor(h / 24) + ' días'; }
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  function color(c) { return /^#[0-9a-f]{6}$/i.test(String(c || '')) ? c : '#999999'; }
+  // (3.2.4) Los servicios de una cita, cada uno con la marca de su color (el de su categoría, como en el programa); sin
+  // colores (agenda de antes), el texto de siempre. Y la estrella de las clientas VIP.
+  function svNodes(a) { if (!Array.isArray(a.sx) || !a.sx.length) return [txt(a.sv, 200)]; var out = []; a.sx.slice(0, 12).forEach(function (x, i) { if (i) out.push(el('span', { class: 'svP', text: ' + ' })); out.push(el('span', { class: 'svI' }, [el('i', { class: 'svM', style: 'background:' + color(x && x[1]) }), txt(x && x[0], 80)])); }); return out; }
+  function vipStar(a) { return a && a.vip ? el('span', { class: 'vipStar', title: 'Clienta VIP', text: '★' }) : null; }
+  function xcDot(calc, c0) { var m = calc && calc.xc; return m && m[c0] ? el('i', { class: 'svM', style: 'background:' + color(m[c0]) }) : null; } // (3.2.5) color de la categoría de extras
+  function catDot(calc, c0) { var m = calc && calc.cc; return m && m[c0] ? el('i', { class: 'svM', style: 'background:' + color(m[c0]) }) : null; }
+  function txt(v, n) { return String(v == null ? '' : v).slice(0, n || 200); }
+  // Dirección de un centro: …/#getafe abre directamente su pestaña (el programa da ese enlace en cada centro). Es el
+  // identificador de su ZONA, que es también el nombre de su rama en el repositorio (app/lib/zonas.js). Las agendas
+  // publicadas con una versión anterior (rama «Parla-Este» o «agenda-…») se siguen encontrando por su ubicación.
+  function slug(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40); }
+  function centerSlug(c) { return !c ? '' : ZONE_RE.test(c.key) && !OLD_RE.test(c.key) ? c.key : c.data ? slug(c.data.center.l || c.data.center.n) : ''; }
+  function wanted() { try { return slug(decodeURIComponent(String(location.hash || '').replace(/^#/, ''))); } catch (e) { return ''; } }
+  function setHash(c) { var s = centerSlug(c); try { if (s && wanted() !== s) history.replaceState(null, '', '#' + s); } catch (e) { } }
+  function mins(t) { var m = /^(\d{1,2}):(\d{2})/.exec(String(t || '')); return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0; }
+  function hm(m) { m = Math.round(m); return pad(Math.floor(m / 60) % 24) + ':' + pad(m % 60); }
+  function dow(k) { var p = String(k).split('-'); return (new Date(+p[0], +p[1] - 1, +p[2]).getDay() + 6) % 7; } // 0 = lunes
+  function tint(c, a) { var n = parseInt(c.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  // Tramos de horario [[inicio, fin], …] en minutos. null = esta agenda no trae horarios (publicada con una versión anterior).
+  function rg(v) { if (!Array.isArray(v)) return null; var out = []; for (var i = 0; i < v.length && out.length < 6; i++) { var a = +(v[i] || [])[0], b = +(v[i] || [])[1]; if (a >= 0 && b <= 1440 && b > a) out.push([Math.round(a), Math.round(b)]); } return out; }
+  function centerRanges(d, day) { return Array.isArray(d.hours) ? rg(d.hours[dow(day)]) || [] : null; }
+  function empRanges(d, e, day) {
+    if (!Array.isArray(d.hours)) return null; if (e.id === '__sin') return centerRanges(d, day);
+    var x = e.x && e.x[day]; if (x !== undefined && x !== null) return rg(x) || [];
+    var s = e.sch && e.sch[dow(day)]; if (s !== undefined && s !== null) return rg(s) || [];
+    return centerRanges(d, day);
+  }
+  // Un bloqueo en ese día: de qué minuto a qué minuto (dentro de lo que se pinta).
+  function blockSpan(b, day, a0, a1) { var f = String(b.from), t = String(b.to); return [b.all || f.slice(0, 10) < day ? a0 : Math.max(a0, mins(f.slice(11, 16))), b.all || t.slice(0, 10) > day ? a1 : Math.min(a1, mins(t.slice(11, 16)) || a1)]; }
+  // Reparte las citas que se pisan en «carriles», una al lado de otra (igual que el programa).
+  function lanes(items) {
+    items.sort(function (x, y) { return x.s - y.s || y.e - x.e; });
+    var group = [], end = -1; function flush() { var n = 1; group.forEach(function (g) { n = Math.max(n, g.lane + 1); }); group.forEach(function (g) { g.lanes = n; }); group = []; }
+    items.forEach(function (it) {
+      if (it.s >= end && group.length) flush();
+      var used = {}; group.forEach(function (g) { if (g.e > it.s) used[g.lane] = true; }); var lane = 0; while (used[lane]) lane++;
+      it.lane = lane; group.push(it); end = Math.max(end, it.e);
+    });
+    if (group.length) flush(); return items;
+  }
+  // Lo que va dentro de la cita (como renderer/js/views/agenda.js → apptHtml): hora (y cabina), clienta, hueco ofrecido,
+  // nota de la clienta (roja), nota de la cita (amarilla) y servicios.
+  function offerWhen(a) { var u = String(a.ou || ''); if (!u) return ''; return u.slice(0, 10) === today() ? u.slice(11, 16) : (['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'][new Date(u.slice(0, 10) + 'T12:00').getDay()] + ' ' + (+u.slice(8, 10)) + ', ' + u.slice(11, 16)); }
+  function notes(a) { return [a.st === 'o' && a.ou ? el('div', { class: 'offTag', text: '⏳ Ofrecida · hasta ' + offerWhen(a) }) : null, a.cn ? el('div', { class: 'apNote cl', title: 'Nota de la clienta: ' + txt(a.cn, 200), text: '⚠ ' + txt(a.cn, 200) }) : null, a.n ? el('div', { class: 'apNote', title: 'Nota de la cita: ' + txt(a.n, 200), text: txt(a.n, 200) }) : null]; }
+  function apColor(a, e, d) { var done = a.st === 'c' || a.st === 'h', pc = done && /^#[0-9a-f]{6}$/i.test(d.pc || '') ? d.pc : ''; return { done: done, pc: pc, c: color(pc || a.col || e.c) }; }
+  function stateTag(a) { return a.st === 'o' ? el('span', { class: 'tag o', text: 'Ofrecida' }) : a.st === 'c' ? el('span', { class: 'tag c', text: 'Cobrada' }) : a.st === 'h' ? el('span', { class: 'tag c', text: 'Hecha' }) : a.st === 'x' ? el('span', { class: 'tag x', text: 'Cancelada' }) : a.st === 'n' ? el('span', { class: 'tag n', text: 'No vino' }) : null; }
+  // Ficha que sube desde abajo (el detalle de una cita o de un bloqueo, o las canceladas del día).
+  function sheet(kids, more) {
+    var old = document.querySelector('.sheetBack'); if (old) old.remove();
+    var back = el('div', { class: 'sheetBack' }); var close = function () { back.remove(); };
+    back.appendChild(el('div', { class: 'sheet', id: 'ficha' }, kids.concat([more ? more(close) : null, el('button', { id: 'cerrarFicha', type: 'button', text: 'Cerrar', on: { click: close } })])));
+    back.addEventListener('click', function (e) { if (e.target === back) close(); });
+    document.body.appendChild(back);
+  }
+  function apptSheet(a, who, d) {
+    // «Calcular»: lleva los servicios de la cita a la calculadora (con los precios de ese centro).
+    var can = d && calcOf(d) && Array.isArray(a.si) && a.si.some(function (i) { return calcOf(d).services[i]; });
+    var w = WA_ST[a.w];
+    sheet([el('div', { class: 'h', text: txt(a.s, 5) + '–' + txt(a.e, 5) }), el('h2', {}, [txt(a.c, 80) || 'Sin clienta', vipStar(a), stateTag(a)]), el('div', { class: 'who' }, [who + ' ', cabPill(a, d)]), w ? el('div', { class: 'waLine' }, [waIco(a), ' ' + w[2]]) : null, a.sv ? el('p', {}, svNodes(a)) : null].concat(notes(a).map(function (n) { if (n && n.className !== 'offTag') n.title = ''; return n; })),
+      can ? function (close) { return el('button', { class: 'calcBtn', id: 'calcular', text: 'Calcular', on: { click: function () { close(); fromAppt(a, d); } } }); } : null);
+  }
+
+  /* ---------- calculadora: precios del centro (van cifrados dentro de su agenda) ---------- */
+  function r2(n) { return Math.round(((+n || 0) + Number.EPSILON) * 100) / 100; } // (igual que el programa: util.js → round2)
+  function num(v) { var n = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isFinite(n) ? n : 0; }
+  function money(v) { return r2(v).toFixed(2).replace('.', ',') + ' €'; }
+  function mShort(v) { return money(v).replace(',00', ''); }
+  function nUn(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+  function objs(v, n) { return (Array.isArray(v) ? v : []).slice(0, n).map(function (x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : {}; }); } // (lo que no sea un objeto, vacío: los servicios se señalan por su posición)
+  function calcOf(d) { var c = d && d.calc; return c && typeof c === 'object' && Array.isArray(c.services) ? { services: objs(c.services, 400), addons: objs(c.addons, 200), bonos: objs(c.bonos, 60), discounts: objs(c.discounts, 30), fotos: typeof c.fotos === 'string' && /^[0-9a-f]{8,64}$/.test(c.fotos) ? c.fotos : '', cc: ccOf(c.cc), xc: ccOf(c.xc) } : null; }
+  // (3.2.4) El color de cada categoría: solo nombres de texto con un color #rrggbb (lo demás se ignora).
+  function ccOf(m) { var out = {}; if (m && typeof m === 'object' && !Array.isArray(m)) Object.keys(m).slice(0, 60).forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(String(m[k] || ''))) out[txt(k, 60)] = m[k]; }); return out; }
+  // Lo mismo que hace el programa al cobrar (renderer/js/core/domain.js → addonPrice / addonPriceText).
+  // (3.2.1) Decoraciones fijas: de 1 a «few» uñas, «fp» € por uña en vez del precio de la manicura (= domain.js → addonPrice).
+  function fewOf(a) { var f = Math.round(+a.few || 0); return f > 0 && f < 10 && (a.mode === 'fixed' || a.mode === 'steps') ? { few: f, p: Math.max(0, +a.fp || 0) } : null; }
+  function addonPrice(a, count, unit, nails) {
+    var r = addonPriceBase(a, count, unit), f = fewOf(a); if (!f) return r;
+    var n = Math.max(1, Math.min(10, Math.round(+nails || 10))), full = a.mode === 'steps' ? +a.base || 0 : num(a.min);
+    if (n > f.few) return r;
+    var extra = a.mode === 'steps' && r.amount - full > 0;
+    return { amount: r2(r.amount - full + f.p * n), detail: nUn(n, 'uña', 'uñas') + ' × ' + money(f.p) + (extra ? ' · ' + r.detail : '') };
+  }
+  function addonPriceBase(a, count, unit) {
+    if (a.mode === 'steps') {
+      var inc = +a.inc || 0, hasBase = +a.base > 0;
+      var n = Math.max(hasBase ? inc : 0, Math.min(99, Math.round(+count || 0))), extra = Math.max(0, n - inc);
+      var one = txt(a.u, 30) || 'unidad', many = txt(a.us, 30) || one;
+      return { amount: r2((+a.base || 0) + (extra ? (+a.first || 0) + (extra - 1) * (+a.step || 0) : 0)), detail: inc ? nUn(n, one, many) + (extra || hasBase ? '' : n === 1 ? ' (incluido)' : ' (incluidos)') : extra ? '+ ' + nUn(n, one, many) : txt(a.g, 60) };
+    }
+    if (a.mode === 'open') return { amount: r2(Math.max(0, num(unit))), detail: txt(a.g, 60) };
+    var nails = Math.max(1, Math.min(10, Math.round(+count || 1)));
+    if (a.mode === 'perNail') {
+      var min = +a.min || 0, max = a.max == null || a.max === '' ? Infinity : Math.max(min, +a.max);
+      var u = Math.min(max, Math.max(min, num(unit === undefined || unit === '' ? min : unit)));
+      var inc2 = Math.max(0, +a.inc || 0);
+      return { amount: r2(u * Math.max(0, nails - inc2)), detail: nUn(nails, 'uña', 'uñas') + (inc2 ? ' (' + inc2 + ' incluidas)' : '') + ' × ' + money(u) };
+    }
+    if (a.mode === 'tiered') { var t = objs(a.tiers, 10).filter(function (x) { return nails >= x.from && nails <= x.to; })[0] || { price: 0, note: '' }; return { amount: r2(t.price), detail: nUn(nails, 'uña', 'uñas') + (t.note ? ' · ' + txt(t.note, 60) : '') }; }
+    return { amount: r2(num(unit == null ? a.min : unit)), detail: txt(a.g, 60) };
+  }
+  function addonText(a) { var t = addonTextBase(a), f = fewOf(a); return f ? t + ' · de 1 a ' + f.few + ' uñas, ' + mShort(f.p) + ' / uña' : t; }
+  function addonTextBase(a) {
+    if (a.mode === 'open') return 'precio de su caja';
+    if (a.mode === 'tiered') return objs(a.tiers, 10).map(function (t) { return t.from + '-' + t.to + ' uñas: ' + mShort(t.price); }).join(' · ');
+    if (a.mode === 'steps') {
+      var inc = +a.inc || 0, one = txt(a.u, 30) || 'unidad', many = txt(a.us, 30) || one, incTxt = inc + ' ' + (inc === 1 ? one : many);
+      var head = +a.base ? mShort(a.base) + (inc ? ' con ' + incTxt : '') : inc ? incTxt + ' ' + (inc === 1 ? 'incluido' : 'incluidos') : '';
+      var tail = +a.first === +a.step ? '+' + mShort(a.first) + ' por ' + one + (inc ? ' de más' : '') : '1.ª ' + one + ' +' + mShort(a.first) + ', siguientes +' + mShort(a.step);
+      return [head, tail].filter(Boolean).join(' · ');
+    }
+    if (a.mode === 'perNail') { var open = a.max == null || a.max === ''; return (open ? 'desde ' + mShort(a.min) : +a.min === +a.max ? mShort(a.min) : mShort(a.min) + ' – ' + mShort(a.max)) + ' / uña' + (+a.inc ? ' · ' + (+a.inc) + ' primeras incluidas' : ''); }
+    return +a.min ? mShort(a.min) : 'sin coste';
+  }
+  // El descuento no se aplica a los bonos (un bono ya es un precio cerrado), igual que en el programa.
+  function totals(calc) {
+    var sub = 0, bonos = 0; st.lines.forEach(function (l) { sub += l.amount; if (l.kind === 'bono') bonos += l.amount; });
+    var dsc = calc && calc.discounts[st.disc], dAmount = dsc ? r2((sub - bonos) * (+dsc.pct || 0) / 100) : 0;
+    return { subtotal: r2(sub), discount: dAmount, total: r2(sub - dAmount) };
+  }
+  function addLine(l) { st.lines.push({ kind: l.kind, name: txt(l.name, 80), detail: txt(l.detail, 120), amount: r2(l.amount) }); drawTicket(true); modesBadge(); }
+  function fromAppt(a, d) {
+    var calc = calcOf(d), miss = 0; st.lines = []; st.disc = -1;
+    (a.si || []).forEach(function (i) { var s = calc.services[i]; if (s) st.lines.push({ kind: 'service', name: txt(s.n, 80), detail: txt(s.c, 60), amount: r2(s.p) }); else miss++; });
+    st.from = (txt(a.c, 80) || 'Sin clienta') + ' · ' + txt(a.s, 5) + (miss ? ' · ' + (miss === 1 ? 'falta 1 servicio que ya no está en la lista' : 'faltan ' + miss + ' servicios que ya no están en la lista') : '');
+    st.mode = 'calc'; st.cTab = 'extras'; st.xGrp = ''; st.xCat = ''; st.tk = false; st.cNode = null; st.cTop = true; render(); window.scrollTo(0, 0);
+  }
+  function goTab(id) { st.cTab = id; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.cTop = true; st.cNode = null; render(); } // (cNode = null: se rehace aunque sea la misma pestaña; la cuenta no se toca)
+  function modesBadge() { var b = document.querySelector('.modes small'); if (b) { var c = st.centers[st.cur]; b.textContent = st.lines.length ? money(totals(calcOf(c && c.data)).total) : ''; } }
+
+  /* ---------- fotos de los extras ---------- */
+  // Van en un archivo aparte de la misma zona (fotos.json), cifrado con la misma clave que la agenda y ligado a
+  // «<centro>:fotos». La lista de precios dice su huella (calc.fotos) y cada extra, la clave de la suya (ph). Se bajan
+  // una sola vez por visita, y solo cuando se van a ver (al abrir los extras de la calculadora).
+  function okPhoto(v) { return typeof v === 'string' && v.length <= 200000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/]+={0,2}$/.test(v); }
+  function fotoOf(calc, a) { var f = calc && calc.fotos && st.fotos[calc.fotos], u = f && f.map && typeof a.ph === 'string' ? f.map[a.ph] : ''; return okPhoto(u) ? u : ''; }
+  function fotosWait(calc) { var f = calc && calc.fotos && st.fotos[calc.fotos]; return !!(calc && calc.fotos && (!f || (!f.map && !f.failed))); } // (todavía bajando)
+  function loadFotos(c) {
+    var d = c && c.data, h = d && d.calc && typeof d.calc.fotos === 'string' ? d.calc.fotos : '';
+    if (!h || !/^[0-9a-f]{8,64}$/.test(h) || !c.file) return;
+    var known = st.fotos[h]; if (known && (known.map || !known.failed || Date.now() - known.failed < 60000)) return; // ya están, se están bajando o acaban de fallar
+    var slot = st.fotos[h] = { map: null, failed: 0 };
+    getJson(cfg.raw + '/' + cfg.repo + '/' + (c.sha || c.key) + '/fotos.json').then(function (f) {
+      if (!f || f.id !== c.file.id + ':fotos') throw new Error('fotos');
+      return openFile(f);
+    }).then(function (data) {
+      if (!data || data.kind !== 'fotos' || data.h !== h || !data.fotos || typeof data.fotos !== 'object') throw new Error('fotos');
+      var map = {}; Object.keys(data.fotos).slice(0, 80).forEach(function (k) { if (/^[0-9a-f]{8,32}$/.test(k) && okPhoto(data.fotos[k])) map[k] = data.fotos[k]; });
+      slot.map = map;
+    }).catch(function () { slot.failed = Date.now(); }).then(function () { if (st.fotos[h] !== slot) return; st.fRev++; if (st.centers.length && (st.pws.length || Object.keys(st.keys).length)) render(); });
+  }
+
+  var ticketBox = null, totalBox = null, calcData = null;
+  var CHEV = [['path', { d: 'M6 15l6-6 6 6' }]];
+  // La cuenta: en el móvil es una barra abajo (lo que lleva sumado) que al tocarla sube con sus líneas.
+  function setTk(v) { st.tk = !!v && st.lines.length > 0; if (st.cNode) st.cNode.className = 'calc' + (st.tk ? ' tk' : ''); document.body.classList.toggle('tkOpen', st.tk); } // (3.2.1: tkOpen, para oscurecer también en el ordenador)
+  function drawTicket(flash) {
+    if (!ticketBox) return; ticketBox.innerHTML = ''; totalBox.innerHTML = ''; var t = totals(calcData), n = st.lines.length;
+    if (!n && st.tk) setTk(false);
+    ticketBox.appendChild(el('h4', {}, [el('span', { text: 'Cuenta' }), n ? el('button', { id: 'vaciar', type: 'button', text: 'Vaciar', on: { click: function () { st.lines = []; st.disc = -1; st.from = ''; drawTicket(); modesBadge(); } } }) : null, el('button', { class: 'x', id: 'cerrarCuenta', type: 'button', title: 'Cerrar', text: '×', on: { click: function () { setTk(false); } } })]));
+    if (st.from) ticketBox.appendChild(el('div', { class: 'cHint', id: 'deCita', text: 'Cita de ' + st.from }));
+    if (!n) ticketBox.appendChild(el('div', { class: 'none', text: 'Toca un servicio o un extra para añadirlo.' }));
+    st.lines.forEach(function (l, i) { ticketBox.appendChild(el('div', { class: 'cLine' }, [el('div', {}, [l.name, l.detail ? el('small', { text: l.detail }) : null]), el('span', { class: 'p', text: money(l.amount) }), el('button', { type: 'button', title: 'Quitar', text: '×', on: { click: function () { st.lines.splice(i, 1); if (!st.lines.length) st.from = ''; drawTicket(); modesBadge(); } } })])); });
+    if (calcData && calcData.discounts.length && n) {
+      var pick = function (i) { return function () { st.disc = i; drawTicket(); modesBadge(); }; };
+      ticketBox.appendChild(el('div', { class: 'cDisc', id: 'descuento' }, [el('span', {}, ['Descuento', t.discount ? el('b', { text: '−' + money(t.discount) }) : null]),
+        el('div', {}, [el('button', { type: 'button', class: st.disc < 0 || !calcData.discounts[st.disc] ? 'on' : '', 'data-disc': '-1', text: 'Sin descuento', on: { click: pick(-1) } })].concat(calcData.discounts.map(function (d, i) { return el('button', { type: 'button', class: i === st.disc ? 'on' : '', 'data-disc': String(i), text: txt(d.n, 60) + ' · ' + (+d.pct || 0) + '%', on: { click: pick(i) } }); })))]));
+    }
+    totalBox.appendChild(el('span', {}, ['Total', n ? el('i', { text: String(n) }) : el('small', { text: 'toca un servicio o un extra' }), n ? svg(CHEV) : null])); totalBox.appendChild(el('b', { text: money(t.total) }));
+    totalBox.className = 'cTotal' + (flash ? ' flash' : ''); if (flash) { var tb = totalBox; setTimeout(function () { tb.className = 'cTotal'; }, 350); }
+  }
+  // Un control de «menos / más» (nº de uñas, de colores, € por uña…).
+  function stepper(id, label, o) {
+    var out = el('output', { id: id }), less = el('button', { type: 'button', 'aria-label': 'Menos', text: '−' }), more = el('button', { type: 'button', 'aria-label': 'Más', text: '+' });
+    var draw = function () { out.textContent = o.fmt ? o.fmt(o.get()) : String(o.get()); if (o.get() <= o.min) less.setAttribute('disabled', ''); else less.removeAttribute('disabled'); if (o.get() >= o.max) more.setAttribute('disabled', ''); else more.removeAttribute('disabled'); };
+    var move = function (k) { return function () { o.set(Math.min(o.max, Math.max(o.min, r2(o.get() + k * o.step)))); draw(); o.change(); }; };
+    less.addEventListener('click', move(-1)); more.addEventListener('click', move(1)); draw();
+    return el('div', { class: 'stp' }, [el('span', { text: label }), el('div', {}, [less, out, more])]);
+  }
+  // La ficha de un extra: su foto en grande, su criterio, lo justo que hay que decir y cuánto es.
+  function addonSheet(a, calc) {
+    var fw = fewOf(a), nails = 10, foto = fotoOf(calc, a), fixed = a.mode === 'fixed' && !fw, open = a.mode === 'open', steps = a.mode === 'steps';
+    var range = a.mode === 'perNail' && (a.max == null || a.max === '' || +a.min !== +a.max);
+    var cMin = steps ? (+a.base > 0 ? +a.inc || 0 : 0) : 1, cMax = steps ? 30 : 10, cnt = steps ? +a.inc || 0 : Math.min(cMax, (+a.inc || 0) + 1);
+    var uMin = +a.min || 0, uMax = a.max == null || a.max === '' ? Math.max(99, uMin) : Math.max(uMin, +a.max), uni = uMin;
+    var amt = open ? el('input', { type: 'number', inputmode: 'decimal', min: '0', step: '0.5', placeholder: '0,00', id: 'xImporte', 'aria-label': 'Importe' }) : null;
+    var res = el('div', { class: 'xRes', id: 'xRes' }), addBtn = el('button', { class: 'calcBtn', id: 'xAdd', type: 'button' });
+    var price = function () { return addonPrice(a, cnt, open ? amt.value : uni, nails); };
+    var sync = function () { var pr = price(); res.className = 'xRes'; res.textContent = fixed || open ? '' : pr.detail + ' → ' + money(pr.amount); addBtn.textContent = 'Añadir · ' + (pr.amount > 0 || !fixed ? money(pr.amount) : 'sin coste'); };
+    var unitName = steps ? (function (t) { return t.charAt(0).toUpperCase() + t.slice(1); })(txt(a.us, 30) || 'unidades') : 'Uñas';
+    var kids = [foto ? el('img', { class: 'xFoto', id: 'xFoto', alt: '', src: foto }) : null, el('h2', { text: txt(a.n, 80) }), el('div', { class: 'xPrecio', text: addonText(a) }), a.help ? el('p', { class: 'xAyuda', text: txt(a.help, 200) }) : null,
+      fw ? stepper('xUnas', 'Uñas decoradas', { get: function () { return nails; }, set: function (v) { nails = v; }, min: 1, max: 10, step: 1, change: sync }) : null,
+      fixed || open || a.mode === 'fixed' ? null : stepper('xNum', unitName, { get: function () { return cnt; }, set: function (v) { cnt = v; }, min: cMin, max: cMax, step: 1, change: sync }),
+      range ? stepper('xUni', '€ por uña', { get: function () { return uni; }, set: function (v) { uni = v; }, min: uMin, max: uMax, step: 0.5, fmt: money, change: sync }) : null,
+      open ? el('div', { class: 'stp' }, [el('span', { text: 'Importe (€)' }), amt]) : null, res];
+    if (amt) amt.addEventListener('input', sync);
+    sheet(kids, function (close) {
+      addBtn.addEventListener('click', function () {
+        var pr = price();
+        if (!fixed && a.mode !== 'fixed' && !(pr.amount > 0)) { res.className = 'xRes no'; res.textContent = open ? 'Escribe el importe (el precio de su caja).' : 'Eso está incluido en el servicio: no hay suplemento que cobrar.'; return; }
+        addLine({ kind: 'addon', name: a.n, detail: fixed || pr.detail === txt(a.g, 60) ? a.g : (a.g === a.n ? '' : txt(a.g, 60) + ' · ') + pr.detail, amount: fixed ? +a.min || 0 : pr.amount }); close();
+      });
+      return addBtn;
+    });
+    sync(); if (amt) setTimeout(function () { try { amt.focus(); } catch (e) { } }, 60);
+  }
+  function calcPane(c) {
+    var d = c && c.data, calc = calcOf(d);
+    var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev;
+    if (st.cNode && st.cKey === key) { calcData = calc; drawTicket(); return st.cNode; } // (misma lista de precios: no se rehace lo que se estaba escribiendo)
+    if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; } // otro centro: otros precios
+    else if (st.cJson !== json) st.disc = -1; // han cambiado los precios del centro: el descuento se vuelve a elegir
+    st.cJson = json;
+    var pane = el('aside', { class: 'calc' + (st.tk && st.lines.length ? ' tk' : ''), id: 'calculadora', 'aria-label': 'Calculadora' });
+    calcData = calc; ticketBox = el('div', { class: 'cTicket', id: 'cuenta' });
+    totalBox = el('button', { class: 'cTotal', id: 'total', type: 'button', title: 'Ver la cuenta', on: { click: function () { if (st.lines.length) setTk(!st.tk); } } });
+    st.cNode = pane; st.cKey = key;
+    if (!calc) { pane.appendChild(el('div', { class: 'cBody' }, [el('div', { class: 'warn', id: 'sinPrecios', text: d ? 'Este centro todavía no publica su lista de precios. Se activa en el programa: Ajustes → Agenda móvil (web) → «Calculadora en la misma página».' : 'Abre primero la agenda de un centro.' })])); ticketBox = totalBox = null; return pane; }
+    // (3.2.2) Al cambiar de pestaña (Servicios ↔ Extras ↔ Bonos) se empieza siempre por el ÍNDICE de la pestaña a la que
+    // se va (sus categorías o sus grupos), arriba del todo: no se queda la categoría, el grupo ni el desplazamiento de
+    // antes. Igual en el ordenador, la tableta y el móvil. (Si solo hay una categoría o un grupo, se abre ese.)
+    var tab = function (id, label) { return el('button', { type: 'button', class: st.cTab === id ? 'on' : '', 'data-tab': id, text: label, on: { click: function () { goTab(id); } } }); };
+    pane.appendChild(el('div', { class: 'cTabs' }, [tab('serv', 'Servicios'), tab('extras', 'Extras'), calc.bonos.length ? tab('bonos', 'Bonos') : null]));
+    var body = el('div', { class: 'cBody' }); pane.appendChild(body);
+    var plain = function (t) { return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+    if (st.cTab === 'bonos' && calc.bonos.length) {
+      var bl = el('div', { class: 'cList', id: 'bonos' });
+      calc.bonos.forEach(function (b) { var sv = (Array.isArray(b.sv) ? b.sv : []).map(function (i) { return calc.services[i] && txt(calc.services[i].n, 80); }).filter(Boolean), svTxt = sv.length ? sv.slice(0, 4).join(', ') + (sv.length > 4 ? '…' : '') : b.gone ? 'servicios que ya no existen' : 'cualquier servicio';
+        bl.appendChild(el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'bono', name: b.n, detail: nUn(+b.s || 1, 'sesión', 'sesiones'), amount: b.p }); } } }, [el('b', {}, [txt(b.n, 80), el('small', { text: nUn(+b.s || 1, 'sesión', 'sesiones') + (+b.v ? ' · caduca a los ' + nUn(+b.v, 'mes', 'meses') : '') + ' · ' + svTxt })]), el('span', { class: 'p', text: money(b.p) })])); });
+      body.appendChild(bl);
+    } else if (st.cTab === 'extras') {
+      // (3.2.1) Primero el ÍNDICE de grupos (Francesa, Nail art…); al tocar uno, sus extras (con foto, en baldosas; sin foto,
+      // en lista) y «‹ Extras» para volver al índice. El buscador, arriba, mira en todos. Al tocar un extra sube su ficha.
+      // (3.2.5) Por CATEGORÍAS, como en el programa: primero el índice de categorías (con su color); al tocar una, sus
+      // grupos si tiene varios (Decoraciones fijas → Colores lisos, Francesa y baby boomer…) o directamente sus extras;
+      // «‹ Extras» / «‹ <categoría>» vuelven un paso. El buscador, arriba, mira en todos. Al tocar un extra sube su ficha.
+      var cats = []; calc.addons.forEach(function (a) { var cn = txt(a.k || a.s || a.g, 60) || 'Extras', c = cats.filter(function (x) { return x.name === cn; })[0]; if (!c) cats.push(c = { name: cn, groups: [] }); var g = c.groups.filter(function (x) { return x.name === a.g; })[0]; if (!g) c.groups.push(g = { name: a.g, list: [] }); g.list.push(a); });
+      if (!cats.length) body.appendChild(el('div', { class: 'none', text: 'Este centro no tiene extras de uñas.' }));
+      else {
+        if (cats.length === 1) st.xCat = cats[0].name; else if (st.xCat && !cats.some(function (c) { return c.name === st.xCat; })) { st.xCat = ''; st.xGrp = ''; }
+        var xq = el('input', { class: 'cSearch', id: 'buscarExtra', type: 'search', placeholder: 'Buscar un extra…', autocomplete: 'off' }), xl = el('div', { id: 'extras' }), wait = fotosWait(calc);
+        var go = function (a) { return function () { addonSheet(a, calc); }; };
+        var showList = function (shown, k) {
+          if (!shown.length) { xl.appendChild(el('div', { class: 'none', text: 'Ningún extra con ese nombre.' })); return; }
+          if (shown.some(function (a) { return fotoOf(calc, a) || (wait && a.ph); })) {
+            xl.appendChild(el('div', { class: 'xGrid' }, shown.slice(0, 80).map(function (a) { var u = fotoOf(calc, a);
+              return el('button', { class: 'xCard', type: 'button', 'data-x': txt(a.n, 80), on: { click: go(a) } }, [u ? el('span', { class: 'ph' }, [el('img', { alt: '', src: u })]) : el('span', { class: 'ph no', text: wait && a.ph ? '…' : txt(a.n, 1).toUpperCase() }), el('span', { class: 'tx' }, [el('b', { text: txt(a.n, 80) }), el('small', { text: addonText(a) })])]); })));
+          } else {
+            xl.appendChild(el('div', { class: 'cList' }, shown.slice(0, 80).map(function (a) { return el('button', { class: 'cItem', type: 'button', 'data-x': txt(a.n, 80), on: { click: go(a) } }, [el('b', {}, [txt(a.n, 80), k ? el('small', { text: txt(a.g, 60) }) : null]), el('span', { class: 'p x', text: addonText(a) })]); })));
+          }
+        };
+        var toTop = function () { var cb = document.querySelector('#calculadora .cBody'); if (cb) cb.scrollTop = 0; };
+        var hint = function () { xl.appendChild(el('div', { class: 'cHint', text: '«/ uña» se cobra por cada uña decorada; el resto, una vez. Si el diseño lleva varias técnicas, se añade cada una.' })); };
+        var nOpt = function (list) { return nUn(list.length, 'opción', 'opciones') + (list.some(function (a) { return a.ph; }) ? ' · con fotos' : ''); };
+        var fillX = function () {
+          var k = plain(xq.value).trim(); xl.innerHTML = '';
+          if (k) return showList(calc.addons.filter(function (a) { return plain(a.n + ' ' + a.g).indexOf(k) >= 0; }), k);
+          var C = cats.filter(function (c) { return c.name === st.xCat; })[0];
+          if (C && C.groups.length === 1) st.xGrp = C.groups[0].name; else if (C && st.xGrp && !C.groups.some(function (g) { return g.name === st.xGrp; })) st.xGrp = '';
+          if (!C) {
+            var catItem = function (c) { var all = []; c.groups.forEach(function (g) { all = all.concat(g.list); }); var one = c.groups.length === 1;
+              var at = { class: 'cItem', type: 'button', 'data-xcat': txt(c.name, 60), on: { click: function () { st.xCat = c.name; st.xGrp = one ? c.groups[0].name : ''; xq.value = ''; fillX(); toTop(); } } }; if (one) at['data-grp'] = txt(c.groups[0].name, 60);
+              return el('button', at, [el('b', {}, [xcDot(calc, c.name), txt(c.name, 60), el('small', { text: (one ? '' : nUn(c.groups.length, 'grupo', 'grupos') + ' · ') + nOpt(all) })]), el('span', { class: 'chev', text: '›' })]); };
+            xl.appendChild(el('div', { class: 'cIndex', id: 'grupos' }, [el('div', { class: 'cList' }, cats.map(catItem))]));
+            return hint();
+          }
+          if (!st.xGrp) {
+            xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverExtras', class: 'back', text: '‹ Extras', on: { click: function () { st.xCat = ''; st.xGrp = ''; fillX(); toTop(); } } }), el('b', {}, [xcDot(calc, C.name), txt(C.name, 60)])]));
+            xl.appendChild(el('div', { class: 'cList', id: 'gruposCat' }, C.groups.map(function (g) { return el('button', { class: 'cItem', type: 'button', 'data-grp': txt(g.name, 60), on: { click: function () { st.xGrp = g.name; xq.value = ''; fillX(); toTop(); } } }, [el('b', {}, [txt(g.name, 60), el('small', { text: nOpt(g.list) })]), el('span', { class: 'chev', text: '›' })]); })));
+            return hint();
+          }
+          var g = C.groups.filter(function (x) { return x.name === st.xGrp; })[0];
+          if (C.groups.length > 1) xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverCategoria', class: 'back', text: '‹ ' + txt(C.name, 40), on: { click: function () { st.xGrp = ''; fillX(); toTop(); } } }), el('b', { text: txt(g.name, 60) })]));
+          else if (cats.length > 1) xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverExtras', class: 'back', text: '‹ Extras', on: { click: function () { st.xCat = ''; st.xGrp = ''; fillX(); toTop(); } } }), el('b', {}, [xcDot(calc, C.name), txt(g.name, 60)])]));
+          showList(g.list, '');
+          hint();
+        };
+        xq.addEventListener('input', fillX);
+        body.appendChild(xq); body.appendChild(xl); fillX();
+      }
+    } else {
+      // (3.2.1) Servicios: primero el ÍNDICE de categorías (Manicuras, Pedicuras…); al tocar una, sus servicios
+      // (Semipermanente…) y «‹ Categorías» para volver. El buscador mira en todos.
+      var cats = []; calc.services.forEach(function (x) { if (cats.indexOf(x.c) < 0) cats.push(x.c); });
+      if (cats.length === 1) st.cCat = cats[0]; else if (st.cCat && cats.indexOf(st.cCat) < 0) st.cCat = '';
+      var list = el('div', { id: 'servicios' }), q = el('input', { class: 'cSearch', type: 'search', placeholder: 'Buscar un servicio…', autocomplete: 'off' });
+      var items = function (shown, k) { list.appendChild(el('div', { class: 'cList' }, shown.slice(0, 80).map(function (x) { return el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'service', name: x.n, detail: x.c, amount: x.p }); } } }, [el('b', {}, [txt(x.n, 80), el('small', { text: (k ? txt(x.c, 60) + (x.m ? ' · ' : '') : '') + (x.m ? x.m + ' min' : '') })]), el('span', { class: 'p', text: money(x.p) })]); }))); };
+      var fill = function () {
+        var k = plain(q.value).trim(); list.innerHTML = '';
+        if (k) { var hit = calc.services.filter(function (x) { return plain(x.n + ' ' + x.c).indexOf(k) >= 0; }); if (!hit.length) list.appendChild(el('div', { class: 'none', text: 'Ningún servicio con ese nombre.' })); else items(hit, k); return; }
+        if (!cats.length) { list.appendChild(el('div', { class: 'none', text: 'No hay servicios.' })); return; }
+        if (!st.cCat) {
+          list.appendChild(el('div', { class: 'cList cIndex', id: 'categorias' }, cats.map(function (c0) { var n = calc.services.filter(function (x) { return x.c === c0; }).length; return el('button', { class: 'cItem', type: 'button', 'data-cat': txt(c0, 60), on: { click: function () { st.cCat = c0; q.value = ''; fill(); var cb = document.querySelector('#calculadora .cBody'); if (cb) cb.scrollTop = 0; } } }, [el('b', {}, [catDot(calc, c0), txt(c0, 60), el('small', { text: nUn(n, 'servicio', 'servicios') })]), el('span', { class: 'chev', text: '›' })]); })));
+          return;
+        }
+        if (cats.length > 1) list.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverServicios', class: 'back', text: '‹ Categorías', on: { click: function () { st.cCat = ''; fill(); } } }), el('b', {}, [catDot(calc, st.cCat), txt(st.cCat, 60)])]));
+        items(calc.services.filter(function (x) { return x.c === st.cCat; }), '');
+      };
+      q.addEventListener('input', fill);
+      body.appendChild(q); body.appendChild(list); fill();
+    }
+    pane.appendChild(el('div', { class: 'tkBack', on: { click: function () { setTk(false); } } })); pane.appendChild(ticketBox); pane.appendChild(totalBox); drawTicket();
+    return pane;
+  }
+  /* ---------- que ningún aparato se quede con una página antigua ---------- */
+  // Cada agenda dice con qué versión del programa se publicó. Si alguna es más nueva que esta página, es que en
+  // GitHub ya hay una página más nueva y este navegador enseña una guardada (o la pestaña lleva días abierta):
+  // se recarga sola, una vez por versión. Si GitHub todavía sirve la antigua, sale el aviso «Hay una versión más
+  // nueva de esta página (X). Recargar» en la cabecera, con su botón; si tras pulsarlo sigue siendo la antigua, el aviso
+  // explica por qué (GitHub tarda unos minutos en servir la página nueva) en vez de parecer que el botón no hace nada.
+  function ver(v) { var m = /^(\d+)\.(\d+)\.(\d+)$/.exec(String(v || '')); return m ? [+m[1], +m[2], +m[3]] : null; }
+  function newer(a, b) { var x = ver(a), y = ver(b); if (!x || !y) return false; for (var i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] > y[i]; return false; }
+  function reloadPage(v, byHand) {
+    if (byHand) { try { sessionStorage.setItem(SS_MAN, v + '|' + Date.now()); } catch (e) { } }
+    location.replace(location.pathname + '?v=' + encodeURIComponent(v) + '-' + Date.now().toString(36) + (wanted() ? '#' + wanted() : '')); // (dirección nueva: el navegador no usa la guardada; sin perder el centro: …/#getafe)
+  }
+  function pageCheck() {
+    var top = PAGE_V; st.centers.forEach(function (c) { if (c.data && newer(c.data.version, top)) top = String(c.data.version); });
+    if (top === PAGE_V) { st.stale = ''; return false; }
+    st.stale = top;
+    try {
+      var p = (sessionStorage.getItem(SS_RL) || '').split('|');
+      if (p[0] === top && Date.now() - (+p[1] || 0) < 15 * 60000) return false; // ya se ha probado hace poco: GitHub aún no la tiene lista
+      sessionStorage.setItem(SS_RL, top + '|' + Date.now());
+    } catch (e) { return false; }
+    reloadPage(top); return true;
+  }
+  try { var rl = (sessionStorage.getItem(SS_RL) || '').split('|'); if (rl[0] && rl[0] === PAGE_V && Date.now() - (+rl[1] || 0) < 120000) st.fresh = PAGE_V; } catch (e) { }
+  // ¿Ya se ha pulsado «Recargar» hace poco para esa versión y la página sigue siendo la antigua?
+  function triedByHand() { try { var p = (sessionStorage.getItem(SS_MAN) || '').split('|'); return p[0] === st.stale && Date.now() - (+p[1] || 0) < 30 * 60000; } catch (e) { return false; } }
+  function staleNote() {
+    if (!st.stale) return null;
+    return el('div', { class: 'upd', id: 'vieja', role: 'status' }, [el('span', { text: 'Hay una versión más nueva de esta página (' + st.stale + '). ' }), el('button', { id: 'recargar', text: 'Recargar', on: { click: function () { reloadPage(st.stale, true); } } }),
+      triedByHand() ? el('small', { id: 'viejaNota', text: ' GitHub todavía está sirviendo la página anterior: suele tardar unos minutos. Vuelve a pulsar «Recargar» dentro de un rato; mientras tanto la agenda se ve igual.' }) : null]);
+  }
+  function fitGrid() { var g = app.querySelector('.gw'), m = document.querySelector('.modes'); if (g) g.style.height = Math.max(260, window.innerHeight - g.getBoundingClientRect().top - (m && m.offsetHeight ? m.offsetHeight : 0)) + 'px'; }
+
+  function kdfOf(file) {
+    if (!file || file.format !== FORMAT || !file.kdf || file.kdf.alg !== 'PBKDF2-SHA256' || typeof file.kdf.salt !== 'string') throw new Error('formato');
+    var iter = +file.kdf.iter; if (!(iter >= MIN_ITER && iter <= MAX_ITER)) throw new Error('formato');
+    return { id: file.kdf.salt + '|' + iter, salt: file.kdf.salt, iter: iter };
+  }
+  async function deriveKey(pw, k) {
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(String(pw).normalize('NFC')), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(k.salt), iterations: k.iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  }
+  async function decryptWith(file, key) {
+    var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(file.iv), additionalData: new TextEncoder().encode(FORMAT + ':' + file.id) }, key, b64(file.data));
+    return JSON.parse(new TextDecoder().decode(plain));
+  }
+  // Abre un archivo con una clave ya conocida o con alguna de las contraseñas escritas.
+  async function openFile(file) {
+    var k; try { k = kdfOf(file); } catch (e) { return null; }
+    if (st.keys[k.id]) { try { return await decryptWith(file, st.keys[k.id]); } catch (e) { } }
+    for (var i = 0; i < st.pws.length; i++) {
+      try { var key = await deriveKey(st.pws[i], k); var data = await decryptWith(file, key); st.keys[k.id] = key; return data; } catch (e) { }
+    }
+    return null;
+  }
+  async function getJson(url) { var r = await fetch(url, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); if (r.status === 404) return null; if (!r.ok) { var e = new Error('http ' + r.status); e.status = r.status; throw e; } return r.json(); }
+
+  // Agendas publicadas: una zona —rama— por centro, con su identificador («parla-este»; la 1.10 escribía «Parla-Este»
+  // y hasta la 1.9 era «agenda-…»). No hay lista fija de centros: son las ramas que haya. La lista se pide a la API de
+  // GitHub (al momento), de 100 en 100. Si GitHub
+  // limita las consultas (muchas seguidas desde la misma conexión), se leen las ramas ya vistas en esta visita de
+  // raw.githubusercontent.com, que puede ir unos minutos por detrás.
+  function okBranch(b) { return BR_RE.test(String(b)) && !MAIN_RE.test(String(b)); }
+  async function listing() {
+    try {
+      var refs = [];
+      for (var pg = 1; pg <= 5; pg++) { var part = await getJson(cfg.api + '/repos/' + cfg.repo + '/branches?per_page=100&page=' + pg); if (!Array.isArray(part)) break; refs = refs.concat(part); if (part.length < 100) break; }
+      var items = refs.map(function (r) { return { key: String(r.name), sha: r.commit && r.commit.sha }; }).filter(function (x) { return okBranch(x.key) && SHA_RE.test(x.sha || ''); });
+      st.branches = items.map(function (x) { return x.key; });
+      return { items: items.map(function (x) { return { key: x.key, sha: x.sha, url: cfg.raw + '/' + cfg.repo + '/' + x.sha + '/agenda.json' }; }) };
+    } catch (e) {
+      if (!(e.status === 403 || e.status === 429)) throw e;
+      var names = st.branches;
+      if (!names.length) { var err = new Error('limite'); err.limit = true; throw err; }
+      return { cached: true, items: names.map(function (b) { return { key: b, sha: null, url: cfg.raw + '/' + cfg.repo + '/' + b + '/agenda.json' }; }) };
+    }
+  }
+
+  async function refresh() {
+    if (sessionOver()) return;
+    if (!cfg.repo) { st.msg = 'No se sabe de qué repositorio es esta agenda.'; st.ready = true; return render(); }
+    st.loading = true; render();
+    try {
+      var l = await listing(), prev = {}, out = [];
+      st.lastCheck = new Date().toISOString();
+      st.centers.forEach(function (c) { prev[c.key] = c; });
+      for (var i = 0; i < l.items.length; i++) {
+        var it = l.items[i], p = prev[it.key], f = p && it.sha && p.sha === it.sha ? p.file : await getJson(it.url);
+        if (!f || typeof f.id !== 'string' || (OLD_RE.test(it.key) && 'agenda-' + f.id !== it.key)) continue; // (las de antes de la 1.10: cada archivo, solo en su rama)
+        out.push({ key: it.key, sha: it.sha, file: f, data: p && p.file === f && p.data ? p.data : await openFile(f) });
+      }
+      // La misma agenda en dos zonas (la de antes y la nueva con el identificador del centro, mientras se quita la vieja): una sola vez.
+      out = out.filter(function (c) { return !out.some(function (o) { return o !== c && o.file.id === c.file.id && (OLD_RE.test(c.key) && !OLD_RE.test(o.key) || (OLD_RE.test(c.key) === OLD_RE.test(o.key) && o.data && c.data && String(o.data.at) > String(c.data.at))); }); });
+      out.sort(function (a, b) { return a.data && b.data ? txt(a.data.center.l || a.data.center.n).localeCompare(txt(b.data.center.l || b.data.center.n)) : a.data ? -1 : b.data ? 1 : 0; });
+      if (!st.pws.length && out.length && !out.some(function (c) { return c.data; })) st.bad = 'La contraseña de la agenda ha cambiado: escríbela otra vez.';
+      var was = st.centers[st.cur] && st.centers[st.cur].key;
+      var at = out.findIndex(function (c) { return c.key === was; });
+      if (at < 0 || !out[at].data) at = Math.max(0, out.findIndex(function (c) { return c.data; })); // se queda en el centro que se estaba viendo
+      if (st.want) { var w = out.findIndex(function (c) { return centerSlug(c) === st.want; }); if (w >= 0) { at = w; st.want = ''; } } // el centro de la dirección (…/#getafe)
+      st.centers = out; st.cached = !!l.cached; st.cur = at;
+      if (pageCheck()) return; // hay una página más nueva: se está recargando
+      st.msg = out.length ? '' : 'Todavía no hay ninguna agenda publicada. Se publica desde el programa: Ajustes → Agenda móvil (web).';
+    } catch (e) {
+      st.msg = e.limit ? 'GitHub limita las consultas seguidas desde esta conexión. Espera unos minutos y vuelve a intentarlo.' : 'No se ha podido descargar la agenda (¿hay Internet?). Se volverá a intentar.';
+    }
+    st.loading = false; st.ready = true; render();
+  }
+
+  // (3.2.1) La sesión dura como mucho 12 horas desde que se escribió la contraseña: pasado ese tiempo se borran de la memoria
+  // las contraseñas y sus claves (no hay nada guardado en el aparato) y hay que volver a escribirla. Se mira cada minuto,
+  // al volver a la página y antes de cada actualización; actualizar la agenda NO alarga la sesión.
+  var SESSION_MS = 12 * 3600 * 1000;
+  function sessionOver() {
+    if (!st.loginAt || !(st.pws.length || Object.keys(st.keys).length)) return false;
+    if (Date.now() - st.loginAt < SESSION_MS && Date.now() >= st.loginAt) return false;
+    logout(); st.bad = 'Han pasado 12 horas desde que entraste: por seguridad, escribe la contraseña otra vez.'; render(); return true;
+  }
+  async function login(pw) {
+    pw = String(pw || ''); if (!pw) return;
+    st.bad = ''; if (!st.loginAt || !(st.pws.length || Object.keys(st.keys).length)) st.loginAt = Date.now();
+    if (st.pws.indexOf(pw) < 0) st.pws.push(pw);
+    await refresh();
+    if (st.centers.length && !st.centers.some(function (c) { return c.data; })) { st.pws = st.pws.filter(function (x) { return x !== pw; }); if (!st.pws.length && !Object.keys(st.keys).length) st.loginAt = 0; st.bad = 'Contraseña incorrecta.'; render(); }
+  }
+  function logout() { st.loginAt = 0; st.cab = -1; st.calM = ''; st.pws = []; st.keys = {}; st.centers = []; st.branches = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
+  function setView(v) { st.view = v; st.scroll = null; render(); }
+
+  // (3.2.0) Fondo de la entrada: el logotipo (la C) pequeño y casi transparente, repartido AL AZAR pero cubriendo toda la
+  // pantalla: una C por casilla de una cuadrícula invisible, en un sitio, tamaño y giro al azar dentro de su casilla (así
+  // nunca se amontonan ni dejan huecos grandes). Las casillas son más grandes en pantallas grandes: no hay muchísimas.
+  function logoField() {
+    var box = el('div', { class: 'lockLogos', 'aria-hidden': 'true' });
+    var w = Math.max(320, window.innerWidth || 0), h = Math.max(480, window.innerHeight || 0);
+    var cell = w < 600 ? 104 : w < 1100 ? 132 : 158;
+    var cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
+    var cw = w / cols, ch = h / rows;
+    // (sin tapar el logotipo grande ni el nombre de arriba: esa zona se deja limpia)
+    var hw = Math.min(175, w * 0.3), hx0 = w / 2 - hw, hx1 = w / 2 + hw, hy0 = h * 0.13 - 24, hy1 = h * 0.13 + 190;
+    var clash = function (x, y, s) { return x + s > hx0 && x < hx1 && y + s > hy0 && y < hy1; };
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+      var size = Math.round((w < 600 ? 20 : 24) + Math.random() * (w < 600 ? 14 : 18)), x = 0, y = 0, ok = false;
+      for (var k = 0; k < 6 && !ok; k++) { x = c * cw + Math.random() * Math.max(0, cw - size); y = r * ch + Math.random() * Math.max(0, ch - size); ok = !clash(x, y, size); }
+      if (!ok) continue;
+      var im = el('img', { alt: '', src: LOGO }); im.className = 'lockLogo';
+      im.style.cssText = 'left:' + x.toFixed(1) + 'px;top:' + y.toFixed(1) + 'px;width:' + size + 'px;height:' + size + 'px;opacity:' + (0.045 + Math.random() * 0.05).toFixed(3) + ';transform:rotate(' + Math.round(Math.random() * 50 - 25) + 'deg)';
+      box.appendChild(im);
+    }
+    return box;
+  }
+  var logoResize = null;
+  window.addEventListener('resize', function () { clearTimeout(logoResize); logoResize = setTimeout(function () { var old = document.querySelector('.lockLogos'); if (old) old.replaceWith(logoField()); }, 250); });
+  function render() {
+    // (si al actualizar se estaba escribiendo en la calculadora, se sigue donde se estaba: se mira antes de vaciar la pantalla)
+    var foc = st.cNode && st.cNode.contains(document.activeElement) ? document.activeElement : null, cb = st.cNode && st.cNode.querySelector('.cBody'), cbTop = cb ? cb.scrollTop : 0;
+    app.innerHTML = '';
+    var m0 = document.querySelector('.modes'); if (m0) m0.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
+    var opened = st.centers.filter(function (c) { return c.data; });
+    var creds = st.pws.length || Object.keys(st.keys).length;
+    // La entrada: solo el nombre y la contraseña.
+    var brand = function () { return el('h1', { text: 'Consentía Studio' }); }, logo = function () { return el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }); };
+    var bg = function () { app.appendChild(logoField()); }; // (3.2.1) solo los logotipos: la C grande y las C pequeñas de fondo (sin líneas)
+    var ico = function (d) { var s = svg(d.map(function (x) { return ['path', { d: x }]; })); return s; };
+    var locked = !st.ready || !creds || (!opened.length && st.centers.length && !st.loading);
+    document.documentElement.className = locked ? 'lock' : ''; // (la entrada no se desplaza; la agenda, sí)
+    if (creds && !st.ready) { bg(); app.appendChild(el('div', { class: 'login' }, [logo(), brand(), el('p', { text: 'Abriendo…' })])); return; }
+    if (!creds || (!opened.length && st.centers.length && !st.loading)) {
+      var inp = el('input', { type: 'password', autocomplete: 'current-password', placeholder: 'Introducir contraseña', 'aria-label': 'Introducir contraseña', id: 'pw' });
+      var btn = el('button', { id: 'entrar', type: 'button' }, [st.loading ? 'Abriendo…' : 'Entrar', st.loading ? null : ico(['M5 12h14', 'M13 6l6 6-6 6'])]);
+      // Ver la contraseña (el ojo): cambia entre puntos y letras.
+      var eye = el('button', { class: 'pwEye', type: 'button', 'aria-label': 'Ver la contraseña', title: 'Ver la contraseña', on: { click: function () { var v = inp.type === 'password'; inp.type = v ? 'text' : 'password'; eye.setAttribute('aria-label', v ? 'Ocultar la contraseña' : 'Ver la contraseña'); eye.title = eye.getAttribute('aria-label'); inp.focus(); } } }, [ico(['M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z', 'M12 9.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 1 0 0-5.6z'])]);
+      var box = el('div', { class: 'pwBox' }, [ico(['M7 10.5V8a5 5 0 0 1 10 0v2.5', 'M6.5 10.5h11a1.5 1.5 0 0 1 1.5 1.5v6.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5V12a1.5 1.5 0 0 1 1.5-1.5z', 'M12 14.2v2.3']), inp, eye]);
+      if (st.loading) btn.setAttribute('disabled', '');
+      var go = function () { login(inp.value); };
+      btn.addEventListener('click', go); inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+      bg();
+      app.appendChild(el('div', { class: 'login' }, [logo(), brand(), box, btn, st.bad ? el('div', { class: 'bad', text: st.bad }) : null, st.msg ? el('div', { class: 'warn', text: st.msg }) : null,
+        st.fresh && !creds ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + '). Escribe la contraseña otra vez.' }) : null]));
+      setTimeout(function () { inp.focus(); }, 50);
+      return;
+    }
+    var c = st.centers[st.cur] || st.centers[0];
+    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), el('span', {}, [el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
+    if (st.centers.length > 1) head.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : 'Centro bloqueado', on: { click: function () { st.cur = i; st.scroll = null; setHash(x); render(); } } }); })));
+    if (st.stale) head.appendChild(staleNote());
+    app.appendChild(head);
+    // Agenda (izquierda) y calculadora (derecha). En el móvil se ve una u otra: se cambia con la barra de abajo.
+    var pane; try { pane = calcPane(c); } catch (e) { st.cNode = null; st.cKey = ''; ticketBox = totalBox = null; pane = el('aside', { class: 'calc', id: 'calculadora' }, [el('div', { class: 'cBody' }, [el('div', { class: 'warn', id: 'sinPrecios', text: 'No se ha podido abrir la lista de precios de este centro.' })])]); } // la calculadora nunca deja sin agenda
+    if (st.cTab === 'extras' && (st.mode === 'calc' || window.innerWidth >= 1040)) loadFotos(c); // las fotos de los extras, cuando se van a ver
+    var root = app, pA = el('div', { class: 'pA' }), pC = el('div', { class: 'pC' }, [pane]);
+    root.appendChild(el('div', { class: 'split m-' + st.mode }, [pA, pC]));
+    var oldM = document.querySelector('.modes'); if (oldM) oldM.remove();
+    // (dos botones como los de un iPhone: icono y nombre; en «Calculadora», lo que lleva sumada la cuenta. El elegido
+    // solo se anima al cambiar de uno a otro, no cada vez que se repinta la pantalla.)
+    var mBtn = function (id, mode, label, icon, more, go) { var on = st.mode === mode; var a = { class: on ? (st.segGo ? 'on go' : 'on') : '', id: id, type: 'button', on: { click: function () { st.segGo = st.mode !== mode; go(); } } }; if (on) a['aria-current'] = 'page'; return el('button', a, [svg(icon), el('span', { text: label })].concat(more || [])); };
+    document.body.appendChild(el('nav', { class: 'modes', 'aria-label': 'Agenda o calculadora' }, [el('div', { class: 'seg' }, [
+      mBtn('verAgenda', 'agenda', 'Agenda', ICON.agenda, null, function () { st.mode = 'agenda'; st.scroll = null; render(); }),
+      mBtn('verCalc', 'calc', 'Calculadora', ICON.calc, [el('small')], function () { st.mode = 'calc'; render(); window.scrollTo(0, 0); })])]));
+    st.segGo = false;
+    document.body.className = 'has-modes' + (st.tk && st.lines.length ? ' tkOpen' : ''); modesBadge();
+    app = pA; // (lo que sigue —días y agenda— se pinta en el panel de la agenda)
+    try { renderAgenda(c); } finally { app = root; }
+    var hh = root.querySelector('header'); if (hh) document.documentElement.style.setProperty('--hh', hh.offsetHeight + 'px');
+    fitGrid();
+    if (st.cTop) { st.cTop = false; var cb3 = pane.querySelector('.cBody'); if (cb3) cb3.scrollTop = 0; if (st.mode === 'calc' && window.innerWidth < 1040) window.scrollTo(0, 0); } // (3.2.2) pestaña nueva: arriba del todo
+    else if (pane === st.cNode) { var cb2 = pane.querySelector('.cBody'); if (cb2 && cbTop) cb2.scrollTop = cbTop; if (foc && pane.contains(foc)) { try { foc.focus({ preventScroll: true }); } catch (e) { } } }
+  }
+  // (3.2.1) Calendario del mes (una ficha, como las demás): ‹ mes ›, la semana empieza en lunes, hoy en rosa y el día
+  // elegido en negro. Los días fuera de lo publicado (de 7 días antes a 30 después) se ven más claros: se puede ir, pero
+  // la página avisa de que ese día no está publicado.
+  var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  function calSheet(d) {
+    st.calM = st.day.slice(0, 7);
+    var box = el('div', { class: 'cal', id: 'calendario' });
+    var draw = function () {
+      box.innerHTML = ''; var p = st.calM.split('-'), y = +p[0], m = +p[1];
+      var first = st.calM + '-01', start = addDays(first, -dow(first)), t = today();
+      var move = function (k) { return function () { var nd = new Date(y, m - 1 + k, 1); st.calM = nd.getFullYear() + '-' + pad(nd.getMonth() + 1); draw(); }; };
+      box.appendChild(el('div', { class: 'calH' }, [el('button', { type: 'button', class: 'calNav', id: 'mesAnterior', 'aria-label': 'Mes anterior', text: '‹', on: { click: move(-1) } }), el('b', { text: MESES[m - 1] + ' ' + y }), el('button', { type: 'button', class: 'calNav', id: 'mesSiguiente', 'aria-label': 'Mes siguiente', text: '›', on: { click: move(1) } })]));
+      var g = el('div', { class: 'calG' }); ['L', 'M', 'X', 'J', 'V', 'S', 'D'].forEach(function (x) { g.appendChild(el('span', { class: 'calW', text: x })); });
+      for (var i = 0; i < 42; i++) {
+        (function (k) {
+          var out = k.slice(0, 7) !== st.calM, pub = d && k >= d.from && k <= d.to;
+          g.appendChild(el('button', { type: 'button', 'data-d': k, class: 'calD' + (out ? ' out' : '') + (k === t ? ' today' : '') + (k === st.day ? ' sel' : '') + (d && !pub ? ' nopub' : ''), title: d && !pub ? 'Fuera de lo publicado' : '', text: String(+k.slice(8)), on: { click: function () { st.day = k; var b = document.querySelector('.sheetBack'); if (b) b.remove(); render(); } } }));
+        })(addDays(start, i));
+      }
+      box.appendChild(g);
+      box.appendChild(el('div', { class: 'calF' }, [el('button', { type: 'button', class: 'calHoy', id: 'irHoy', text: 'Hoy', on: { click: function () { st.day = today(); var b = document.querySelector('.sheetBack'); if (b) b.remove(); render(); } } }), d ? el('small', { text: 'Publicado: del ' + (+d.from.slice(8)) + ' ' + MESES[+d.from.slice(5, 7) - 1].slice(0, 3) + ' al ' + (+d.to.slice(8)) + ' ' + MESES[+d.to.slice(5, 7) - 1].slice(0, 3) }) : null]));
+    };
+    draw(); sheet([box]);
+  }
+  // (3.2.1) Las cabinas, como en la agenda del programa: el nombre de la cabina en su color, dentro de cada cita.
+  function cabOf(a, d) { var l = d && Array.isArray(d.cabins) ? d.cabins : []; var k = typeof a.ki === 'number' ? l[a.ki] : null; return k ? { n: txt(k.n, 30), c: color(k.c) } : a.k ? { n: txt(a.k, 30), c: '#7c4dff' } : null; }
+  function ink(c) { var n = parseInt(String(c).slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) > 160 ? '#111113' : '#fff'; }
+  function cabPill(a, d) { var k = cabOf(a, d); return k ? el('span', { class: 'cabPill', style: 'background:' + k.c + ';color:' + ink(k.c), text: k.n }) : null; }
+  // (3.2.1) El estado de WhatsApp de la cita (uno solo): ✓ ha confirmado (azul), ⟳ quiere cambiar, enviado (verde) o
+  // pendiente de envío (reloj ámbar). Lo calcula el programa al publicar (lib/agenda-movil.js).
+  var WA_ST = { c: ['ok', '✓', 'Ha confirmado'], m: ['chg', '⟳', 'Quiere cambiar la fecha'], e: ['sent', '', 'WhatsApp enviado'], p: ['pend', '', 'WhatsApp pendiente de envío'] };
+  var WA_SVG = { e: [['path', { d: 'M4.5 19.5l1.2-3.6A8 8 0 1 1 8.6 18.7z' }]], p: [['circle', { cx: 12, cy: 12, r: 8 }], ['path', { d: 'M12 7.5V12l3 2' }]] };
+  function waIco(a) { var w = WA_ST[a.w]; if (!w) return null; var n = el('span', { class: 'waSt ' + w[0], title: w[2], 'data-wa': a.w, 'aria-label': w[2] }, w[1] ? [w[1]] : [svg(WA_SVG[a.w])]); return n; }
+  function renderAgenda(c) {
+    // (3.2.1) El selector de fechas, como el de la agenda del programa: ‹ Hoy › y el recuadro con la fecha, que al tocarlo
+    // despliega el calendario del mes (para saltar a cualquier día sin ir de uno en uno).
+    var dd = c && c.data;
+    app.appendChild(el('div', { class: 'days' }, [el('button', { class: 'nav', text: '‹', title: 'Día anterior', 'aria-label': 'Día anterior', on: { click: function () { st.day = addDays(st.day, -1); render(); } } }), el('button', { class: 'hoy' + (st.day === today() ? ' on' : ''), text: 'Hoy', on: { click: function () { st.day = today(); render(); } } }), el('button', { class: 'nav', text: '›', title: 'Día siguiente', 'aria-label': 'Día siguiente', on: { click: function () { st.day = addDays(st.day, 1); render(); } } }),
+      el('button', { class: 'd', id: 'fecha', type: 'button', title: 'Elegir otro día en el calendario', 'aria-haspopup': 'dialog', on: { click: function () { calSheet(dd); } } }, [svg(ICON.agenda), el('span', { text: longDay(st.day) + (st.day.slice(0, 4) !== today().slice(0, 4) ? ' ' + st.day.slice(0, 4) : '') }), el('i', { text: '▾' })])]));
+    var main = el('main');
+    if (st.msg) main.appendChild(el('div', { class: 'warn', text: st.msg }));
+    if (!c) { main.appendChild(el('div', { class: 'none', text: st.loading ? 'Cargando…' : 'No hay agendas publicadas.' })); app.appendChild(main); return; }
+    if (!c.data) {
+      var oi = el('input', { type: 'password', placeholder: 'Contraseña de este centro' });
+      main.appendChild(el('div', { class: 'warn' }, ['Esta agenda tiene otra contraseña (o se ha cambiado).', el('div', { class: 'other' }, [oi, el('button', { text: 'Abrir', on: { click: function () { login(oi.value); } } })])]));
+      app.appendChild(main); return;
+    }
+    var d = c.data, day = st.day;
+    var old = (Date.now() - Date.parse(d.at)) / 60000;
+    if (old > 75) main.appendChild(el('div', { class: 'warn', text: 'Esta agenda se publicó ' + ago(d.at) + '. Si el ordenador del centro está apagado o sin Internet, los últimos cambios no aparecen.' }));
+    if (day < d.from || day > d.to) main.appendChild(el('div', { class: 'warn', text: 'Ese día está fuera de lo publicado (del ' + longDay(d.from) + ' al ' + longDay(d.to) + ').' }));
+    var emps = (d.employees || []).map(function (e) { return { id: e.id, n: txt(e.n, 40), c: color(e.c), sch: e.sch, x: e.x }; });
+    var known = {}; emps.forEach(function (e) { known[e.id] = true; });
+    var cabs = Array.isArray(d.cabins) ? d.cabins : []; if (st.cab >= cabs.length) st.cab = -1;
+    var list = (d.appts || []).filter(function (a) { return a.d === day && (st.cab < 0 || a.ki === st.cab); }); // (3.2.1) filtro de cabina
+    if (list.some(function (a) { return !a.emp || !known[a.emp]; })) emps.push({ id: '__sin', n: 'Sin asignar', c: '#999999' });
+    var blocks = (d.blocks || []).filter(function (b) { return String(b.from).slice(0, 10) <= day && String(b.to).slice(0, 10) >= day; });
+    var mineOf = function (e) { return list.filter(function (a) { return e.id === '__sin' ? !a.emp || !known[a.emp] : a.emp === e.id; }); };
+    var blocksOf = function (e) { return e.id === '__sin' ? [] : blocks.filter(function (b) { return !b.emp || b.emp === e.id; }); };
+    var live = list.filter(function (a) { return a.st !== 'x' && a.st !== 'n'; }), gone = list.filter(function (a) { return a.st === 'x' || a.st === 'n'; });
+    var cols = st.view !== 'lista';
+    // Línea de estado: de cuándo es lo publicado, las canceladas del día (en columnas no ocupan hueco) y el cambio de vista.
+    var info = el('span', {}, [(d.center.l ? txt(d.center.l, 80) + ' · ' : '') + 'publicado ' + ago(d.at) + (st.cached ? ' · copia de GitHub (puede ir unos minutos por detrás)' : '') + (st.loading ? ' · actualizando…' : '') + (cols && !live.length ? ' · sin citas' : '')]);
+    if (cols && gone.length) {
+      info.appendChild(document.createTextNode(' · '));
+      info.appendChild(el('button', { class: 'lnk', id: 'canceladas', text: gone.length + (gone.length === 1 ? ' cancelada' : ' canceladas'), on: { click: function () {
+        sheet([el('h2', { text: 'Canceladas · ' + longDay(day) })].concat(gone.map(function (a) { var e = emps.filter(function (x) { return x.id === a.emp; })[0]; return el('div', { class: 'row' }, [el('div', { class: 'h', text: txt(a.s, 5) + '–' + txt(a.e, 5) }), el('b', {}, [txt(a.c, 80) || 'Sin clienta', stateTag(a)]), el('div', { class: 'who', text: (e ? e.n : 'Sin asignar') + (a.sv ? ' · ' + txt(a.sv, 200) : '') })]); })));
+      } } }));
+    }
+    // (3.2.1) «Todas las cabinas» / una cabina (como el filtro de la agenda del programa), si el centro tiene cabinas.
+    var cabSel = null;
+    if (cabs.length) { cabSel = el('select', { id: 'cabina', class: 'cabSel' + (st.cab >= 0 ? ' on' : ''), title: 'Ver solo las citas de una cabina', 'aria-label': 'Cabina', on: { change: function (e) { st.cab = +e.target.value; st.scroll = null; render(); } } }, [el('option', { value: '-1', text: 'Todas las cabinas' })].concat(cabs.map(function (k, i) { return el('option', { value: String(i), text: txt(k.n, 30) }); }))); cabSel.value = String(st.cab); }
+    main.appendChild(el('div', { class: 'status' }, [info, cabSel, el('button', { id: 'vista', text: cols ? 'Ver en lista' : 'Ver en columnas', on: { click: function () { setView(cols ? 'lista' : 'cols'); } } })]));
+
+    if (!cols) {
+      /* ----- lista: las citas de cada trabajadora, una debajo de otra ----- */
+      var any = false;
+      emps.forEach(function (e) {
+        var mine = mineOf(e), bl = blocksOf(e);
+        if (!mine.length && !bl.length) return; any = true;
+        var items = [];
+        bl.forEach(function (b) { var s = String(b.from).slice(0, 10) < day || b.all ? '' : String(b.from).slice(11, 16), t = String(b.to).slice(0, 10) > day || b.all ? '' : String(b.to).slice(11, 16); items.push({ k: s || '00:00', node: el('div', { class: 'it blk' + (b.v ? ' vac' : '') }, [el('div', { class: 'h', text: s && t ? s + '–' + t : 'Todo el día' }), el('div', { class: 'w' }, [el('b', { text: txt(b.r, 60) })])]) }); });
+        mine.forEach(function (a) {
+          var ac = apColor(a, e, d);
+          items.push({ k: txt(a.s, 5), node: el('div', { class: 'it' + (a.st === 'x' || a.st === 'n' ? ' x' : '') + (ac.pc ? ' paid' : ''), style: '--c:' + ac.c + ';--bg:' + tint(ac.c, 0.3), on: { click: function () { apptSheet(a, e.n, d); } } }, [el('div', { class: 'h', text: txt(a.s, 5) + '–' + txt(a.e, 5) }), el('div', { class: 'w' }, [el('b', {}, [txt(a.c, 80) || 'Sin clienta', vipStar(a), stateTag(a), waIco(a), cabPill(a, d)])].concat(notes(a), [el('small', {}, svNodes(a))]))]) });
+        });
+        items.sort(function (x, y) { return x.k < y.k ? -1 : x.k > y.k ? 1 : 0; });
+        main.appendChild(el('section', { class: 'emp' }, [el('h3', {}, [el('span', { class: 'dot', style: 'background:' + e.c }), e.n])].concat(items.map(function (i) { return i.node; }))));
+      });
+      if (!any) main.appendChild(el('div', { class: 'none', text: 'No hay citas este día.' }));
+      app.appendChild(main);
+    } else {
+      /* ----- columnas: como la agenda del programa ----- */
+      main.className = 'wide';
+      // De qué hora a qué hora se pinta: el horario del centro y de cada una, y lo que haya fuera de él.
+      var a = d.ag && +d.ag[0] >= 0 && +d.ag[0] < 1440 ? +d.ag[0] : 540, z = d.ag && +d.ag[1] > 0 && +d.ag[1] <= 1440 ? +d.ag[1] : 1260;
+      var grow = function (r) { (r || []).forEach(function (x) { a = Math.min(a, x[0]); z = Math.max(z, x[1]); }); };
+      grow(centerRanges(d, day)); emps.forEach(function (e) { e.r = empRanges(d, e, day); grow(e.r); });
+      var items = live.map(function (ap) { var s = mins(ap.s), e = mins(ap.e); if (e <= s) e = 1440; a = Math.min(a, s); z = Math.max(z, e); return { a: ap, s: s, e: e, lane: 0, lanes: 1 }; });
+      var a0 = Math.max(0, Math.floor(a / 60) * 60), a1 = Math.min(1440, Math.max(a0 + 60, Math.ceil(z / 60) * 60)), H = (a1 - a0) * PX;
+      var nowMin = day === today() ? new Date().getHours() * 60 + new Date().getMinutes() : -1;
+      var grid = el('div', { class: 'g', style: 'grid-template-columns:' + TIME_W + 'px repeat(' + emps.length + ',minmax(' + COL_W + 'px,1fr))' }, [el('div', { class: 'gc' })]);
+      emps.forEach(function (e) {
+        var bl = blocksOf(e), from = e.r && e.r.length ? e.r[0][0] : a0, to = e.r && e.r.length ? e.r[e.r.length - 1][1] : a1;
+        // Día cerrado para ella (vacaciones, festivo…): el motivo arriba, en su columna.
+        var closed = bl.filter(function (b) { var f = String(b.from), t = String(b.to); return b.all || ((f.slice(0, 10) < day || mins(f.slice(11, 16)) <= from) && (t.slice(0, 10) > day || (mins(t.slice(11, 16)) || 1440) >= to)); })[0];
+        var sub = closed ? el('small', { class: 'cl' + (closed.v ? ' vac' : ''), text: txt(closed.r, 60) || 'Cerrado' }) : e.r ? el('small', { text: e.r.length ? e.r.map(function (x) { return hm(x[0]) + '–' + hm(x[1]); }).join(' · ') : 'No trabaja' }) : null;
+        var ng = gone.filter(function (a) { return e.id === '__sin' ? !a.emp || !known[a.emp] : a.emp === e.id; }).length;
+        grid.appendChild(el('div', { class: 'gh' }, [el('span', { class: 'dot', style: 'background:' + e.c }), el('div', {}, [el('b', { text: e.n }), sub]), ng ? el('button', { class: 'goneChip', type: 'button', title: 'Canceladas', text: '✕ ' + ng, on: { click: function () { var b = document.getElementById('canceladas'); if (b) b.click(); } } }) : null]));
+      });
+      var times = el('div', { class: 'gt', style: 'height:' + H + 'px' }); for (var m = a0; m <= a1; m += 60) times.appendChild(el('span', { style: 'top:' + (m - a0) * PX + 'px', text: m === 1440 ? '24:00' : hm(m) })); grid.appendChild(times);
+      emps.forEach(function (e) {
+        var col = el('div', { class: 'gcol', style: 'height:' + H + 'px' });
+        for (var m = a0; m < a1; m += 30) col.appendChild(el('div', { class: 'ln' + (m % 60 ? '' : ' hr'), style: 'top:' + (m - a0) * PX + 'px' }));
+        // Fuera de su horario, a rayas claras.
+        if (e.r) { var cur = a0; e.r.forEach(function (x) { if (x[0] > cur) col.appendChild(el('div', { class: 'off', style: 'top:' + (cur - a0) * PX + 'px;height:' + (Math.min(x[0], a1) - cur) * PX + 'px' })); cur = Math.max(cur, x[1]); }); if (cur < a1) col.appendChild(el('div', { class: 'off', style: 'top:' + (cur - a0) * PX + 'px;height:' + (a1 - cur) * PX + 'px' })); }
+        // Bloqueos (comida, vacaciones, centro cerrado…), en negro a rayas con su motivo.
+        blocksOf(e).forEach(function (b) { var sp = blockSpan(b, day, a0, a1); if (sp[1] <= sp[0]) return; var why = txt(b.r, 60) || 'Cerrado';
+          col.appendChild(el('div', { class: 'bk' + (b.v ? ' vac' : ''), style: 'top:' + (sp[0] - a0) * PX + 'px;height:' + (sp[1] - sp[0]) * PX + 'px', on: { click: function () { sheet([el('div', { class: 'h', text: sp[0] === a0 && sp[1] === a1 ? 'Todo el día' : hm(sp[0]) + '–' + hm(sp[1]) }), el('h2', { text: why }), el('div', { class: 'who', text: b.emp ? e.n : 'Todo el centro' })]); } } }, [el('span', { text: why })])); });
+        lanes(items.filter(function (it) { return e.id === '__sin' ? !it.a.emp || !known[it.a.emp] : it.a.emp === e.id; })).forEach(function (it) {
+          var ac = apColor(it.a, e, d), done = ac.done, pc = ac.pc;
+          var c1 = ac.c, h = Math.max(22, (it.e - it.s) * PX - 2), w = 100 / it.lanes;
+          col.appendChild(el('div', { class: 'ap' + (done ? ' done' : '') + (pc ? ' paid' : '') + (it.a.st === 'o' ? ' offer' : ''), style: '--c:' + c1 + ';--bg:' + tint(c1, pc ? 0.32 : 0.22) + ';top:' + (it.s - a0) * PX + 'px;height:' + h + 'px;left:calc(' + it.lane * w + '% + 2px);width:calc(' + w + '% - 4px)', on: { click: function () { apptSheet(it.a, e.n, d); } } },
+            [el('div', { class: 'apTop' }, [el('span', { class: 't', text: txt(it.a.s, 5) + '–' + txt(it.a.e, 5) }), el('span', { class: 'ic' }, [cabPill(it.a, d), waIco(it.a)])]), el('b', {}, [txt(it.a.c, 80) || 'Sin clienta', vipStar(it.a)])].concat(notes(it.a), [el('span', { class: 's' }, svNodes(it.a))])));
+        });
+        if (nowMin >= a0 && nowMin <= a1) col.appendChild(el('div', { class: 'now', style: 'top:' + (nowMin - a0) * PX + 'px' }));
+        grid.appendChild(col);
+      });
+      var wrap = el('div', { class: 'gw', id: 'cuadro' }, [grid]); main.appendChild(wrap);
+      app.appendChild(main);
+      // El cuadro ocupa lo que queda de pantalla y se mueve dentro (las cabeceras y las horas se quedan fijas).
+      // Al abrir un día se coloca en la hora de ahora (hoy) o donde empieza la jornada; al actualizar, no se mueve.
+      fitGrid();
+      var key = c.key + '|' + day, first = 1440; emps.forEach(function (e) { if (e.r && e.r.length) first = Math.min(first, e.r[0][0]); }); items.forEach(function (it) { first = Math.min(first, it.s); }); if (first === 1440) first = a0;
+      if (st.scroll && st.scroll.key === key) { wrap.scrollTop = st.scroll.top; wrap.scrollLeft = st.scroll.left; }
+      else wrap.scrollTop = Math.max(0, ((nowMin >= 0 ? Math.max(first, nowMin - 90) : first) - a0 - 20) * PX);
+      st.scroll = { key: key, top: wrap.scrollTop, left: wrap.scrollLeft };
+      wrap.addEventListener('scroll', function () { st.scroll = { key: key, top: wrap.scrollTop, left: wrap.scrollLeft }; });
+    }
+  }
+
+  forget(); st.ready = true; render();
+  setInterval(function () { if ((st.pws.length || Object.keys(st.keys).length) && !document.hidden) refresh(); }, 5 * 60 * 1000);
+  setInterval(sessionOver, 60 * 1000); // (3.2.1) 12 horas como mucho
+  window.addEventListener('resize', fitGrid);
+  window.addEventListener('hashchange', function () { var w = wanted(); if (!w) return; var i = st.centers.findIndex(function (c) { return centerSlug(c) === w; }); if (i >= 0) { if (i !== st.cur) { st.cur = i; st.scroll = null; render(); } } else st.want = w; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var b = document.querySelector('.sheetBack'); if (b) b.remove(); } });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && sessionOver()) return; if (!document.hidden && (st.pws.length || Object.keys(st.keys).length) && (!st.lastCheck || Date.now() - Date.parse(st.lastCheck) > 60000)) refresh(); });
+})();
+</script>
+</body>
+</html>
