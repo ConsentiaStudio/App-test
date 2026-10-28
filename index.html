@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.0.0">
-<meta name="consentia-agenda-firma" content="AbFDLWGjcuDu5Z45AZVszSS0R8jlDyjVWwNPjbf16RlvyrrzYKfcZBAei6aKcpdP0IpVps3TwjAEORi4xyaDCQ==">
+<meta name="consentia-agenda-version" content="4.0.1">
+<meta name="consentia-agenda-firma" content="ARJjg7CcR08/YrQgm8d+i3G8evLm7hbfKTL6Bk5erl6bF5sA/h8kFO9tJKm88MhPGMe6ScL8uGM/689xiBnhAg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-htIcy2a9b+gf88koSD4u5HJl8WKQLXx4ggIZGvgAunE='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-QO17ql+Z/3JyVEQkaRtnSSh4/bS97d/Fo1jfbDF25jc='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Agenda y calculadora · Consentía Studio</title>
@@ -96,40 +96,43 @@ main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
 .note{font-size:12px;color:var(--muted);text-align:center;margin:14px 0}
 .warn{background:#fff4d6;border:1px solid #ecd18c;color:#5c3d00;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
 .bad{background:#fde4ec;border:1px solid #eeb3c4;color:#6d0a28;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
-/* La entrada: el nombre, la contraseña y el logotipo. No se desplaza (ni «rebota» en el móvil). */
+/* (4.0.1) La entrada, igual que la del panel de empresa: arriba a la izquierda la C con «Consentia Studio», las C pequeñas
+   de fondo y, en el centro, una tarjeta blanca con la contraseña. No se desplaza (ni «rebota» en el móvil). */
 html.lock,html.lock body{height:100%;overflow:hidden;overscroll-behavior:none}
-html.lock body{position:fixed;top:0;left:0;right:0;bottom:0}
-.login{max-width:360px;margin:0 auto;padding:13vh 24px 0;text-align:center}
-.login h1{margin:0 0 26px;font-size:20px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:var(--ink)}
-.login .logo{display:block;width:88px;height:88px;margin:30px auto 0}
-.login p{color:var(--muted);font-size:14px;margin:0 0 16px}
-.login input[type=password]{display:block;width:100%;font:inherit;font-size:17px;text-align:center;padding:14px;border:1px solid #d6d2ca;border-radius:14px;background:#fff;-webkit-appearance:none;appearance:none}
-.login input[type=password]:focus{outline:0;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,145,.18)}
-.login button{width:100%;margin-top:12px;background:var(--ink);color:#fff;border:0;border-radius:14px;padding:14px;font:inherit;font-size:16px;font-weight:600}
-.login button[disabled]{opacity:.6}
-/* (2.2.1) La entrada: fondo de mármol claro con su textura (dibujado en la propia página, «data:», sin cargar nada de
-   fuera), una línea rosa abajo (los colores de la marca, como el resto) y la casilla y el botón más cuidados (candado, ver la contraseña, flecha). */
-html.lock body{background:#f4f2ee} /* (3.2.1) la entrada, limpia: sin las líneas ni las vetas de antes; solo los logotipos */
+html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:#f4f2ee}
 .lockBg{display:none}
-.login{position:relative;z-index:1;max-width:350px}
 .lockLogos{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0}
 .lockLogo{position:absolute;display:block;user-select:none;-webkit-user-drag:none}
-.login h1{position:relative;font-size:19px;font-weight:500;letter-spacing:.3em;text-indent:.3em;margin:0 0 40px}
-.login h1::after{display:none} /* (3.2.1) sin la rayita rosa debajo del nombre */
-.pwBox{display:flex;align-items:center;height:58px;background:rgba(255,255,255,.8);border:1px solid #d6d2ca;border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 32px -16px rgba(17,17,19,.22);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:border-color .15s,box-shadow .15s}
-.pwBox:focus-within{border-color:var(--pink);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 4px rgba(255,43,145,.16),0 14px 32px -16px rgba(17,17,19,.22)}
-.login svg{width:20px;height:20px;fill:none;stroke:#77736c;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.pwBox>svg{margin-left:18px}
-.login .pwBox input{flex:1;min-width:0;height:100%;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 8px 0 12px;font:inherit;font-size:16px;text-align:left;color:var(--ink);-webkit-appearance:none;appearance:none}
+.lwrap{position:relative;z-index:1;height:100%;overflow:auto;display:grid;grid-template-columns:minmax(0,440px);justify-content:center;align-content:center;padding:40px 18px}
+.brandTop{position:fixed;top:calc(26px + env(safe-area-inset-top));left:34px;z-index:2;display:flex;align-items:center;gap:12px;margin:0}
+.brandTop img{width:34px;height:34px;display:block}
+.brandTop b{font-size:13px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+.login{width:100%;background:#fff;border:1px solid #e2ddd5;border-radius:12px;padding:44px 44px 34px;text-align:left;box-shadow:0 1px 0 rgba(17,17,19,.03),0 28px 60px -34px rgba(17,17,19,.28)}
+.login .eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c2006b;margin:0}
+.login .eyebrow::before{content:"";width:18px;height:2px;background:var(--pink)}
+.login h1{margin:12px 0 6px;font-size:30px;line-height:1.1;letter-spacing:-.025em;font-weight:800;color:var(--ink);white-space:normal;text-transform:none}
+.login h1::after{display:none}
+.login p{color:var(--muted);font-size:14.5px;margin:0 0 28px}
+.login label{display:block;font-size:13px;font-weight:700;color:#34322d;margin:0 0 7px}
+.pwBox{display:flex;align-items:center;height:52px;background:#fff;border:1px solid #d4cfc6;border-radius:8px;transition:border-color .15s,box-shadow .15s}
+.pwBox:focus-within{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,43,145,.14)}
+.login svg{width:19px;height:19px;fill:none;stroke:#8a867e;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pwBox>svg{margin-left:15px}
+.login .pwBox input{flex:1;min-width:0;height:100%;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 10px 0 11px;font:inherit;font-size:16px;text-align:left;color:var(--ink);-webkit-appearance:none;appearance:none}
 .login .pwBox input:focus{outline:0;box-shadow:none}
-.login .pwBox input::placeholder{color:#9a968f}
-.login .pwEye{flex:none;width:52px;height:100%;margin:0;padding:0;border:0;border-radius:0 18px 18px 0;background:transparent;box-shadow:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.login .pwEye:active{transform:none;box-shadow:none}
-.login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;height:58px;margin-top:14px;padding:0;border-radius:18px;background:linear-gradient(180deg,#2b2b30,#111113);font-weight:600;letter-spacing:.02em;box-shadow:0 16px 30px -14px rgba(17,17,19,.6);transition:transform .15s,box-shadow .15s}
-.login #entrar:active{transform:translateY(1px);box-shadow:0 8px 16px -10px rgba(17,17,19,.6)}
+.login .pwBox input::placeholder{color:#a19c94}
+.login .pwEye{flex:none;width:48px;height:100%;margin:0;padding:0;border:0;border-radius:0 8px 8px 0;background:transparent;box-shadow:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;margin-top:16px;padding:0;border:0;border-radius:8px;background:var(--ink);color:#fff;font:inherit;font-size:15.5px;font-weight:700;box-shadow:0 12px 24px -14px rgba(17,17,19,.7);cursor:pointer}
+.login #entrar[disabled]{opacity:.6}
+.login #entrar:active{transform:translateY(1px)}
 .login #entrar svg{stroke:#fff;width:18px;height:18px}
-.login .logo{width:84px;height:84px;margin:0 auto 22px}
+.login .lfoot{margin:24px 0 0;text-align:center;font-size:13px}
 .login .bad,.login .warn{text-align:left;margin-top:14px}
+@media (max-width:560px){
+  .lwrap{align-content:start;padding:14px 16px 30px}
+  .brandTop{position:static;justify-content:center;padding:calc(20px + env(safe-area-inset-top)) 0 24px}
+  .login{padding:30px 22px 26px;border-radius:14px}.login h1{font-size:26px}.login p{margin-bottom:24px}
+}
 .status{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin:8px 0}
 .status span{flex:1;min-width:0}
 .status button{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:5px 9px;font:inherit;font-size:12px;font-weight:700}
@@ -805,15 +808,16 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   // nunca se amontonan ni dejan huecos grandes). Las casillas son más grandes en pantallas grandes: no hay muchísimas.
   function logoField() {
     var box = el('div', { class: 'lockLogos', 'aria-hidden': 'true' });
-    var w = Math.max(320, window.innerWidth || 0), h = Math.max(480, window.innerHeight || 0);
-    var cell = w < 600 ? 104 : w < 1100 ? 132 : 158;
+    var w = Math.max(320, window.innerWidth || 0), h = Math.max(480, window.innerHeight || 0), mob = w < 600;
+    var cell = mob ? 150 : w < 1100 ? 132 : 158; // (4.0.1) en el móvil, menos C
     var cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
     var cw = w / cols, ch = h / rows;
-    // (sin tapar el logotipo grande ni el nombre de arriba: esa zona se deja limpia)
-    var hw = Math.min(175, w * 0.3), hx0 = w / 2 - hw, hx1 = w / 2 + hw, hy0 = h * 0.13 - 24, hy1 = h * 0.13 + 190;
-    var clash = function (x, y, s) { return x + s > hx0 && x < hx1 && y + s > hy0 && y < hy1; };
+    // (sin tapar la tarjeta de la entrada ni el nombre de arriba)
+    var rs = [document.querySelector('.login'), document.querySelector('.brandTop')].filter(Boolean).map(function (n) { return n.getBoundingClientRect(); });
+    var clash = function (x, y, s) { return rs.some(function (q) { return x + s > q.left - 14 && x < q.right + 14 && y + s > q.top - 14 && y < q.bottom + 14; }); };
     for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
-      var size = Math.round((w < 600 ? 20 : 24) + Math.random() * (w < 600 ? 14 : 18)), x = 0, y = 0, ok = false;
+      if (mob && Math.random() < 0.35) continue;
+      var size = Math.round((mob ? 20 : 24) + Math.random() * (mob ? 12 : 18)), x = 0, y = 0, ok = false;
       for (var k = 0; k < 6 && !ok; k++) { x = c * cw + Math.random() * Math.max(0, cw - size); y = r * ch + Math.random() * Math.max(0, ch - size); ok = !clash(x, y, size); }
       if (!ok) continue;
       var im = el('img', { alt: '', src: LOGO }); im.className = 'lockLogo';
@@ -831,15 +835,15 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     var m0 = document.querySelector('.modes'); if (m0) m0.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
     var opened = st.centers.filter(function (c) { return c.data; });
     var creds = st.pws.length || Object.keys(st.keys).length;
-    // La entrada: solo el nombre y la contraseña.
-    var brand = function () { return el('h1', { text: 'Consentía Studio' }); }, logo = function () { return el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }); };
-    var bg = function () { app.appendChild(logoField()); }; // (3.2.1) solo los logotipos: la C grande y las C pequeñas de fondo (sin líneas)
+    // (4.0.1) La entrada: arriba, la C con «Consentia Studio»; en el centro, la tarjeta con la contraseña (como la del panel).
+    var brand = function () { return el('div', { class: 'brandTop' }, [el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }), el('b', { text: 'Consentia Studio' })]); };
+    var card = function (kids) { app.appendChild(brand()); app.appendChild(el('div', { class: 'lwrap' }, [el('div', { class: 'login' }, kids)])); app.prepend(logoField()); };
     var ico = function (d) { var s = svg(d.map(function (x) { return ['path', { d: x }]; })); return s; };
     var locked = !st.ready || !creds || (!opened.length && st.centers.length && !st.loading);
     document.documentElement.className = locked ? 'lock' : ''; // (la entrada no se desplaza; la agenda, sí)
-    if (creds && !st.ready) { bg(); app.appendChild(el('div', { class: 'login' }, [logo(), brand(), el('p', { text: 'Abriendo…' })])); return; }
+    if (creds && !st.ready) { card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Abriendo…' })]); return; }
     if (!creds || (!opened.length && st.centers.length && !st.loading)) {
-      var inp = el('input', { type: 'password', autocomplete: 'current-password', placeholder: 'Introducir contraseña', 'aria-label': 'Introducir contraseña', id: 'pw' });
+      var inp = el('input', { type: 'password', autocomplete: 'current-password', placeholder: 'Contraseña', 'aria-label': 'Contraseña de la agenda', id: 'pw' });
       var btn = el('button', { id: 'entrar', type: 'button' }, [st.loading ? 'Abriendo…' : 'Entrar', st.loading ? null : ico(['M5 12h14', 'M13 6l6 6-6 6'])]);
       // Ver la contraseña (el ojo): cambia entre puntos y letras.
       var eye = el('button', { class: 'pwEye', type: 'button', 'aria-label': 'Ver la contraseña', title: 'Ver la contraseña', on: { click: function () { var v = inp.type === 'password'; inp.type = v ? 'text' : 'password'; eye.setAttribute('aria-label', v ? 'Ocultar la contraseña' : 'Ver la contraseña'); eye.title = eye.getAttribute('aria-label'); inp.focus(); } } }, [ico(['M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z', 'M12 9.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 1 0 0-5.6z'])]);
@@ -847,9 +851,10 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
       if (st.loading) btn.setAttribute('disabled', '');
       var go = function () { login(inp.value); };
       btn.addEventListener('click', go); inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
-      bg();
-      app.appendChild(el('div', { class: 'login' }, [logo(), brand(), box, btn, st.bad ? el('div', { class: 'bad', text: st.bad }) : null, st.msg ? el('div', { class: 'warn', text: st.msg }) : null,
-        st.fresh && !creds ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + '). Escribe la contraseña otra vez.' }) : null]));
+      card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Escribe la contraseña de la agenda para ver las citas y los precios del centro.' }),
+        el('label', { for: 'pw', text: 'Contraseña de la agenda' }), box, btn, st.bad ? el('div', { class: 'bad', text: st.bad }) : null, st.msg ? el('div', { class: 'warn', text: st.msg }) : null,
+        st.fresh && !creds ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + '). Escribe la contraseña otra vez.' }) : null,
+        el('p', { class: 'lfoot', text: '¿No la sabes? Pídela en el centro.' })]);
       setTimeout(function () { inp.focus(); }, 50);
       return;
     }
