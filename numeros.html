@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="panel">
-<meta name="consentia-agenda-version" content="4.2.2">
-<meta name="consentia-agenda-firma" content="/tosLSG7LcCWav1xroMZdWCsFvqOnz64fxqnmlGF68um9vTKYvd7XiSfgyef64LOwPM3PNMaJxaLr4eLcPbMBQ==">
+<meta name="consentia-agenda-version" content="4.3.0">
+<meta name="consentia-agenda-firma" content="0YDzgwMa4R5FbguvkwjhuoT2JCMIlE8v+Nrx1Wd6ffvz9muxZCCuLqDJHeRLSkuelJiKy3xgcOtwkTM1t63YDQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-G3zMqrjaHR2Jayzt/PsYJH5PN0bjQfg2DqyNM58Pn1Q='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-WFK3R5ITWZcudX2TE3yXQ0v47XuQcxF24yhMYOkP8CM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Panel">
-<title>Panel · Consentia Studio</title>
+<title>Números · Consentía Studio</title>
 <style>
 /* (4.0.1) Panel rediseñado: la misma estética que la agenda y la calculadora (negro, rosa Consentia, tarjetas blancas y
    las fechas «‹ HOY ›»). En el ordenador, menú negro a la izquierda; en el móvil, las pestañas abajo. Gráficos en SVG
@@ -91,14 +91,18 @@ main{padding:12px 12px calc(84px + env(safe-area-inset-bottom));max-width:1240px
 /* (4.2.0) Dentro de la app del móvil (numeros.html, pestaña «Números»): sin cabecera ni «Salir» (los pone la app) y con
    las pestañas arriba, en cualquier ancho. */
 body.embed .mtop{display:none}
-body.embed .tabsNav{position:static;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border:0;border-bottom:1px solid var(--line);padding:6px 4px}
+body.embed .tabsNav{position:static;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border:0;border-bottom:1px solid var(--line);padding:6px 4px;height:58px;align-items:stretch}
+/* (4.2.3) Medidas fijas, las MISMAS que las pestañas de Control en la app (.accTabs): al cambiar de pestaña no se mueve nada. */
+body.embed .tabsNav button{flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0;font:700 11.5px/1.25 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--muted);text-align:center;width:auto;min-width:0}
+body.embed .tabsNav button svg.i{width:20px;height:20px;stroke-width:1.7}
+body.embed .tabsNav button.on{color:var(--pink)}
 body.embed .days{top:0}
 body.embed main{padding-bottom:28px}
 @media (min-width:900px){
   body.dash.embed #app{display:block}
   body.embed .side{position:static;height:auto;padding:0;background:#fff;display:block}
   body.embed .side .brand,body.embed .side .grp,body.embed .side .foot{display:none}
-  body.embed .tabsNav button{flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);padding:6px 0;text-align:center;width:auto}
+  body.embed .tabsNav button{flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11.5px/1.25 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--muted);padding:0;text-align:center;width:auto;border-radius:0}
   body.embed .tabsNav button:hover{background:none}
   body.embed .tabsNav button.on{background:none;color:var(--pink)}
   body.embed .tabsNav button.on::before{display:none}
@@ -221,6 +225,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (min-width:600px){.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.minis{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (min-width:1100px){.g2{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}.g2b{grid-template-columns:repeat(2,minmax(0,1fr))}.span2{grid-column:1/-1}}
 @media (max-width:599px){.head .sub{display:none}.hide-m{display:none}.minis.m2{grid-template-columns:1fr 1fr}}
+.objB{margin:12px 0 4px}.objT{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:6px}.objT b{color:var(--ink)}.objBar{height:10px;border-radius:99px;background:#efece6;overflow:hidden}.objBar i{display:block;height:100%;border-radius:99px}
 </style>
 </head>
 <body>
@@ -229,22 +234,21 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 <script>
 (function () {
   'use strict';
-  var FORMAT = 'consentia-panel-1', LS = 'consentia-panel-v1', MIN_ITER = 100000, DEV_ITER = 600000;
+  var FORMAT = 'consentia-panel-1';
   var app = document.getElementById('app'), tip = document.getElementById('tip');
-  // Dónde están los resúmenes: https://USUARIO.github.io/PanelWeb(-test)/ → USUARIO/Panel(-test). (En este ordenador,
-  // solo para pruebas: ?repo=…&api=….)
-  // (4.2.0) Como numeros.html, dentro de la app (repositorio App, ramas «cs-num-<zona>», públicas pero cifradas para
-  // cada móvil): no pide nada; la app le pasa la clave de ese móvil (sin que se pueda sacar) y lee sin permiso de GitHub.
+  // (4.3.0) Esta página es solo la de los números DENTRO de la app (numeros.html del repositorio App, ramas
+  // «cs-num-<zona>», públicas pero cifradas para cada móvil): no pide nada; la app le pasa la clave de ese móvil (sin que
+  // se pueda sacar) y los locales que ve, y lee sin permiso de GitHub. El panel de antes (PanelWeb, con alta por
+  // dispositivo) ya no existe.
   var cfg = (function () {
     var q = new URLSearchParams(location.search), h = location.hostname, seg = location.pathname.split('/').filter(Boolean);
-    var v2 = /\/numeros\.html$/i.test(location.pathname);
-    if (/\.github\.io$/i.test(h) && seg.length) return v2 ? { repo: h.split('.')[0] + '/' + seg[0], api: 'https://api.github.com', raw: 'https://raw.githubusercontent.com', local: false, v2: true } : { repo: h.split('.')[0] + '/' + seg[0].replace(/^PanelWeb/i, 'Panel'), api: 'https://api.github.com', local: false };
-    if (h !== 'localhost' && h !== '127.0.0.1') return { repo: '', api: '', local: false };
-    return { repo: q.get('repo') || '', api: q.get('api') || 'https://api.github.com', raw: q.get('raw') || 'https://raw.githubusercontent.com', local: true, v2: v2 || q.get('embed') === '1' };
+    if (/\.github\.io$/i.test(h) && seg.length) return { repo: h.split('.')[0] + '/' + seg[0], raw: 'https://raw.githubusercontent.com' };
+    if (h !== 'localhost' && h !== '127.0.0.1') return { repo: '', raw: '' };
+    return { repo: q.get('repo') || '', raw: q.get('raw') || 'https://raw.githubusercontent.com' }; // (en este ordenador, solo para pruebas)
   })();
   // Esta página no usa «service workers»: si alguien hubiera instalado uno, se quita.
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }).catch(function () {}); } catch (e) { }
-  var st = { me: null, data: null, day: today(), tab: 'resumen', msg: '', loading: false, files: {}, open: {}, rec: false };
+  var st = { me: null, zonas: [], data: null, day: today(), tab: 'resumen', msg: '', loading: false, files: {}, open: {} };
   var LOGO = 'data:image/png;base64,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';
   var COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#6250d6', '#eda100', '#e34948', '#008300', '#e87ba4'];
   var PAYC = { Tarjeta: '#2a78d6', Efectivo: '#eb6834', Bizum: '#1baf7a' };
@@ -279,46 +283,12 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     stock: '<path d="M4 8l8-4 8 4v8l-8 4-8-4zM4 8l8 4 8-4M12 12v8"/>', clientas: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>' };
   function ico(k, cls) { return '<svg class="i' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24">' + P[k] + '</svg>'; }
 
-  /* ---------------- claves ---------------- */
-  function pwKey(password, salt, iter) {
-    return C.importKey('raw', enc.encode(String(password).normalize('NFC')), 'PBKDF2', false, ['deriveKey']).then(function (k) {
-      return C.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: salt, iterations: iter }, k, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']); });
-  }
-  // Alta: #a=[vueltas 4][sal 16][iv 12][cifrado] → { d, x, y, id, token }
-  async function openAlta(code, password) {
-    var b = unb64u(code); var iter = new DataView(b.buffer).getUint32(0); if (iter < MIN_ITER && !cfg.local) throw new Error('Enlace de alta no válido.');
-    var key = await pwKey(password, b.slice(4, 20), iter); var p;
-    try { p = new Uint8Array(await C.decrypt({ name: 'AES-GCM', iv: b.slice(20, 32), additionalData: enc.encode('consentia-panel-alta-1') }, key, b.slice(32))); }
-    catch (e) { throw new Error('La contraseña de alta no es esa (o el enlace está incompleto).'); }
-    if (p[0] !== 1) throw new Error('Este enlace es de otra versión del programa.');
-    var n = p[97];
-    return { d: b64u(p.slice(1, 33)), x: b64u(p.slice(33, 65)), y: b64u(p.slice(65, 97)), id: dec.decode(p.slice(98, 98 + n)), token: dec.decode(p.slice(98 + n)) };
-  }
-  // Lo de este dispositivo se guarda aquí cifrado con SU contraseña (la clave privada y el permiso de lectura).
-  async function save(me, password) {
-    var salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12)), iter = cfg.local ? 1000 : DEV_ITER;
-    var key = await pwKey(password, salt, iter);
-    var ct = await C.encrypt({ name: 'AES-GCM', iv: iv, additionalData: enc.encode(LS) }, key, enc.encode(JSON.stringify(me)));
-    localStorage.setItem(LS, JSON.stringify({ v: 1, iter: iter, salt: b64u(salt), iv: b64u(iv), ct: b64u(ct), name: me.name || '' }));
-  }
-  function stored() { try { var j = JSON.parse(localStorage.getItem(LS) || 'null'); return j && j.v === 1 ? j : null; } catch (e) { return null; } }
-  async function unlock(password) {
-    var j = stored(); if (!j) throw new Error('Este dispositivo no está dado de alta.');
-    var key = await pwKey(password, unb64u(j.salt), Number(j.iter) || DEV_ITER);
-    try { return JSON.parse(dec.decode(await C.decrypt({ name: 'AES-GCM', iv: unb64u(j.iv), additionalData: enc.encode(LS) }, key, unb64u(j.ct)))); }
-    catch (e) { throw new Error('La contraseña no es esa.'); }
-  }
-  // Clave de recuperación: CSREC1.[d 32][x 32][y 32]
-  function readRecovery(text) {
-    var m = /^CSREC1\.([A-Za-z0-9_-]{120,140})$/.exec(String(text || '').replace(/\s+/g, '')); if (!m) throw new Error('Esa no es una clave de recuperación del panel (empieza por CSREC1.).');
-    var b = unb64u(m[1]); if (b.length !== 96) throw new Error('La clave de recuperación está incompleta.');
-    return { kid: 'recuperacion', id: 'recuperacion', d: b64u(b.slice(0, 32)), x: b64u(b.slice(32, 64)), y: b64u(b.slice(64, 96)) };
-  }
+  /* ---------------- abrir ---------------- */
   // Abrir un resumen: ECDH(mi clave, efímera) → HKDF → abre la clave del resumen → abre el resumen.
   async function openEnvelope(text, me) {
     var e = JSON.parse(text); if (e.f !== FORMAT) throw new Error('No es un resumen del panel.');
     var kid = me.kid || me.id; var mine = (e.r || []).filter(function (r) { return r.k === kid; })[0]; if (!mine) { var err = new Error('sin-mi'); err.notMine = true; throw err; }
-    var priv = me.key || await C.importKey('jwk', { kty: 'EC', crv: 'P-256', x: me.x, y: me.y, d: me.d, ext: true }, { name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveBits']); // (4.2.0) me.key: la de la app
+    var priv = me.key; // (la de la app: no se puede sacar)
     var pub = await C.importKey('jwk', { kty: 'EC', crv: 'P-256', x: e.epk.x, y: e.epk.y, ext: true }, { name: 'ECDH', namedCurve: 'P-256' }, false, []);
     var shared = await C.deriveBits({ name: 'ECDH', public: pub }, priv, 256);
     var hk = await C.importKey('raw', shared, 'HKDF', false, ['deriveKey']);
@@ -329,30 +299,19 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     var plain = await C.decrypt({ name: 'AES-GCM', iv: unb64u(e.iv), additionalData: enc.encode(FORMAT + ':' + e.z + '/' + e.n) }, ck, unb64u(e.c));
     return JSON.parse(dec.decode(plain));
   }
-  /* ---------------- GitHub (solo lectura) ---------------- */
-  async function gh(path) {
-    var r; try { r = await fetch(cfg.api + path, { headers: { Authorization: 'Bearer ' + st.me.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, cache: 'no-store' }); }
-    catch (e) { throw new Error('Sin conexión con GitHub (¿hay Internet?).'); }
-    if (r.status === 401) throw new Error('El permiso de GitHub de este dispositivo no vale o ha caducado. Pide en un local que lo den de alta otra vez.');
-    if (r.status === 403 || r.status === 404) throw new Error('El permiso de GitHub de este dispositivo no da acceso a ' + cfg.repo + '.');
-    if (!r.ok) throw new Error('GitHub respondió ' + r.status + '.');
-    return r.json();
-  }
-  async function blob(sha) { if (st.files[sha]) return st.files[sha]; var b = await gh('/repos/' + cfg.repo + '/git/blobs/' + sha); var t = dec.decode(unb64(b.content)); st.files[sha] = t; return t; }
-  async function opened(sha) { if (st.open[sha]) return st.open[sha]; var v = await openEnvelope(await blob(sha), st.me); st.open[sha] = v; return v; }
-  // (4.2.0) Dentro de la app: sin permiso (App es público; lo de dentro va cifrado). Las ramas, de la API; los archivos,
-  // de raw.githubusercontent.com por la huella de la rama (lo último publicado).
+  /* ---------------- GitHub (sin permiso: App es público y lo de dentro va cifrado) ---------------- */
+  // (4.3.0) Cada archivo, de raw.githubusercontent.com por el NOMBRE de la rama del local (sin preguntar a la API de
+  // GitHub, que deja 60 consultas por hora a cada conexión). El «t» cambia cada 30 s para no recibir una copia vieja.
   async function anon(url) { var r; try { r = await fetch(url, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); } catch (e) { throw new Error('Sin conexión con GitHub (¿hay Internet?).'); } if (r.status === 404) return null; if (r.status === 403 || r.status === 429) throw new Error('GitHub limita las consultas seguidas desde esta conexión. Espera unos minutos y vuelve a intentarlo.'); if (!r.ok) throw new Error('GitHub respondió ' + r.status + '.'); return r.text(); }
-  async function rawOpen(base, name) { var u = base + name; if (!(u in st.files)) st.files[u] = await anon(u); var t = st.files[u]; if (!t) return null; if (!st.open[u]) { var e = JSON.parse(t); if (e.n !== name) throw new Error('No es el que toca.'); st.open[u] = await openEnvelope(t, st.me); } return st.open[u]; }
+  async function rawOpen(base, name) { var u = base + name; if (!(u in st.files)) st.files[u] = await anon(u + '?t=' + Math.floor(Date.now() / 30000)); var t = st.files[u]; if (!t) return null; if (!st.open[u]) { var e = JSON.parse(t); if (e.n !== name) throw new Error('No es el que toca.'); st.open[u] = await openEnvelope(t, st.me); } return st.open[u]; }
   async function loadV2() {
     st.loading = true; st.msg = ''; draw();
     try {
-      var br = JSON.parse(await anon(cfg.api + '/repos/' + cfg.repo + '/branches?per_page=100') || '[]');
-      var locals = (br || []).filter(function (b) { return /^cs-num-[a-z0-9][a-z0-9-]{0,59}$/.test(b.name) && /^[0-9a-f]{40,64}$/.test((b.commit || {}).sha || ''); });
+      var locals = st.zonas.filter(function (z) { return /^[a-z0-9][a-z0-9-]{0,59}$/.test(z); });
       var out = [], day = st.day, ym = day.slice(0, 7), from = addDays(day, -29), notMine = 0;
       for (var i = 0; i < locals.length; i++) {
-        var b = locals[i], base = cfg.raw + '/' + cfg.repo + '/' + b.commit.sha + '/';
-        var x = { zona: b.name.slice(7), dia: null, mes: null, serie: {}, last: null };
+        var base = cfg.raw + '/' + cfg.repo + '/cs-num-' + locals[i] + '/';
+        var x = { zona: locals[i], dia: null, mes: null, serie: {}, last: null };
         try {
           var ds = []; for (var k = 0; k < 30; k++) ds.push(addDays(from, k));
           var got = await Promise.all(ds.map(function (k2) { return rawOpen(base, 'dia-' + k2 + '.json').catch(function (e) { if (e.notMine) throw e; return null; }); }));
@@ -372,129 +331,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     } catch (e) { st.msg = e.message; }
     st.loading = false; draw();
   }
-  // Lo de cada local: el día elegido (o el último anterior), el mes y los 30 días de antes para la gráfica.
-  async function load() {
-    if (cfg.v2) return loadV2();
-    st.loading = true; st.msg = ''; draw();
-    try {
-      var br = await gh('/repos/' + cfg.repo + '/branches?per_page=100');
-      var locals = (br || []).filter(function (b) { return /^local-[a-z0-9][a-z0-9-]{0,59}$/.test(b.name); });
-      var out = []; var day = st.day, ym = day.slice(0, 7), from = addDays(day, -29), notMine = 0;
-      for (var i = 0; i < locals.length; i++) {
-        var b = locals[i]; var t = await gh('/repos/' + cfg.repo + '/git/trees/' + b.commit.sha);
-        var files = (t.tree || []).filter(function (f) { return f.type === 'blob'; });
-        var days = files.filter(function (f) { return /^dia-\d{4}-\d{2}-\d{2}\.json$/.test(f.path) && f.path.slice(4, 14) <= day; }).sort(function (a, c) { return a.path < c.path ? 1 : -1; });
-        var mes = files.filter(function (f) { return f.path === 'mes-' + ym + '.json'; })[0];
-        var x = { zona: b.name.slice(6), dia: null, mes: null, serie: {}, last: days[0] ? days[0].path.slice(4, 14) : null };
-        // (4.1.2) Todo el histórico: los días de hace más de 2 meses van dentro del archivo de su mes («dias»).
-        var mesOf = async function (k) { var f = files.filter(function (g) { return g.path === 'mes-' + k + '.json'; })[0]; return f ? await opened(f.sha) : null; };
-        try {
-          if (days[0]) { x.dia = await opened(days[0].sha); x.diaExacto = days[0].path.slice(4, 14) === day; }
-          if (mes) x.mes = await opened(mes.sha);
-          if (!x.diaExacto && x.mes && x.mes.dias && x.mes.dias[day]) { x.dia = x.mes.dias[day]; x.diaExacto = true; }
-          var win = days.filter(function (f) { return f.path.slice(4, 14) >= from; });
-          for (var k = 0; k < win.length; k++) { try { var v = await opened(win[k].sha); x.serie[win[k].path.slice(4, 14)] = v; } catch (e2) { /* uno suelto: se salta */ } }
-          var yms = [from.slice(0, 7), ym].filter(function (v2, i2, a2) { return a2.indexOf(v2) === i2; });
-          for (var q = 0; q < yms.length; q++) { try { var mm = yms[q] === ym ? x.mes : await mesOf(yms[q]); var dd2 = (mm && mm.dias) || {}; Object.keys(dd2).forEach(function (kk) { if (kk >= from && kk <= day && !x.serie[kk]) x.serie[kk] = dd2[kk]; }); } catch (e3) { /* sin ese mes */ } }
-        } catch (e) { if (e.notMine) { notMine++; x.notMine = true; } else x.error = 'No se puede abrir (¿dañado?).'; }
-        out.push(x);
-      }
-      st.data = out; st.loaded = new Date().toISOString();
-      if (!out.length) st.msg = 'Todavía ningún local ha publicado su resumen.';
-      else if (notMine === out.length) st.msg = 'Este dispositivo ya no recibe los resúmenes (lo han revocado o todavía no se han publicado para él). Si es nuevo, espera un rato o pulsa «Publicar ahora» en un local.';
-    } catch (e) { st.msg = e.message; }
-    st.loading = false; draw();
-  }
-
-  /* ---------------- la entrada ---------------- */
-  function lockPage(inner) {
-    document.documentElement.className = 'lock'; document.body.className = '';
-    app.innerHTML = '<div class="brandTop"><img src="' + LOGO + '" alt=""><b>Consentia Studio</b></div><div class="lwrap"><div class="lcard" id="card">' + inner + '</div></div>';
-    logoField();
-  }
-  function pwField(id, label, ph, auto) {
-    return '<label class="lb" for="' + id + '">' + esc(label) + '</label><div class="field">' + ico('lock') + '<input type="password" id="' + id + '" placeholder="' + esc(ph) + '" autocomplete="' + auto + '"><button type="button" class="eye" data-eye="' + id + '" aria-label="Ver la contraseña" title="Ver la contraseña">' + ico('eye') + '</button></div>';
-  }
-  function wireEyes() { app.querySelectorAll('[data-eye]').forEach(function (b) { b.onclick = function () { var i = document.getElementById(b.dataset.eye); i.type = i.type === 'password' ? 'text' : 'password'; i.focus(); }; }); }
-  function msgBox() { return st.msg ? '<div class="msg bad">' + esc(st.msg) + '</div>' : ''; }
-  // Las C pequeñas de fondo: al azar, casi transparentes, sin tapar la tarjeta ni el nombre (en el móvil, menos).
-  function logoField() {
-    var old = document.querySelector('.lockLogos'); if (old) old.remove();
-    var box = document.createElement('div'); box.className = 'lockLogos'; box.setAttribute('aria-hidden', 'true');
-    var w = Math.max(320, innerWidth || 0), h = Math.max(480, innerHeight || 0), mob = w < 600;
-    var cell = mob ? 150 : w < 1100 ? 132 : 158, cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), cw = w / cols, ch = h / rows;
-    var card = document.getElementById('card'), brand = document.querySelector('.brandTop');
-    var rs = [card, brand].filter(Boolean).map(function (n) { return n.getBoundingClientRect(); });
-    var clash = function (x, y, s) { return rs.some(function (r) { return x + s > r.left - 14 && x < r.right + 14 && y + s > r.top - 14 && y < r.bottom + 14; }); };
-    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
-      if (mob && Math.random() < 0.35) continue;
-      var size = Math.round((mob ? 20 : 24) + Math.random() * (mob ? 12 : 18)), x = 0, y = 0, ok = false;
-      for (var k = 0; k < 6 && !ok; k++) { x = c * cw + Math.random() * Math.max(0, cw - size); y = r * ch + Math.random() * Math.max(0, ch - size); ok = !clash(x, y, size); }
-      if (!ok) continue;
-      var im = document.createElement('img'); im.alt = ''; im.src = LOGO; im.className = 'lockLogo';
-      im.style.cssText = 'left:' + x.toFixed(1) + 'px;top:' + y.toFixed(1) + 'px;width:' + size + 'px;height:' + size + 'px;opacity:' + (0.045 + Math.random() * 0.05).toFixed(3) + ';transform:rotate(' + Math.round(Math.random() * 50 - 25) + 'deg)';
-      box.appendChild(im);
-    }
-    document.body.prepend(box);
-  }
-  function screenAlta(code) {
-    lockPage('<div class="steps"><i class="on"></i><i></i></div><div class="eyebrow">Panel de empresa · paso 1 de 2</div><h1>Da de alta este dispositivo</h1><p class="sub">Escribe la contraseña de alta que pusiste en el local al crear el código.</p>' + msgBox() +
-      pwField('aPw', 'Contraseña de alta', 'Contraseña de alta', 'off') +
-      '<div class="note">' + ico('info') + '<span>Después eliges la contraseña de <b>este</b> dispositivo. A partir de entonces solo te pedirá esa, cada vez que entres.</span></div>' +
-      '<button class="go" id="aGo" type="button">Continuar' + ico('arrow') + '</button>');
-    wireEyes(); var go = document.getElementById('aGo'), inp = document.getElementById('aPw');
-    go.onclick = async function () {
-      go.disabled = true; go.firstChild.textContent = 'Comprobando…';
-      try { var me = await openAlta(code, inp.value); st.msg = ''; screenNewPw(me); }
-      catch (e) { st.msg = e.message; screenAlta(code); }
-    };
-    inp.onkeydown = function (e) { if (e.key === 'Enter') go.click(); };
-    inp.focus();
-  }
-  function screenNewPw(me) {
-    lockPage('<div class="steps"><i class="on"></i><i class="on"></i></div><div class="eyebrow">Panel de empresa · paso 2 de 2</div><h1>La contraseña de este dispositivo</h1><p class="sub">Con ella abrirás el panel aquí cada vez (8 caracteres o más). Se queda en este dispositivo: no se manda a ningún sitio.</p><div id="nMsg"></div>' +
-      pwField('nPw1', 'Contraseña', 'Contraseña nueva', 'new-password') + pwField('nPw2', 'Repítela', 'Otra vez la misma', 'new-password') +
-      '<button class="go" id="nGo" type="button">Guardar y entrar' + ico('arrow') + '</button>');
-    wireEyes();
-    document.getElementById('nGo').onclick = async function () {
-      var a = document.getElementById('nPw1').value, b = document.getElementById('nPw2').value, m = document.getElementById('nMsg');
-      if (a.length < 8) { m.innerHTML = '<div class="msg bad">Tiene que tener al menos 8 caracteres.</div>'; return; }
-      if (a !== b) { m.innerHTML = '<div class="msg bad">Las dos no coinciden.</div>'; return; }
-      this.disabled = true; this.firstChild.textContent = 'Guardando…';
-      await save(me, a); try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
-      st.me = me; load();
-    };
-    document.getElementById('nPw1').focus();
-  }
-  function screenLocked() {
-    var j = stored();
-    if (st.rec) {
-      lockPage('<div class="eyebrow">Panel de empresa</div><h1>Clave de recuperación</h1><p class="sub">Para leer los resúmenes desde cualquier navegador si se han perdido los dispositivos. No se guarda nada en este navegador.</p>' + msgBox() +
-        '<label class="lb" for="rKey">Clave de recuperación</label><div class="field">' + ico('key') + '<textarea id="rKey" rows="3" placeholder="CSREC1.…" autocomplete="off" spellcheck="false"></textarea></div>' +
-        '<label class="lb" for="rTok">Permiso de GitHub (solo lectura de ' + esc(cfg.repo) + ')</label><div class="field">' + ico('github') + '<input type="password" id="rTok" placeholder="github_pat_…" autocomplete="off"><button type="button" class="eye" data-eye="rTok" aria-label="Ver el permiso">' + ico('eye') + '</button></div>' +
-        '<button class="go" id="rGo" type="button">Entrar' + ico('arrow') + '</button><button class="alt" id="rBack" type="button">' + ico('back') + 'Volver</button>');
-      wireEyes();
-      document.getElementById('rGo').onclick = function () { try { var me = readRecovery(document.getElementById('rKey').value); me.token = document.getElementById('rTok').value.trim(); if (!/^github_pat_/.test(me.token)) throw new Error('Falta el permiso de GitHub (empieza por github_pat_).'); st.me = me; st.msg = ''; st.rec = false; load(); } catch (e) { st.msg = e.message; screenLocked(); } };
-      document.getElementById('rBack').onclick = function () { st.rec = false; st.msg = ''; screenLocked(); };
-      return;
-    }
-    var rec = '<div class="or">o</div><button class="alt" id="rShow" type="button">' + ico('key') + 'Entrar con la clave de recuperación</button>';
-    if (!j) {
-      lockPage('<div class="eyebrow">Panel de empresa</div><h1>Este dispositivo no está dado de alta</h1><p class="sub">Se hace una vez, desde un local: Ajustes → Empresa → Panel de empresa → «Añadir un dispositivo». Después se abre aquí el código QR o el enlace.</p>' + msgBox() + rec);
-    } else {
-      lockPage('<div class="eyebrow">Panel de empresa</div><h1>Hola de nuevo</h1><p class="sub">Entra con la contraseña de este dispositivo para ver las cifras de todos los locales.</p>' + msgBox() +
-        pwField('uPw', 'Contraseña de este dispositivo', 'Contraseña', 'current-password') +
-        '<div class="rowx"><button class="lnk" id="uForget" type="button">Olvidar este dispositivo</button></div>' +
-        '<button class="go" id="uGo" type="button">Entrar' + ico('arrow') + '</button>' + rec +
-        '<p class="lfoot">Para dar de alta otro dispositivo: en un local,<br>Ajustes → Empresa → Panel de empresa.</p>');
-      wireEyes(); var go = document.getElementById('uGo'), inp = document.getElementById('uPw');
-      go.onclick = async function () { go.disabled = true; go.firstChild.textContent = 'Abriendo…'; try { st.me = await unlock(inp.value); st.msg = ''; load(); } catch (e) { st.msg = e.message; screenLocked(); } };
-      inp.onkeydown = function (e) { if (e.key === 'Enter') go.click(); };
-      document.getElementById('uForget').onclick = function () { if (confirm('Se borra de este dispositivo su clave del panel. Para volver a usarlo hay que darlo de alta otra vez desde un local. Para QUITAR otro dispositivo, hazlo desde un local (Ajustes → Empresa).')) { try { localStorage.removeItem(LS); } catch (e) { } st.msg = ''; screenLocked(); } };
-      inp.focus();
-    }
-    document.getElementById('rShow').onclick = function () { st.rec = true; st.msg = ''; screenLocked(); };
-  }
+  function load() { return loadV2(); }
 
   /* ---------------- el panel ---------------- */
   var TABS = [['resumen', 'Resumen', 'Resumen'], ['locales', 'Locales', 'Por local'], ['equipo', 'Equipo', 'Equipo'], ['stock', 'Stock', 'Stock'], ['clientas', 'Clientas', 'Clientas']];
@@ -513,7 +350,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
       '<div class="mainCol"><div class="mtop"><img src="' + LOGO + '" alt=""><b>Panel</b><button id="tRe" type="button" aria-label="Recargar" title="Recargar">' + ico('reload') + '</button><button id="tOut" type="button" aria-label="Salir" title="Salir">' + ico('out') + '</button></div>' +
       '<div class="days"><button id="dPrev" type="button" aria-label="Día anterior">‹</button><button class="hoy" id="dHoy" type="button"' + (st.day === today() ? ' disabled' : '') + '>Hoy</button><button class="d" id="dPick" type="button" aria-label="Elegir el día">' + ico('cal') + '<span>' + esc(cap(fdate(st.day))) + '</span></button><button id="dNext" type="button" aria-label="Día siguiente"' + (st.day >= today() ? ' disabled' : '') + '>›</button><span class="upd">' + (st.loaded ? 'Actualizado ' + esc(rel(st.loaded)) : '') + '</span></div>' +
       '<main id="main"></main></div>';
-    var re = function () { st.files = {}; st.open = {}; load(); }, out = function () { st.me = null; st.data = null; st.files = {}; st.open = {}; st.tab = 'resumen'; screenLocked(); };
+    var re = function () { st.files = {}; st.open = {}; load(); }, out = function () { try { window.parent.postMessage({ t: 'cs-salir' }, location.origin); } catch (e) { } };
     document.getElementById('tRe').onclick = re; document.getElementById('sRe').onclick = re; document.getElementById('tOut').onclick = out; document.getElementById('sOut').onclick = out;
     app.querySelector('.tabsNav').onclick = function (e) { var b = e.target.closest('[data-t]'); if (b) { st.tab = b.dataset.t; draw(); window.scrollTo(0, 0); } };
     document.getElementById('dPrev').onclick = function () { st.day = addDays(st.day, -1); load(); };
@@ -522,8 +359,8 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     document.getElementById('dPick').onclick = function () { openCal(this); };
   }
   function draw() {
-    if (!st.me) return cfg.v2 ? null : screenLocked();
-    shell(); if (cfg.v2) document.body.classList.add('embed'); var main = document.getElementById('main'); var h = '';
+    if (!st.me) return;
+    shell(); document.body.classList.add('embed'); var main = document.getElementById('main'); var h = '';
     if (st.loading) { main.innerHTML = '<div class="card"><p class="loading">Cargando y descifrando…</p></div>'; return; }
     if (st.msg) h += '<div class="msg warn">' + esc(st.msg) + '</div>';
     var all = st.data || []; all.forEach(function (x, i) { x.color = COLORS[i % COLORS.length]; });
@@ -537,8 +374,8 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   function head(eb, title) { return '<div class="head"><div><div class="eb">' + esc(eb) + '</div><h1>' + esc(title) + '</h1></div><span class="sub">' + esc(cap(fdateY(st.day))) + '</span></div>'; }
   function unreadCard(x, wide) {
     return '<div class="card unread' + (wide ? ' span2' : '') + '"><div class="lh"><span class="dot" style="background:#bdb9b1"></span><h2>' + esc(zname(x.zona)) + '</h2><span class="pill warn">no se puede leer todavía</span></div><div class="why">' + ico('warn') + '<div>' +
-      (x.notMine ? '<b>Este local ha publicado, pero todavía no para este dispositivo.</b> Pasa si el dispositivo se dio de alta hace poco: en cuanto ese local tenga el programa abierto, vuelve a publicar en menos de un minuto. Si no, en ese local: Ajustes → Empresa → Panel de empresa → «Publicar ahora».'
-        : '<b>El resumen de este local no se puede abrir.</b> Puede estar dañado: en ese local, pulsa «Publicar ahora».') +
+      (x.notMine ? '<b>Este local ha publicado, pero todavía no para este móvil.</b> Pasa si el acceso se dio hace poco: en cuanto ese local tenga el programa abierto, vuelve a publicar sus números (cada 2 horas, o en menos de un minuto si cambia quién los ve).'
+        : '<b>Los números de este local no se pueden abrir.</b> Pueden estar dañados: se vuelven a publicar solos en unas horas.') +
       (x.last ? '<br><span style="color:var(--muted)">Último resumen: ' + esc(fdate(x.last)) + '.</span>' : '') + '</div></div></div>';
   }
   function unreadNote(bad) { return bad.length ? '<div class="msg warn">' + (bad.length === 1 ? 'Un local no se puede leer todavía' : bad.length + ' locales no se pueden leer todavía') + ' (' + bad.map(function (x) { return esc(zname(x.zona)); }).join(', ') + '): lo ves en «Por local».</div>' : ''; }
@@ -608,6 +445,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
       h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2>' + (x.dia ? '<span class="pill ' + (late ? 'warn' : 'ok') + '">publicado ' + esc(rel(x.dia.at)) + (x.dia.version ? ' · ' + esc(x.dia.version) : '') + '</span>' : '') + '</div>' +
         '<div class="minis">' + (di ? '<div class="mini"><span>' + (st.day === today() ? 'Hoy' : 'Ese día') + '</span><strong class="num">' + money(di.facturacion) + '</strong><small>' + di.cobros + ' cobros</small></div><div class="mini"><span>Citas</span><strong class="num">' + di.citas + '</strong><small>' + di.porCobrar + ' por cobrar · ' + di.noVino + ' no vinieron</small></div>' : '<div class="mini"><span>' + (st.day === today() ? 'Hoy' : 'Ese día') + '</span><strong>—</strong><small>sin resumen de ese día</small></div><div class="mini"><span>Citas</span><strong>—</strong><small>&nbsp;</small></div>') +
         (m ? '<div class="mini"><span>' + esc(mname(ym)) + '</span><strong class="num">' + money0(m.facturacion) + '</strong><small>' + ((m.anioAnterior || {}).facturacion ? pctTxt(m.facturacion, m.anioAnterior.facturacion) + ' que el año pasado' : m.cobros + ' cobros') + '</small></div><div class="mini"><span>Beneficio del mes</span><strong class="num ' + (m.beneficio >= 0 ? 'pos' : 'neg') + '">' + money0(m.beneficio) + '</strong><small>gastos ' + money0(m.gastos) + '</small></div>' : '') + '</div>' +
+        (m && Number(m.objetivo) > 0 ? objBar(m) : '') + // (4.3.0) el objetivo del mes del local
         '<h3>Facturación y gastos · 30 días <small style="font-weight:500;color:var(--muted)"><i class="ln" style="display:inline-block;width:14px;border-top:2px solid #a20f3b;vertical-align:3px;margin:0 4px 0 6px"></i>gastos</small></h3><div class="chart" data-cl="' + xi + '"></div>' +
         (di && Object.keys(di.porMetodo || {}).length ? '<h3>Formas de pago · ' + (st.day === today() ? 'hoy' : 'ese día') + '</h3><div class="pay">' + Object.keys(di.porMetodo).map(function (k) { return '<div><i style="background:' + (PAYC[k] || '#6250d6') + '"></i>' + esc(k) + '<b class="num">' + money(di.porMetodo[k]) + '</b></div>'; }).join('') + '</div>' : '') +
         (sv.length ? '<h3>Servicios que más facturan · ' + esc(mname(ym)) + '</h3><div class="svc">' + sv.slice(0, 6).map(function (s) { return '<div><span>' + esc(s.nombre) + '</span><span class="num" style="text-align:right;color:var(--muted)">' + s.veces + '</span><b class="num" style="text-align:right">' + money0(s.importe) + '</b><div class="bar"><i style="width:' + Math.round(s.importe / top * 100) + '%"></i></div></div>'; }).join('') + '</div>' : '') + '</div>';
@@ -615,6 +453,8 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     bad.forEach(function (x) { h += unreadCard(x, d.length % 2 === 0); });
     return h + '</div>';
   }
+  // (4.3.0) Cuánto lleva del objetivo del mes (lo pone el empresario en Ajustes → Empresa → Locales).
+  function objBar(m) { var p = Math.round(m.facturacion / m.objetivo * 100); return '<div class="objB" data-obj="' + p + '"><div class="objT"><span>Objetivo de ' + esc(mname(m.ym)) + '</span><b class="num">' + money0(m.facturacion) + ' de ' + money0(m.objetivo) + ' · ' + p + ' %</b></div><div class="objBar"><i style="width:' + Math.min(100, Math.max(0, p)) + '%;background:' + (p >= 100 ? '#1baf7a' : 'var(--c, #ff2b91)') + '"></i></div></div>'; }
   function tabEquipo(d, bad) {
     var ym = st.day.slice(0, 7); var h = head('Equipo · ' + mname(ym), 'Equipo') + unreadNote(bad) + '<div class="grid g2b">';
     d.forEach(function (x) { var m = x.mes && x.mes.ym === ym ? x.mes : null; if (!m) return; var eq = m.equipo || [];
@@ -685,26 +525,16 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   function closeCal() { ['calBack', 'calBox'].forEach(function (id) { var n = document.getElementById(id); if (n) n.remove(); }); document.removeEventListener('keydown', calKey); }
 
   /* ---------------- arranque ---------------- */
-  var rz; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { if (document.documentElement.className === 'lock') logoField(); else { var c = document.getElementById('cols'); if (c && st.data) columns(c, st.data.filter(function (x) { return x.dia || x.mes; })); } }, 200); });
+  var rz; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { var c = document.getElementById('cols'); if (c && st.data) columns(c, st.data.filter(function (x) { return x.dia || x.mes; })); }, 200); });
   if (!C) { app.innerHTML = '<div class="lwrap"><div class="lcard"><div class="msg bad">Este navegador no puede descifrar (hace falta https y un navegador actual).</div></div></div>'; return; }
   if (!cfg.repo) { app.innerHTML = '<div class="lwrap"><div class="lcard"><div class="msg bad">Esta página solo funciona desde su dirección de GitHub Pages.</div></div></div>'; return; }
-  // (4.1.2) Si este dispositivo YA está dado de alta y se abre otra vez el enlace (o el QR) de alta, no se vuelve a dar de
-  // alta: se quita el código de la dirección y se pide solo la contraseña del dispositivo. Para darlo de alta otra vez,
-  // «Olvidar este dispositivo». Y se pide al navegador que no borre lo guardado (si lo permite).
-  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () { }); } catch (e) { }
-  var m = /#a=([A-Za-z0-9_-]+)/.exec(location.hash);
-  if (cfg.v2) { // (4.2.0) dentro de la app: espera la clave de ese móvil (de la propia app, misma dirección)
-    document.body.classList.add('embed');
-    app.innerHTML = '<main><div class="card"><p class="loading">' + (window.parent !== window ? 'Abriendo los números…' : 'Los números se ven dentro de la app.') + '</p></div></main>';
-    window.addEventListener('message', function (e) {
-      if (e.origin !== location.origin || e.source !== window.parent || !e.data || e.data.t !== 'cs-numeros' || typeof e.data.kid !== 'string' || !e.data.key || e.data.key.type !== 'private') return;
-      st.me = { kid: e.data.kid, id: e.data.kid, key: e.data.key }; st.files = {}; st.open = {}; load();
-    });
-    return;
-  }
-  if (m && stored()) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } st.msg = ''; screenLocked(); }
-  else if (m) screenAlta(m[1]); else screenLocked();
-  window.addEventListener('hashchange', function () { var h = /#a=([A-Za-z0-9_-]+)/.exec(location.hash); if (!h) return; try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } if (stored()) { st.me = null; st.msg = ''; screenLocked(); } else screenAlta(h[1]); });
+  // (4.2.0) Dentro de la app: espera la clave de ese móvil y sus locales (de la propia app, misma dirección).
+  document.body.classList.add('embed');
+  app.innerHTML = '<main><div class="card"><p class="loading">' + (window.parent !== window ? 'Abriendo los números…' : 'Los números se ven dentro de la app.') + '</p></div></main>';
+  window.addEventListener('message', function (e) {
+    if (e.origin !== location.origin || e.source !== window.parent || !e.data || e.data.t !== 'cs-numeros' || typeof e.data.kid !== 'string' || !e.data.key || e.data.key.type !== 'private') return;
+    st.me = { kid: e.data.kid, id: e.data.kid, key: e.data.key }; st.zonas = Array.isArray(e.data.zonas) ? e.data.zonas.slice(0, 100).map(String) : []; st.files = {}; st.open = {}; load();
+  });
 })();
 </script>
 </body>
