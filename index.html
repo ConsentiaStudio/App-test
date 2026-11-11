@@ -3,19 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.1.3">
-<meta name="consentia-agenda-firma" content="m982F6ty1tujN6EctlGTkKOy5I1AjRDHcA8cxPFPmpD4/eSw5Pue7Yf1jtQ/tgt3m54/HfupzL9yj8m6ciCeDQ==">
+<meta name="consentia-agenda-version" content="4.2.0">
+<meta name="consentia-agenda-firma" content="5u7zkA7IKJEqadBquT4FEu7RziifhK/IwRuaRnxQifmqerejrtdb/qA+q4T9VZyk4gkEIOry+vhiaMjEr/flDg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-pXpXt432Z7tOs076Yx0RXfw4cptKqDXpq38AcSWi2UU='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-P2bYhZjkN4oarFdvJtCf1gABCfTDiGnsj2TJWT00YvU='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Agenda y calculadora · Consentía Studio</title>
+<title>Consentia Studio</title>
 <!-- Consentía Studio · agenda y calculadora (solo consulta), para el móvil y para el ordenador.
      Las agendas y las listas de precios están cifradas: esta página las descarga de GitHub y las descifra AQUÍ,
      en el navegador, con la contraseña que escribes. La contraseña no se envía a ningún sitio.
      La calculadora calcula con los precios de cada centro; no cobra ni guarda nada.
-     En el aparato no se guarda nada: ni la contraseña ni sus claves (se escribe cada vez que se abre la página). -->
+     En el aparato no se guarda nada: ni la contraseña ni sus claves (se escribe cada vez que se abre la página).
+     (4.2.0) Con los accesos activados, cada móvil pide acceso (QR del local), lo aprueba el Administrador o la empresaria y
+     entra con SU contraseña: la agenda llega cifrada para ese móvil. Pestañas según lo que puede ver: Agenda y
+     Calculadora; además Inicio y Números; además Control (aprobar, quitar, llaves, añadir un ordenador). -->
 <style>
 :root{--ink:#111113;--pink:#ff2b91;--muted:#77736c;--line:#e4e0d8;--bg:#f4f2ee;--good:#1d8a4a}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.35 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -327,10 +330,176 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .svP{opacity:.7}
 .vipStar{color:#f5b400;font-weight:400;margin-left:.25em;font-style:normal}
 .cItem b .svM{width:9px;height:9px;margin-right:7px}
+/* (4.2.0) Accesos: pedir acceso, esperar, entrar con la contraseña personal, Inicio, Números y Control. */
+.login form label{margin-top:14px}.login form label:first-of-type{margin-top:0}
+.login button[type=submit],.login .accSubmit{display:flex;align-items:center;justify-content:center;width:100%;height:52px;margin-top:18px;padding:0;border:0;border-radius:8px;background:var(--ink);color:#fff;font:inherit;font-size:15.5px;font-weight:700;cursor:pointer}
+.login button[disabled]{opacity:.6}
+.login .lnk,.accPage .lnk{border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;color:var(--ink);cursor:pointer}
+.accCode{font:800 40px ui-monospace,Consolas,monospace;letter-spacing:.18em;text-align:center;margin:10px 0 4px;color:var(--ink)}
+.accPw{text-align:center;font-size:15px}.accPw b{font-family:ui-monospace,Consolas,monospace;letter-spacing:.04em}
+.accWrap{padding:16px 14px calc(var(--mh) + 26px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto}
+.accWrap.full{max-width:none;padding:0}
+.accPage .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c2006b}
+.accPage h1{margin:6px 0 2px;font-size:27px;letter-spacing:-.02em;line-height:1.1}
+.accPage .sub{color:var(--muted);margin:2px 0 14px;font-size:14px}
+.accGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.accCard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.accGrid .accCard{margin:0}
+.accCard>small{display:block;color:var(--muted);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:4px 0 6px}
+.accCard>b{display:block;font-size:15px}
+.accCard strong{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:2px 0}
+.accCard.dark{background:var(--ink);color:#fff;border-color:var(--ink)}.accCard.dark small{color:#b9b6b0}
+.accCard .pwBox{height:46px;margin-top:8px}.accCard .pwBox input{flex:1;border:0;background:transparent;padding:0 12px;font:inherit;font-size:16px;min-width:0}
+.accRow{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #f0ede7}
+.accCard>.accRow:first-child,.accCard>small+.accRow{border-top:0}
+.accRow>div{flex:1;min-width:0}.accRow b{display:block;overflow:hidden;text-overflow:ellipsis}.accRow small{display:block;color:var(--muted);font-size:12.5px}
+.accRow>b:first-child{flex:none;font:700 13px ui-monospace,Consolas,monospace;min-width:44px}
+.accItem{width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.accAlert{display:flex;align-items:center;gap:6px;width:100%;margin:10px 0 0;padding:12px 14px;border:1px solid #ecd18c;border-radius:12px;background:#fff4d6;color:#5c3d00;font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.accAlert span{flex:1}.accAlert.pink{background:#fff0f7;border-color:#ffb3d6;color:#8a0047}
+.accBtn{display:block;width:100%;margin:10px 0 0;padding:13px;border:1px solid var(--ink);border-radius:12px;background:var(--ink);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.accBtn.pink{background:var(--pink);border-color:var(--pink)}.accBtn.ghost{background:#fff;color:var(--ink)}
+.accTwo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.accSeg{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:0 0 12px;overflow-x:auto}
+.accSeg button{flex:1 0 auto;height:36px;border:0;border-radius:9px;background:transparent;color:#5b5b61;font:inherit;font-size:13.5px;font-weight:600;padding:0 10px;white-space:nowrap}
+.accSeg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12)}
+.accLv,.accZ{margin:4px 0 8px}
+.accOpt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer}
+.accOpt:has(input:checked){border-color:var(--pink);background:#fff7fb}
+.accOpt input,.accChk input{margin:3px 0 0;accent-color:var(--pink);flex:none}
+.accOpt b{display:block;font-size:14px}.accOpt small{display:block;color:var(--muted);font-size:12.5px}
+.accChk{display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:14px}
+.accPill{flex:none;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#eee;color:#444;white-space:nowrap}
+.accPill.agenda{background:#eaf2fd;color:#1f5fbf}.accPill.numeros{background:#e3f5ea;color:#1d8a4a}.accPill.control{background:#fff0f7;color:#c2006b}
+.accPill.ok{background:#e3f5ea;color:#1d8a4a}.accPill.w{background:#fff4d6;color:#7a5600}
+.accCodeS{font:800 18px ui-monospace,Consolas,monospace;letter-spacing:.12em}
+.accFrame{display:block;width:100%;border:0;height:calc(100vh - var(--hh,56px) - var(--mh) - env(safe-area-inset-bottom) - 16px);background:var(--bg)}
+.accQr{display:flex;flex-direction:column;align-items:center;margin-top:12px}.accQr svg{width:240px;height:240px;max-width:100%}
+.sheet select{width:100%;margin-top:12px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.sheet button.danger{background:#c2103f}
+.accToast{position:fixed;left:50%;bottom:calc(var(--mh) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 10px 26px rgba(17,17,19,.25)}
+body.many-modes{--mh:74px}
+.modes.many .seg{max-width:620px}
+.modes.many button{flex-direction:column;gap:3px;height:52px;padding:0 2px;font-size:11px;font-weight:600}
+.modes.many button svg{width:21px;height:21px}
+.modes.many small{top:-6px;right:-2px;font-size:10.5px;padding:3px 6px}
+.modes .nDot{position:absolute;top:3px;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font:800 10.5px/17px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-style:normal;text-align:center;padding:0 4px}
+@media (min-width:1040px){.modes.many{display:block}body.many-modes .pC{height:calc(100vh - var(--hh,56px) - var(--mh))}body.many-modes .pA main:not(.wide){padding-bottom:calc(var(--mh) + 18px)}}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<script>
+/* (4.2.0) Copia EXACTA de renderer/js/core/qr.js (el QR para invitar desde el móvil de Control). */
+/* Código QR (ISO/IEC 18004) para el QR tributario del ticket. Modo byte, corrección de errores M
+   (la que pide la AEAT), versiones 1 a 15. Sin dependencias: devuelve la matriz y un SVG. */
+(function (root) {
+  'use strict';
+  // [código EC por bloque, bloques grupo 1, datos por bloque g1, bloques grupo 2, datos por bloque g2] · nivel M
+  const EC_M = [null, [10, 1, 16, 0, 0], [16, 1, 28, 0, 0], [26, 1, 44, 0, 0], [18, 2, 32, 0, 0], [24, 2, 43, 0, 0], [16, 4, 27, 0, 0], [18, 4, 31, 0, 0], [22, 2, 38, 2, 39], [22, 3, 36, 2, 37], [26, 4, 43, 1, 44], [30, 1, 50, 4, 51], [22, 6, 36, 2, 37], [22, 8, 37, 1, 38], [24, 4, 40, 5, 41], [24, 5, 41, 5, 42]];
+  const ALIGN = [null, [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70]];
+  const REMAINDER = v => (v >= 2 && v <= 6 ? 7 : v >= 14 ? 3 : 0);
+
+  // Aritmética en GF(256) con el polinomio 0x11D
+  const EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+  for (let i = 0, x = 1; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 0x100) x ^= 0x11d; }
+  for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  const mul = (a, b) => (a && b ? EXP[LOG[a] + LOG[b]] : 0);
+  function rsGenerator(n) { let g = [1]; for (let i = 0; i < n; i++) { const next = new Array(g.length + 1).fill(0); for (let j = 0; j < g.length; j++) { next[j] ^= g[j]; next[j + 1] ^= mul(g[j], EXP[i]); } g = next; } return g; }
+  function rsEncode(data, n) {
+    const gen = rsGenerator(n); const res = new Array(n).fill(0);
+    for (const d of data) { const f = d ^ res[0]; res.shift(); res.push(0); if (f) for (let i = 0; i < n; i++) res[i] ^= mul(gen[i + 1], f); }
+    return res;
+  }
+
+  function utf8(s) { return Array.from(new TextEncoder().encode(String(s))); }
+  function capacity(v) { const e = EC_M[v]; return e[1] * e[2] + e[3] * e[4]; }
+
+  function encodeData(bytes, v) {
+    const bits = []; const put = (val, len) => { for (let i = len - 1; i >= 0; i--) bits.push((val >> i) & 1); };
+    put(0b0100, 4); put(bytes.length, v < 10 ? 8 : 16); bytes.forEach(b => put(b, 8));
+    const total = capacity(v) * 8;
+    put(0, Math.min(4, total - bits.length));
+    while (bits.length % 8) bits.push(0);
+    const out = []; for (let i = 0; i < bits.length; i += 8) out.push(parseInt(bits.slice(i, i + 8).join(''), 2));
+    for (let p = 0; out.length < capacity(v); p++) out.push(p % 2 ? 0x11 : 0xec);
+    return out;
+  }
+  function interleave(data, v) {
+    const [ec, b1, d1, b2, d2] = EC_M[v]; const blocks = []; let k = 0;
+    for (let i = 0; i < b1; i++) { blocks.push(data.slice(k, k + d1)); k += d1; }
+    for (let i = 0; i < b2; i++) { blocks.push(data.slice(k, k + d2)); k += d2; }
+    const ecs = blocks.map(b => rsEncode(b, ec)); const out = [];
+    for (let i = 0; i < Math.max(d1, d2); i++) blocks.forEach(b => { if (i < b.length) out.push(b[i]); });
+    for (let i = 0; i < ec; i++) ecs.forEach(e => out.push(e[i]));
+    return out;
+  }
+
+  function bchFormat(data) { let d = data << 10; for (let i = 14; i >= 10; i--) if (d & (1 << i)) d ^= 0x537 << (i - 10); return ((data << 10) | d) ^ 0x5412; }
+  function bchVersion(v) { let d = v << 12; for (let i = 17; i >= 12; i--) if (d & (1 << i)) d ^= 0x1f25 << (i - 12); return (v << 12) | d; }
+  const MASKS = [(r, c) => (r + c) % 2 === 0, r => r % 2 === 0, (r, c) => c % 3 === 0, (r, c) => (r + c) % 3 === 0, (r, c) => (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0, (r, c) => ((r * c) % 2) + ((r * c) % 3) === 0, (r, c) => (((r * c) % 2) + ((r * c) % 3)) % 2 === 0, (r, c) => (((r + c) % 2) + ((r * c) % 3)) % 2 === 0];
+
+  function build(v, codewords, mask) {
+    const n = v * 4 + 17; const m = Array.from({ length: n }, () => new Array(n).fill(null));
+    const finder = (r, c) => { for (let i = -1; i <= 7; i++) for (let j = -1; j <= 7; j++) { const rr = r + i, cc = c + j; if (rr < 0 || cc < 0 || rr >= n || cc >= n) continue; const on = i >= 0 && i <= 6 && j >= 0 && j <= 6 && (i === 0 || i === 6 || j === 0 || j === 6 || (i >= 2 && i <= 4 && j >= 2 && j <= 4)); m[rr][cc] = on; } };
+    finder(0, 0); finder(0, n - 7); finder(n - 7, 0);
+    for (let i = 8; i < n - 8; i++) { m[6][i] = i % 2 === 0; m[i][6] = i % 2 === 0; }
+    const al = ALIGN[v];
+    const last = al.length - 1;
+    al.forEach((r, a) => al.forEach((c, b) => { if ((a === 0 && b === 0) || (a === 0 && b === last) || (a === last && b === 0)) return; for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) m[r + i][c + j] = Math.max(Math.abs(i), Math.abs(j)) !== 1; }));
+    m[n - 8][8] = true; // módulo oscuro
+    // Reservar zonas de formato y versión
+    for (let i = 0; i < 9; i++) { if (m[8][i] === null) m[8][i] = false; if (m[i][8] === null) m[i][8] = false; }
+    for (let i = 0; i < 8; i++) { if (m[8][n - 1 - i] === null) m[8][n - 1 - i] = false; if (m[n - 1 - i][8] === null) m[n - 1 - i][8] = false; }
+    if (v >= 7) for (let i = 0; i < 6; i++) for (let j = 0; j < 3; j++) { m[i][n - 11 + j] = false; m[n - 11 + j][i] = false; }
+    const reserved = m.map(row => row.map(x => x !== null));
+    // Datos en zigzag
+    const bits = []; codewords.forEach(b => { for (let i = 7; i >= 0; i--) bits.push((b >> i) & 1); }); for (let i = 0; i < REMAINDER(v); i++) bits.push(0);
+    let k = 0, up = true;
+    for (let c = n - 1; c > 0; c -= 2) {
+      if (c === 6) c--;
+      for (let t = 0; t < n; t++) { const r = up ? n - 1 - t : t; for (let dc = 0; dc < 2; dc++) { const cc = c - dc; if (reserved[r][cc]) continue; let bit = k < bits.length ? bits[k] === 1 : false; k++; if (MASKS[mask](r, cc)) bit = !bit; m[r][cc] = bit; } }
+      up = !up;
+    }
+    // Información de formato (nivel M = 00) y versión
+    const fmt = bchFormat((0b00 << 3) | mask);
+    const fb = i => ((fmt >> i) & 1) === 1;
+    for (let i = 0; i <= 5; i++) m[8][i] = fb(14 - i);
+    m[8][7] = fb(8); m[8][8] = fb(7); m[7][8] = fb(6);
+    for (let i = 9; i < 15; i++) m[14 - i][8] = fb(14 - i);
+    for (let i = 0; i < 7; i++) m[n - 1 - i][8] = fb(14 - i);
+    for (let j = 0; j < 8; j++) m[8][n - 8 + j] = fb(7 - j);
+    if (v >= 7) { const vb = bchVersion(v); for (let i = 0; i < 18; i++) { const bit = ((vb >> i) & 1) === 1; m[Math.floor(i / 3)][n - 11 + (i % 3)] = bit; m[n - 11 + (i % 3)][Math.floor(i / 3)] = bit; } }
+    return m;
+  }
+  function penalty(m) {
+    const n = m.length; let p = 0;
+    for (let pass = 0; pass < 2; pass++) for (let i = 0; i < n; i++) { let run = 1; for (let j = 1; j < n; j++) { const a = pass ? m[j][i] : m[i][j], b = pass ? m[j - 1][i] : m[i][j - 1]; if (a === b) { run++; if (j === n - 1 && run >= 5) p += run - 2; } else { if (run >= 5) p += run - 2; run = 1; } } }
+    for (let i = 0; i < n - 1; i++) for (let j = 0; j < n - 1; j++) { const c = m[i][j]; if (c === m[i + 1][j] && c === m[i][j + 1] && c === m[i + 1][j + 1]) p += 3; }
+    const pat = [true, false, true, true, true, false, true, false, false, false, false], pat2 = pat.slice().reverse();
+    for (let i = 0; i < n; i++) for (let j = 0; j <= n - 11; j++) for (const pt of [pat, pat2]) { let h = true, v = true; for (let k = 0; k < 11; k++) { if (m[i][j + k] !== pt[k]) h = false; if (m[j + k][i] !== pt[k]) v = false; } if (h) p += 40; if (v) p += 40; }
+    let dark = 0; m.forEach(r => r.forEach(x => { if (x) dark++; })); p += Math.floor(Math.abs(dark * 20 - n * n * 10) / (n * n)) * 10;
+    return p;
+  }
+  function matrix(text) {
+    const bytes = utf8(text);
+    let v = 1; while (v <= 15 && capacity(v) < bytes.length + (v < 10 ? 2 : 3)) v++;
+    if (v > 15) throw new Error('Texto demasiado largo para el código QR');
+    const cw = interleave(encodeData(bytes, v), v);
+    let best = null, bestP = Infinity;
+    for (let mask = 0; mask < 8; mask++) { const m = build(v, cw, mask); const p = penalty(m); if (p < bestP) { bestP = p; best = m; } }
+    return best;
+  }
+  function svg(text, { size = 132, margin = 4 } = {}) {
+    const m = matrix(text); const n = m.length + margin * 2; let path = '';
+    m.forEach((row, r) => row.forEach((on, c) => { if (on) path += `M${c + margin} ${r + margin}h1v1h-1z`; }));
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" width="${size}" height="${size}" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/><path d="${path}" fill="#000"/></svg>`;
+  }
+  const QR = { matrix, svg };
+  if (typeof module !== 'undefined' && module.exports) module.exports = QR;
+  if (root && root.CS) root.CS.qr = QR; else if (root) root.QRTributario = QR;
+})(typeof window !== 'undefined' ? window : null);
+</script>
 <script>
 (function () {
   'use strict';
@@ -373,7 +542,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   }
   function dropSession() { try { if (window.indexedDB) indexedDB.deleteDatabase(SDB); } catch (e) { } }
 
-  function el(tag, attrs, kids) { var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') Object.keys(attrs.on).forEach(function (ev) { e.addEventListener(ev, attrs.on[ev]); }); else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
+  function el(tag, attrs, kids) { var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') Object.keys(attrs.on).forEach(function (ev) { e.addEventListener(ev, attrs.on[ev]); }); else if (attrs[k] == null) return; else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
   // Iconos de la barra de abajo (trazo, 24×24). Cada pieza: [etiqueta, atributos]; la clase «f» va rellena.
   var ICON = {
     agenda: [['rect', { x: 3.5, y: 5, width: 17, height: 15.5, rx: 3.5 }], ['path', { d: 'M3.5 10h17M8 3v4M16 3v4' }], ['circle', { class: 'f', cx: 8.2, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 12, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 15.8, cy: 14.6, r: 1.15 }]],
@@ -738,6 +907,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   }
   // Abre un archivo con una clave ya conocida o con alguna de las contraseñas escritas.
   async function openFile(file) {
+    if (file && file.f === FMT_AG2) { if (!v2On()) return null; try { return await openEnv(file, acc.me.id, acc.me.e); } catch (e) { return null; } } // (4.2.0)
     var k; try { k = kdfOf(file); } catch (e) { return null; }
     if (st.keys[k.id]) { try { return await decryptWith(file, st.keys[k.id]); } catch (e) { } }
     for (var i = 0; i < st.pws.length; i++) {
@@ -752,12 +922,14 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   // GitHub (al momento), de 100 en 100. Si GitHub
   // limita las consultas (muchas seguidas desde la misma conexión), se leen las ramas ya vistas en esta visita de
   // raw.githubusercontent.com, que puede ir unos minutos por detrás.
-  function okBranch(b) { return BR_RE.test(String(b)) && !MAIN_RE.test(String(b)); }
+  function okBranch(b) { return BR_RE.test(String(b)) && !MAIN_RE.test(String(b)) && !/^cs-/.test(String(b)); } // (4.2.0) «cs-accesos» y «cs-num-…» no son agendas
   async function listing() {
     try {
       var refs = [];
       for (var pg = 1; pg <= 5; pg++) { var part = await getJson(cfg.api + '/repos/' + cfg.repo + '/branches?per_page=100&page=' + pg); if (!Array.isArray(part)) break; refs = refs.concat(part); if (part.length < 100) break; }
-      var items = refs.map(function (r) { return { key: String(r.name), sha: r.commit && r.commit.sha }; }).filter(function (x) { return okBranch(x.key) && SHA_RE.test(x.sha || ''); });
+      var all = refs.map(function (r) { return { key: String(r.name), sha: r.commit && r.commit.sha }; }).filter(function (x) { return SHA_RE.test(x.sha || ''); });
+      st.accSha = ''; st.numShas = {}; all.forEach(function (x) { if (x.key === BR_ACC) st.accSha = x.sha; else if (x.key.indexOf(NUM_PREFIX) === 0) st.numShas[x.key.slice(NUM_PREFIX.length)] = x.sha; });
+      var items = all.filter(function (x) { return okBranch(x.key); });
       st.branches = items.map(function (x) { return x.key; });
       return { items: items.map(function (x) { return { key: x.key, sha: x.sha, url: cfg.raw + '/' + cfg.repo + '/' + x.sha + '/agenda.json' }; }) };
     } catch (e) {
@@ -774,25 +946,29 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     st.loading = true; render();
     try {
       var l = await listing(), prev = {}, out = [];
+      if (v2On()) { await loadGrant(); if (!v2On()) { st.loading = false; st.ready = true; return render(); } } // (4.2.0) lo que puede ver este móvil (o si se lo han quitado)
       st.lastCheck = new Date().toISOString();
       st.centers.forEach(function (c) { prev[c.key] = c; });
       for (var i = 0; i < l.items.length; i++) {
         var it = l.items[i], p = prev[it.key], f = p && it.sha && p.sha === it.sha ? p.file : await getJson(it.url);
-        if (!f || typeof f.id !== 'string' || (OLD_RE.test(it.key) && 'agenda-' + f.id !== it.key)) continue; // (las de antes de la 1.10: cada archivo, solo en su rama)
+        if (!f || typeof f.id !== 'string' || (OLD_RE.test(it.key) && 'agenda-' + f.id !== it.key)) continue;
+        if (f.f === FMT_AG2 && (f.z !== it.key || f.n !== 'agenda.json')) continue; // (4.2.0) cada agenda, solo en su rama // (las de antes de la 1.10: cada archivo, solo en su rama)
         out.push({ key: it.key, sha: it.sha, file: f, data: p && p.file === f && p.data ? p.data : await openFile(f) });
       }
       // La misma agenda en dos zonas (la de antes y la nueva con el identificador del centro, mientras se quita la vieja): una sola vez.
       out = out.filter(function (c) { return !out.some(function (o) { return o !== c && o.file.id === c.file.id && (OLD_RE.test(c.key) && !OLD_RE.test(o.key) || (OLD_RE.test(c.key) === OLD_RE.test(o.key) && o.data && c.data && String(o.data.at) > String(c.data.at))); }); });
       out.sort(function (a, b) { return a.data && b.data ? txt(a.data.center.l || a.data.center.n).localeCompare(txt(b.data.center.l || b.data.center.n)) : a.data ? -1 : b.data ? 1 : 0; });
-      if (!st.pws.length && out.length && !out.some(function (c) { return c.data; })) st.bad = 'La contraseña de la agenda ha cambiado: escríbela otra vez.';
+      if (v2On()) out = out.filter(function (c) { return c.data; }); // (4.2.0) solo los locales que ve este móvil
+      else if (!st.pws.length && out.length && !out.some(function (c) { return c.data; })) st.bad = 'La contraseña de la agenda ha cambiado: escríbela otra vez.';
       var was = st.centers[st.cur] && st.centers[st.cur].key;
       var at = out.findIndex(function (c) { return c.key === was; });
       if (at < 0 || !out[at].data) at = Math.max(0, out.findIndex(function (c) { return c.data; })); // se queda en el centro que se estaba viendo
       if (st.want) { var w = out.findIndex(function (c) { return centerSlug(c) === st.want; }); if (w >= 0) { at = w; st.want = ''; } } // el centro de la dirección (…/#getafe)
       st.centers = out; st.cached = !!l.cached; st.cur = at;
-      if (out.some(function (c) { return c.data; })) saveSession(); else if (!st.pws.length && out.length) { dropSession(); st.keys = {}; st.loginAt = 0; } // (4.1.2)
+      if (v2On()) { /* (4.2.0) su sesión es otra */ } else if (out.some(function (c) { return c.data; })) saveSession(); else if (!st.pws.length && out.length) { dropSession(); st.keys = {}; st.loginAt = 0; } // (4.1.2)
       if (pageCheck()) return; // hay una página más nueva: se está recargando
-      st.msg = out.length ? '' : 'Todavía no hay ninguna agenda publicada. Se publica desde el programa: Ajustes → Agenda móvil (web).';
+      st.msg = out.length ? '' : v2On() ? 'Todavía no ha llegado ninguna agenda a este móvil: el local la publica en unos minutos.' : 'Todavía no hay ninguna agenda publicada. Se publica desde el programa: Ajustes → Agenda móvil (web).';
+      if (v2On() && nivel() !== 'agenda' && (st.mode === 'inicio' || !acc.inicio)) loadInicio();
     } catch (e) {
       st.msg = e.limit ? 'GitHub limita las consultas seguidas desde esta conexión. Espera unos minutos y vuelve a intentarlo.' : 'No se ha podido descargar la agenda (¿hay Internet?). Se volverá a intentar.';
     }
@@ -804,6 +980,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   // mira cada minuto, al volver a la página y antes de cada actualización; actualizar la agenda NO alarga la sesión.
   var SESSION_MS = 7 * 24 * 3600 * 1000;
   function sessionOver() {
+    if (acc.me) { if (st.loginAt && (Date.now() - st.loginAt >= SESSION_MS || Date.now() < st.loginAt)) { logout(); acc.msg = 'Han pasado 7 días desde que entraste: por seguridad, escribe tu contraseña otra vez.'; render(); return true; } return false; } // (4.2.0)
     if (!st.loginAt || !(st.pws.length || Object.keys(st.keys).length)) return false;
     if (Date.now() - st.loginAt < SESSION_MS && Date.now() >= st.loginAt) return false;
     logout(); st.bad = 'Han pasado 7 días desde que entraste: por seguridad, escribe la contraseña otra vez.'; render(); return true;
@@ -817,7 +994,8 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     // (4.1.2) Que el móvil ofrezca guardar la contraseña (Chrome en Android; en el iPhone lo hace el llavero con el formulario).
     try { if (window.PasswordCredential && navigator.credentials) navigator.credentials.store(new window.PasswordCredential({ id: 'Agenda Consentia Studio', name: 'Agenda Consentia Studio', password: pw })).catch(function () { }); } catch (e) { }
   }
-  function logout() { dropSession(); st.loginAt = 0; st.cab = -1; st.calM = ''; st.pws = []; st.keys = {}; st.centers = []; st.branches = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
+  function logout() { if (acc.me) { adel('sesion'); acc.me = null; acc.grant = null; acc.mk = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = ''; } // (4.2.0) se queda guardado (cifrado) para entrar con su contraseña
+    dropSession(); st.loginAt = 0; st.cab = -1; st.calM = ''; st.pws = []; st.keys = {}; st.centers = []; st.branches = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
   function setView(v) { st.view = v; st.scroll = null; render(); }
 
   // (3.2.0) Fondo de la entrada: el logotipo (la C) pequeño y casi transparente, repartido AL AZAR pero cubriendo toda la
@@ -851,15 +1029,17 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     app.innerHTML = '';
     var m0 = document.querySelector('.modes'); if (m0) m0.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
     var opened = st.centers.filter(function (c) { return c.data; });
-    var creds = st.pws.length || Object.keys(st.keys).length;
+    var v2 = v2On(), creds = v2 || st.pws.length || Object.keys(st.keys).length;
+    if (v2 && modesFor().indexOf(st.mode) < 0) st.mode = 'agenda';
     // (4.0.1) La entrada: arriba, la C con «Consentia Studio»; en el centro, la tarjeta con la contraseña (como la del panel).
     var brand = function () { return el('div', { class: 'brandTop' }, [el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }), el('b', { text: 'Consentia Studio' })]); };
     var card = function (kids) { app.appendChild(brand()); app.appendChild(el('div', { class: 'lwrap' }, [el('div', { class: 'login' }, kids)])); app.prepend(logoField()); };
     var ico = function (d) { var s = svg(d.map(function (x) { return ['path', { d: x }]; })); return s; };
-    var locked = !st.ready || !creds || (!opened.length && st.centers.length && !st.loading);
+    var locked = !st.ready || !creds || (!v2 && !opened.length && st.centers.length && !st.loading);
     document.documentElement.className = locked ? 'lock' : ''; // (la entrada no se desplaza; la agenda, sí)
     if ((creds || st.booting) && !st.ready) { card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Abriendo…' })]); return; }
-    if (!creds || (!opened.length && st.centers.length && !st.loading)) {
+    if (!v2 && accScreen(card)) { document.documentElement.className = 'lock'; return; } // (4.2.0) pedir acceso, esperando, contraseña personal, kit
+    if (!v2 && (!creds || (!opened.length && st.centers.length && !st.loading))) {
       var inp = el('input', { type: 'password', name: 'password', autocomplete: 'current-password', placeholder: 'Contraseña', 'aria-label': 'Contraseña de la agenda', id: 'pw' });
       var btn = el('button', { id: 'entrar', type: 'submit' }, [st.loading ? 'Abriendo…' : 'Entrar', st.loading ? null : ico(['M5 12h14', 'M13 6l6 6-6 6'])]);
       // Ver la contraseña (el ojo): cambia entre puntos y letras.
@@ -874,15 +1054,25 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
       card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Escribe la contraseña de la agenda para ver las citas y los precios del centro. Al entrar, este móvil la recuerda 7 días (hasta que pulses «Salir»).' }),
         form, st.bad ? el('div', { class: 'bad', text: st.bad }) : null, st.msg ? el('div', { class: 'warn', text: st.msg }) : null,
         st.fresh && !creds ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + '). Escribe la contraseña otra vez.' }) : null,
-        el('p', { class: 'lfoot', text: '¿No la sabes? Pídela en el centro.' })]);
+        acc.msg ? el('div', { class: 'bad', id: 'accMsg', text: acc.msg }) : null,
+        el('p', { class: 'lfoot', text: '¿No la sabes? Pídela en el centro.' }), accHelp()]);
       setTimeout(function () { inp.focus(); }, 50);
       return;
     }
     var c = st.centers[st.cur] || st.centers[0];
-    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), el('span', {}, [el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
-    if (st.centers.length > 1) head.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : 'Centro bloqueado', on: { click: function () { st.cur = i; st.scroll = null; setHash(x); render(); } } }); })));
+    var page = v2 && ['inicio', 'numeros', 'control'].indexOf(st.mode) >= 0; // (4.2.0) pestañas que no son de un local
+    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: v2 && acc.grant && acc.grant.name ? acc.grant.name : 'Consentía Studio' }), el('span', {}, [el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
+    if (st.centers.length > 1 && !page) head.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : 'Centro bloqueado', on: { click: function () { st.cur = i; st.scroll = null; setHash(x); render(); } } }); })));
     if (st.stale) head.appendChild(staleNote());
     app.appendChild(head);
+    if (v2 && nivel() !== 'agenda') document.body.classList.add('many-modes');
+    if (page) { // (4.2.0) Inicio, Números o Control
+      var pg = el('div', { class: 'accWrap' + (st.mode === 'numeros' ? ' full' : '') }); app.appendChild(pg);
+      if (st.mode === 'inicio') renderInicio(pg); else if (st.mode === 'numeros') renderNumeros(pg); else renderControl(pg);
+      document.body.appendChild(tabsBar()); document.body.className = 'has-modes many-modes'; modesBadge();
+      var hh0 = app.querySelector('header'); if (hh0) document.documentElement.style.setProperty('--hh', hh0.offsetHeight + 'px');
+      return;
+    }
     // Agenda (izquierda) y calculadora (derecha). En el móvil se ve una u otra: se cambia con la barra de abajo.
     var pane; try { pane = calcPane(c); } catch (e) { st.cNode = null; st.cKey = ''; ticketBox = totalBox = null; pane = el('aside', { class: 'calc', id: 'calculadora' }, [el('div', { class: 'cBody' }, [el('div', { class: 'warn', id: 'sinPrecios', text: 'No se ha podido abrir la lista de precios de este centro.' })])]); } // la calculadora nunca deja sin agenda
     if (st.cTab === 'extras' && (st.mode === 'calc' || window.innerWidth >= 1040)) loadFotos(c); // las fotos de los extras, cuando se van a ver
@@ -892,11 +1082,12 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     // (dos botones como los de un iPhone: icono y nombre; en «Calculadora», lo que lleva sumada la cuenta. El elegido
     // solo se anima al cambiar de uno a otro, no cada vez que se repinta la pantalla.)
     var mBtn = function (id, mode, label, icon, more, go) { var on = st.mode === mode; var a = { class: on ? (st.segGo ? 'on go' : 'on') : '', id: id, type: 'button', on: { click: function () { st.segGo = st.mode !== mode; go(); } } }; if (on) a['aria-current'] = 'page'; return el('button', a, [svg(icon), el('span', { text: label })].concat(more || [])); };
-    document.body.appendChild(el('nav', { class: 'modes', 'aria-label': 'Agenda o calculadora' }, [el('div', { class: 'seg' }, [
+    if (v2 && nivel() !== 'agenda') document.body.appendChild(tabsBar()); // (4.2.0) Inicio · Agenda · Calculadora · Números (· Control)
+    else document.body.appendChild(el('nav', { class: 'modes', 'aria-label': 'Agenda o calculadora' }, [el('div', { class: 'seg' }, [
       mBtn('verAgenda', 'agenda', 'Agenda', ICON.agenda, null, function () { st.mode = 'agenda'; st.scroll = null; render(); }),
       mBtn('verCalc', 'calc', 'Calculadora', ICON.calc, [el('small')], function () { st.mode = 'calc'; render(); window.scrollTo(0, 0); })])]));
     st.segGo = false;
-    document.body.className = 'has-modes' + (st.tk && st.lines.length ? ' tkOpen' : ''); modesBadge();
+    document.body.className = 'has-modes' + (v2 && nivel() !== 'agenda' ? ' many-modes' : '') + (st.tk && st.lines.length ? ' tkOpen' : ''); modesBadge();
     app = pA; // (lo que sigue —días y agenda— se pinta en el panel de la agenda)
     try { renderAgenda(c); } finally { app = root; }
     var hh = root.querySelector('header'); if (hh) document.documentElement.style.setProperty('--hh', hh.offsetHeight + 'px');
@@ -1045,18 +1236,454 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
     }
   }
 
+  /* ======================= (4.2.0) ACCESOS: la app con acceso personal ======================= */
+  // Cada móvil pide acceso (desde el QR de un local), lo aprueba el Administrador o la empresaria y desde entonces
+  // entra con SU contraseña. Este móvil crea aquí sus claves (ECDH para que le cifren lo suyo; ECDSA para firmar
+  // órdenes si tiene Control total): las privadas se guardan cifradas con su contraseña (PBKDF2-SHA256, 600.000
+  // vueltas) y, durante la sesión de 7 días, como claves que el navegador no deja sacar. Nada se guarda sin cifrar.
+  var QR = window.QRTributario || null, SC = window.crypto && window.crypto.subtle, TE = new TextEncoder(), TD = new TextDecoder();
+  var FMT_ACC = 'consentia-acc-1', FMT_AG2 = 'consentia-agenda-2', FMT_PANEL = 'consentia-panel-1', FMT_KIT = 'consentia-kit-1', ORDER_PREFIX = 'consentia-orden-1\n';
+  var DEV_ITER = 600000, BR_ACC = 'cs-accesos', NUM_PREFIX = 'cs-num-', LV_TXT = { agenda: 'Agenda y horario', numeros: 'Agenda, horario y números', control: 'Control total' };
+  var acc = { inv: null, rec: null, state: '', me: null, grant: null, mk: '', estado: null, ctab: 'sol', waits: {}, inicio: null, nNode: null, kit: false, msg: '', busy: false };
+  function u8(x) { return x instanceof Uint8Array ? x : new Uint8Array(x); }
+  function b64u(b) { var s = '', a = u8(b); for (var i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+  function unb64u(s) { s = String(s || '').replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; var bin = atob(s), out = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
+  function rnd(n) { return crypto.getRandomValues(new Uint8Array(n)); }
+  function hex(n) { return Array.prototype.map.call(rnd(n), function (b) { return (b < 16 ? '0' : '') + b.toString(16); }).join(''); }
+  // Lo guardado en este navegador: una base de datos con dos cosas por repositorio (el de TEST y el de los centros
+  // comparten dirección): «yo» (las claves de este móvil, cifradas con su contraseña) y «sesion» (7 días).
+  var ADB = 'consentia-app';
+  function adb() { return new Promise(function (res, rej) { var r = indexedDB.open(ADB, 1); r.onupgradeneeded = function () { r.result.createObjectStore('k'); }; r.onerror = function () { rej(r.error); }; r.onsuccess = function () { res(r.result); }; }); }
+  function akey(k) { return k + ':' + String(cfg.repo).toLowerCase(); }
+  // (para leer no se crea la base de datos: en un móvil sin acceso no queda nada guardado)
+  async function adbExists() { try { if (!indexedDB.databases) return true; return (await indexedDB.databases()).some(function (x) { return x.name === ADB; }); } catch (e) { return true; } }
+  async function aget(k) { try { if (!(await adbExists())) return null; var d = await adb(); var v = await new Promise(function (res) { var t = d.transaction('k', 'readonly'), r = t.objectStore('k').get(akey(k)); r.onsuccess = function () { res(r.result || null); }; r.onerror = function () { res(null); }; }); d.close(); return v; } catch (e) { return null; } }
+  async function aput(k, v) { var d = await adb(); await new Promise(function (res, rej) { var t = d.transaction('k', 'readwrite'); t.objectStore('k').put(v, akey(k)); t.oncomplete = res; t.onerror = function () { rej(t.error); }; }); d.close(); }
+  async function adel(k) { try { if (!(await adbExists())) return; var d = await adb(); await new Promise(function (res) { var t = d.transaction('k', 'readwrite'); t.objectStore('k').delete(akey(k)); t.oncomplete = res; t.onerror = res; }); d.close(); } catch (e) { } }
+
+  /* ---------- claves y sobres (lo mismo que lib/accesos.js, con WebCrypto) ---------- */
+  var ECDH = { name: 'ECDH', namedCurve: 'P-256' }, ECDSA = { name: 'ECDSA', namedCurve: 'P-256' };
+  async function newKeys() {
+    var e = await SC.generateKey(ECDH, true, ['deriveBits']), s = await SC.generateKey(ECDSA, true, ['sign', 'verify']);
+    var ej = await SC.exportKey('jwk', e.privateKey), sj = await SC.exportKey('jwk', s.privateKey);
+    return { e: { x: ej.x, y: ej.y, d: ej.d }, s: { x: sj.x, y: sj.y, d: sj.d } };
+  }
+  function privOf(j, sign) { return SC.importKey('jwk', { kty: 'EC', crv: 'P-256', x: j.x, y: j.y, d: j.d, ext: false }, sign ? ECDSA : ECDH, false, sign ? ['sign'] : ['deriveBits']); }
+  function pubOf(p) { return SC.importKey('jwk', { kty: 'EC', crv: 'P-256', x: p.x, y: p.y, ext: true }, ECDH, false, []); }
+  async function pwKey(pw, salt, iter) { var base = await SC.importKey('raw', TE.encode(String(pw).normalize('NFC')), 'PBKDF2', false, ['deriveKey']); return SC.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt: salt, iterations: iter }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']); }
+  async function aesOn(key, obj, ad) { var iv = rnd(12); var c = await SC.encrypt({ name: 'AES-GCM', iv: iv, additionalData: TE.encode(ad) }, key, TE.encode(JSON.stringify(obj))); return { iv: b64u(iv), c: b64u(c) }; }
+  async function aesOff(key, box, ad) { var p = await SC.decrypt({ name: 'AES-GCM', iv: unb64u(box.iv), additionalData: TE.encode(ad) }, key, unb64u(box.c)); return JSON.parse(TD.decode(p)); }
+  // ECDH(mi privada, la pública del otro) → HKDF-SHA256 (sal: la x de la clave efímera del sobre) → la clave que envuelve.
+  async function kek(fmt, priv, other, saltX, kid) {
+    var shared = await SC.deriveBits({ name: 'ECDH', public: await pubOf(other) }, priv, 256);
+    var hk = await SC.importKey('raw', shared, 'HKDF', false, ['deriveKey']);
+    return SC.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: unb64u(saltX), info: TE.encode(fmt + '|' + kid) }, hk, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  // Abrir un sobre (agenda, números, concesión, respuesta, estado): priv es la ECDH privada de este móvil (CryptoKey).
+  async function openEnv(e, kid, priv) {
+    if (typeof e === 'string') e = JSON.parse(e);
+    if (!e || [FMT_ACC, FMT_AG2, FMT_PANEL].indexOf(e.f) < 0 || !e.epk) throw new Error('formato');
+    var mine = (e.r || []).filter(function (r) { return r && r.k === kid; })[0]; if (!mine) { var err = new Error('sin-mi'); err.notMine = true; throw err; }
+    var k = await kek(e.f, priv, e.epk, e.epk.x, kid), w = unb64u(mine.w);
+    var cek = await SC.decrypt({ name: 'AES-GCM', iv: w.slice(0, 12), additionalData: TE.encode(kid) }, k, w.slice(12));
+    var ck = await SC.importKey('raw', cek, 'AES-GCM', false, ['decrypt']);
+    var plain = await SC.decrypt({ name: 'AES-GCM', iv: unb64u(e.iv), additionalData: TE.encode(e.f + ':' + e.z + '/' + e.n) }, ck, unb64u(e.c));
+    return JSON.parse(TD.decode(plain));
+  }
+  // Cerrar un sobre para la empresa (solicitudes y órdenes): con una clave efímera, como lib/accesos.js → seal.
+  async function sealEnv(obj, rcp, zona, file) {
+    var eph = await SC.generateKey(ECDH, true, ['deriveBits']), ej = await SC.exportKey('jwk', eph.publicKey);
+    var cek = rnd(32), iv = rnd(12), ck = await SC.importKey('raw', cek, 'AES-GCM', false, ['encrypt']);
+    var c = await SC.encrypt({ name: 'AES-GCM', iv: iv, additionalData: TE.encode(FMT_ACC + ':' + zona + '/' + file) }, ck, TE.encode(JSON.stringify(obj)));
+    var k = await kek(FMT_ACC, eph.privateKey, { x: rcp.x, y: rcp.y }, ej.x, rcp.kid), wiv = rnd(12);
+    var w = await SC.encrypt({ name: 'AES-GCM', iv: wiv, additionalData: TE.encode(rcp.kid) }, k, cek);
+    var wb = new Uint8Array(12 + w.byteLength); wb.set(wiv, 0); wb.set(u8(w), 12);
+    return JSON.stringify({ f: FMT_ACC, z: zona, n: file, epk: { x: ej.x, y: ej.y }, r: [{ k: rcp.kid, w: b64u(wb) }], iv: b64u(iv), c: b64u(c) });
+  }
+  async function signText(text, priv) { return b64u(await SC.sign({ name: 'ECDSA', hash: 'SHA-256' }, priv, TE.encode(ORDER_PREFIX + text))); }
+
+  /* ---------- la invitación (#i=…) ---------- */
+  function readInvite(h) {
+    var m = /#i=([A-Za-z0-9_-]+)/.exec(String(h || '')); if (!m) return null;
+    try {
+      var b = unb64u(m[1]); if (b[0] !== 1) return null; var at = 1;
+      var exp = ((b[1] << 24) >>> 0) + (b[2] << 16) + (b[3] << 8) + b[4]; at = 5;
+      var rd = function () { var n = b[at]; var s = TD.decode(b.slice(at + 1, at + 1 + n)); at += 1 + n; return s; };
+      var zona = rd(), accRepo = rd(); var x = b64u(b.slice(at, at + 32)), y = b64u(b.slice(at + 32, at + 64)); at += 64; var mk = rd();
+      if (!ZONE_RE.test(zona) || !/^[\w.-]+\/[\w.-]+$/.test(accRepo) || !/^github_pat_[A-Za-z0-9_]{20,}$/.test(mk)) return null;
+      return { exp: exp * 60000, zona: zona, accRepo: accRepo, acc: { x: x, y: y }, mk: mk };
+    } catch (e) { return null; }
+  }
+
+  /* ---------- GitHub: Accesos (con la llave de móviles) y App (sin permiso) ---------- */
+  async function accCall(method, repo, path, tok, body) {
+    var r; try { r = await fetch(cfg.api + '/repos/' + repo + '/contents/' + path + (method === 'GET' ? '?ref=main' : ''), { method: method, headers: { Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); }
+    catch (e) { throw new Error('Sin conexión (¿hay Internet?).'); }
+    if (r.status === 404 && method === 'GET') return null;
+    if (r.status === 401) { var e1 = new Error('La llave de este acceso ya no vale. Pide un QR nuevo en el local.'); e1.auth = true; throw e1; }
+    if (!r.ok) throw new Error('GitHub respondió ' + r.status + '.');
+    return r.status === 204 ? {} : r.json();
+  }
+  async function accGetJson(repo, path, tok) { var r = await accCall('GET', repo, path, tok); if (!r || !r.content) return null; return { sha: r.sha, json: JSON.parse(TD.decode(unb64u(String(r.content).replace(/\s/g, '').replace(/\+/g, '-').replace(/\//g, '_')))) }; }
+  function accPut(repo, path, obj, tok) { return accCall('PUT', repo, path, tok, { message: 'Consentia Studio', content: btoa(JSON.stringify(obj)), branch: 'main' }); }
+  function accDel(repo, path, sha, tok) { return accCall('DELETE', repo, path, tok, { message: 'Consentia Studio', sha: sha, branch: 'main' }).catch(function () { }); }
+  // (la rama, por su huella cuando se sabe: así no se lee una copia de hace unos minutos)
+  async function appRaw(path) { try { return await getJson(cfg.raw + '/' + cfg.repo + '/' + (st.accSha || BR_ACC) + '/' + path); } catch (e) { return null; } }
+
+  /* ---------- este móvil: guardar, desbloquear, la sesión ---------- */
+  // rec (guardado): { v, id, at, state ('pendiente' | 'activo'), pub, sig, wrap (claves privadas y, si hace falta, la
+  // llave de móviles, cifradas con la contraseña), req (la solicitud: zona, repositorio de Accesos, pública de la empresa) }
+  async function wrapKeys(pw, inner) { var salt = rnd(16); var k = await pwKey(pw, salt, DEV_ITER); var b = await aesOn(k, inner, 'consentia-movil-1'); return { s: b64u(salt), it: DEV_ITER, iv: b.iv, c: b.c }; }
+  async function unwrapKeys(pw, w) { var k = await pwKey(pw, unb64u(w.s), Math.min(Math.max(+w.it || DEV_ITER, 100000), 5000000)); try { return await aesOff(k, w, 'consentia-movil-1'); } catch (e) { throw new Error('Contraseña incorrecta.'); } }
+  // La sesión: las privadas como claves no extraíbles y una clave de sesión (no extraíble) que cifra lo demás.
+  async function startSession(inner, extra) {
+    var sk = await SC.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    var s = { at: Date.now(), e: await privOf(inner.e), s: await privOf(inner.s, true), sk: sk, box: await aesOn(sk, { mk: inner.mk || '', grant: extra && extra.grant || null }, 'consentia-sesion-1') };
+    await aput('sesion', s); return s;
+  }
+  async function sessionData(s) { try { return await aesOff(s.sk, s.box, 'consentia-sesion-1'); } catch (e) { return null; } }
+  async function sessionSave() { var s = await aget('sesion'); if (!s || !acc.me) return; s.box = await aesOn(s.sk, { mk: acc.mk || '', grant: acc.grant || null }, 'consentia-sesion-1'); await aput('sesion', s); }
+  async function wipeMe(msg) { await adel('sesion'); await adel('yo'); acc.me = null; acc.grant = null; acc.mk = ''; acc.rec = null; acc.state = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = msg || ''; st.centers = []; st.keys = {}; st.pws = []; st.loginAt = 0; st.mode = 'agenda'; render(); }
+
+  /* ---------- pedir acceso ---------- */
+  async function requestAccess(name, pw) {
+    var inv = acc.inv; if (!inv) throw new Error('Abre otra vez el QR del local.');
+    if (Date.now() > inv.exp) throw new Error('Este QR ha caducado (dura 30 minutos). Pide otro en el local.');
+    if (!/\S/.test(name)) throw new Error('Escribe tu nombre.');
+    var k = await newKeys(), id = hex(8), code = String(1000 + (rnd(2)[0] * 256 + rnd(1)[0]) % 9000).padStart(4, '0');
+    var ua = /iPhone|iPad/.test(navigator.userAgent) ? 'iPhone' : /Android/.test(navigator.userAgent) ? 'Android' : 'Navegador';
+    var body = { v: 1, id: id, name: String(name).trim().slice(0, 40), zona: inv.zona, pub: { x: k.e.x, y: k.e.y }, sig: { x: k.s.x, y: k.s.y }, code: code, ua: ua, at: new Date().toISOString() };
+    var env = await sealEnv(body, { kid: 'accesos', x: inv.acc.x, y: inv.acc.y }, '-', 'solicitud');
+    await accPut(inv.accRepo, 's/' + id + '.json', { v: 1, env: env }, inv.mk);
+    var inner = { e: k.e, s: k.s, mk: inv.mk };
+    acc.rec = { v: 1, id: id, at: body.at, state: 'pendiente', name: body.name, code: code, pub: body.pub, sig: body.sig, req: { zona: inv.zona, accRepo: inv.accRepo, acc: inv.acc, wait: 'r/' + id + '.json' }, wrap: await wrapKeys(pw, inner) };
+    await aput('yo', acc.rec); var s = await startSession(inner);
+    acc.me = { id: id, e: s.e, s: s.s }; acc.mk = inv.mk; acc.state = 'pendiente'; acc.inv = null; dropHash();
+    try { if (window.PasswordCredential && navigator.credentials) navigator.credentials.store(new window.PasswordCredential({ id: 'Consentia Studio', name: body.name, password: pw })).catch(function () { }); } catch (e) { }
+    render(); waitAnswer();
+  }
+  // Esperando la respuesta (cada 8 segundos mientras la pantalla está abierta).
+  var waitT = null;
+  async function waitAnswer() {
+    clearTimeout(waitT); if (acc.state !== 'pendiente' || !acc.rec || !acc.me) return;
+    try {
+      var r = await accGetJson(acc.rec.req.accRepo, acc.rec.req.wait, acc.mk);
+      if (r && r.json && r.json.env) {
+        var a = await openEnv(r.json.env, 'r', acc.me.e);
+        if (a && a.ok && a.grant) { await accDel(acc.rec.req.accRepo, acc.rec.req.wait, r.sha, acc.mk); await activate(a.grant); return; }
+        if (a && a.ok === false) { await accDel(acc.rec.req.accRepo, acc.rec.req.wait, r.sha, acc.mk); acc.state = 'rechazada'; acc.msg = a.why || 'No se ha aprobado.'; await adel('sesion'); await adel('yo'); render(); return; }
+      }
+      if (Date.now() - Date.parse(acc.rec.at) > 24 * 3600e3) { acc.state = 'rechazada'; acc.msg = 'La solicitud ha caducado (nadie la aprobó en 24 horas). Pide otra.'; await adel('sesion'); await adel('yo'); render(); return; }
+    } catch (e) { acc.msg = e.message; render(); }
+    waitT = setTimeout(waitAnswer, 8000);
+  }
+  async function activate(grant) {
+    acc.grant = grant; acc.state = 'activo'; acc.rec.state = 'activo'; acc.rec.req = null; acc.rec.code = '';
+    if (grant.nivel !== 'control') acc.mk = ''; // (la llave de móviles solo la guarda quien tiene Control)
+    else if (grant.mk) acc.mk = grant.mk;
+    await aput('yo', acc.rec); await sessionSave(); st.loginAt = Date.now(); st.mode = grant.nivel === 'agenda' ? 'agenda' : 'inicio'; await refresh();
+  }
+  // Entrar con la contraseña (después de los 7 días o al pulsar «Salir»).
+  async function unlock(pw) {
+    var rec = await aget('yo'); if (!rec) throw new Error('Este móvil no tiene acceso.');
+    var inner = await unwrapKeys(pw, rec.wrap); var s = await startSession(inner);
+    acc.rec = rec; acc.me = { id: rec.id, e: s.e, s: s.s }; acc.mk = inner.mk || ''; acc.state = rec.state; st.loginAt = s.at;
+    try { if (window.PasswordCredential && navigator.credentials) navigator.credentials.store(new window.PasswordCredential({ id: 'Consentia Studio', name: rec.name || 'Consentia Studio', password: pw })).catch(function () { }); } catch (e) { }
+    if (rec.state === 'pendiente') { render(); waitAnswer(); return; }
+    await loadGrant(); await refresh();
+  }
+  // Lo que puede ver (cifrado para este móvil en la rama «cs-accesos» de App). Si ya no está, se quita todo.
+  async function loadGrant() {
+    if (!acc.me) return;
+    var f = await appRaw('g-' + acc.me.id + '.json'); if (!f) return;
+    try {
+      if (f.n !== 'g-' + acc.me.id) return; var g = await openEnv(f, acc.me.id, acc.me.e);
+      if (!g || g.id !== acc.me.id) return;
+      if (g.revoked) { await wipeMe('Tu acceso a esta app se ha quitado. Si es un error, pide acceso otra vez en el local.'); return; }
+      acc.grant = g; if (g.nivel === 'control' && g.mk) acc.mk = g.mk; if (g.nivel !== 'control') acc.mk = '';
+      if (['inicio', 'numeros'].indexOf(st.mode) >= 0 && g.nivel === 'agenda') st.mode = 'agenda';
+      if (st.mode === 'control' && g.nivel !== 'control') st.mode = 'agenda';
+      await sessionSave();
+    } catch (e) { /* (otro aparato con el mismo nombre de archivo no puede pasar: se ignora) */ }
+  }
+  function dropHash() { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } }
+  function v2On() { return !!(acc.me && acc.grant && acc.state === 'activo'); }
+  function nivel() { return acc.grant ? acc.grant.nivel : ''; }
+
+  /* ---------- recuperar el Control con el kit ---------- */
+  function kitNorm(s) { return String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+  async function kitRecover(secret, name, pw) {
+    if (kitNorm(secret).length !== 24) throw new Error('El kit tiene 24 letras y números (6 grupos de 4).');
+    if (!/\S/.test(name)) throw new Error('Escribe tu nombre.');
+    var f = await appRaw('kit.json'); if (!f || f.f !== FMT_KIT) throw new Error('Esta empresa no tiene kit de recuperación publicado.');
+    var key = await pwKey(kitNorm(secret), unb64u(f.s), Math.min(Math.max(+f.it || 200000, 1000), 2000000)); var kit;
+    try { kit = JSON.parse(TD.decode(await SC.decrypt({ name: 'AES-GCM', iv: unb64u(f.iv), additionalData: TE.encode(FMT_KIT) }, key, unb64u(f.c)))); } catch (e) { throw new Error('Ese kit no es el de esta empresa (o está mal copiado).'); }
+    var kE = await privOf(kit.e), kS = await privOf(kit.s, true);
+    var gf = await appRaw('g-kit.json'); if (!gf) throw new Error('No se encuentra lo del kit. Vuelve a intentarlo en unos minutos.');
+    var g = await openEnv(gf, 'kit', kE); if (!g.mk || !g.acc || !g.accRepo) throw new Error('Al kit le falta la llave de los móviles: renuévala en un ordenador.');
+    var k = await newKeys(), id = hex(8), oid = hex(8);
+    var ua = /iPhone|iPad/.test(navigator.userAgent) ? 'iPhone' : /Android/.test(navigator.userAgent) ? 'Android' : 'Navegador';
+    var env = await sealEnv({ op: 'altaControl', args: { id: id, name: String(name).trim().slice(0, 40), pub: { x: k.e.x, y: k.e.y }, sig: { x: k.s.x, y: k.s.y }, ua: ua }, id: oid, at: Date.now(), dev: 'kit' }, { kid: 'accesos', x: g.acc.x, y: g.acc.y }, '-', 'orden');
+    await accPut(g.accRepo, 'o/' + oid + '.json', { v: 1, env: env, sig: await signText(env, kS) }, g.mk);
+    var inner = { e: k.e, s: k.s, mk: g.mk };
+    acc.rec = { v: 1, id: id, at: new Date().toISOString(), state: 'pendiente', name: String(name).trim().slice(0, 40), code: '', pub: { x: k.e.x, y: k.e.y }, sig: { x: k.s.x, y: k.s.y }, req: { zona: '', accRepo: g.accRepo, acc: g.acc, wait: 'r/' + oid + '.json' }, wrap: await wrapKeys(pw, inner) };
+    await aput('yo', acc.rec); var s = await startSession(inner);
+    acc.me = { id: id, e: s.e, s: s.s }; acc.mk = g.mk; acc.state = 'pendiente'; acc.kit = false; render(); waitAnswer();
+  }
+
+  /* ---------- órdenes de Control ---------- */
+  async function order(op, args) {
+    var g = acc.grant; if (!g || g.nivel !== 'control' || !acc.mk || !g.acc) throw new Error('Este móvil no tiene Control total.');
+    var oid = hex(8);
+    var env = await sealEnv({ op: op, args: args || {}, id: oid, at: Date.now(), dev: acc.me.id }, { kid: 'accesos', x: g.acc.x, y: g.acc.y }, '-', 'orden');
+    await accPut(g.accRepo, 'o/' + oid + '.json', { v: 1, env: env, sig: await signText(env, acc.me.s) }, acc.mk);
+    acc.waits[oid] = { op: op, at: Date.now() }; pollOrders(); return oid;
+  }
+  var pollT = null;
+  async function pollOrders() {
+    clearTimeout(pollT); var ids = Object.keys(acc.waits); if (!ids.length || !v2On()) return;
+    for (var i = 0; i < ids.length; i++) {
+      var w = acc.waits[ids[i]];
+      try {
+        var r = await accGetJson(acc.grant.accRepo, 'r/' + ids[i] + '.json', acc.mk);
+        if (r && r.json && r.json.env) { var a = await openEnv(r.json.env, 'r', acc.me.e); w.res = a; w.done = Date.now(); await accDel(acc.grant.accRepo, 'r/' + ids[i] + '.json', r.sha, acc.mk); delete acc.waits[ids[i]]; orderDone(w); }
+        else if (Date.now() - w.at > 15 * 60e3) { delete acc.waits[ids[i]]; acc.msg = 'Ningún ordenador de la empresa ha hecho la orden en 15 minutos (¿están todos apagados?).'; }
+      } catch (e) { /* se vuelve a mirar */ }
+    }
+    loadEstado().then(function (ch) { if (ch || !Object.keys(acc.waits).length) render(); });
+    if (Object.keys(acc.waits).length) pollT = setTimeout(pollOrders, 6000);
+  }
+  function orderDone(w) {
+    var a = w.res || {};
+    if (!a.ok) { acc.msg = a.why || 'No se ha podido hacer.'; return; }
+    acc.msg = '';
+    if (w.op === 'alta' && a.code) sheet([el('div', { class: 'h', text: 'Añadir un ordenador' }), el('h2', { text: 'Código de alta' }), el('p', { text: 'En el ordenador nuevo: Ajustes → Empresa → «Este local es de una empresa que ya existe». Pega el código y escribe la contraseña. Caduca en 24 horas.' }),
+      el('div', { class: 'accCode', id: 'altaCode', text: a.code }), el('p', { class: 'accPw' }, ['Contraseña: ', el('b', { id: 'altaPw', text: a.password })])]);
+    if (w.op === 'llave') toast('Llave renovada: llega sola a los ordenadores.');
+  }
+  async function loadEstado() {
+    if (!v2On() || nivel() !== 'control' || !acc.mk) return;
+    try { var r = await accGetJson(acc.grant.accRepo, 'e/' + acc.me.id + '.json', acc.mk); if (r && r.json && r.json.env) { var before = JSON.stringify(acc.estado); acc.estado = await openEnv(r.json.env, acc.me.id, acc.me.e); acc.estadoAt = Date.now(); return before !== JSON.stringify(acc.estado); } } catch (e) { acc.msg = e.auth ? e.message : acc.msg; }
+    return false;
+  }
+  function toast(t) { var n = el('div', { class: 'accToast', text: t }); document.body.appendChild(n); setTimeout(function () { n.remove(); }, 3500); }
+
+  /* ---------- pantallas de acceso (sin entrar todavía) ---------- */
+  function accScreen(card) {
+    if (acc.kit) return screenKit(card), true;
+    if (acc.inv && acc.state !== 'activo' && acc.state !== 'pendiente') return screenRequest(card), true;
+    if (acc.state === 'pendiente' && acc.me) return screenWait(card), true;
+    if (acc.state === 'rechazada') return screenRejected(card), true;
+    if (acc.rec && !acc.me) return screenPw(card), true;
+    if (acc.state === 'activo' && acc.me && !acc.grant) return screenGrant(card), true;
+    return false;
+  }
+  function field(id, label, type, ph, auto) { return [el('label', { for: id, text: label }), el('div', { class: 'pwBox' }, [el('input', { id: id, type: type, placeholder: ph, autocomplete: auto || 'off', name: id })])]; }
+  function errBox() { return el('div', { class: 'bad', id: 'accMsg', text: acc.msg || '', style: acc.msg ? '' : 'display:none' }); }
+  // (sin volver a pintar: lo escrito en el formulario se queda)
+  function showErr(m) { acc.msg = m || ''; var b = document.getElementById('accMsg'); if (!b) return render(); b.textContent = acc.msg; b.style.display = acc.msg ? '' : 'none'; }
+  function busyBtn(b, on, t) { if (!b) return; if (on) { b.dataset.t = b.textContent; b.textContent = t; b.setAttribute('disabled', ''); } else { b.textContent = b.dataset.t || b.textContent; b.removeAttribute('disabled'); } }
+  function screenRequest(card) {
+    var go = el('button', { id: 'pedir', type: 'submit', text: 'Solicitar acceso' });
+    var form = el('form', { id: 'solicitud', autocomplete: 'on', on: { submit: async function (e) {
+      e.preventDefault(); var n = document.getElementById('nombre').value, p1 = document.getElementById('pw1').value, p2 = document.getElementById('pw2').value;
+      if (!/\S/.test(n)) return showErr('Escribe tu nombre.');
+      if (p1.length < 8 || /^\d+$/.test(p1)) return showErr('La contraseña tiene que tener al menos 8 caracteres y no solo números.');
+      if (p1 !== p2) return showErr('Las dos contraseñas no son iguales.');
+      showErr(''); busyBtn(go, true, 'Enviando…'); try { await requestAccess(n, p1); } catch (err) { busyBtn(go, false); showErr(err.message); }
+    } } }, [].concat(field('nombre', 'Tu nombre *', 'text', 'Nombre y apellido', 'name'), field('pw1', 'Elige tu contraseña', 'password', 'Al menos 8 caracteres', 'new-password'), field('pw2', 'Repítela', 'password', 'Otra vez', 'new-password'), [go]));
+    var exp = acc.inv && Date.now() > acc.inv.exp;
+    card([el('div', { class: 'eyebrow', text: 'Pedir acceso' }), el('h1', { text: 'Solicitar acceso' }),
+      el('p', { text: 'Escribe tu nombre y elige tu contraseña. El Administrador del local o la empresaria tienen que aprobarlo antes de que puedas entrar.' }),
+      exp ? el('div', { class: 'bad', text: 'Este QR ha caducado (dura 30 minutos). Pide otro en el local.' }) : form, errBox(), el('p', { class: 'lfoot', text: 'Tu contraseña no sale de este móvil.' })]);
+  }
+  function screenWait(card) {
+    card([el('div', { class: 'eyebrow', text: 'Pedir acceso' }), el('h1', { text: 'Esperando aprobación' }), el('p', { text: (acc.rec && acc.rec.name ? acc.rec.name + ' · ' : '') + 'Cuando lo aprueben, esta pantalla se abre sola. Si cierras la app, al volver solo te pedirá tu contraseña.' }),
+      acc.rec && acc.rec.code ? el('p', { text: 'Di este código a quien te da acceso: tiene que ver el mismo en su pantalla.' }) : null,
+      acc.rec && acc.rec.code ? el('div', { class: 'accCode', id: 'codigo', text: acc.rec.code.slice(0, 2) + ' ' + acc.rec.code.slice(2) }) : null, errBox(),
+      el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', id: 'cancelarSol', text: 'Cancelar la solicitud', on: { click: function () { wipeMe(''); } } })])]);
+  }
+  // Ha entrado, pero todavía no se ha podido leer lo que puede ver (sin Internet, o GitHub tarda).
+  function screenGrant(card) {
+    card([el('div', { class: 'eyebrow', text: 'Consentia Studio' }), el('h1', { text: 'Abriendo tu acceso…' }), el('p', { text: 'Si tarda, comprueba que hay Internet.' }), errBox(),
+      el('button', { id: 'reintentar', type: 'submit', class: 'accSubmit', text: 'Reintentar', on: { click: async function () { showErr(''); await loadGrant(); if (v2On()) refresh(); else showErr('Todavía no se puede leer tu acceso. Vuelve a intentarlo en un minuto.'); } } })]);
+  }
+  function screenRejected(card) {
+    card([el('div', { class: 'eyebrow', text: 'Pedir acceso' }), el('h1', { text: 'No se ha aprobado' }), el('div', { class: 'bad', id: 'rechazo', text: acc.msg || 'Tu solicitud no se ha aprobado.' }),
+      el('p', { class: 'lfoot', text: 'Puedes pedirlo otra vez con un QR nuevo del local.' }), el('button', { id: 'otraVez', class: 'lnk', type: 'button', text: 'Entendido', on: { click: function () { acc.state = ''; acc.msg = ''; render(); } } })]);
+  }
+  function screenPw(card) {
+    var go = el('button', { id: 'entrar', type: 'submit', text: 'Entrar' });
+    var user = el('input', { type: 'text', name: 'username', autocomplete: 'username', value: (acc.rec && acc.rec.name) || 'Consentia Studio', class: 'pwUser', tabindex: '-1', 'aria-hidden': 'true', readonly: '' });
+    var form = el('form', { id: 'entrada', autocomplete: 'on', on: { submit: async function (e) { e.preventDefault(); showErr(''); busyBtn(go, true, 'Abriendo…'); try { await unlock(document.getElementById('pw').value); } catch (err) { busyBtn(go, false); showErr(err.message); } } } },
+      [user].concat(field('pw', 'Tu contraseña', 'password', 'Contraseña', 'current-password'), [go]));
+    card([el('div', { class: 'eyebrow', text: 'Consentia Studio' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Escribe tu contraseña. Al entrar, este móvil la recuerda 7 días (hasta que pulses «Salir»).' }), form, errBox(),
+      el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', id: 'olvidar', text: 'Olvidar este móvil', on: { click: function () { if (confirm('Se borra de este móvil su acceso. Para volver a entrar habrá que pedirlo otra vez.')) wipeMe(''); } } })])]);
+    setTimeout(function () { var i = document.getElementById('pw'); if (i) i.focus(); }, 50);
+  }
+  function screenKit(card) {
+    var go = el('button', { id: 'kitGo', type: 'submit', text: 'Recuperar el control' });
+    var form = el('form', { id: 'kitForm', on: { submit: async function (e) {
+      e.preventDefault(); var p1 = document.getElementById('kpw1').value; if (p1.length < 8 || /^\d+$/.test(p1)) return showErr('La contraseña tiene que tener al menos 8 caracteres y no solo números.');
+      if (p1 !== document.getElementById('kpw2').value) return showErr('Las dos contraseñas no son iguales.');
+      showErr(''); busyBtn(go, true, 'Recuperando…'); try { await kitRecover(document.getElementById('kit').value, document.getElementById('knombre').value, p1); } catch (err) { busyBtn(go, false); showErr(err.message); }
+    } } }, [].concat(field('kit', 'Kit de recuperación', 'text', 'XXXX-XXXX-XXXX-XXXX-XXXX-XXXX'), field('knombre', 'Tu nombre *', 'text', 'Nombre', 'name'), field('kpw1', 'Contraseña de este móvil', 'password', 'Al menos 8 caracteres', 'new-password'), field('kpw2', 'Repítela', 'password', 'Otra vez', 'new-password'), [go]));
+    card([el('div', { class: 'eyebrow', text: 'Kit de recuperación' }), el('h1', { text: 'Recuperar el control' }), el('p', { text: 'Con el kit que imprimiste, este móvil pasa a tener Control total. Lo hace un ordenador de la empresa en 1 o 2 minutos.' }), form, errBox(),
+      el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', text: 'Volver', on: { click: function () { acc.kit = false; acc.msg = ''; render(); } } })])]);
+  }
+  // (debajo de la entrada con contraseña de siempre) Cómo se pide acceso y el kit.
+  function accHelp() { return el('p', { class: 'lfoot', id: 'accAyuda' }, ['¿Nueva? Escanea el QR del local para pedir acceso. · ', el('button', { class: 'lnk', type: 'button', id: 'conKit', text: 'Recuperar con el kit', on: { click: function () { acc.kit = true; acc.msg = ''; render(); } } })]); }
+
+  /* ---------- la barra de abajo según el acceso ---------- */
+  var TAB_ICONS = { inicio: [['path', { d: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z' }]], numeros: [['path', { d: 'M4 20V10M10 20V4M16 20v-7M22 20H2' }]], control: [['path', { d: 'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z' }], ['path', { d: 'M9 12l2 2 4-4' }]] };
+  function modesFor() { var n = nivel(); return !v2On() || n === 'agenda' ? ['agenda', 'calc'] : n === 'numeros' ? ['inicio', 'agenda', 'calc', 'numeros'] : ['inicio', 'agenda', 'calc', 'numeros', 'control']; }
+  function tabsBar() {
+    var L = { inicio: 'Inicio', agenda: 'Agenda', calc: 'Calculadora', numeros: 'Números', control: 'Control' };
+    var ic = { inicio: TAB_ICONS.inicio, agenda: ICON.agenda, calc: ICON.calc, numeros: TAB_ICONS.numeros, control: TAB_ICONS.control };
+    var nSol = acc.estado && acc.estado.solicitudes ? acc.estado.solicitudes.length : 0;
+    return el('nav', { class: 'modes many', 'aria-label': 'Secciones' }, [el('div', { class: 'seg' }, modesFor().map(function (m) {
+      var a = { class: st.mode === m ? 'on' : '', id: 'ver-' + m, type: 'button', on: { click: function () { st.mode = m; st.scroll = null; if (m === 'control') loadEstado().then(render); if (m === 'inicio') loadInicio(); render(); window.scrollTo(0, 0); } } };
+      return el('button', a, [svg(ic[m]), el('span', { text: L[m] }), m === 'control' && nSol ? el('i', { class: 'nDot', text: String(nSol) }) : m === 'calc' ? el('small') : null]);
+    }))]);
+  }
+
+  /* ---------- Inicio ---------- */
+  async function loadInicio() {
+    if (!v2On() || nivel() === 'agenda') return; if (nivel() === 'control') await loadEstado(); // (los avisos: solicitudes y la llave)
+    var t = today(), zs = (acc.grant.locales || []).filter(function (l) { return acc.grant.zonas === '*' || (acc.grant.zonas || []).indexOf(l.zona) >= 0; });
+    var fact = 0, cobros = 0, got = 0;
+    for (var i = 0; i < zs.length; i++) {
+      try { var f = await getJson(cfg.raw + '/' + cfg.repo + '/' + ((st.numShas || {})[zs[i].zona] || NUM_PREFIX + zs[i].zona) + '/dia-' + t + '.json'); if (!f) continue; var d = await openEnv(f, acc.me.id, acc.me.e); fact += +d.facturacion || 0; cobros += +d.cobros || 0; got++; } catch (e) { }
+    }
+    acc.inicio = { day: t, fact: fact, cobros: cobros, locales: got, total: zs.length }; if (st.mode === 'inicio') render();
+  }
+  function renderInicio(root) {
+    var t = today(), nowHm = hm(new Date().getHours() * 60 + new Date().getMinutes()), h = new Date().getHours();
+    var opened = st.centers.filter(function (c) { return c.data; }); var all = [], citas = 0, pend = 0;
+    opened.forEach(function (c) { var emps = {}; (c.data.employees || []).forEach(function (e) { emps[e.id] = e.n; }); (c.data.appts || []).forEach(function (a) { if (a.d !== t || a.st === 'x' || a.st === 'n') return; citas++; if (a.st !== 'c' && a.st !== 'h' && a.e <= nowHm) pend++; if (a.s >= nowHm) all.push({ a: a, emp: emps[a.emp] || '', loc: txt(c.data.center.l || c.data.center.n, 40) }); }); });
+    all.sort(function (x, y) { return x.a.s < y.a.s ? -1 : 1; });
+    var e = acc.estado || {}, nSol = (e.solicitudes || []).length, L = (e.llaves || {}).moviles, days = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
+    var box = el('div', { class: 'accPage', id: 'inicio' }, [el('div', { class: 'eyebrow', text: LV_TXT[nivel()] + (acc.grant.zonas === '*' ? ' · todos los locales' : '') }), el('h1', { text: h < 14 ? 'Buenos días' : h < 21 ? 'Buenas tardes' : 'Buenas noches' }), el('p', { class: 'sub', text: longDay(t) }),
+      nivel() === 'control' && nSol ? el('button', { class: 'accAlert pink', id: 'avisoSol', type: 'button', on: { click: function () { st.mode = 'control'; acc.ctab = 'sol'; render(); } } }, [el('b', { text: String(nSol) }), el('span', { text: nSol === 1 ? ' solicitud de acceso esperando' : ' solicitudes de acceso esperando' }), el('b', { text: 'Ver ›' })]) : null,
+      nivel() === 'control' && days != null && days <= 7 ? el('button', { class: 'accAlert', id: 'avisoLlave', type: 'button', on: { click: function () { st.mode = 'control'; acc.ctab = 'llaves'; render(); } } }, [el('span', { text: 'La llave de los móviles caduca ' + (days <= 0 ? 'hoy' : 'en ' + days + (days === 1 ? ' día' : ' días')) }), el('b', { text: 'Renovar ›' })]) : null,
+      el('div', { class: 'accGrid' }, [el('div', { class: 'accCard dark', id: 'factHoy' }, [el('small', { text: 'Facturación hoy' }), el('strong', { text: acc.inicio && acc.inicio.day === t ? money(acc.inicio.fact) : '…' }), el('small', { text: acc.inicio && acc.inicio.day === t ? (acc.inicio.locales ? nUn(acc.inicio.cobros, 'cobro', 'cobros') + ' · ' + nUn(acc.inicio.locales, 'local', 'locales') : 'todavía sin datos de hoy') : 'Cargando' })]),
+        el('div', { class: 'accCard', id: 'citasHoy' }, [el('small', { text: 'Citas hoy' }), el('strong', { text: String(citas) }), el('small', { text: pend + ' por cobrar' })])]),
+      el('div', { class: 'accCard' }, [el('small', { text: 'Próximas citas' })].concat(all.length ? all.slice(0, 6).map(function (x) { return el('div', { class: 'accRow' }, [el('b', { text: txt(x.a.s, 5) }), el('div', {}, [el('b', { text: txt(x.a.c, 60) || 'Sin clienta' }), el('small', { text: [txt(x.a.sv, 60), x.emp, opened.length > 1 ? x.loc : ''].filter(Boolean).join(' · ') })])]); }) : [el('p', { class: 'sub', text: 'No quedan citas hoy.' })]))]);
+    root.appendChild(box);
+  }
+
+  /* ---------- Números (la página de los números, dentro) ---------- */
+  function renderNumeros(root) {
+    if (!acc.nNode) {
+      var q = new URLSearchParams(location.search); q.set('embed', '1');
+      var f = el('iframe', { class: 'accFrame', id: 'numeros', title: 'Números', src: 'numeros.html' + (/\.github\.io$/i.test(location.hostname) ? '' : '?' + q.toString()) });
+      f.addEventListener('load', function () { try { f.contentWindow.postMessage({ t: 'cs-numeros', kid: acc.me.id, key: acc.me.e }, location.origin); } catch (e) { } });
+      acc.nNode = f;
+    }
+    root.appendChild(acc.nNode);
+  }
+
+  /* ---------- Control ---------- */
+  function ago2(iso) { return iso ? ago(iso) : '—'; }
+  function lvPick(name, cur) { return el('div', { class: 'accLv' }, ['agenda', 'numeros', 'control'].map(function (n) { return el('label', { class: 'accOpt' }, [el('input', { type: 'radio', name: name, value: n, checked: cur === n ? 'checked' : null }), el('span', {}, [el('b', { text: LV_TXT[n] }), el('small', { text: n === 'agenda' ? 'Agenda, horarios y calculadora' : n === 'numeros' ? 'Además, los números de sus locales' : 'Todo, en todos los locales, y aprobar accesos' })])]); })); }
+  function zPick(name, sel) { var e = acc.estado || {}; return el('div', { class: 'accZ' }, (e.locales || []).map(function (l) { return el('label', { class: 'accChk' }, [el('input', { type: 'checkbox', name: name, value: l.zona, checked: sel === '*' || (sel || []).indexOf(l.zona) >= 0 ? 'checked' : null }), el('span', { text: l.name })]); })); }
+  function readPick(box, nm) { var lv = (box.querySelector('input[name="' + nm + 'L"]:checked') || {}).value || 'agenda'; var zs = Array.prototype.map.call(box.querySelectorAll('input[name="' + nm + 'Z"]:checked'), function (i) { return i.value; }); return { nivel: lv, zonas: lv === 'control' ? '*' : zs }; }
+  async function doOrder(op, args, msg) { try { await order(op, args); acc.msg = ''; toast(msg || 'Enviado: lo hará un ordenador de la empresa en 1 o 2 minutos.'); } catch (e) { acc.msg = e.message; } render(); }
+  function renderControl(root) {
+    var e = acc.estado; var T = [['sol', 'Solicitudes' + (e && e.solicitudes && e.solicitudes.length ? ' (' + e.solicitudes.length + ')' : '')], ['mov', 'Móviles'], ['pcs', 'Ordenadores'], ['llaves', 'Llaves']];
+    var box = el('div', { class: 'accPage', id: 'control' }, [el('div', { class: 'accSeg', id: 'ctlTabs' }, T.map(function (t) { return el('button', { type: 'button', 'data-ct': t[0], class: acc.ctab === t[0] ? 'on' : '', text: t[1], on: { click: function () { acc.ctab = t[0]; render(); } } }); })), errBox(),
+      Object.keys(acc.waits).length ? el('div', { class: 'warn', id: 'enCurso', text: 'Hay ' + nUn(Object.keys(acc.waits).length, 'orden', 'órdenes') + ' en curso: la hará un ordenador de la empresa en 1 o 2 minutos.' }) : null]);
+    if (!e) { box.appendChild(el('p', { class: 'sub', text: 'Cargando… (lo prepara un ordenador de la empresa: si acabas de entrar, tarda 1 o 2 minutos).' })); root.appendChild(box); return; }
+    if (acc.ctab === 'sol') {
+      box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'invitar', text: 'Invitar a alguien (QR)', on: { click: inviteSheet } }));
+      if (!e.solicitudes.length) box.appendChild(el('p', { class: 'sub', text: 'No hay solicitudes esperando.' }));
+      e.solicitudes.forEach(function (r) {
+        var c = el('div', { class: 'accCard', 'data-sol': r.id }, [el('div', { class: 'accRow' }, [el('div', {}, [el('b', { text: r.name }), el('small', { text: 'Pide acceso a ' + r.local + ' · ' + ago2(r.at) + ' · ' + r.ua })]), el('b', { class: 'accCodeS', text: r.code.slice(0, 2) + ' ' + r.code.slice(2) })]),
+          el('small', { text: 'Qué puede ver' }), lvPick('s' + r.id + 'L', 'agenda'), el('small', { text: 'Locales' }), zPick('s' + r.id + 'Z', [r.zona])]);
+        c.appendChild(el('div', { class: 'accTwo' }, [el('button', { class: 'accBtn ghost', type: 'button', 'data-rechazar': r.id, text: 'Rechazar', on: { click: function () { doOrder('rechazar', { id: r.id }); } } }),
+          el('button', { class: 'accBtn pink', type: 'button', 'data-aceptar': r.id, text: 'Aceptar', on: { click: function () { var p = readPick(c, 's' + r.id); if (p.zonas !== '*' && !p.zonas.length) return showErr('Elige al menos un local.'); doOrder('aprobar', { id: r.id, nivel: p.nivel, zonas: p.zonas }); } } })]));
+        box.appendChild(c);
+      });
+    }
+    if (acc.ctab === 'mov') {
+      var list = el('div', { class: 'accCard' }); e.dispositivos.filter(function (d) { return !d.revokedAt; }).forEach(function (d) {
+        list.appendChild(el('button', { class: 'accRow accItem', type: 'button', 'data-mov': d.id, on: { click: function () { devSheet(d); } } }, [el('div', {}, [el('b', { text: d.name + (d.id === acc.me.id ? ' (este móvil)' : '') }), el('small', { text: (d.zonas === '*' ? 'Todos los locales' : (d.zonas || []).map(function (z) { var l = (e.locales || []).filter(function (x) { return x.zona === z; })[0]; return l ? l.name : z; }).join(', ')) + ' · desde ' + (d.at || '').slice(0, 10) })]), el('span', { class: 'accPill ' + d.nivel, text: d.nivel === 'agenda' ? 'Agenda' : d.nivel === 'numeros' ? '+ Números' : 'Control' })]));
+      }); box.appendChild(list); box.appendChild(el('p', { class: 'sub', text: 'Toca uno para cambiar qué ve o quitarlo. Al quitarlo deja de ver en cuanto los locales vuelven a publicar (unos minutos).' }));
+    }
+    if (acc.ctab === 'pcs') {
+      var pl = el('div', { class: 'accCard' }); e.ordenadores.filter(function (p) { return !p.revokedAt; }).forEach(function (p) {
+        pl.appendChild(el('div', { class: 'accRow', 'data-pc': p.id }, [el('div', {}, [el('b', { text: p.name }), el('small', { text: 'conectado ' + ago2(p.visto) })]), el('span', { class: 'accPill ' + (p.llave ? 'ok' : 'w'), text: p.llave ? '✓ llave' : 'sin llave' }),
+          el('button', { class: 'lnk', type: 'button', 'data-quitarpc': p.id, text: 'Quitar', on: { click: function () { if (confirm('¿Quitar el ordenador de ' + p.name + '? Después renueva la llave de los ordenadores.')) doOrder('quitarPc', { id: p.id }); } } })]));
+      }); box.appendChild(pl);
+      box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'altaPc', text: 'Añadir un ordenador (código de alta)', on: { click: function () { doOrder('alta', {}, 'Pedido: el código sale aquí en 1 o 2 minutos.'); } } }));
+    }
+    if (acc.ctab === 'llaves') {
+      ['moviles', 'ordenadores'].forEach(function (t) {
+        var L = (e.llaves || {})[t]; var d = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
+        var inp = el('input', { type: 'password', id: 'llave-' + t, placeholder: 'github_pat_…', autocomplete: 'off' });
+        box.appendChild(el('div', { class: 'accCard', 'data-llave': t }, [el('div', { class: 'accRow' }, [el('div', {}, [el('b', { text: t === 'moviles' ? 'Llave de los móviles' : 'Llave de los ordenadores' }), el('small', { text: t === 'moviles' ? 'Se renueva cada 30 días' : 'La comparten todos los locales · cada año' })]), el('span', { class: 'accPill ' + (d == null ? 'w' : d <= 7 ? 'w' : 'ok'), text: d == null ? 'sin fecha' : d <= 0 ? 'caduca hoy' : d + ' días' })]),
+          el('small', { text: L ? 'Versión ' + L.v + ' · la tienen ' + L.tienen + ' de ' + e.ordenadores.filter(function (p) { return !p.revokedAt; }).length + ' ordenadores' : 'Sin poner' }),
+          el('div', { class: 'pwBox' }, [inp]), el('button', { class: 'accBtn pink', type: 'button', 'data-renovar': t, text: 'Renovar', on: { click: function () { var v = inp.value.trim(); if (!/^github_pat_[A-Za-z0-9_]{20,}$/.test(v)) return showErr('Pega el permiso nuevo de GitHub (empieza por github_pat_).'); doOrder('llave', { tipo: t, token: v }); } } })]));
+      });
+      box.appendChild(el('div', { class: 'accCard' }, [el('b', { text: 'Kit de recuperación' }), el('small', { text: e.kit ? 'Creado el ' + String(e.kit.at).slice(0, 10) + ' · ' + e.kit.by + '. Para crear uno nuevo: en un ordenador, como empresario, Ajustes → Accesos.' : 'Todavía no hay kit: créalo en un ordenador (Ajustes → Accesos).' })]));
+    }
+    root.appendChild(box);
+  }
+  function devSheet(d) {
+    var box = el('div', {}, [el('small', { text: 'Qué puede ver' }), lvPick('dL', d.nivel), el('small', { text: 'Locales' }), zPick('dZ', d.zonas)]);
+    sheet([el('div', { class: 'h', text: d.ua || 'Móvil' }), el('h2', { text: d.name }), el('p', { text: 'Aprobado el ' + String(d.at).slice(0, 10) + ' por ' + (d.by || '—') }), box], function (close) {
+      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'cambiarAcc', text: 'Cambiar acceso', on: { click: function () { var p = readPick(box, 'd'); close(); doOrder('cambiar', { id: d.id, nivel: p.nivel, zonas: p.zonas }); } } }),
+        el('button', { type: 'button', id: 'quitarMov', class: 'danger', text: 'Quitar', on: { click: function () { if (!confirm('¿Quitar el acceso de ' + d.name + '?')) return; close(); doOrder('quitar', { id: d.id }); } } })]);
+    });
+  }
+  // Invitar desde el móvil: el mismo QR que enseña el ordenador del local (dura 30 minutos).
+  function inviteLink(zona) {
+    var g = acc.grant, enc = function (s) { var b = TE.encode(s); return [b.length].concat(Array.prototype.slice.call(b)); };
+    var exp = Math.floor((Date.now() + 30 * 60e3) / 60e3); var bytes = [1, (exp >>> 24) & 255, (exp >>> 16) & 255, (exp >>> 8) & 255, exp & 255].concat(enc(zona), enc(g.accRepo), Array.prototype.slice.call(unb64u(g.acc.x)), Array.prototype.slice.call(unb64u(g.acc.y)), enc(acc.mk));
+    return location.origin + location.pathname + location.search + '#i=' + b64u(new Uint8Array(bytes));
+  }
+  function inviteSheet() {
+    var e = acc.estado || {}; var sel = el('select', { id: 'invLocal' }, (e.locales || []).map(function (l) { return el('option', { value: l.zona, text: l.name }); }));
+    var out = el('div', { class: 'accQr', id: 'invQr' }); var draw = function () { var url = inviteLink(sel.value); out.innerHTML = ''; try { out.innerHTML = QR.svg(url, { size: 240 }); } catch (err) { out.textContent = url; } out.appendChild(el('button', { type: 'button', class: 'accBtn', text: 'Compartir el enlace', on: { click: function () { if (navigator.share) navigator.share({ url: url }).catch(function () { }); else { try { navigator.clipboard.writeText(url); toast('Enlace copiado.'); } catch (err) { } } } } })); };
+    sel.addEventListener('change', draw);
+    sheet([el('div', { class: 'h', text: 'Vale 30 minutos' }), el('h2', { text: 'Invitar a alguien' }), el('p', { text: 'Que lo escanee con la cámara del móvil, escriba su nombre y elija su contraseña. Después lo apruebas aquí.' }), sel, out]); draw();
+  }
+
+  // (4.2.0) Al abrir: ¿este móvil ya tiene su acceso (o lo está esperando)? Si no, ¿viene del QR de un local (#i=…)?
+  // Si no, la entrada de siempre (la contraseña común de la agenda, mientras los accesos no estén activados).
+  async function bootAcc() {
+    if (!SC || !window.indexedDB || !cfg.repo) return false;
+    var rec = await aget('yo'), inv = readInvite(location.hash);
+    if (inv) { st.want = ''; if (!rec) { acc.inv = inv; dropHash(); return true; } dropHash(); }
+    if (!rec) return false;
+    acc.rec = rec; acc.state = rec.state;
+    var s = await aget('sesion');
+    if (s && +s.at > 0 && Date.now() - s.at < SESSION_MS && Date.now() >= s.at && s.e && s.sk) {
+      var data = await sessionData(s);
+      if (data) { acc.me = { id: rec.id, e: s.e, s: s.s }; acc.mk = data.mk || ''; acc.grant = data.grant || null; st.loginAt = +s.at; }
+    } else if (s) await adel('sesion');
+    if (acc.me && acc.state === 'pendiente') { st.ready = true; render(); waitAnswer(); return 'listo'; }
+    if (acc.me && acc.state === 'activo' && acc.grant) { st.mode = nivel() === 'agenda' ? 'agenda' : 'inicio'; refresh(); return 'listo'; }
+    return true;
+  }
+
   // (4.1.2) Si en este aparato hay una sesión de menos de 7 días, se entra sin escribir la contraseña.
   forget(); st.ready = false; st.booting = true; render();
-  loadSession().then(function (v) { st.booting = false;
-    if (v && v.keys && +v.at > 0 && Date.now() - v.at < SESSION_MS && Date.now() >= v.at && Object.keys(v.keys).length) { st.keys = v.keys; st.loginAt = +v.at; st.ready = false; refresh(); }
-    else { if (v) dropSession(); st.ready = true; render(); }
+  bootAcc().catch(function () { return false; }).then(function (a) {
+    if (a === 'listo') { st.booting = false; return; }
+    if (a) { st.booting = false; st.ready = true; render(); return; }
+    return loadSession().then(function (v) { st.booting = false;
+      if (v && v.keys && +v.at > 0 && Date.now() - v.at < SESSION_MS && Date.now() >= v.at && Object.keys(v.keys).length) { st.keys = v.keys; st.loginAt = +v.at; st.ready = false; refresh(); }
+      else { if (v) dropSession(); st.ready = true; render(); }
+    });
   });
-  setInterval(function () { if ((st.pws.length || Object.keys(st.keys).length) && !document.hidden) refresh(); }, 5 * 60 * 1000);
+  window.addEventListener('hashchange', function () { var inv = readInvite(location.hash); if (inv && !acc.rec) { acc.inv = inv; acc.msg = ''; dropHash(); render(); } });
+  setInterval(function () { if ((v2On() || st.pws.length || Object.keys(st.keys).length) && !document.hidden) refresh(); }, 5 * 60 * 1000);
   setInterval(sessionOver, 60 * 1000); // (3.2.1) 12 horas como mucho
   window.addEventListener('resize', fitGrid);
   window.addEventListener('hashchange', function () { var w = wanted(); if (!w) return; var i = st.centers.findIndex(function (c) { return centerSlug(c) === w; }); if (i >= 0) { if (i !== st.cur) { st.cur = i; st.scroll = null; render(); } } else st.want = w; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var b = document.querySelector('.sheetBack'); if (b) b.remove(); } });
-  document.addEventListener('visibilitychange', function () { if (!document.hidden && sessionOver()) return; if (!document.hidden && (st.pws.length || Object.keys(st.keys).length) && (!st.lastCheck || Date.now() - Date.parse(st.lastCheck) > 60000)) refresh(); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && sessionOver()) return; if (!document.hidden && acc.state === 'pendiente' && acc.me) waitAnswer(); if (!document.hidden && (v2On() || st.pws.length || Object.keys(st.keys).length) && (!st.lastCheck || Date.now() - Date.parse(st.lastCheck) > 60000)) refresh(); });
 })();
 </script>
 </body>
