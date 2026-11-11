@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.2.2">
-<meta name="consentia-agenda-firma" content="ygBCtJlg6OoieAWXNdEiUWZQVHb1VhT5y6IRfh7pAKjXbGezycxFLDESrvqdenvSxzIFq8lsVW8g0/m4z6xWDw==">
+<meta name="consentia-agenda-version" content="4.3.0">
+<meta name="consentia-agenda-firma" content="1zHiz8XAap5s3mrHL47gC4UV/ePXp6ewFhMTwTVQyD9y/Hgl05RSt/no0EC0Sn92LuPOIQ3bbXvQT/gc+FYJDg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-2OKmc84erf4F776UEDpkMxO/HMpqlnnbd0KHXP+lTf8='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-rkutHNv6BciY1PqCPJRa7PhDkBrSV/mZv2Zd2NFOoa4='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Consentia">
+<meta name="apple-mobile-web-app-title" content="Consentía Studio">
 <!-- (4.2.2) El icono para la pantalla de inicio (la «C») y el manifiesto: los publica el programa junto a la página. -->
 <link rel="apple-touch-icon" href="icono-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icono-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Consentia Studio</title>
+<title>Consentía Studio</title>
 <!-- Consentía Studio · agenda y calculadora (solo consulta), para el móvil y para el ordenador.
      Las agendas y las listas de precios están cifradas: esta página las descarga de GitHub y las descifra AQUÍ,
      en el navegador, con la contraseña que escribes. La contraseña no se envía a ningún sitio.
@@ -32,6 +32,12 @@ header{background:var(--ink);color:#fff;padding:calc(10px + env(safe-area-inset-
 header .t{display:flex;align-items:center;justify-content:space-between;gap:8px}
 header b{letter-spacing:.14em;font-size:13px;text-transform:uppercase}
 header button{background:transparent;color:#fff;border:1px solid #444;border-radius:4px;padding:6px 10px;font:inherit;font-size:12px}
+header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round} /* (4.3.0) Mis vacaciones */
+.vacList{margin:10px 0 4px;display:grid;gap:6px}.vacRow{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px}
+.vacRow small{color:var(--muted);display:block;font-size:12px}.vacTag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:99px;background:#f2f0ec;color:var(--muted);white-space:nowrap}
+.vacTag.ok{background:#e3f4ea;color:#1d7a45}.vacTag.warn{background:#fff3d6;color:#8a5a00}.vacTag.bad{background:#fde7e7;color:#b3261e}
+.vacForm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.vacForm label{font-size:12px;font-weight:700;color:var(--muted)}.vacForm input{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box}.vacForm .full{grid-column:1/-1}
+.accSel{width:100%;margin:4px 0 8px;padding:10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px}
 .tabs button{flex:none;background:#26262a;color:#ddd;border:0;border-radius:16px;padding:6px 12px;font:inherit;font-size:13px}
 .tabs button.on{background:var(--pink);color:#fff}
@@ -384,7 +390,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .sheet select{width:100%;margin-top:12px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .sheet button.danger{background:#c2103f}
 .accToast{position:fixed;left:50%;bottom:calc(var(--mh) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 10px 26px rgba(17,17,19,.25)}
-body.many-modes{--mh:74px}
+body.many-modes{--mh:74px;overflow-x:clip}
 .modes.many .seg{max-width:620px}
 .modes.many button{flex-direction:column;gap:3px;height:52px;padding:0 2px;font-size:11px;font-weight:600}
 .modes.many button svg{width:21px;height:21px}
@@ -392,12 +398,12 @@ body.many-modes{--mh:74px}
 .modes .nDot{position:absolute;top:3px;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font:800 10.5px/17px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-style:normal;text-align:center;padding:0 4px}
 @media (min-width:1040px){.modes.many{display:block}body.many-modes .pC{height:calc(100vh - var(--hh,56px) - var(--mh))}body.many-modes .pA main:not(.wide){padding-bottom:calc(var(--mh) + 18px)}}
 /* (4.2.2) Control: pestañas con icono, como las de Números */
-.accTabs{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:1px solid var(--line);margin:-16px -14px 12px;padding:6px 4px;position:sticky;top:var(--hh,56px);z-index:4}
-.accTabs button{position:relative;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;font:inherit;font-size:11.5px;font-weight:700;color:var(--muted);padding:5px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.accTabs button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.accTabs{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:1px solid var(--line);margin:-16px calc(50% - 50vw) 12px;padding:6px 4px;height:58px;align-items:stretch;position:sticky;top:var(--hh,56px);z-index:4}
+/* (4.2.3) Las mismas medidas que la barra de Números (panel.html, body.embed .tabsNav): 58 px, icono de 20, letra de 11,5. */
+.accTabs button{position:relative;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11.5px/1.25 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--muted);padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.accTabs button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .accTabs button.on{color:var(--pink)}
 .accTabs .nDot{position:absolute;top:0;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font:800 10.5px/17px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-style:normal;text-align:center;padding:0 4px}
-@media (min-width:760px){.accTabs{margin:-16px 0 12px;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px}}
 </style>
 </head>
 <body>
@@ -516,7 +522,7 @@ body.many-modes{--mh:74px}
 <script>
 (function () {
   'use strict';
-  var FORMAT = 'consentia-agenda-1', MIN_ITER = 100000, MAX_ITER = 5000000, BR_RE = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/, MAIN_RE = /^(main|master|gh-pages|head)$/i, OLD_RE = /^agenda-[0-9a-f]{16,64}$/, ZONE_RE = /^[a-z0-9][a-z0-9-]{0,59}$/, SHA_RE = /^[0-9a-f]{40,64}$/, LS_BR = 'consentia-agenda-ramas', LS_VW = 'consentia-agenda-vista';
+  var ZONE_RE = /^[a-z0-9][a-z0-9-]{0,59}$/, LS_BR = 'consentia-agenda-ramas', LS_VW = 'consentia-agenda-vista'; // (4.3.0) sin la contraseña común: solo la app con accesos
   var PX = 1.5, COL_W = 112, TIME_W = 42; // píxeles por minuto, ancho mínimo de cada columna y de la columna de las horas
   var PAGE_V = (document.querySelector('meta[name="consentia-agenda-version"]') || {}).content || '', SS_RL = 'consentia-agenda-recarga', SS_MAN = 'consentia-agenda-recarga-a-mano';
   var app = document.getElementById('app');
@@ -531,29 +537,14 @@ body.many-modes{--mh:74px}
   })();
   // Esta página nunca usa «service workers»: si alguien hubiera instalado uno, se quita.
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { var here = location.origin + '/' + (location.pathname.split('/').filter(Boolean)[0] || '') + '/'; rs.forEach(function (r) { if (r.scope === location.origin + '/' || r.scope.indexOf(here) === 0) r.unregister(); }); }).catch(function () { }); } catch (e) { }
-  // pws: contraseñas escritas en esta visita. keys: claves ya calculadas (por sal). Las dos, solo en memoria: al
-  // cerrar o recargar la página hay que escribir la contraseña otra vez.
   // fotos: las fotos de los extras de cada centro, por la huella que trae su lista de precios (se bajan una vez).
-  var st = { pws: [], keys: {}, branches: [], centers: [], cur: 0, day: today(), msg: '', bad: '', loading: false, ready: false, lastCheck: null, cached: false, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', xGrp: '', xCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
+  var st = { centers: [], cur: 0, day: today(), msg: '', loading: false, ready: false, lastCheck: null, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', xGrp: '', xCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
   st.want = wanted(); // centro pedido en la dirección (…/#getafe)
 
-  /* ---------- (4.1.2) la sesión, 7 días en este aparato ---------- */
-  // Hasta la 2.0.2 había un «Recordar en este aparato»; lo que hubiera dejado se borra al abrir la página (forget).
-  // Desde la 4.1.2, al entrar se guardan en este navegador las CLAVES ya calculadas (no la contraseña), como claves que
-  // no se pueden sacar del navegador (no extraíbles), con la hora de entrada: al volver a abrir la página en 7 días se
-  // entra sin escribirla. «Salir», los 7 días o una contraseña que ya no vale lo borran.
-  function forget() { try { localStorage.removeItem(LS_BR); localStorage.removeItem(LS_VW); } catch (e) { } try { if (window.indexedDB) indexedDB.deleteDatabase('consentia-agenda'); } catch (e) { } }
-  var SDB = 'consentia-agenda-sesion';
-  function sdb() { return new Promise(function (res, rej) { var r = indexedDB.open(SDB, 1); r.onupgradeneeded = function () { r.result.createObjectStore('s'); }; r.onerror = function () { rej(r.error); }; r.onsuccess = function () { res(r.result); }; }); }
-  async function saveSession() {
-    if (!window.indexedDB || !st.loginAt || !Object.keys(st.keys).length) return;
-    try { var d = await sdb(); await new Promise(function (res, rej) { var t = d.transaction('s', 'readwrite'); t.objectStore('s').put({ at: st.loginAt, keys: st.keys }, 'sesion'); t.oncomplete = res; t.onerror = function () { rej(t.error); }; }); d.close(); } catch (e) { }
-  }
-  async function loadSession() {
-    if (!window.indexedDB) return null;
-    try { var d = await sdb(); var v = await new Promise(function (res) { var t = d.transaction('s', 'readonly'), r = t.objectStore('s').get('sesion'); r.onsuccess = function () { res(r.result || null); }; r.onerror = function () { res(null); }; }); d.close(); return v; } catch (e) { return null; }
-  }
-  function dropSession() { try { if (window.indexedDB) indexedDB.deleteDatabase(SDB); } catch (e) { } }
+  /* ---------- lo que dejaron las versiones de antes ---------- */
+  // (4.3.0) Ya no hay contraseña común de la agenda: lo que guardaran en este navegador las páginas de antes (ramas
+  // vistas, vista elegida, la sesión de 7 días con las claves de la contraseña común) se borra al abrir.
+  function forget() { try { localStorage.removeItem(LS_BR); localStorage.removeItem(LS_VW); } catch (e) { } try { if (window.indexedDB) { indexedDB.deleteDatabase('consentia-agenda'); indexedDB.deleteDatabase('consentia-agenda-sesion'); } } catch (e) { } }
 
   function el(tag, attrs, kids) { var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') Object.keys(attrs.on).forEach(function (ev) { e.addEventListener(ev, attrs.on[ev]); }); else if (attrs[k] == null) return; else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
   // Iconos de la barra de abajo (trazo, 24×24). Cada pieza: [etiqueta, atributos]; la clase «f» va rellena.
@@ -580,7 +571,7 @@ body.many-modes{--mh:74px}
   // identificador de su ZONA, que es también el nombre de su rama en el repositorio (app/lib/zonas.js). Las agendas
   // publicadas con una versión anterior (rama «Parla-Este» o «agenda-…») se siguen encontrando por su ubicación.
   function slug(t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40); }
-  function centerSlug(c) { return !c ? '' : ZONE_RE.test(c.key) && !OLD_RE.test(c.key) ? c.key : c.data ? slug(c.data.center.l || c.data.center.n) : ''; }
+  function centerSlug(c) { return !c ? '' : ZONE_RE.test(c.key) ? c.key : c.data ? slug(c.data.center.l || c.data.center.n) : ''; }
   function wanted() { try { return slug(decodeURIComponent(String(location.hash || '').replace(/^#/, ''))); } catch (e) { return ''; } }
   function setHash(c) { var s = centerSlug(c); try { if (s && wanted() !== s) history.replaceState(null, '', '#' + s); } catch (e) { } }
   function mins(t) { var m = /^(\d{1,2}):(\d{2})/.exec(String(t || '')); return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0; }
@@ -710,14 +701,14 @@ body.many-modes{--mh:74px}
     if (!h || !/^[0-9a-f]{8,64}$/.test(h) || !c.file) return;
     var known = st.fotos[h]; if (known && (known.map || !known.failed || Date.now() - known.failed < 60000)) return; // ya están, se están bajando o acaban de fallar
     var slot = st.fotos[h] = { map: null, failed: 0 };
-    getJson(cfg.raw + '/' + cfg.repo + '/' + (c.sha || c.key) + '/fotos.json').then(function (f) {
+    getJson(rawUrl(c.key, 'fotos.json')).then(function (f) {
       if (!f || f.id !== c.file.id + ':fotos') throw new Error('fotos');
       return openFile(f);
     }).then(function (data) {
       if (!data || data.kind !== 'fotos' || data.h !== h || !data.fotos || typeof data.fotos !== 'object') throw new Error('fotos');
       var map = {}; Object.keys(data.fotos).slice(0, 80).forEach(function (k) { if (/^[0-9a-f]{8,32}$/.test(k) && okPhoto(data.fotos[k])) map[k] = data.fotos[k]; });
       slot.map = map;
-    }).catch(function () { slot.failed = Date.now(); }).then(function () { if (st.fotos[h] !== slot) return; st.fRev++; if (st.centers.length && (st.pws.length || Object.keys(st.keys).length)) render(); });
+    }).catch(function () { slot.failed = Date.now(); }).then(function () { if (st.fotos[h] !== slot) return; st.fRev++; if (st.centers.length && v2On()) render(); });
   }
 
   var ticketBox = null, totalBox = null, calcData = null;
@@ -905,110 +896,56 @@ body.many-modes{--mh:74px}
   }
   function fitGrid() { var g = app.querySelector('.gw'), m = document.querySelector('.modes'); if (g) g.style.height = Math.max(260, window.innerHeight - g.getBoundingClientRect().top - (m && m.offsetHeight ? m.offsetHeight : 0)) + 'px'; }
 
-  function kdfOf(file) {
-    if (!file || file.format !== FORMAT || !file.kdf || file.kdf.alg !== 'PBKDF2-SHA256' || typeof file.kdf.salt !== 'string') throw new Error('formato');
-    var iter = +file.kdf.iter; if (!(iter >= MIN_ITER && iter <= MAX_ITER)) throw new Error('formato');
-    return { id: file.kdf.salt + '|' + iter, salt: file.kdf.salt, iter: iter };
-  }
-  async function deriveKey(pw, k) {
-    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(String(pw).normalize('NFC')), 'PBKDF2', false, ['deriveKey']);
-    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(k.salt), iterations: k.iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-  }
-  async function decryptWith(file, key) {
-    var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(file.iv), additionalData: new TextEncoder().encode(FORMAT + ':' + file.id) }, key, b64(file.data));
-    return JSON.parse(new TextDecoder().decode(plain));
-  }
-  // Abre un archivo con una clave ya conocida o con alguna de las contraseñas escritas.
-  async function openFile(file) {
-    if (file && file.f === FMT_AG2) { if (!v2On()) return null; try { return await openEnv(file, acc.me.id, acc.me.e); } catch (e) { return null; } } // (4.2.0)
-    var k; try { k = kdfOf(file); } catch (e) { return null; }
-    if (st.keys[k.id]) { try { return await decryptWith(file, st.keys[k.id]); } catch (e) { } }
-    for (var i = 0; i < st.pws.length; i++) {
-      try { var key = await deriveKey(st.pws[i], k); var data = await decryptWith(file, key); st.keys[k.id] = key; return data; } catch (e) { }
-    }
-    return null;
-  }
+  // (4.3.0) Solo se abre lo cifrado para este móvil (la agenda y sus fotos): ya no hay contraseña común.
+  async function openFile(file) { if (!file || file.f !== FMT_AG2 || !v2On()) return null; try { return await openEnv(file, acc.me.id, acc.me.e); } catch (e) { return null; } }
   async function getJson(url) { var r = await fetch(url, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); if (r.status === 404) return null; if (!r.ok) { var e = new Error('http ' + r.status); e.status = r.status; throw e; } return r.json(); }
-
-  // Agendas publicadas: una zona —rama— por centro, con su identificador («parla-este»; la 1.10 escribía «Parla-Este»
-  // y hasta la 1.9 era «agenda-…»). No hay lista fija de centros: son las ramas que haya. La lista se pide a la API de
-  // GitHub (al momento), de 100 en 100. Si GitHub
-  // limita las consultas (muchas seguidas desde la misma conexión), se leen las ramas ya vistas en esta visita de
-  // raw.githubusercontent.com, que puede ir unos minutos por detrás.
-  function okBranch(b) { return BR_RE.test(String(b)) && !MAIN_RE.test(String(b)) && !/^cs-/.test(String(b)); } // (4.2.0) «cs-accesos» y «cs-num-…» no son agendas
-  async function listing() {
-    try {
-      var refs = [];
-      for (var pg = 1; pg <= 5; pg++) { var part = await getJson(cfg.api + '/repos/' + cfg.repo + '/branches?per_page=100&page=' + pg); if (!Array.isArray(part)) break; refs = refs.concat(part); if (part.length < 100) break; }
-      var all = refs.map(function (r) { return { key: String(r.name), sha: r.commit && r.commit.sha }; }).filter(function (x) { return SHA_RE.test(x.sha || ''); });
-      st.accSha = ''; st.numShas = {}; all.forEach(function (x) { if (x.key === BR_ACC) st.accSha = x.sha; else if (x.key.indexOf(NUM_PREFIX) === 0) st.numShas[x.key.slice(NUM_PREFIX.length)] = x.sha; });
-      var items = all.filter(function (x) { return okBranch(x.key); });
-      st.branches = items.map(function (x) { return x.key; });
-      return { items: items.map(function (x) { return { key: x.key, sha: x.sha, url: cfg.raw + '/' + cfg.repo + '/' + x.sha + '/agenda.json' }; }) };
-    } catch (e) {
-      if (!(e.status === 403 || e.status === 429)) throw e;
-      var names = st.branches;
-      if (!names.length) { var err = new Error('limite'); err.limit = true; throw err; }
-      return { cached: true, items: names.map(function (b) { return { key: b, sha: null, url: cfg.raw + '/' + cfg.repo + '/' + b + '/agenda.json' }; }) };
-    }
-  }
+  // (4.3.0) Cada archivo se lee de raw.githubusercontent.com por el NOMBRE de su rama, sin preguntar antes a la API de
+  // GitHub (que deja 60 consultas por hora a cada conexión: con varios móviles en la misma wifi se quedaba sin agenda).
+  // El «t» cambia cada 30 s para no recibir una copia vieja guardada por el camino.
+  function rawUrl(branch, path) { return cfg.raw + '/' + cfg.repo + '/' + branch + '/' + path + '?t=' + Math.floor(Date.now() / 30000); }
+  // Las agendas que ve este móvil: los locales de su acceso, cada uno con su zona (la rama donde publica su agenda).
+  // (Lo que dio un ordenador con la 4.2 no trae la zona de la agenda: es la del local, hasta que se vuelva a dar.)
+  function myLocales() { var g = acc.grant; if (!g) return []; return (g.locales || []).map(function (l) { return l && { zona: l.zona, name: l.name, rama: l.rama || l.zona }; }).filter(function (l) { return l && ZONE_RE.test(String(l.rama)) && !/^cs-/.test(l.rama) && (g.zonas === '*' || (g.zonas || []).indexOf(l.zona) >= 0); }); }
 
   async function refresh() {
     if (sessionOver()) return;
-    if (!cfg.repo) { st.msg = 'No se sabe de qué repositorio es esta agenda.'; st.ready = true; return render(); }
+    if (!cfg.repo) { st.msg = 'No se sabe de qué repositorio es esta app.'; st.ready = true; return render(); }
+    if (!v2On()) { st.ready = true; return render(); }
     st.loading = true; render();
     try {
-      var l = await listing(), prev = {}, out = [];
-      if (v2On()) { await loadGrant(); if (!v2On()) { st.loading = false; st.ready = true; return render(); } } // (4.2.0) lo que puede ver este móvil (o si se lo han quitado)
+      await loadGrant(); if (!v2On()) { st.loading = false; st.ready = true; return render(); } // (lo que puede ver este móvil, o si se lo han quitado)
+      var prev = {}, out = [], ls = myLocales();
       st.lastCheck = new Date().toISOString();
       st.centers.forEach(function (c) { prev[c.key] = c; });
-      for (var i = 0; i < l.items.length; i++) {
-        var it = l.items[i], p = prev[it.key], f = p && it.sha && p.sha === it.sha ? p.file : await getJson(it.url);
-        if (!f || typeof f.id !== 'string' || (OLD_RE.test(it.key) && 'agenda-' + f.id !== it.key)) continue;
-        if (f.f === FMT_AG2 && (f.z !== it.key || f.n !== 'agenda.json')) continue; // (4.2.0) cada agenda, solo en su rama // (las de antes de la 1.10: cada archivo, solo en su rama)
-        out.push({ key: it.key, sha: it.sha, file: f, data: p && p.file === f && p.data ? p.data : await openFile(f) });
+      for (var i = 0; i < ls.length; i++) {
+        var key = ls[i].rama, p = prev[key], f = await getJson(rawUrl(key, 'agenda.json'));
+        if (!f || f.f !== FMT_AG2 || f.z !== key || f.n !== 'agenda.json' || typeof f.id !== 'string') continue; // (cada agenda, solo en su rama)
+        var data = p && p.file && p.file.c === f.c && p.data ? p.data : await openFile(f); if (!data) continue;
+        out.push({ key: key, file: f, data: data });
       }
-      // La misma agenda en dos zonas (la de antes y la nueva con el identificador del centro, mientras se quita la vieja): una sola vez.
-      out = out.filter(function (c) { return !out.some(function (o) { return o !== c && o.file.id === c.file.id && (OLD_RE.test(c.key) && !OLD_RE.test(o.key) || (OLD_RE.test(c.key) === OLD_RE.test(o.key) && o.data && c.data && String(o.data.at) > String(c.data.at))); }); });
-      out.sort(function (a, b) { return a.data && b.data ? txt(a.data.center.l || a.data.center.n).localeCompare(txt(b.data.center.l || b.data.center.n)) : a.data ? -1 : b.data ? 1 : 0; });
-      if (v2On()) out = out.filter(function (c) { return c.data; }); // (4.2.0) solo los locales que ve este móvil
-      else if (!st.pws.length && out.length && !out.some(function (c) { return c.data; })) st.bad = 'La contraseña de la agenda ha cambiado: escríbela otra vez.';
+      out.sort(function (a, b) { return txt(a.data.center.l || a.data.center.n).localeCompare(txt(b.data.center.l || b.data.center.n)); });
       var was = st.centers[st.cur] && st.centers[st.cur].key;
-      var at = out.findIndex(function (c) { return c.key === was; });
-      if (at < 0 || !out[at].data) at = Math.max(0, out.findIndex(function (c) { return c.data; })); // se queda en el centro que se estaba viendo
+      var at = Math.max(0, out.findIndex(function (c) { return c.key === was; })); // se queda en el centro que se estaba viendo
       if (st.want) { var w = out.findIndex(function (c) { return centerSlug(c) === st.want; }); if (w >= 0) { at = w; st.want = ''; } } // el centro de la dirección (…/#getafe)
-      st.centers = out; st.cached = !!l.cached; st.cur = at;
-      if (v2On()) { /* (4.2.0) su sesión es otra */ } else if (out.some(function (c) { return c.data; })) saveSession(); else if (!st.pws.length && out.length) { dropSession(); st.keys = {}; st.loginAt = 0; } // (4.1.2)
+      st.centers = out; st.cur = at;
       if (pageCheck()) return; // hay una página más nueva: se está recargando
-      st.msg = out.length ? '' : v2On() ? 'Todavía no ha llegado ninguna agenda a este móvil: el local la publica en unos minutos.' : 'Todavía no hay ninguna agenda publicada. Se publica desde el programa: Ajustes → Agenda móvil (web).';
-      if (v2On() && nivel() === 'control' && !acc.estado) loadEstado().then(function (ch) { if (ch) render(); }); // (4.2.2) el número de solicitudes en la pestaña Control
+      st.msg = out.length ? '' : 'Todavía no ha llegado ninguna agenda a este móvil: el local la publica en unos minutos.';
+      if (isCtl() && !acc.estado) loadEstado().then(function (ch) { if (ch) render(); }); // (4.2.2) el número de solicitudes en la pestaña Control
     } catch (e) {
-      st.msg = e.limit ? 'GitHub limita las consultas seguidas desde esta conexión. Espera unos minutos y vuelve a intentarlo.' : 'No se ha podido descargar la agenda (¿hay Internet?). Se volverá a intentar.';
+      st.msg = 'No se ha podido descargar la agenda (¿hay Internet?). Se volverá a intentar.';
     }
     st.loading = false; st.ready = true; render();
   }
 
-  // (3.2.1) La sesión dura como mucho un tiempo desde que se escribió la contraseña (4.1.2: 7 días, aunque se cierre la
-  // página): pasado ese tiempo se borran las claves (de la memoria y de este aparato) y hay que volver a escribirla. Se
-  // mira cada minuto, al volver a la página y antes de cada actualización; actualizar la agenda NO alarga la sesión.
+  // La sesión dura 7 días desde que se escribió la contraseña personal (aunque se cierre la página): pasado ese tiempo
+  // se borran las claves de la memoria y de este aparato y hay que volver a escribirla. Actualizar NO alarga la sesión.
   var SESSION_MS = 7 * 24 * 3600 * 1000;
   function sessionOver() {
-    if (acc.me) { if (st.loginAt && (Date.now() - st.loginAt >= SESSION_MS || Date.now() < st.loginAt)) { logout(); acc.msg = 'Han pasado 7 días desde que entraste: por seguridad, escribe tu contraseña otra vez.'; render(); return true; } return false; } // (4.2.0)
-    if (!st.loginAt || !(st.pws.length || Object.keys(st.keys).length)) return false;
-    if (Date.now() - st.loginAt < SESSION_MS && Date.now() >= st.loginAt) return false;
-    logout(); st.bad = 'Han pasado 7 días desde que entraste: por seguridad, escribe la contraseña otra vez.'; render(); return true;
+    if (!acc.me || !st.loginAt || (Date.now() - st.loginAt < SESSION_MS && Date.now() >= st.loginAt)) return false;
+    logout(); acc.msg = 'Han pasado 7 días desde que entraste: por seguridad, escribe tu contraseña otra vez.'; render(); return true;
   }
-  async function login(pw) {
-    pw = String(pw || ''); if (!pw) return;
-    st.bad = ''; if (!st.loginAt || !(st.pws.length || Object.keys(st.keys).length)) st.loginAt = Date.now();
-    if (st.pws.indexOf(pw) < 0) st.pws.push(pw);
-    await refresh();
-    if (st.centers.length && !st.centers.some(function (c) { return c.data; })) { st.pws = st.pws.filter(function (x) { return x !== pw; }); if (!st.pws.length && !Object.keys(st.keys).length) st.loginAt = 0; st.bad = 'Contraseña incorrecta.'; render(); return; }
-    // (4.1.2) Que el móvil ofrezca guardar la contraseña (Chrome en Android; en el iPhone lo hace el llavero con el formulario).
-    try { if (window.PasswordCredential && navigator.credentials) navigator.credentials.store(new window.PasswordCredential({ id: 'Agenda Consentia Studio', name: 'Agenda Consentia Studio', password: pw })).catch(function () { }); } catch (e) { }
-  }
-  function logout() { if (acc.me) { adel('sesion'); acc.me = null; acc.grant = null; acc.mk = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = ''; } // (4.2.0) se queda guardado (cifrado) para entrar con su contraseña
-    dropSession(); st.loginAt = 0; st.cab = -1; st.calM = ''; st.pws = []; st.keys = {}; st.centers = []; st.branches = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
+  function logout() { if (acc.me) { adel('sesion'); acc.me = null; acc.grant = null; acc.mk = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = ''; } // (se queda guardado, cifrado, para entrar con su contraseña)
+    st.loginAt = 0; st.cab = -1; st.calM = ''; st.centers = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
   function setView(v) { st.view = v; st.scroll = null; render(); }
 
   // (3.2.0) Fondo de la entrada: el logotipo (la C) pequeño y casi transparente, repartido AL AZAR pero cubriendo toda la
@@ -1041,40 +978,18 @@ body.many-modes{--mh:74px}
     var foc = st.cNode && st.cNode.contains(document.activeElement) ? document.activeElement : null, cb = st.cNode && st.cNode.querySelector('.cBody'), cbTop = cb ? cb.scrollTop : 0;
     app.innerHTML = '';
     var m0 = document.querySelector('.modes'); if (m0) m0.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
-    var opened = st.centers.filter(function (c) { return c.data; });
-    var v2 = v2On(), creds = v2 || st.pws.length || Object.keys(st.keys).length;
+    var v2 = v2On();
     if (v2 && modesFor().indexOf(st.mode) < 0) st.mode = 'agenda';
-    // (4.0.1) La entrada: arriba, la C con «Consentia Studio»; en el centro, la tarjeta con la contraseña (como la del panel).
-    var brand = function () { return el('div', { class: 'brandTop' }, [el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }), el('b', { text: 'Consentia Studio' })]); };
+    // (4.0.1) La entrada: arriba, la C con «Consentía Studio»; en el centro, la tarjeta.
+    var brand = function () { return el('div', { class: 'brandTop' }, [el('img', { class: 'logo', id: 'logo', alt: '', src: LOGO }), el('b', { text: 'Consentía Studio' })]); };
     var card = function (kids) { app.appendChild(brand()); app.appendChild(el('div', { class: 'lwrap' }, [el('div', { class: 'login' }, kids)])); app.prepend(logoField()); };
-    var ico = function (d) { var s = svg(d.map(function (x) { return ['path', { d: x }]; })); return s; };
-    var locked = !st.ready || !creds || (!v2 && !opened.length && st.centers.length && !st.loading);
-    document.documentElement.className = locked ? 'lock' : ''; // (la entrada no se desplaza; la agenda, sí)
-    if ((creds || st.booting) && !st.ready) { card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Abriendo…' })]); return; }
-    if (!v2 && accScreen(card)) { document.documentElement.className = 'lock'; return; } // (4.2.0) pedir acceso, esperando, contraseña personal, kit
-    if (!v2 && (!creds || (!opened.length && st.centers.length && !st.loading))) {
-      var inp = el('input', { type: 'password', name: 'password', autocomplete: 'current-password', placeholder: 'Contraseña', 'aria-label': 'Contraseña de la agenda', id: 'pw' });
-      var btn = el('button', { id: 'entrar', type: 'submit' }, [st.loading ? 'Abriendo…' : 'Entrar', st.loading ? null : ico(['M5 12h14', 'M13 6l6 6-6 6'])]);
-      // Ver la contraseña (el ojo): cambia entre puntos y letras.
-      var eye = el('button', { class: 'pwEye', type: 'button', 'aria-label': 'Ver la contraseña', title: 'Ver la contraseña', on: { click: function () { var v = inp.type === 'password'; inp.type = v ? 'text' : 'password'; eye.setAttribute('aria-label', v ? 'Ocultar la contraseña' : 'Ver la contraseña'); eye.title = eye.getAttribute('aria-label'); inp.focus(); } } }, [ico(['M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z', 'M12 9.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 1 0 0-5.6z'])]);
-      var box = el('div', { class: 'pwBox' }, [ico(['M7 10.5V8a5 5 0 0 1 10 0v2.5', 'M6.5 10.5h11a1.5 1.5 0 0 1 1.5 1.5v6.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5V12a1.5 1.5 0 0 1 1.5-1.5z', 'M12 14.2v2.3']), inp, eye]);
-      if (st.loading) btn.setAttribute('disabled', '');
-      var go = function () { login(inp.value); };
-      // (4.1.2) Un formulario de verdad (con un «usuario» fijo, que no se ve) para que el iPhone y Android ofrezcan guardar la
-      // contraseña y rellenarla con Face ID o la huella.
-      var user = el('input', { type: 'text', name: 'username', autocomplete: 'username', value: 'Agenda Consentia Studio', class: 'pwUser', tabindex: '-1', 'aria-hidden': 'true', readonly: '' });
-      var form = el('form', { id: 'entrada', autocomplete: 'on', on: { submit: function (e) { e.preventDefault(); go(); } } }, [user, el('label', { for: 'pw', text: 'Contraseña de la agenda' }), box, btn]);
-      card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Escribe la contraseña de la agenda para ver las citas y los precios del centro. Al entrar, este móvil la recuerda 7 días (hasta que pulses «Salir»).' }),
-        form, st.bad ? el('div', { class: 'bad', text: st.bad }) : null, st.msg ? el('div', { class: 'warn', text: st.msg }) : null,
-        st.fresh && !creds ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + '). Escribe la contraseña otra vez.' }) : null,
-        acc.msg ? el('div', { class: 'bad', id: 'accMsg', text: acc.msg }) : null,
-        el('p', { class: 'lfoot', text: '¿No la sabes? Pídela en el centro.' }), accHelp()]);
-      setTimeout(function () { inp.focus(); }, 50);
-      return;
-    }
+    document.documentElement.className = !st.ready || !v2 ? 'lock' : ''; // (la entrada no se desplaza; la agenda, sí)
+    if ((v2 || st.booting) && !st.ready) { card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Hola de nuevo' }), el('p', { text: 'Abriendo…' })]); return; }
+    if (!v2 && accScreen(card)) return; // pedir acceso, esperando, contraseña personal, kit
+    if (!v2) { screenEntry(card); return; } // (4.3.0) sin acceso: escanear el QR del local (ya no hay contraseña común)
     var c = st.centers[st.cur] || st.centers[0];
     var page = v2 && ['numeros', 'control'].indexOf(st.mode) >= 0; // (4.2.0) pestañas que no son de un local
-    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: v2 && acc.grant && acc.grant.name ? acc.grant.name : 'Consentía Studio' }), el('span', {}, [el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
+    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), /* (4.2.3) siempre el nombre del estudio, no el de la persona */ el('span', {}, [acc.grant && acc.grant.emp ? el('button', { id: 'misVac', title: 'Mis vacaciones', 'aria-label': 'Mis vacaciones', on: { click: vacSheet } }, [svg(VAC_ICON)]) : null, acc.grant && acc.grant.emp ? ' ' : null, el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
     if (st.centers.length > 1 && !page) head.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : 'Centro bloqueado', on: { click: function () { st.cur = i; st.scroll = null; setHash(x); render(); } } }); })));
     if (st.stale) head.appendChild(staleNote());
     app.appendChild(head);
@@ -1170,7 +1085,7 @@ body.many-modes{--mh:74px}
     var live = list.filter(function (a) { return a.st !== 'x' && a.st !== 'n'; }), gone = list.filter(function (a) { return a.st === 'x' || a.st === 'n'; });
     var cols = st.view !== 'lista';
     // Línea de estado: de cuándo es lo publicado, las canceladas del día (en columnas no ocupan hueco) y el cambio de vista.
-    var info = el('span', {}, [(d.center.l ? txt(d.center.l, 80) + ' · ' : '') + 'publicado ' + ago(d.at) + (st.cached ? ' · copia de GitHub (puede ir unos minutos por detrás)' : '') + (st.loading ? ' · actualizando…' : '') + (cols && !live.length ? ' · sin citas' : '')]);
+    var info = el('span', {}, [(d.center.l ? txt(d.center.l, 80) + ' · ' : '') + 'publicado ' + ago(d.at) + (st.loading ? ' · actualizando…' : '') + (cols && !live.length ? ' · sin citas' : '')]);
     if (cols && gone.length) {
       info.appendChild(document.createTextNode(' · '));
       info.appendChild(el('button', { class: 'lnk', id: 'canceladas', text: gone.length + (gone.length === 1 ? ' cancelada' : ' canceladas'), on: { click: function () {
@@ -1256,8 +1171,8 @@ body.many-modes{--mh:74px}
   // vueltas) y, durante la sesión de 7 días, como claves que el navegador no deja sacar. Nada se guarda sin cifrar.
   var QR = window.QRTributario || null, SC = window.crypto && window.crypto.subtle, TE = new TextEncoder(), TD = new TextDecoder();
   var FMT_ACC = 'consentia-acc-1', FMT_AG2 = 'consentia-agenda-2', FMT_PANEL = 'consentia-panel-1', FMT_KIT = 'consentia-kit-1', ORDER_PREFIX = 'consentia-orden-1\n';
-  var DEV_ITER = 600000, BR_ACC = 'cs-accesos', NUM_PREFIX = 'cs-num-', LV_TXT = { agenda: 'Agenda y horario', numeros: 'Agenda, horario y números', control: 'Control total' };
-  var acc = { inv: null, rec: null, state: '', me: null, grant: null, mk: '', estado: null, ctab: 'sol', waits: {}, inicio: null, nNode: null, kit: false, msg: '', busy: false };
+  var DEV_ITER = 600000, BR_ACC = 'cs-accesos', NUM_PREFIX = 'cs-num-', LV_TXT = { agenda: 'Agenda y horario', numeros: 'Agenda, horario y números', gestion: 'Gestión de locales', control: 'Control total' };
+  var acc = { inv: null, rec: null, state: '', me: null, grant: null, mk: '', estado: null, ctab: 'sol', waits: {}, inicio: null, nNode: null, kit: false, msg: '', busy: false, vac: null };
   function u8(x) { return x instanceof Uint8Array ? x : new Uint8Array(x); }
   function b64u(b) { var s = '', a = u8(b); for (var i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   function unb64u(s) { s = String(s || '').replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; var bin = atob(s), out = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
@@ -1340,8 +1255,7 @@ body.many-modes{--mh:74px}
   async function accGetJson(repo, path, tok) { var r = await accCall('GET', repo, path, tok); if (!r || !r.content) return null; return { sha: r.sha, json: JSON.parse(TD.decode(unb64u(String(r.content).replace(/\s/g, '').replace(/\+/g, '-').replace(/\//g, '_')))) }; }
   function accPut(repo, path, obj, tok) { return accCall('PUT', repo, path, tok, { message: 'Consentia Studio', content: btoa(JSON.stringify(obj)), branch: 'main' }); }
   function accDel(repo, path, sha, tok) { return accCall('DELETE', repo, path, tok, { message: 'Consentia Studio', sha: sha, branch: 'main' }).catch(function () { }); }
-  // (la rama, por su huella cuando se sabe: así no se lee una copia de hace unos minutos)
-  async function appRaw(path) { try { return await getJson(cfg.raw + '/' + cfg.repo + '/' + (st.accSha || BR_ACC) + '/' + path); } catch (e) { return null; } }
+  async function appRaw(path) { try { return await getJson(rawUrl(BR_ACC, path)); } catch (e) { return null; } } // (4.3.0) por el nombre de la rama, sin la API
 
   /* ---------- este móvil: guardar, desbloquear, la sesión ---------- */
   // rec (guardado): { v, id, at, state ('pendiente' | 'activo'), pub, sig, wrap (claves privadas y, si hace falta, la
@@ -1356,7 +1270,7 @@ body.many-modes{--mh:74px}
   }
   async function sessionData(s) { try { return await aesOff(s.sk, s.box, 'consentia-sesion-1'); } catch (e) { return null; } }
   async function sessionSave() { var s = await aget('sesion'); if (!s || !acc.me) return; s.box = await aesOn(s.sk, { mk: acc.mk || '', grant: acc.grant || null }, 'consentia-sesion-1'); await aput('sesion', s); }
-  async function wipeMe(msg) { await adel('sesion'); await adel('yo'); acc.me = null; acc.grant = null; acc.mk = ''; acc.rec = null; acc.state = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = msg || ''; st.centers = []; st.keys = {}; st.pws = []; st.loginAt = 0; st.mode = 'agenda'; render(); }
+  async function wipeMe(msg) { await adel('sesion'); await adel('yo'); acc.me = null; acc.grant = null; acc.mk = ''; acc.vac = null; acc.rec = null; acc.state = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = msg || ''; st.centers = []; st.loginAt = 0; st.mode = 'agenda'; render(); }
 
   /* ---------- pedir acceso ---------- */
   async function requestAccess(name, pw) {
@@ -1392,8 +1306,7 @@ body.many-modes{--mh:74px}
   }
   async function activate(grant) {
     acc.grant = grant; acc.state = 'activo'; acc.rec.state = 'activo'; acc.rec.req = null; acc.rec.code = '';
-    if (grant.nivel !== 'control') acc.mk = ''; // (la llave de móviles solo la guarda quien tiene Control)
-    else if (grant.mk) acc.mk = grant.mk;
+    acc.mk = grant.mk || ''; // (4.3.0) la llave de móviles solo la guarda quien manda órdenes: Control, Gestión de locales o quien pide sus vacaciones
     await aput('yo', acc.rec); await sessionSave(); st.loginAt = Date.now(); st.mode = 'agenda'; await refresh();
   }
   // Entrar con la contraseña (después de los 7 días o al pulsar «Salir»).
@@ -1413,9 +1326,9 @@ body.many-modes{--mh:74px}
       if (f.n !== 'g-' + acc.me.id) return; var g = await openEnv(f, acc.me.id, acc.me.e);
       if (!g || g.id !== acc.me.id) return;
       if (g.revoked) { await wipeMe('Tu acceso a esta app se ha quitado. Si es un error, pide acceso otra vez en el local.'); return; }
-      acc.grant = g; if (g.nivel === 'control' && g.mk) acc.mk = g.mk; if (g.nivel !== 'control') acc.mk = '';
+      acc.grant = g; acc.mk = g.mk || '';
       if (st.mode === 'numeros' && g.nivel === 'agenda') st.mode = 'agenda';
-      if (st.mode === 'control' && g.nivel !== 'control') st.mode = 'agenda';
+      if (st.mode === 'control' && g.nivel !== 'control' && g.nivel !== 'gestion') st.mode = 'agenda';
       await sessionSave();
     } catch (e) { /* (otro aparato con el mismo nombre de archivo no puede pasar: se ignora) */ }
   }
@@ -1446,7 +1359,7 @@ body.many-modes{--mh:74px}
 
   /* ---------- órdenes de Control ---------- */
   async function order(op, args) {
-    var g = acc.grant; if (!g || g.nivel !== 'control' || !acc.mk || !g.acc) throw new Error('Este móvil no tiene Control total.');
+    var g = acc.grant; if (!g || !acc.mk || !g.acc || !g.accRepo) throw new Error('Este móvil no tiene Control total.');
     var oid = hex(8);
     var env = await sealEnv({ op: op, args: args || {}, id: oid, at: Date.now(), dev: acc.me.id }, { kid: 'accesos', x: g.acc.x, y: g.acc.y }, '-', 'orden');
     await accPut(g.accRepo, 'o/' + oid + '.json', { v: 1, env: env, sig: await signText(env, acc.me.s) }, acc.mk);
@@ -1468,14 +1381,15 @@ body.many-modes{--mh:74px}
   }
   function orderDone(w) {
     var a = w.res || {};
-    if (!a.ok) { acc.msg = a.why || 'No se ha podido hacer.'; return; }
+    if (!a.ok) { if (w.op === 'vacaciones') toast(a.why || 'No se han podido pedir.'); else acc.msg = a.why || 'No se ha podido hacer.'; return; }
+    if (w.op === 'vacaciones') { toast('Vacaciones pedidas: el Administrador de tu local las acepta o las deniega.'); acc.vac = null; return; } // (4.3.0)
     acc.msg = '';
     if (w.op === 'alta' && a.code) sheet([el('div', { class: 'h', text: 'Añadir un ordenador' }), el('h2', { text: 'Código de alta' }), el('p', { text: 'En el ordenador nuevo: Ajustes → Empresa → «Este local es de una empresa que ya existe». Pega el código y escribe la contraseña. Caduca en 24 horas.' }),
       el('div', { class: 'accCode', id: 'altaCode', text: a.code }), el('p', { class: 'accPw' }, ['Contraseña: ', el('b', { id: 'altaPw', text: a.password })])]);
     if (w.op === 'llave') toast('Llave renovada: llega sola a los ordenadores.');
   }
   async function loadEstado() {
-    if (!v2On() || nivel() !== 'control' || !acc.mk) return;
+    if (!v2On() || !isCtl() || !acc.mk) return;
     try { var r = await accGetJson(acc.grant.accRepo, 'e/' + acc.me.id + '.json', acc.mk); if (r && r.json && r.json.env) { var before = JSON.stringify(acc.estado); acc.estado = await openEnv(r.json.env, acc.me.id, acc.me.e); acc.estadoAt = Date.now(); return before !== JSON.stringify(acc.estado); } } catch (e) { acc.msg = e.auth ? e.message : acc.msg; }
     return false;
   }
@@ -1544,14 +1458,20 @@ body.many-modes{--mh:74px}
     card([el('div', { class: 'eyebrow', text: 'Kit de recuperación' }), el('h1', { text: 'Recuperar el control' }), el('p', { text: 'Con el kit que imprimiste, este móvil pasa a tener Control total. Lo hace un ordenador de la empresa en 1 o 2 minutos.' }), form, errBox(),
       el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', text: 'Volver', on: { click: function () { acc.kit = false; acc.msg = ''; render(); } } })])]);
   }
-  // (debajo de la entrada con contraseña de siempre) Cómo se pide acceso y el kit.
-  function accHelp() { return el('p', { class: 'lfoot', id: 'accAyuda' }, ['¿Nueva? Escanea el QR del local para pedir acceso. · ', el('button', { class: 'lnk', type: 'button', id: 'conKit', text: 'Recuperar con el kit', on: { click: function () { acc.kit = true; acc.msg = ''; render(); } } })]); }
+  // (4.3.0) Un móvil sin acceso: solo puede escanear el QR del local o recuperar el control con el kit.
+  function screenEntry(card) {
+    card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Bienvenida' }),
+      el('p', { id: 'escanea', text: 'Escanea el QR del local con la cámara del móvil para pedir acceso. El QR sale en el ordenador del local: Ajustes → Accesos a la app.' }),
+      st.msg ? el('div', { class: 'warn', text: st.msg }) : null, st.fresh ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + ').' }) : null, errBox(),
+      el('p', { class: 'lfoot', id: 'accAyuda' }, [el('button', { class: 'lnk', type: 'button', id: 'conKit', text: 'Recuperar con el kit', on: { click: function () { acc.kit = true; acc.msg = ''; render(); } } })])]);
+  }
 
   /* ---------- la barra de abajo según el acceso ---------- */
   var TAB_ICONS = { inicio: [['path', { d: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z' }]], numeros: [['path', { d: 'M4 20V10M10 20V4M16 20v-7M22 20H2' }]], control: [['path', { d: 'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z' }], ['path', { d: 'M9 12l2 2 4-4' }]] };
+  function isCtl() { var n = nivel(); return n === 'control' || n === 'gestion'; } // (4.3.0) «Gestión de locales»: su Control, reducido
   function modesFor() { var n = nivel(); return !v2On() || n === 'agenda' ? ['agenda', 'calc'] : n === 'numeros' ? ['agenda', 'calc', 'numeros'] : ['agenda', 'calc', 'numeros', 'control']; } // (4.2.2) sin «Inicio»
   function tabsBar() {
-    var L = { agenda: 'Agenda', calc: 'Calculadora', numeros: 'Números', control: 'Control' };
+    var L = { agenda: 'Agenda', calc: 'Calculadora', numeros: 'Números', control: nivel() === 'gestion' ? 'Gestión' : 'Control' };
     var ic = { agenda: ICON.agenda, calc: ICON.calc, numeros: TAB_ICONS.numeros, control: TAB_ICONS.control };
     var nSol = acc.estado && acc.estado.solicitudes ? acc.estado.solicitudes.length : 0;
     return el('nav', { class: 'modes many', 'aria-label': 'Secciones' }, [el('div', { class: 'seg' }, modesFor().map(function (m) {
@@ -1560,12 +1480,40 @@ body.many-modes{--mh:74px}
     }))]);
   }
 
+  /* ---------- (4.3.0) Mis vacaciones (un móvil ligado a una persona del equipo) ---------- */
+  // Las ve (lo que publica el ordenador de su local, cifrado solo para este móvil) y las pide: una orden firmada por este
+  // móvil que hace ese ordenador; quedan pendientes hasta que el Administrador las acepte o deniegue, como las de la pantalla.
+  var VAC_ICON = [['circle', { cx: '12', cy: '12', r: '4' }], ['path', { d: 'M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4' }]];
+  var VAC_ST = { pendiente: ['warn', 'Pendiente'], aceptada: ['ok', 'Aceptada'], denegada: ['bad', 'Denegada'] };
+  function fmtD(k) { var p = String(k).split('-'); return +p[2] + '/' + +p[1] + '/' + p[0]; }
+  function rangeTxt(a, b) { return a === b ? fmtD(a) : fmtD(a) + ' – ' + fmtD(b); }
+  async function loadVac() { if (!acc.me || !acc.grant || !acc.grant.emp) return null; var f = await appRaw('v-' + acc.me.id + '.json'); if (!f || f.n !== 'v-' + acc.me.id) return null; try { acc.vac = await openEnv(f, acc.me.id, acc.me.e); } catch (e) { acc.vac = null; } return acc.vac; }
+  async function vacSheet() {
+    var list = el('div', { class: 'vacList', id: 'vacLista' }, [el('p', { class: 'sub', text: 'Cargando…' })]);
+    var d1 = el('input', { type: 'date', id: 'vacDesde', min: today(), value: '' }), d2 = el('input', { type: 'date', id: 'vacHasta', min: today(), value: '' }), nt = el('input', { type: 'text', id: 'vacNota', maxlength: '300', placeholder: 'Opcional' });
+    d1.addEventListener('change', function () { if (!d2.value || d2.value < d1.value) d2.value = d1.value; d2.min = d1.value || today(); });
+    var form = el('div', { class: 'vacForm' }, [el('div', {}, [el('label', { for: 'vacDesde', text: 'Desde' }), d1]), el('div', {}, [el('label', { for: 'vacHasta', text: 'Hasta' }), d2]), el('div', { class: 'full' }, [el('label', { for: 'vacNota', text: 'Nota' }), nt])]);
+    sheet([el('div', { class: 'h', text: (acc.grant.emp && acc.grant.emp.name) || '' }), el('h2', { text: 'Mis vacaciones' }), list, el('h3', { text: 'Pedir vacaciones' }), form], function (close) {
+      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'pedirVac', text: 'Pedir', on: { click: async function () {
+        var a = d1.value, b = d2.value || d1.value; if (!a) return toast('Elige desde qué día.'); if (b < a) return toast('El último día va después del primero.'); if (a < today()) return toast('Las vacaciones se piden de hoy en adelante.');
+        try { await order('vacaciones', { from: a, to: b, note: nt.value.trim().slice(0, 300) }); close(); toast('Enviado: lo apunta el ordenador de tu local en 1 o 2 minutos.'); } catch (e) { toast(e.message); }
+      } } })]);
+    });
+    var v = await loadVac(); list.innerHTML = '';
+    if (!v) { list.appendChild(el('p', { class: 'sub', text: 'Todavía no han llegado tus vacaciones: las publica el ordenador de tu local en unos minutos.' })); return; }
+    var rows = (v.puestas || []).map(function (x) { return { from: x.from, to: x.to, st: 'aceptada' }; }).concat((v.pedidas || []).filter(function (q) { return q.status !== 'aceptada'; }).map(function (q) { return { from: q.from, to: q.to, st: q.status, note: q.note }; }));
+    rows.sort(function (x, y) { return x.from < y.from ? -1 : 1; });
+    if (!rows.length) list.appendChild(el('p', { class: 'sub', text: 'Este año todavía no tienes vacaciones.' }));
+    rows.forEach(function (r) { var t = VAC_ST[r.st] || VAC_ST.pendiente; list.appendChild(el('div', { class: 'vacRow', 'data-vac': r.st }, [el('div', {}, [el('b', { text: rangeTxt(r.from, r.to) }), r.note ? el('small', { text: r.note }) : null]), el('span', { class: 'vacTag ' + t[0], text: t[1] })])); });
+    if (v.dias) list.appendChild(el('p', { class: 'sub', text: 'Te corresponden ' + v.dias + ' días al año.' }));
+  }
+
   /* ---------- Números (la página de los números, dentro) ---------- */
   function renderNumeros(root) {
     if (!acc.nNode) {
       var q = new URLSearchParams(location.search); q.set('embed', '1');
       var f = el('iframe', { class: 'accFrame', id: 'numeros', title: 'Números', src: 'numeros.html' + (/\.github\.io$/i.test(location.hostname) ? '' : '?' + q.toString()) });
-      f.addEventListener('load', function () { try { f.contentWindow.postMessage({ t: 'cs-numeros', kid: acc.me.id, key: acc.me.e }, location.origin); } catch (e) { } });
+      f.addEventListener('load', function () { try { f.contentWindow.postMessage({ t: 'cs-numeros', kid: acc.me.id, key: acc.me.e, zonas: myLocales().map(function (l) { return l.zona; }) }, location.origin); } catch (e) { } });
       acc.nNode = f;
     }
     root.appendChild(acc.nNode);
@@ -1573,9 +1521,12 @@ body.many-modes{--mh:74px}
 
   /* ---------- Control ---------- */
   function ago2(iso) { return iso ? ago(iso) : '—'; }
-  function lvPick(name, cur) { return el('div', { class: 'accLv' }, ['agenda', 'numeros', 'control'].map(function (n) { return el('label', { class: 'accOpt' }, [el('input', { type: 'radio', name: name, value: n, checked: cur === n ? 'checked' : null }), el('span', {}, [el('b', { text: LV_TXT[n] }), el('small', { text: n === 'agenda' ? 'Agenda, horarios y calculadora' : n === 'numeros' ? 'Además, los números de sus locales' : 'Todo, en todos los locales, y aprobar accesos' })])]); })); }
+  // (4.3.0) Desde «Gestión de locales» solo se da «Agenda y horario» (y en sus locales).
+  function lvPick(name, cur) { var lvs = nivel() === 'gestion' ? ['agenda'] : ['agenda', 'numeros', 'gestion', 'control']; if (lvs.indexOf(cur) < 0) cur = lvs[0]; return el('div', { class: 'accLv' }, lvs.map(function (n) { return el('label', { class: 'accOpt' }, [el('input', { type: 'radio', name: name, value: n, checked: cur === n ? 'checked' : null }), el('span', {}, [el('b', { text: LV_TXT[n] }), el('small', { text: n === 'agenda' ? 'Agenda, horarios y calculadora' : n === 'numeros' ? 'Además, los números de sus locales' : n === 'gestion' ? 'Agenda y números de sus locales, y aprobar accesos de agenda en ellos' : 'Todo, en todos los locales, y aprobar accesos' })])]); })); }
+  // (4.3.0) ¿Quién es del equipo? (opcional): así pide sus vacaciones desde la app.
+  function empPick(name, cur) { var e = acc.estado || {}; return el('select', { name: name, class: 'accSel' }, [el('option', { value: '', text: 'No es del equipo' })].concat((e.equipo || []).map(function (p) { return el('option', { value: p.sid, text: p.name, selected: cur === p.sid ? 'selected' : null }); }))); }
   function zPick(name, sel) { var e = acc.estado || {}; return el('div', { class: 'accZ' }, (e.locales || []).map(function (l) { return el('label', { class: 'accChk' }, [el('input', { type: 'checkbox', name: name, value: l.zona, checked: sel === '*' || (sel || []).indexOf(l.zona) >= 0 ? 'checked' : null }), el('span', { text: l.name })]); })); }
-  function readPick(box, nm) { var lv = (box.querySelector('input[name="' + nm + 'L"]:checked') || {}).value || 'agenda'; var zs = Array.prototype.map.call(box.querySelectorAll('input[name="' + nm + 'Z"]:checked'), function (i) { return i.value; }); return { nivel: lv, zonas: lv === 'control' ? '*' : zs }; }
+  function readPick(box, nm) { var lv = (box.querySelector('input[name="' + nm + 'L"]:checked') || {}).value || 'agenda'; var zs = Array.prototype.map.call(box.querySelectorAll('input[name="' + nm + 'Z"]:checked'), function (i) { return i.value; }); var em = box.querySelector('select[name="' + nm + 'E"]'); return { nivel: lv, zonas: lv === 'control' ? '*' : zs, emp: em ? em.value : '' }; }
   async function doOrder(op, args, msg) { try { await order(op, args); acc.msg = ''; toast(msg || 'Enviado: lo hará un ordenador de la empresa en 1 o 2 minutos.'); } catch (e) { acc.msg = e.message; } render(); }
   var CT_ICONS = { sol: [['path', { d: 'M15 19a6 6 0 0 0-12 0' }], ['circle', { cx: '9', cy: '8', r: '4' }], ['path', { d: 'M19 8v6M16 11h6' }]], mov: [['rect', { x: '7', y: '2', width: '10', height: '20', rx: '2' }], ['path', { d: 'M11 18h2' }]],
     pcs: [['rect', { x: '2', y: '4', width: '20', height: '13', rx: '2' }], ['path', { d: 'M8 21h8M12 17v4' }]], llaves: [['circle', { cx: '7.5', cy: '15.5', r: '4.5' }], ['path', { d: 'M10.7 12.3L21 2M16 7l3 3M19 4l2 2' }]] };
@@ -1583,6 +1534,7 @@ body.many-modes{--mh:74px}
     // (4.2.2) Pestañas como las de Números: icono y nombre, la elegida en rosa.
     var e = acc.estado, nS = e && e.solicitudes ? e.solicitudes.length : 0;
     var T = [['sol', 'Solicitudes', CT_ICONS.sol, nS], ['mov', 'Móviles', CT_ICONS.mov], ['pcs', 'Ordenadores', CT_ICONS.pcs], ['llaves', 'Llaves', CT_ICONS.llaves]];
+    if (nivel() === 'gestion') { T = T.slice(0, 2); if (['sol', 'mov'].indexOf(acc.ctab) < 0) acc.ctab = 'sol'; } // (4.3.0) «Gestión de locales»: sin ordenadores, llaves ni kit
     var L = e && e.llaves && e.llaves.moviles, dl = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
     var box = el('div', { class: 'accPage', id: 'control' }, [el('nav', { class: 'accTabs', id: 'ctlTabs' }, T.map(function (t) { return el('button', { type: 'button', 'data-ct': t[0], class: acc.ctab === t[0] ? 'on' : '', on: { click: function () { acc.ctab = t[0]; render(); window.scrollTo(0, 0); } } }, [svg(t[2]), el('span', { text: t[1] }), t[3] ? el('i', { class: 'nDot', text: String(t[3]) }) : null]); })),
       dl != null && dl <= 7 && acc.ctab !== 'llaves' ? el('button', { class: 'accAlert', id: 'avisoLlave', type: 'button', on: { click: function () { acc.ctab = 'llaves'; render(); } } }, [el('span', { text: 'La llave de los móviles caduca ' + (dl <= 0 ? 'hoy' : 'en ' + dl + (dl === 1 ? ' día' : ' días')) }), el('b', { text: 'Renovar ›' })]) : null, errBox(),
@@ -1593,9 +1545,9 @@ body.many-modes{--mh:74px}
       if (!e.solicitudes.length) box.appendChild(el('p', { class: 'sub', text: 'No hay solicitudes esperando.' }));
       e.solicitudes.forEach(function (r) {
         var c = el('div', { class: 'accCard', 'data-sol': r.id }, [el('div', { class: 'accRow' }, [el('div', {}, [el('b', { text: r.name }), el('small', { text: 'Pide acceso a ' + r.local + ' · ' + ago2(r.at) + ' · ' + r.ua })]), el('b', { class: 'accCodeS', text: r.code.slice(0, 2) + ' ' + r.code.slice(2) })]),
-          el('small', { text: 'Qué puede ver' }), lvPick('s' + r.id + 'L', 'agenda'), el('small', { text: 'Locales' }), zPick('s' + r.id + 'Z', [r.zona])]);
+          el('small', { text: 'Qué puede ver' }), lvPick('s' + r.id + 'L', 'agenda'), el('small', { text: 'Locales' }), zPick('s' + r.id + 'Z', [r.zona]), el('small', { text: '¿Quién es del equipo?' }), empPick('s' + r.id + 'E', '')]);
         c.appendChild(el('div', { class: 'accTwo' }, [el('button', { class: 'accBtn ghost', type: 'button', 'data-rechazar': r.id, text: 'Rechazar', on: { click: function () { doOrder('rechazar', { id: r.id }); } } }),
-          el('button', { class: 'accBtn pink', type: 'button', 'data-aceptar': r.id, text: 'Aceptar', on: { click: function () { var p = readPick(c, 's' + r.id); if (p.zonas !== '*' && !p.zonas.length) return showErr('Elige al menos un local.'); doOrder('aprobar', { id: r.id, nivel: p.nivel, zonas: p.zonas }); } } })]));
+          el('button', { class: 'accBtn pink', type: 'button', 'data-aceptar': r.id, text: 'Aceptar', on: { click: function () { var p = readPick(c, 's' + r.id); if (p.zonas !== '*' && !p.zonas.length) return showErr('Elige al menos un local.'); doOrder('aprobar', { id: r.id, nivel: p.nivel, zonas: p.zonas, emp: p.emp }); } } })]));
         box.appendChild(c);
       });
     }
@@ -1606,7 +1558,7 @@ body.many-modes{--mh:74px}
     }
     if (acc.ctab === 'pcs') {
       var pl = el('div', { class: 'accCard' }); e.ordenadores.filter(function (p) { return !p.revokedAt; }).forEach(function (p) {
-        pl.appendChild(el('div', { class: 'accRow', 'data-pc': p.id }, [el('div', {}, [el('b', { text: p.name }), el('small', { text: 'conectado ' + ago2(p.visto) })]), el('span', { class: 'accPill ' + (p.llave ? 'ok' : 'w'), text: p.llave ? '✓ llave' : 'sin llave' }),
+        pl.appendChild(el('div', { class: 'accRow', 'data-pc': p.id }, [el('div', {}, [el('b', { text: p.name }), el('small', { text: 'conectado ' + ago2(p.visto) + (p.version ? ' · versión ' + p.version : '') }), el('small', { class: 'pcInfo', text: 'Copia: ' + ago2(p.copia) + ' · Agenda: ' + ago2(p.agenda) })]), el('span', { class: 'accPill ' + (p.llave ? 'ok' : 'w'), text: p.llave ? '✓ llave' : 'sin llave' }),
           el('button', { class: 'lnk', type: 'button', 'data-quitarpc': p.id, text: 'Quitar', on: { click: function () { if (confirm('¿Quitar el ordenador de ' + p.name + '? Después renueva la llave de los ordenadores.')) doOrder('quitarPc', { id: p.id }); } } })]));
       }); box.appendChild(pl);
       box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'altaPc', text: 'Añadir un ordenador (código de alta)', on: { click: function () { doOrder('alta', {}, 'Pedido: el código sale aquí en 1 o 2 minutos.'); } } }));
@@ -1624,9 +1576,9 @@ body.many-modes{--mh:74px}
     root.appendChild(box);
   }
   function devSheet(d) {
-    var box = el('div', {}, [el('small', { text: 'Qué puede ver' }), lvPick('dL', d.nivel), el('small', { text: 'Locales' }), zPick('dZ', d.zonas)]);
+    var box = el('div', {}, [el('small', { text: 'Qué puede ver' }), lvPick('dL', d.nivel), el('small', { text: 'Locales' }), zPick('dZ', d.zonas), el('small', { text: '¿Quién es del equipo?' }), empPick('dE', d.emp || '')]);
     sheet([el('div', { class: 'h', text: d.ua || 'Móvil' }), el('h2', { text: d.name }), el('p', { text: 'Aprobado el ' + String(d.at).slice(0, 10) + ' por ' + (d.by || '—') }), box], function (close) {
-      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'cambiarAcc', text: 'Cambiar acceso', on: { click: function () { var p = readPick(box, 'd'); close(); doOrder('cambiar', { id: d.id, nivel: p.nivel, zonas: p.zonas }); } } }),
+      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'cambiarAcc', text: 'Cambiar acceso', on: { click: function () { var p = readPick(box, 'd'); close(); doOrder('cambiar', { id: d.id, nivel: p.nivel, zonas: p.zonas, emp: p.emp }); } } }),
         el('button', { type: 'button', id: 'quitarMov', class: 'danger', text: 'Quitar', on: { click: function () { if (!confirm('¿Quitar el acceso de ' + d.name + '?')) return; close(); doOrder('quitar', { id: d.id }); } } })]);
     });
   }
@@ -1644,7 +1596,7 @@ body.many-modes{--mh:74px}
   }
 
   // (4.2.0) Al abrir: ¿este móvil ya tiene su acceso (o lo está esperando)? Si no, ¿viene del QR de un local (#i=…)?
-  // Si no, la entrada de siempre (la contraseña común de la agenda, mientras los accesos no estén activados).
+  // (4.3.0) Si no, la entrada: escanear el QR del local o el kit.
   async function bootAcc() {
     if (!SC || !window.indexedDB || !cfg.repo) return false;
     var rec = await aget('yo'), inv = readInvite(location.hash);
@@ -1661,23 +1613,16 @@ body.many-modes{--mh:74px}
     return true;
   }
 
-  // (4.1.2) Si en este aparato hay una sesión de menos de 7 días, se entra sin escribir la contraseña.
+  // Si en este aparato hay una sesión de menos de 7 días, se entra sin escribir la contraseña.
   forget(); st.ready = false; st.booting = true; render();
-  bootAcc().catch(function () { return false; }).then(function (a) {
-    if (a === 'listo') { st.booting = false; return; }
-    if (a) { st.booting = false; st.ready = true; render(); return; }
-    return loadSession().then(function (v) { st.booting = false;
-      if (v && v.keys && +v.at > 0 && Date.now() - v.at < SESSION_MS && Date.now() >= v.at && Object.keys(v.keys).length) { st.keys = v.keys; st.loginAt = +v.at; st.ready = false; refresh(); }
-      else { if (v) dropSession(); st.ready = true; render(); }
-    });
-  });
+  bootAcc().catch(function () { return false; }).then(function (a) { st.booting = false; if (a === 'listo') return; st.ready = true; render(); });
   window.addEventListener('hashchange', function () { var inv = readInvite(location.hash); if (inv && !acc.rec) { acc.inv = inv; acc.msg = ''; dropHash(); render(); } });
-  setInterval(function () { if ((v2On() || st.pws.length || Object.keys(st.keys).length) && !document.hidden) refresh(); }, 5 * 60 * 1000);
-  setInterval(sessionOver, 60 * 1000); // (3.2.1) 12 horas como mucho
+  setInterval(function () { if (v2On() && !document.hidden) refresh(); }, 5 * 60 * 1000);
+  setInterval(sessionOver, 60 * 1000); // (los 7 días)
   window.addEventListener('resize', fitGrid);
   window.addEventListener('hashchange', function () { var w = wanted(); if (!w) return; var i = st.centers.findIndex(function (c) { return centerSlug(c) === w; }); if (i >= 0) { if (i !== st.cur) { st.cur = i; st.scroll = null; render(); } } else st.want = w; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var b = document.querySelector('.sheetBack'); if (b) b.remove(); } });
-  document.addEventListener('visibilitychange', function () { if (!document.hidden && sessionOver()) return; if (!document.hidden && acc.state === 'pendiente' && acc.me) waitAnswer(); if (!document.hidden && (v2On() || st.pws.length || Object.keys(st.keys).length) && (!st.lastCheck || Date.now() - Date.parse(st.lastCheck) > 60000)) refresh(); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && sessionOver()) return; if (!document.hidden && acc.state === 'pendiente' && acc.me) waitAnswer(); if (!document.hidden && v2On() && (!st.lastCheck || Date.now() - Date.parse(st.lastCheck) > 60000)) refresh(); });
 })();
 </script>
 </body>
