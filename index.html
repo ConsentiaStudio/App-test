@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.3.0">
-<meta name="consentia-agenda-firma" content="1zHiz8XAap5s3mrHL47gC4UV/ePXp6ewFhMTwTVQyD9y/Hgl05RSt/no0EC0Sn92LuPOIQ3bbXvQT/gc+FYJDg==">
+<meta name="consentia-agenda-version" content="4.3.1">
+<meta name="consentia-agenda-firma" content="Ek4mfPcYlc0dEwCOiRA9uf34Qev9xmanPgQYP2+HUSpAc95AmiFOoQRrMvTOWnGacGWHCa1DTK1Nh0RAuIeYBQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-rkutHNv6BciY1PqCPJRa7PhDkBrSV/mZv2Zd2NFOoa4='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-b3QnK0Rusw1dVYMnE/mtVur7enp45cb6UiyENbt5CRM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -245,6 +245,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .cItem b{flex:1;min-width:0;font-weight:600}
 .cItem small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:1px}
 .cItem .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cItem .p s.antes{color:var(--muted);font-weight:400;font-size:12.5px} /* (4.3.1) packs: el precio sin el descuento del pack */
 .cItem .p.x{color:var(--pink);font-size:13.5px;max-width:46%;white-space:normal;text-align:right}
 .cItem:active,.xCard:active{background:#fff0f7}
 .xGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -629,7 +630,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   function mShort(v) { return money(v).replace(',00', ''); }
   function nUn(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
   function objs(v, n) { return (Array.isArray(v) ? v : []).slice(0, n).map(function (x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : {}; }); } // (lo que no sea un objeto, vacío: los servicios se señalan por su posición)
-  function calcOf(d) { var c = d && d.calc; return c && typeof c === 'object' && Array.isArray(c.services) ? { services: objs(c.services, 400), addons: objs(c.addons, 200), bonos: objs(c.bonos, 60), discounts: objs(c.discounts, 30), fotos: typeof c.fotos === 'string' && /^[0-9a-f]{8,64}$/.test(c.fotos) ? c.fotos : '', cc: ccOf(c.cc), xc: ccOf(c.xc) } : null; }
+  function calcOf(d) { var c = d && d.calc; return c && typeof c === 'object' && Array.isArray(c.services) ? { services: objs(c.services, 400), addons: objs(c.addons, 200), bonos: objs(c.bonos, 60), packs: objs(c.packs, 60), discounts: objs(c.discounts, 30), fotos: typeof c.fotos === 'string' && /^[0-9a-f]{8,64}$/.test(c.fotos) ? c.fotos : '', cc: ccOf(c.cc), xc: ccOf(c.xc) } : null; }
   // (3.2.4) El color de cada categoría: solo nombres de texto con un color #rrggbb (lo demás se ignora).
   function ccOf(m) { var out = {}; if (m && typeof m === 'object' && !Array.isArray(m)) Object.keys(m).slice(0, 60).forEach(function (k) { if (/^#[0-9a-f]{6}$/i.test(String(m[k] || ''))) out[txt(k, 60)] = m[k]; }); return out; }
   // Lo mismo que hace el programa al cobrar (renderer/js/core/domain.js → addonPrice / addonPriceText).
@@ -673,9 +674,9 @@ body.many-modes{--mh:74px;overflow-x:clip}
     if (a.mode === 'perNail') { var open = a.max == null || a.max === ''; return (open ? 'desde ' + mShort(a.min) : +a.min === +a.max ? mShort(a.min) : mShort(a.min) + ' – ' + mShort(a.max)) + ' / uña' + (+a.inc ? ' · ' + (+a.inc) + ' primeras incluidas' : ''); }
     return +a.min ? mShort(a.min) : 'sin coste';
   }
-  // El descuento no se aplica a los bonos (un bono ya es un precio cerrado), igual que en el programa.
+  // El descuento no se aplica a los bonos ni a los packs (ya son un precio cerrado), igual que en el programa.
   function totals(calc) {
-    var sub = 0, bonos = 0; st.lines.forEach(function (l) { sub += l.amount; if (l.kind === 'bono') bonos += l.amount; });
+    var sub = 0, bonos = 0; st.lines.forEach(function (l) { sub += l.amount; if (l.kind === 'bono' || l.kind === 'pack') bonos += l.amount; });
     var dsc = calc && calc.discounts[st.disc], dAmount = dsc ? r2((sub - bonos) * (+dsc.pct || 0) / 100) : 0;
     return { subtotal: r2(sub), discount: dAmount, total: r2(sub - dAmount) };
   }
@@ -722,7 +723,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     if (st.from) ticketBox.appendChild(el('div', { class: 'cHint', id: 'deCita', text: 'Cita de ' + st.from }));
     if (!n) ticketBox.appendChild(el('div', { class: 'none', text: 'Toca un servicio o un extra para añadirlo.' }));
     st.lines.forEach(function (l, i) { ticketBox.appendChild(el('div', { class: 'cLine' }, [el('div', {}, [l.name, l.detail ? el('small', { text: l.detail }) : null]), el('span', { class: 'p', text: money(l.amount) }), el('button', { type: 'button', title: 'Quitar', text: '×', on: { click: function () { st.lines.splice(i, 1); if (!st.lines.length) st.from = ''; drawTicket(); modesBadge(); } } })])); });
-    if (calcData && calcData.discounts.length && n) {
+    if (calcData && calcData.discounts.length) { // (4.3.1) siempre a la vista (antes, solo con algo en la cuenta)
       var pick = function (i) { return function () { st.disc = i; drawTicket(); modesBadge(); }; };
       ticketBox.appendChild(el('div', { class: 'cDisc', id: 'descuento' }, [el('span', {}, ['Descuento', t.discount ? el('b', { text: '−' + money(t.discount) }) : null]),
         el('div', {}, [el('button', { type: 'button', class: st.disc < 0 || !calcData.discounts[st.disc] ? 'on' : '', 'data-disc': '-1', text: 'Sin descuento', on: { click: pick(-1) } })].concat(calcData.discounts.map(function (d, i) { return el('button', { type: 'button', class: i === st.disc ? 'on' : '', 'data-disc': String(i), text: txt(d.n, 60) + ' · ' + (+d.pct || 0) + '%', on: { click: pick(i) } }); })))]));
@@ -776,15 +777,21 @@ body.many-modes{--mh:74px;overflow-x:clip}
     calcData = calc; ticketBox = el('div', { class: 'cTicket', id: 'cuenta' });
     totalBox = el('button', { class: 'cTotal', id: 'total', type: 'button', title: 'Ver la cuenta', on: { click: function () { if (st.lines.length) setTk(!st.tk); } } });
     st.cNode = pane; st.cKey = key;
-    if (!calc) { pane.appendChild(el('div', { class: 'cBody' }, [el('div', { class: 'warn', id: 'sinPrecios', text: d ? 'Este centro todavía no publica su lista de precios. Se activa en el programa: Ajustes → Agenda móvil (web) → «Calculadora en la misma página».' : 'Abre primero la agenda de un centro.' })])); ticketBox = totalBox = null; return pane; }
+    if (!calc) { pane.appendChild(el('div', { class: 'cBody' }, [el('div', { class: 'warn', id: 'sinPrecios', text: d ? 'Este local todavía no ha publicado su lista de precios: sale sola con la agenda en cuanto el programa del local la publique.' : 'Abre primero la agenda de un centro.' })])); ticketBox = totalBox = null; return pane; }
     // (3.2.2) Al cambiar de pestaña (Servicios ↔ Extras ↔ Bonos) se empieza siempre por el ÍNDICE de la pestaña a la que
     // se va (sus categorías o sus grupos), arriba del todo: no se queda la categoría, el grupo ni el desplazamiento de
     // antes. Igual en el ordenador, la tableta y el móvil. (Si solo hay una categoría o un grupo, se abre ese.)
     var tab = function (id, label) { return el('button', { type: 'button', class: st.cTab === id ? 'on' : '', 'data-tab': id, text: label, on: { click: function () { goTab(id); } } }); };
-    pane.appendChild(el('div', { class: 'cTabs' }, [tab('serv', 'Servicios'), tab('extras', 'Extras'), calc.bonos.length ? tab('bonos', 'Bonos') : null]));
+    pane.appendChild(el('div', { class: 'cTabs' }, [tab('serv', 'Servicios'), tab('extras', 'Extras'), calc.bonos.length ? tab('bonos', 'Bonos') : null, calc.packs.length ? tab('packs', 'Packs') : null]));
     var body = el('div', { class: 'cBody' }); pane.appendChild(body);
     var plain = function (t) { return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
-    if (st.cTab === 'bonos' && calc.bonos.length) {
+    if (st.cTab === 'packs' && calc.packs.length) { // (4.3.1) los packs, como en Cobros
+      var pl = el('div', { class: 'cList', id: 'packs' });
+      calc.packs.forEach(function (pk) { var it = (Array.isArray(pk.it) ? pk.it : []).slice(0, 30).map(function (x) { return txt(x, 90); }).filter(Boolean).join(' · ');
+        pl.appendChild(el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'pack', name: 'Pack ' + txt(pk.n, 70), detail: it, amount: pk.p }); } } }, [el('b', {}, [txt(pk.n, 80), el('small', { text: it })]), el('span', { class: 'p' }, [+pk.l > +pk.p ? el('s', { class: 'antes', text: money(pk.l) }) : null, ' ', money(pk.p)])]));
+      });
+      body.appendChild(pl);
+    } else if (st.cTab === 'bonos' && calc.bonos.length) {
       var bl = el('div', { class: 'cList', id: 'bonos' });
       calc.bonos.forEach(function (b) { var sv = (Array.isArray(b.sv) ? b.sv : []).map(function (i) { return calc.services[i] && txt(calc.services[i].n, 80); }).filter(Boolean), svTxt = sv.length ? sv.slice(0, 4).join(', ') + (sv.length > 4 ? '…' : '') : b.gone ? 'servicios que ya no existen' : 'cualquier servicio';
         bl.appendChild(el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'bono', name: b.n, detail: nUn(+b.s || 1, 'sesión', 'sesiones'), amount: b.p }); } } }, [el('b', {}, [txt(b.n, 80), el('small', { text: nUn(+b.s || 1, 'sesión', 'sesiones') + (+b.v ? ' · caduca a los ' + nUn(+b.v, 'mes', 'meses') : '') + ' · ' + svTxt })]), el('span', { class: 'p', text: money(b.p) })])); });
@@ -902,7 +909,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   // (4.3.0) Cada archivo se lee de raw.githubusercontent.com por el NOMBRE de su rama, sin preguntar antes a la API de
   // GitHub (que deja 60 consultas por hora a cada conexión: con varios móviles en la misma wifi se quedaba sin agenda).
   // El «t» cambia cada 30 s para no recibir una copia vieja guardada por el camino.
-  function rawUrl(branch, path) { return cfg.raw + '/' + cfg.repo + '/' + branch + '/' + path + '?t=' + Math.floor(Date.now() / 30000); }
+  function rawUrl(branch, path, every) { return cfg.raw + '/' + cfg.repo + '/' + branch + '/' + path + '?t=' + Math.floor(Date.now() / (every || 30000)); }
   // Las agendas que ve este móvil: los locales de su acceso, cada uno con su zona (la rama donde publica su agenda).
   // (Lo que dio un ordenador con la 4.2 no trae la zona de la agenda: es la del local, hasta que se vuelva a dar.)
   function myLocales() { var g = acc.grant; if (!g) return []; return (g.locales || []).map(function (l) { return l && { zona: l.zona, name: l.name, rama: l.rama || l.zona }; }).filter(function (l) { return l && ZONE_RE.test(String(l.rama)) && !/^cs-/.test(l.rama) && (g.zonas === '*' || (g.zonas || []).indexOf(l.zona) >= 0); }); }
@@ -1256,6 +1263,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   function accPut(repo, path, obj, tok) { return accCall('PUT', repo, path, tok, { message: 'Consentia Studio', content: btoa(JSON.stringify(obj)), branch: 'main' }); }
   function accDel(repo, path, sha, tok) { return accCall('DELETE', repo, path, tok, { message: 'Consentia Studio', sha: sha, branch: 'main' }).catch(function () { }); }
   async function appRaw(path) { try { return await getJson(rawUrl(BR_ACC, path)); } catch (e) { return null; } } // (4.3.0) por el nombre de la rama, sin la API
+  async function appRaw2(path) { try { return await getJson(rawUrl(BR_ACC, path, 10000)); } catch (e) { return null; } } // (4.3.1) más al día (cada 10 s)
 
   /* ---------- este móvil: guardar, desbloquear, la sesión ---------- */
   // rec (guardado): { v, id, at, state ('pendiente' | 'activo'), pub, sig, wrap (claves privadas y, si hace falta, la
@@ -1324,7 +1332,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var f = await appRaw('g-' + acc.me.id + '.json'); if (!f) return;
     try {
       if (f.n !== 'g-' + acc.me.id) return; var g = await openEnv(f, acc.me.id, acc.me.e);
-      if (!g || g.id !== acc.me.id) return;
+      if (!g || g.id !== acc.me.id) return; acc.grantC = f.c || ''; /* (4.3.1) para ver al momento si cambia */
       if (g.revoked) { await wipeMe('Tu acceso a esta app se ha quitado. Si es un error, pide acceso otra vez en el local.'); return; }
       acc.grant = g; acc.mk = g.mk || '';
       if (st.mode === 'numeros' && g.nivel === 'agenda') st.mode = 'agenda';
@@ -1496,7 +1504,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     sheet([el('div', { class: 'h', text: (acc.grant.emp && acc.grant.emp.name) || '' }), el('h2', { text: 'Mis vacaciones' }), list, el('h3', { text: 'Pedir vacaciones' }), form], function (close) {
       return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'pedirVac', text: 'Pedir', on: { click: async function () {
         var a = d1.value, b = d2.value || d1.value; if (!a) return toast('Elige desde qué día.'); if (b < a) return toast('El último día va después del primero.'); if (a < today()) return toast('Las vacaciones se piden de hoy en adelante.');
-        try { await order('vacaciones', { from: a, to: b, note: nt.value.trim().slice(0, 300) }); close(); toast('Enviado: lo apunta el ordenador de tu local en 1 o 2 minutos.'); } catch (e) { toast(e.message); }
+        try { await order('vacaciones', { from: a, to: b, note: nt.value.trim().slice(0, 300) }); close(); toast('Enviado: lo apunta el ordenador de tu local en unos segundos.'); } catch (e) { toast(e.message); }
       } } })]);
     });
     var v = await loadVac(); list.innerHTML = '';
@@ -1527,7 +1535,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   function empPick(name, cur) { var e = acc.estado || {}; return el('select', { name: name, class: 'accSel' }, [el('option', { value: '', text: 'No es del equipo' })].concat((e.equipo || []).map(function (p) { return el('option', { value: p.sid, text: p.name, selected: cur === p.sid ? 'selected' : null }); }))); }
   function zPick(name, sel) { var e = acc.estado || {}; return el('div', { class: 'accZ' }, (e.locales || []).map(function (l) { return el('label', { class: 'accChk' }, [el('input', { type: 'checkbox', name: name, value: l.zona, checked: sel === '*' || (sel || []).indexOf(l.zona) >= 0 ? 'checked' : null }), el('span', { text: l.name })]); })); }
   function readPick(box, nm) { var lv = (box.querySelector('input[name="' + nm + 'L"]:checked') || {}).value || 'agenda'; var zs = Array.prototype.map.call(box.querySelectorAll('input[name="' + nm + 'Z"]:checked'), function (i) { return i.value; }); var em = box.querySelector('select[name="' + nm + 'E"]'); return { nivel: lv, zonas: lv === 'control' ? '*' : zs, emp: em ? em.value : '' }; }
-  async function doOrder(op, args, msg) { try { await order(op, args); acc.msg = ''; toast(msg || 'Enviado: lo hará un ordenador de la empresa en 1 o 2 minutos.'); } catch (e) { acc.msg = e.message; } render(); }
+  async function doOrder(op, args, msg) { try { await order(op, args); acc.msg = ''; toast(msg || 'Enviado: lo hace un ordenador de la empresa en unos segundos.'); } catch (e) { acc.msg = e.message; } render(); }
   var CT_ICONS = { sol: [['path', { d: 'M15 19a6 6 0 0 0-12 0' }], ['circle', { cx: '9', cy: '8', r: '4' }], ['path', { d: 'M19 8v6M16 11h6' }]], mov: [['rect', { x: '7', y: '2', width: '10', height: '20', rx: '2' }], ['path', { d: 'M11 18h2' }]],
     pcs: [['rect', { x: '2', y: '4', width: '20', height: '13', rx: '2' }], ['path', { d: 'M8 21h8M12 17v4' }]], llaves: [['circle', { cx: '7.5', cy: '15.5', r: '4.5' }], ['path', { d: 'M10.7 12.3L21 2M16 7l3 3M19 4l2 2' }]] };
   function renderControl(root) {
@@ -1538,7 +1546,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var L = e && e.llaves && e.llaves.moviles, dl = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
     var box = el('div', { class: 'accPage', id: 'control' }, [el('nav', { class: 'accTabs', id: 'ctlTabs' }, T.map(function (t) { return el('button', { type: 'button', 'data-ct': t[0], class: acc.ctab === t[0] ? 'on' : '', on: { click: function () { acc.ctab = t[0]; render(); window.scrollTo(0, 0); } } }, [svg(t[2]), el('span', { text: t[1] }), t[3] ? el('i', { class: 'nDot', text: String(t[3]) }) : null]); })),
       dl != null && dl <= 7 && acc.ctab !== 'llaves' ? el('button', { class: 'accAlert', id: 'avisoLlave', type: 'button', on: { click: function () { acc.ctab = 'llaves'; render(); } } }, [el('span', { text: 'La llave de los móviles caduca ' + (dl <= 0 ? 'hoy' : 'en ' + dl + (dl === 1 ? ' día' : ' días')) }), el('b', { text: 'Renovar ›' })]) : null, errBox(),
-      Object.keys(acc.waits).length ? el('div', { class: 'warn', id: 'enCurso', text: 'Hay ' + nUn(Object.keys(acc.waits).length, 'orden', 'órdenes') + ' en curso: la hará un ordenador de la empresa en 1 o 2 minutos.' }) : null]);
+      Object.keys(acc.waits).length ? el('div', { class: 'warn', id: 'enCurso', text: 'Hay ' + nUn(Object.keys(acc.waits).length, 'orden', 'órdenes') + ' en curso: la hace un ordenador de la empresa en unos segundos (si hay alguno encendido).' }) : null]);
     if (!e) { box.appendChild(el('p', { class: 'sub', text: 'Cargando… (lo prepara un ordenador de la empresa: si acabas de entrar, tarda 1 o 2 minutos).' })); root.appendChild(box); return; }
     if (acc.ctab === 'sol') {
       box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'invitar', text: 'Invitar a alguien (QR)', on: { click: inviteSheet } }));
@@ -1618,6 +1626,14 @@ body.many-modes{--mh:74px;overflow-x:clip}
   bootAcc().catch(function () { return false; }).then(function (a) { st.booting = false; if (a === 'listo') return; st.ready = true; render(); });
   window.addEventListener('hashchange', function () { var inv = readInvite(location.hash); if (inv && !acc.rec) { acc.inv = inv; acc.msg = ''; dropHash(); render(); } });
   setInterval(function () { if (v2On() && !document.hidden) refresh(); }, 5 * 60 * 1000);
+  // (4.3.1) Lo que puede ver este móvil se mira cada 15 s (un archivo pequeño, sin la API): si le cambian el acceso (otro
+  // nivel, otros locales) o se lo quitan, se nota al momento, sin esperar a la vuelta de 5 minutos.
+  var grantBusy = false;
+  async function grantWatch() {
+    if (grantBusy || !v2On() || document.hidden || st.loading) return; grantBusy = true;
+    try { var f = await appRaw2('g-' + acc.me.id + '.json'); if (f && f.n === 'g-' + acc.me.id && f.c && acc.grantC && f.c !== acc.grantC) await refresh(); } catch (e) { } finally { grantBusy = false; }
+  }
+  setInterval(grantWatch, 15 * 1000);
   setInterval(sessionOver, 60 * 1000); // (los 7 días)
   window.addEventListener('resize', fitGrid);
   window.addEventListener('hashchange', function () { var w = wanted(); if (!w) return; var i = st.centers.findIndex(function (c) { return centerSlug(c) === w; }); if (i >= 0) { if (i !== st.cur) { st.cur = i; st.scroll = null; render(); } } else st.want = w; });
