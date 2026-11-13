@@ -4,54 +4,91 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.5.0">
-<meta name="consentia-agenda-firma" content="eb+w094c2XBzNBCJDa+91RQv+I37JOP5cZWuezlq0MaewJI6AsKMy7Jem08nacpTgzbVDA6TvVmNJfFiCB19AA==">
+<meta name="consentia-agenda-version" content="4.5.1">
+<meta name="consentia-agenda-firma" content="CdYlujIhdGQh6tHCFy60i2LT2BefiKKMa4sdwB8om4ENv2swTwqP1bz1+NaM0Z2+tCy4VtqWTeSfG2DjvKKUCg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-T4yilK4+ItzvZmeLhWM6OQRVObMgMZdYAvUe9fO1u+4='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-0e0X+vJguBP3vkua/VAqOqabQbtQYApyrGBreOx3wDw='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <title>Pide tu cita</title>
 <style>
-:root{--pink:#ff2b91;--ink:#1c1b1f;--mute:#6f6c76;--line:#e7e4ea;--bg:#faf8fb;--ok:#1d8a4a;--warn:#b07000;--bad:#c62828}
+:root{--pink:#ff2b91;--ink:#111113;--mute:#77736c;--line:#e4e0d8;--bg:#f4f2ee;--ok:#1d8a4a;--warn:#9a6400;--bad:#c62828;--soft:#fff0f7}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-main{max-width:560px;margin:0 auto;padding:14px 14px 80px}
-header{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
-header .c{width:40px;height:40px;border-radius:12px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px Georgia,serif}
-header h1{font-size:19px;margin:0;line-height:1.15}header small{color:var(--mute);display:block;font-size:13px}
-.tabs{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:14px}
-.tabs button{flex:1;border:0;background:none;padding:10px;border-radius:10px;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--mute)}
-.tabs button.on{background:var(--pink);color:#fff}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
-h2{font-size:16px;margin:0 0 8px}h3{font-size:13px;margin:12px 0 4px;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
-.hint{color:var(--mute);font-size:13px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button,input,select,textarea{font-family:inherit}
+/* (4.5.1) Como la app de la agenda: barra de arriba con el logotipo, contenido y la barra de abajo («Mis citas» · «Pedir cita») */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:rgba(244,242,238,.92);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid rgba(17,17,19,.08)}
+.top img{width:30px;height:30px;flex:none}
+.top .t{min-width:0}.top b{display:block;font-size:16px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top small{display:block;color:var(--mute);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{max-width:560px;margin:0 auto;padding:14px 14px calc(150px + env(safe-area-inset-bottom))}
+.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#f7f6f3;border-top:1px solid rgba(17,17,19,.12)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.modes{background:rgba(247,246,243,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}
+.modes .seg{display:flex;gap:2px;max-width:520px;margin:0 auto;padding:3px;border-radius:14px;background:rgba(118,118,128,.16)}
+.modes button{flex:1 1 0;min-width:0;height:46px;display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:11px;background:transparent;color:#5b5b61;font-size:15px;font-weight:650;position:relative}
+.modes button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.modes button.on{background:#fff;color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
+.modes .dot{position:absolute;top:7px;right:calc(50% - 52px);min-width:18px;height:18px;border-radius:9px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(17,17,19,.04)}
+h1{font-size:24px;letter-spacing:-.02em;margin:6px 2px 4px}.lead{color:var(--mute);margin:0 2px 14px;font-size:14.5px}
+h2{font-size:17px;margin:0 0 8px;letter-spacing:-.01em}h3{font-size:12px;margin:16px 2px 8px;color:var(--mute);text-transform:uppercase;letter-spacing:.07em}
+.hint{color:var(--mute);font-size:13.5px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.sv{display:flex;gap:10px;align-items:center;padding:10px 4px;border-bottom:1px solid var(--line)}
-.sv:last-child{border:0}.sv input{width:20px;height:20px;accent-color:var(--pink)}.sv .n{flex:1}.sv .m{color:var(--mute);font-size:13px;white-space:nowrap}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
-.chip{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;font:600 14px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);text-align:center;min-width:64px}
-.chip.on{border-color:var(--pink);background:#fff0f7;color:var(--pink)}
+/* pasos */
+.steps{display:flex;gap:6px;margin:2px 2px 6px}.steps i{flex:1;height:4px;border-radius:2px;background:#ddd8cf}.steps i.on{background:var(--pink)}
+.stepT{font-size:12.5px;color:var(--mute);font-weight:700;margin:0 2px;text-transform:uppercase;letter-spacing:.06em}
+/* locales */
+.loc{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;color:var(--ink)}
+.loc .ic{width:42px;height:42px;border-radius:12px;background:var(--bg);display:grid;place-items:center;flex:none}.loc .ic svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.loc b{display:block;font-size:16px}.loc small{color:var(--mute)}.loc.on{border-color:var(--pink);background:var(--soft)}.loc .ck{margin-left:auto}
+/* servicios */
+.cats{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.pill{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:650;color:var(--ink);white-space:nowrap}.pill.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.sv{display:flex;gap:12px;align-items:center;padding:13px 14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;font-weight:400;cursor:pointer}
+.sv input{position:absolute;opacity:0;pointer-events:none}
+.sv .ck{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}
+.sv.on{border-color:var(--pink);background:var(--soft)}.sv.on .ck{background:var(--pink);border-color:var(--pink)}
+.sv .n{flex:1;font-weight:600;line-height:1.25}.sv .m{color:var(--mute);font-size:13px;white-space:nowrap;text-align:right}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}.on>.ck{background:var(--pink);border-color:var(--pink)}
+/* cuándo */
+.who{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.who::-webkit-scrollbar{display:none}
+.wh{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:70px;border:0;background:none;color:var(--ink);font-size:13px;font-weight:650}
+.wh .av{width:52px;height:52px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-size:19px;font-weight:800}
+.wh.on .av{border-color:var(--pink);background:var(--pink);color:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;scroll-snap-type:x proximity}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;scroll-snap-align:start;width:64px;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:8px 0;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink)}
+.chip small{font-size:11.5px;color:var(--mute);font-weight:700;text-transform:capitalize}.chip b{font-size:21px;line-height:1.1}.chip em{font-style:normal;font-size:10.5px;color:var(--mute);font-weight:700;text-transform:uppercase}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}.chip.on small,.chip.on em{color:#ddd}
+.chip.off{background:transparent;border-style:dashed;color:#b3ada4}.chip.off small,.chip.off em{color:#b3ada4}
+.month{font-weight:800;font-size:15px;margin:4px 2px 8px}
+.part{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--mute);margin:14px 2px 8px;text-transform:uppercase;letter-spacing:.06em}.part svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
 .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.slots .chip{min-width:0;padding:10px 4px}
-label{display:block;font-weight:600;font-size:14px;margin:10px 0 4px}
-input[type=text],input[type=tel],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:var(--ink)}
-textarea{min-height:70px;resize:vertical}
-button.p{border:0;background:var(--pink);color:#fff;border-radius:14px;padding:14px 18px;font:700 16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;width:100%}
+.slot{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:11px 0;font-size:15px;font-weight:700;color:var(--ink)}.slot.on{background:var(--pink);border-color:var(--pink);color:#fff}
+/* datos */
+label{display:block;font-weight:650;font-size:14px;margin:12px 2px 6px}
+input[type=text],input[type=tel],input[type=search],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:#fff;color:var(--ink);outline:none}
+input:focus,textarea:focus{border-color:var(--pink)}
+textarea{min-height:76px;resize:vertical}
+.resume{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14.5px}.resume span{color:var(--mute)}.resume b{font-weight:650}
+button.p{border:0;background:var(--pink);color:#fff;border-radius:14px;padding:15px 18px;font-size:16px;font-weight:750;width:100%}
 button.p:disabled{opacity:.45}
-button.s{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font:600 14px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button.s{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:650}
 button.s.bad{color:var(--bad)}
-.tag{display:inline-block;border-radius:999px;padding:2px 10px;font:700 12px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#eee;color:#555}
+button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight:650;padding:8px 2px}
+.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:750;background:#eee;color:#555}
 .tag.ok{background:#e4f6ea;color:var(--ok)}.tag.warn{background:#fff1d6;color:var(--warn)}.tag.bad{background:#fde7e7;color:var(--bad)}.tag.info{background:#e4eefc;color:#1d5fb4}
-.msg{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px;background:#eef2fb;color:#1d3a6b}
+.msg{border-radius:14px;padding:11px 13px;margin:8px 0;font-size:14px;background:#eef2fb;color:#1d3a6b}
 .msg.warn{background:#fff6e0;color:#6b4a00}.msg.bad{background:#fde7e7;color:#8a1c1c}.msg.ok{background:#e4f6ea;color:#14532d}
-.sum{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);margin:0 -14px;padding:10px 14px;display:flex;gap:10px;align-items:center}
-.sum b{flex:1}.sum button{width:auto;padding:12px 18px}
+.sum{position:fixed;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom));z-index:8;display:flex;gap:10px;align-items:center;max-width:560px;margin:0 auto;padding:10px 14px}
+.sum .in{flex:1;display:flex;gap:10px;align-items:center;background:var(--ink);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
+.sum b{flex:1;font-size:14px;line-height:1.25}.sum button.p{width:auto;padding:12px 18px}
+.sum button.bk{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:12px 12px;font-size:15px;font-weight:700}
 .photo{max-width:100%;max-height:200px;border-radius:12px;display:block;margin-top:8px}
-.big{font:800 20px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:12px 0}.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--pink)}
-.full{text-align:center;padding:22px 16px}.full .ic{font-size:40px;line-height:1}.full h2{font-size:19px;margin:10px 0 6px}
-a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font:700 17px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-input[type=search]{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:var(--ink)}
+.big{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:14px 2px}.check input{width:22px;height:22px;margin-top:1px;accent-color:var(--pink);flex:none}
+.full{text-align:center;padding:24px 16px}.full .ic{font-size:40px;line-height:1}.full h2{font-size:19px;margin:10px 0 6px}
+a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font-size:17px;font-weight:750}
+.empty{text-align:center;padding:26px 18px}.empty .ic{width:56px;height:56px;margin:0 auto 10px;border-radius:18px;background:var(--soft);display:grid;place-items:center}.empty .ic svg{width:28px;height:28px;fill:none;stroke:var(--pink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ap{display:flex;gap:12px;align-items:flex-start}.ap .d{flex:none;width:52px;border-radius:14px;background:var(--bg);text-align:center;padding:6px 0}.ap .d small{display:block;font-size:11px;font-weight:800;color:var(--pink);text-transform:uppercase}.ap .d b{display:block;font-size:20px;line-height:1.1}.ap .x{flex:1;min-width:0}
 </style>
 </head>
 <body>
@@ -122,8 +159,10 @@ input[type=search]{width:100%;border:1.5px solid var(--line);border-radius:12px;
     try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
   })();
 
-  var S = { tab: 'pedir', step: 0, z: null, zona: link.z || '', zdata: null, loading: false, err: '', sel: {}, day: '', time: '', emp: '', f: { name: '', phone: '', note: '', consent: false, photo: '' }, busy: false, sent: null, mine: [], cl: null, clMsg: '', clBusy: false };
+  var S = { tab: 'mis', step: 0, cat: '', q: '', z: null, zona: link.z || '', zdata: null, loading: false, err: '', sel: {}, day: '', time: '', emp: '', f: { name: '', phone: '', note: '', consent: false, photo: '' }, busy: false, sent: null, mine: [], cl: null, clMsg: '', clBusy: false };
   var root = document.getElementById('app');
+  // (4.5.1) El logotipo (la C con la estrella), el mismo de la app de la agenda, dentro de la página.
+  var LOGO = 'data:image/png;base64,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';
 
   /* ---------- cifrado (lo mismo que la app del móvil) ---------- */
   async function pubOf(p) { return SC.importKey('jwk', { kty: 'EC', crv: 'P-256', x: p.x, y: p.y, ext: true }, ECDH, false, []); }
@@ -254,7 +293,7 @@ input[type=search]{width:100%;border:1.5px solid var(--line);border-radius:12px;
     try {
       // (4.5.0) Justo antes de enviar, el hueco otra vez (por si alguien lo acaba de coger).
       var fz = await freshZ(S.zona).catch(function () { return null; });
-      if (fz && fz.v === 1) { S.zdata = fz; z = fz; if (fz.full) { S.full = true; S.busy = false; return render(); } if (!times(S.day).some(function (t) { return t.s === S.time; })) { S.busy = false; S.step = 1; S.time = ''; S.err = 'Ese hueco se acaba de ocupar. Elige otra hora, por favor.'; render(); window.scrollTo(0, 0); return; } }
+      if (fz && fz.v === 1) { S.zdata = fz; z = fz; if (fz.full) { S.full = true; S.busy = false; return render(); } if (!times(S.day).some(function (t) { return t.s === S.time; })) { S.busy = false; S.step = 2; S.time = ''; S.err = 'Ese hueco se acaba de ocupar. Elige otra hora, por favor.'; render(); window.scrollTo(0, 0); return; } }
       S.busyTxt = 'Enviando…'; render();
       var d = await device(), id = hex(8), req = { v: 1, id: id, kind: 'cita', at: new Date().toISOString(), pub: { x: d.x, y: d.y }, zona: S.zona, d: S.day, s: S.time, name: f.name.trim(), phone: f.phone.trim(), svc: chosenSvc().map(function (s) { return s.id; }), emp: S.emp || '', note: f.note.trim() };
       if (f.photo && z.photo) req.photo = f.photo;
@@ -310,118 +349,183 @@ input[type=search]{width:100%;border:1.5px solid var(--line);border-radius:12px;
   }
 
   /* ---------- pantallas ---------- */
-  function head() { var z = S.zdata; return el('header', {}, [el('div', { class: 'c', text: 'C' }), el('div', {}, [el('h1', { text: z ? z.local.n : 'Pide tu cita' }), el('small', { text: z ? [z.local.l, z.local.a].filter(Boolean).join(' · ') : '' })])]); }
-  function msg(t, k) { return t ? el('div', { class: 'msg ' + (k || '') , text: t }) : null; }
+  // (4.5.1) Como la app de la agenda: arriba el logotipo y el centro; abajo «Mis citas» (lo primero) y «Pedir cita»; pedir
+  // cita por pasos (centro → servicios → cuándo → tus datos) con una barra fija abajo para seguir.
+  var NS = 'http://www.w3.org/2000/svg';
+  function ico(paths) { var s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); paths.forEach(function (p) { var e = document.createElementNS(NS, p[0]); Object.keys(p[1]).forEach(function (k) { e.setAttribute(k, p[1][k]); }); s.appendChild(e); }); return s; }
+  var I = {
+    cal: [['rect', { x: '3', y: '5', width: '18', height: '16', rx: '3' }], ['path', { d: 'M3 10h18M8 3v4M16 3v4' }]],
+    plus: [['circle', { cx: '12', cy: '12', r: '9' }], ['path', { d: 'M12 8v8M8 12h8' }]],
+    pin: [['path', { d: 'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z' }], ['circle', { cx: '12', cy: '10', r: '2.5' }]],
+    sun: [['circle', { cx: '12', cy: '12', r: '4' }], ['path', { d: 'M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4' }]],
+    sunset: [['path', { d: 'M17 18a5 5 0 0 0-10 0M12 9V2M4.2 10.2l1.4 1.4M1 18h2M21 18h2M18.4 11.6l1.4-1.4M23 22H1M16 5l-4 4-4-4' }]],
+    moon: [['path', { d: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z' }]]
+  };
+  function head() {
+    var z = S.zdata, top = document.getElementById('top');
+    if (!top) { top = el('div', { class: 'top', id: 'top' }); document.body.insertBefore(top, root); }
+    top.textContent = ''; top.appendChild(el('img', { src: LOGO, alt: 'Consentía Studio', id: 'logo' }));
+    top.appendChild(el('div', { class: 't' }, [el('b', { text: z ? z.local.n : 'Consentía Studio' }), el('small', { text: z ? [z.local.l, z.local.a].filter(Boolean).join(' · ') || 'Pide tu cita' : 'Pide tu cita' })]));
+  }
+  function nav() {
+    var n = document.getElementById('nav'); if (!link.k) { if (n) n.remove(); return; }
+    if (!n) { n = el('nav', { class: 'modes', id: 'nav', 'aria-label': 'Mis citas o pedir cita' }); document.body.appendChild(n); }
+    n.textContent = ''; var wait = S.mine.filter(function (m) { return m.res && m.res.state === 'propuesta'; }).length;
+    var b = function (id, tab, txt, ic, go) { var x = el('button', { type: 'button', id: id, class: S.tab === tab ? 'on' : '', onclick: go }); x.appendChild(ico(ic)); x.appendChild(el('span', { text: txt })); return x; };
+    var mis = b('navMis', 'mis', 'Mis citas', I.cal, function () { S.tab = 'mis'; S.info = ''; render(); window.scrollTo(0, 0); loadMine(); if (store('cli') && !S.cl) showClient(); });
+    if (wait) mis.appendChild(el('span', { class: 'dot', text: String(wait) }));
+    n.appendChild(el('div', { class: 'seg' }, [mis, b('navPedir', 'pedir', 'Pedir cita', I.plus, function () { S.tab = 'pedir'; S.sent = null; S.full = false; render(); window.scrollTo(0, 0); })]));
+  }
+  function msg(t, k) { return t ? el('div', { class: 'msg ' + (k || ''), text: t }) : null; }
+  var STEPS = ['Centro', 'Servicios', 'Cuándo', 'Tus datos'];
+  function stepHead(n, title, lead) { return [el('div', { class: 'steps' }, STEPS.map(function (x, i) { return el('i', { class: i <= n ? 'on' : '' }); })), el('div', { class: 'stepT', text: 'Paso ' + (n + 1) + ' de 4 · ' + STEPS[n] }), el('h1', { text: title }), lead ? el('p', { class: 'lead', text: lead }) : null]; }
+  function go(n) { S.step = n; S.err = ''; render(); window.scrollTo(0, 0); }
+  function bar(text, next, nextTxt, canBack) {
+    return el('div', { class: 'sum', id: 'sumBar' }, [el('div', { class: 'in' }, [canBack ? el('button', { class: 'bk', type: 'button', text: '‹', 'aria-label': 'Atrás', onclick: function () { go(Math.max(0, S.step - 1)); } }) : null, el('b', { text: text }), next ? el('button', { class: 'p', type: 'button', id: 'siguiente', text: nextTxt || 'Siguiente', onclick: next }) : null])]);
+  }
   function stepLocal() {
-    var z = S.zdata, ls = z.locales || [];
-    return el('div', { class: 'card' }, [el('h2', { text: 'Elige tu local' }), el('div', { class: 'row' }, ls.map(function (l) { return el('button', { class: 'chip' + (l.z === S.zona ? ' on' : ''), text: l.n, onclick: function () { S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; loadLocal(l.z); } }); }))]);
+    var z = S.zdata, ls = (z.locales || []).length ? z.locales : [{ z: S.zona, n: z.local.n }];
+    var out = stepHead(0, '¿A qué centro vienes?', ls.length > 1 ? 'Elige el local donde quieres la cita.' : '');
+    ls.forEach(function (l) { var on = l.z === S.zona; var b = el('button', { type: 'button', class: 'loc' + (on ? ' on' : ''), 'data-z': l.z, onclick: function () { if (l.z === S.zona) return; S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; loadLocal(l.z); } }); var ic = el('span', { class: 'ic' }); ic.appendChild(ico(I.pin)); b.appendChild(ic); b.appendChild(el('span', {}, [el('b', { text: l.n }), on && z.local.a ? el('small', { text: z.local.a }) : null])); b.appendChild(el('span', { class: 'ck', text: on ? '✓' : '' })); out.push(b); });
+    out.push(bar(z.local.n, function () { go(1); }, 'Siguiente', false)); return out;
   }
   function stepServices() {
-    var z = S.zdata, by = {}, cats = []; z.svc.forEach(function (s) { if (!by[s.c]) { by[s.c] = []; cats.push(s.c); } by[s.c].push(s); });
-    var t = totals(), box = el('div', { class: 'card' }, [el('h2', { text: '1 · ¿Qué te quieres hacer?' }), el('div', { class: 'hint', text: 'Puedes elegir hasta 6 servicios.' })]);
-    if (!z.svc.length) box.appendChild(msg('Ahora mismo no hay servicios para pedir por aquí. Escríbenos.', 'warn'));
-    // (4.5.0) Ahora salen todos los servicios: con muchos, un buscador.
-    var q = String(S.q || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(), low = function (t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
-    if (z.svc.length > 10) { var qi = el('input', { type: 'search', id: 'svBuscar', placeholder: 'Busca un servicio', value: S.q || '', style: 'margin-top:8px', oninput: function (e) { S.q = e.target.value; var p = e.target.selectionStart; render(); var n = document.getElementById('svBuscar'); if (n) { n.focus(); try { n.setSelectionRange(p, p); } catch (er) { } } } }); box.appendChild(qi); }
+    var z = S.zdata, cats = []; z.svc.forEach(function (s) { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
+    var t = totals(), out = stepHead(1, '¿Qué te quieres hacer?', 'Puedes elegir hasta 6 servicios.');
+    if (!z.svc.length) { out.push(msg('Ahora mismo no hay servicios para pedir por aquí. Escríbenos.', 'warn')); return out; }
+    var low = function (x) { return String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }, q = low(S.q).trim();
+    if (z.svc.length > 10) out.push(el('input', { type: 'search', id: 'svBuscar', placeholder: 'Busca un servicio', value: S.q || '', style: 'margin-bottom:10px', oninput: function (e) { S.q = e.target.value; var p = e.target.selectionStart; render(); var n = document.getElementById('svBuscar'); if (n) { n.focus(); try { n.setSelectionRange(p, p); } catch (er) { } } } }));
+    if (cats.length > 1) out.push(el('div', { class: 'cats', id: 'svCats' }, [''].concat(cats).map(function (c) { return el('button', { type: 'button', class: 'pill' + ((S.cat || '') === c ? ' on' : ''), text: c || 'Todos', onclick: function () { S.cat = c; render(); } }); })));
+    var shown = 0;
     cats.forEach(function (c) {
-      var list = by[c].filter(function (s) { return !q || S.sel[s.id] || q.split(/\s+/).every(function (w) { return low(s.n + ' ' + c).indexOf(w) >= 0; }); }); if (!list.length) return;
-      box.appendChild(el('h3', { text: c || 'Otros' }));
-      list.forEach(function (s) { box.appendChild(el('label', { class: 'sv', style: 'font-weight:400;margin:0' }, [el('input', { type: 'checkbox', checked: !!S.sel[s.id], onchange: function (e) { if (e.target.checked && totals().n >= 6) { e.target.checked = false; return; } S.sel[s.id] = e.target.checked; S.day = ''; S.time = ''; render(); } }), el('span', { class: 'n', text: s.n }), el('span', { class: 'm', text: durText(s.m) + ' · ' + money(s.p) })])); });
+      if (S.cat && S.cat !== c) return;
+      var list = z.svc.filter(function (s) { return s.c === c && (!q || S.sel[s.id] || q.split(/\s+/).every(function (w) { return low(s.n + ' ' + c).indexOf(w) >= 0; })); }); if (!list.length) return;
+      out.push(el('h3', { text: c || 'Otros' }));
+      list.forEach(function (s) { shown++; var on = !!S.sel[s.id];
+        out.push(el('label', { class: 'sv' + (on ? ' on' : '') }, [el('input', { type: 'checkbox', checked: on, onchange: function (e) { if (e.target.checked && totals().n >= 6) { e.target.checked = false; S.err = 'Como mucho 6 servicios.'; render(); return; } S.sel[s.id] = e.target.checked; S.day = ''; S.time = ''; S.err = ''; render(); } }), el('span', { class: 'ck', text: on ? '✓' : '' }), el('span', { class: 'n', text: s.n }), el('span', { class: 'm' }, [durText(s.m), el('br'), money(s.p)])])); });
     });
-    return [box, t.n ? el('div', { class: 'sum' }, [el('b', { text: t.n + ' servicio' + (t.n > 1 ? 's' : '') + ' · ' + durText(t.m) + ' · ' + money(t.p) }), el('button', { class: 'p', text: 'Siguiente', onclick: function () { S.step = 1; render(); window.scrollTo(0, 0); } })]) : null];
+    if (!shown) out.push(el('div', { class: 'card hint', text: 'No hay ningún servicio con ese nombre.' }));
+    out.push(t.n ? bar(t.n + ' servicio' + (t.n > 1 ? 's' : '') + ' · ' + durText(t.m) + ' · ' + money(t.p), function () { go(2); }, 'Siguiente', true) : bar('Elige al menos un servicio', null, '', true));
+    return out;
   }
+  function allDays() { var z = S.zdata, out = [], p = String(z.from || '').split('-'); if (p.length !== 3) return Object.keys(z.days || {}).sort(); var d = new Date(+p[0], +p[1] - 1, +p[2]); for (var i = 0; i < 70; i++) { var k = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); if (k > z.to) break; out.push(k); d.setDate(d.getDate() + 1); } return out; }
   function stepTime() {
-    var z = S.zdata, days = daysWith(), box = el('div', { class: 'card' }, [el('h2', { text: '2 · ¿Cuándo te viene bien?' })]);
-    if (z.pick && z.emps.length > 1) { var sel = el('select', { onchange: function (e) { S.emp = e.target.value; S.day = ''; S.time = ''; render(); } }, [el('option', { value: '', text: 'Con quien esté libre' })].concat(z.emps.map(function (e) { return el('option', { value: e.id, text: 'Con ' + e.n, selected: e.id === S.emp }); }))); box.appendChild(el('label', { text: 'Con quién' })); box.appendChild(sel); }
-    if (!days.length) { box.appendChild(msg('No hay huecos libres para ese tiempo en los próximos días. Prueba con menos servicios o escríbenos.', 'warn')); return [box, back()]; }
-    if (!S.day || days.indexOf(S.day) < 0) { S.day = days[0]; S.time = ''; }
-    box.appendChild(el('h3', { text: 'Día' })); box.appendChild(el('div', { class: 'chips' }, days.map(function (d) { return el('button', { class: 'chip' + (d === S.day ? ' on' : ''), text: dayText(d), onclick: function () { S.day = d; S.time = ''; render(); } }); })));
-    box.appendChild(el('h3', { text: 'Hora' })); box.appendChild(el('div', { class: 'slots' }, times(S.day).map(function (t) { return el('button', { class: 'chip' + (t.s === S.time ? ' on' : ''), text: t.s, onclick: function () { S.time = t.s; render(); } }); })));
-    return [box, S.time ? el('div', { class: 'sum' }, [el('b', { text: dayText(S.day) + ' · ' + S.time }), el('button', { class: 'p', text: 'Siguiente', onclick: function () { S.step = 2; render(); window.scrollTo(0, 0); } })]) : back()];
+    var z = S.zdata, t = totals(), out = stepHead(2, '¿Cuándo te viene bien?', durText(t.m) + ' en total');
+    if (z.pick && z.emps.length > 1) {
+      out.push(el('h3', { text: 'Con quién' }));
+      out.push(el('div', { class: 'who', id: 'quien' }, [{ id: '', n: 'Me da igual' }].concat(z.emps).map(function (e) { return el('button', { type: 'button', class: 'wh' + ((S.emp || '') === e.id ? ' on' : ''), 'data-e': e.id, onclick: function () { S.emp = e.id; S.day = ''; S.time = ''; render(); } }, [el('span', { class: 'av', text: e.id ? e.n.charAt(0).toUpperCase() : '✦' }), el('span', { text: e.n })]); })));
+    }
+    var days = allDays(), closed = z.closed || [], ok = days.filter(function (d) { return closed.indexOf(d) < 0 && times(d).length; });
+    if (!ok.length) { out.push(msg('No hay huecos libres para ese tiempo en los próximos días. Prueba con menos servicios' + (S.emp ? ' o con otra persona' : '') + ', o llámanos.', 'warn')); out.push(bar('Sin huecos', null, '', true)); return out; }
+    if (!S.day || ok.indexOf(S.day) < 0) { S.day = ok[0]; S.time = ''; }
+    out.push(el('h3', { text: 'Día' }));
+    out.push(el('div', { class: 'month', text: (function () { var p = S.day.split('-'); try { var t = new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString('es-ES', { month: 'long' }); return t.charAt(0).toUpperCase() + t.slice(1) + ' ' + p[0]; } catch (e) { return ''; } })() }));
+    var strip = el('div', { class: 'chips', id: 'dias' }, days.map(function (d) {
+      var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), wd = ''; try { wd = dt.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', ''); } catch (e) { }
+      var isClosed = closed.indexOf(d) >= 0, isOk = ok.indexOf(d) >= 0;
+      return el('button', { type: 'button', class: 'chip' + (d === S.day ? ' on' : '') + (isOk ? '' : ' off'), 'data-d': d, disabled: !isOk, title: dayText(d, true), onclick: function () { S.day = d; S.time = ''; render(); } }, [el('small', { text: wd }), el('b', { text: String(+p[2]) }), el('em', { text: isClosed ? 'Cerrado' : isOk ? (+p[1] === new Date().getMonth() + 1 ? '' : dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '')) : 'Completo' })]);
+    }));
+    out.push(strip); setTimeout(function () { var on = strip.querySelector('.on'); if (on && on.scrollIntoView) try { on.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) { } }, 0);
+    out.push(el('h3', { text: 'Hora · ' + dayText(S.day, true) }));
+    var all = times(S.day), parts = [['Mañana', I.sun, 0, 840], ['Tarde', I.sunset, 840, 1200], ['Noche', I.moon, 1200, 1440]];
+    parts.forEach(function (g) {
+      var list = all.filter(function (x) { var m = mins(x.s); return m >= g[2] && m < g[3]; }); if (!list.length) return;
+      var hdr = el('div', { class: 'part' }); hdr.appendChild(ico(g[1])); hdr.appendChild(document.createTextNode(g[0])); out.push(hdr);
+      out.push(el('div', { class: 'slots' }, list.map(function (x) { return el('button', { type: 'button', class: 'slot' + (x.s === S.time ? ' on' : ''), text: x.s, onclick: function () { S.time = x.s; render(); } }); })));
+    });
+    out.push(S.time ? bar(dayText(S.day) + ' · ' + S.time + (S.emp ? ' · con ' + (z.emps.filter(function (e) { return e.id === S.emp; })[0] || {}).n : ''), function () { go(3); }, 'Siguiente', true) : bar('Elige una hora', null, '', true));
+    return out;
   }
-  function back() { return el('div', { class: 'row', style: 'margin:6px 0' }, [el('button', { class: 's', text: '‹ Atrás', onclick: function () { S.step = Math.max(0, S.step - 1); render(); } })]); }
   function stepData() {
-    var z = S.zdata, f = S.f, t = totals();
-    var box = el('div', { class: 'card' }, [el('h2', { text: '3 · Tus datos' }),
-      el('div', { class: 'msg', text: chosenSvc().map(function (s) { return s.n; }).join(' + ') + ' · ' + dayText(S.day, true) + ' a las ' + S.time + ' (' + durText(t.m) + ')' }),
-      el('label', { text: 'Nombre y apellido' }), el('input', { type: 'text', autocomplete: 'name', maxlength: 80, value: f.name, oninput: function (e) { f.name = e.target.value; } }),
-      el('label', { text: 'Teléfono' }), el('input', { type: 'tel', autocomplete: 'tel', maxlength: 16, value: f.phone, oninput: function (e) { f.phone = e.target.value; } }),
-      el('label', { text: 'Algo que debamos saber (opcional)' }), el('textarea', { maxlength: 300, placeholder: 'Alergias, qué te quieres hacer, si vienes con alguien…', oninput: function (e) { f.note = e.target.value; } }, [f.note])]);
+    var z = S.zdata, f = S.f, t = totals(), em = S.emp ? (z.emps.filter(function (e) { return e.id === S.emp; })[0] || {}).n : '';
+    var out = stepHead(3, 'Tus datos', 'Ya casi está. Revisa tu cita y dinos quién eres.');
+    out.push(el('div', { class: 'card' }, [el('div', { class: 'resume', id: 'resumen' }, [
+      el('span', { text: 'Centro' }), el('b', { text: z.local.n }), el('span', { text: 'Servicios' }), el('b', { text: chosenSvc().map(function (s) { return s.n; }).join(' + ') }),
+      el('span', { text: 'Día' }), el('b', { text: dayText(S.day, true) }), el('span', { text: 'Hora' }), el('b', { text: S.time + ' (' + durText(t.m) + ')' }),
+      el('span', { text: 'Con' }), el('b', { text: em || 'Quien esté libre' }), el('span', { text: 'Precio' }), el('b', { text: money(t.p) })])]));
+    var box = el('div', { class: 'card' }, [
+      el('label', { text: 'Nombre y apellido' }), el('input', { type: 'text', id: 'nombre', autocomplete: 'name', maxlength: 80, value: f.name, oninput: function (e) { f.name = e.target.value; } }),
+      el('label', { text: 'Teléfono' }), el('input', { type: 'tel', id: 'telefono', autocomplete: 'tel', maxlength: 16, value: f.phone, oninput: function (e) { f.phone = e.target.value; } }),
+      el('label', { text: 'Algo que debamos saber (opcional)' }), el('textarea', { id: 'nota', maxlength: 300, placeholder: 'Alergias, qué te quieres hacer, si vienes con alguien…', oninput: function (e) { f.note = e.target.value; } }, [f.note])]);
     if (z.photo) {
       box.appendChild(el('label', { text: 'Una foto (opcional)' }));
       box.appendChild(el('div', { class: 'hint', text: 'Por ejemplo, de tus uñas o tu pelo de ahora: así podemos ver si hace falta más tiempo. Se envía cifrada y se borra cuando te contestemos, o a las 24 horas.' }));
-      box.appendChild(el('input', { type: 'file', accept: 'image/*', style: 'margin-top:6px', onchange: function (e) { var fl = e.target.files && e.target.files[0]; if (!fl) { f.photo = ''; render(); return; } shrinkPhoto(fl).then(function (u) { f.photo = u; S.err = ''; render(); }, function (er) { S.err = er.message; render(); }); } }));
-      if (f.photo) { box.appendChild(el('img', { class: 'photo', src: f.photo, alt: 'Tu foto' })); box.appendChild(el('button', { class: 's', style: 'margin-top:6px', text: 'Quitar la foto', onclick: function () { f.photo = ''; render(); } })); }
+      box.appendChild(el('input', { type: 'file', accept: 'image/*', style: 'margin-top:8px', onchange: function (e) { var fl = e.target.files && e.target.files[0]; if (!fl) { f.photo = ''; render(); return; } shrinkPhoto(fl).then(function (u) { f.photo = u; S.err = ''; render(); }, function (er) { S.err = er.message; render(); }); } }));
+      if (f.photo) { box.appendChild(el('img', { class: 'photo', src: f.photo, alt: 'Tu foto' })); box.appendChild(el('button', { class: 's', type: 'button', style: 'margin-top:8px', text: 'Quitar la foto', onclick: function () { f.photo = ''; render(); } })); }
     }
     box.appendChild(el('label', { class: 'check' }, [el('input', { type: 'checkbox', checked: f.consent, onchange: function (e) { f.consent = e.target.checked; } }), el('span', { text: 'Acepto que el centro use mi nombre, mi teléfono' + (z.photo ? ', mi nota y mi foto' : ' y mi nota') + ' solo para gestionar esta cita. La solicitud y la foto se borran en cuanto me contestan o a las 24 horas.' })]));
-    box.appendChild(el('button', { class: 'p', disabled: S.busy, text: S.busy ? (S.busyTxt || 'Enviando…') : 'Pedir la cita', onclick: submit }));
-    box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'No es una reserva hasta que el centro te la confirme.' + (z.local.t ? ' ' + z.local.t : '') }));
-    return [box, back()];
+    box.appendChild(el('button', { class: 'p', type: 'button', id: 'enviar', disabled: S.busy, text: S.busy ? (S.busyTxt || 'Enviando…') : 'Pedir la cita', onclick: submit }));
+    box.appendChild(el('div', { class: 'hint', style: 'margin-top:10px', text: 'No es una reserva hasta que el centro te la confirme.' + (z.local.t ? ' ' + z.local.t : '') }));
+    out.push(box); out.push(el('button', { class: 'lnk', type: 'button', text: '‹ Cambiar el día o la hora', onclick: function () { go(2); } }));
+    return out;
   }
   function pedir() {
     var z = S.zdata; if (!z) return [];
     if (z.full || S.full) return [fullCard()]; // (4.5.0) topes del centro
-    var parts = []; if ((z.locales || []).length > 1 && S.step === 0) parts.push(stepLocal());
-    if (S.step === 0) return parts.concat(stepServices()); if (S.step === 1) return stepTime(); return stepData();
+    if (S.step === 0) return stepLocal(); if (S.step === 1) return stepServices(); if (S.step === 2) return stepTime(); return stepData();
   }
   var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['info', 'Te proponen otra hora'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada'], completa: ['bad', 'Estamos completas'] };
+  function dateBadge(d) { var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), m = ''; try { m = dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''); } catch (e) { } return el('div', { class: 'd' }, [el('small', { text: m }), el('b', { text: String(+p[2]) })]); }
   function mineCard(m) {
-    var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, c = el('div', { class: 'card' });
-    c.appendChild(el('div', { class: 'row', style: 'justify-content:space-between' }, [el('b', { text: (x && x.sv ? x.sv : r.sv).join(' + ') }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
-    c.appendChild(el('div', { class: 'hint', text: 'Pediste: ' + dayText(r.d) + ' · ' + r.s + (x && x.local ? ' · ' + x.local.n : '') }));
-    if (x && st === 'confirmada' && x.cita) c.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: dayText(x.cita.d, true) + ' a las ' + x.cita.s + (x.cita.emp ? ' con ' + x.cita.emp : '') }));
+    var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, show = x && x.cita ? x.cita : { d: r.d, s: r.s };
+    var c = el('div', { class: 'card' }), body = el('div', { class: 'x' });
+    c.appendChild(el('div', { class: 'ap' }, [dateBadge(show.d), body]));
+    body.appendChild(el('div', { class: 'row', style: 'justify-content:space-between' }, [el('b', { text: (x && x.sv ? x.sv : r.sv).join(' + ') }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
+    body.appendChild(el('div', { class: 'hint', text: dayText(show.d, true) + ' · ' + show.s + (show.emp ? ' con ' + show.emp : '') + (x && x.local ? ' · ' + x.local.n : '') }));
     if (x && st === 'propuesta' && x.cita) {
-      c.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: 'Te proponen: ' + dayText(x.cita.d, true) + ' a las ' + x.cita.s }));
-      c.appendChild(el('div', { class: 'row' }, [el('button', { class: 'p', style: 'flex:1', disabled: S.busy, text: 'Me viene bien', onclick: function () { answer(r, 'acepta'); } }), el('button', { class: 's bad', disabled: S.busy, text: 'No me viene', onclick: function () { answer(r, 'anula'); } })]));
+      body.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: 'Te proponen: ' + dayText(x.cita.d, true) + ' a las ' + x.cita.s }));
+      body.appendChild(el('div', { class: 'row' }, [el('button', { class: 'p', type: 'button', style: 'flex:1', disabled: S.busy, text: 'Me viene bien', onclick: function () { answer(r, 'acepta'); } }), el('button', { class: 's bad', type: 'button', disabled: S.busy, text: 'No me viene', onclick: function () { answer(r, 'anula'); } })]));
     }
-    if (x && x.msg) c.appendChild(msg(x.msg));
-    if (x && st === 'completa' && x.msg && /\d{6,}/.test(String((S.zdata && S.zdata.local && S.zdata.local.tel) || ''))) c.appendChild(el('a', { class: 'tel', href: 'tel:' + String(S.zdata.local.tel).replace(/[^\d+]/g, ''), text: 'Llamar al ' + S.zdata.local.tel }));
-    if (!x || st === 'pendiente') c.appendChild(el('div', { class: 'hint', text: 'El centro te contesta en menos de 24 horas (si es fin de semana, el lunes).' }));
-    if (x && st === 'confirmada') c.appendChild(el('button', { class: 's bad', style: 'margin-top:8px', disabled: S.busy, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
+    if (x && x.msg) body.appendChild(msg(x.msg));
+    if (x && st === 'completa' && x.msg && /\d{6,}/.test(String((S.zdata && S.zdata.local && S.zdata.local.tel) || ''))) body.appendChild(el('a', { class: 'tel', href: 'tel:' + String(S.zdata.local.tel).replace(/[^\d+]/g, ''), text: 'Llamar al ' + S.zdata.local.tel }));
+    if (!x || st === 'pendiente') body.appendChild(el('div', { class: 'hint', style: 'margin-top:4px', text: 'Te contestamos en menos de 24 horas (si es fin de semana, el lunes).' }));
+    if (x && st === 'confirmada') body.appendChild(el('button', { class: 's bad', type: 'button', style: 'margin-top:8px', disabled: S.busy, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
     return c;
   }
   function mis() {
-    var parts = [];
+    var parts = [el('h1', { text: 'Mis citas' })];
     if (S.info) parts.push(msg(S.info, 'ok'));
-    if (S.sent) { parts.push(msg('¡Solicitud enviada! El centro te la confirma en menos de 24 horas. Vuelve aquí para ver la respuesta.', 'ok')); }
-    parts.push(el('h3', { text: 'Mis solicitudes (en este móvil)' }));
-    if (!S.mine.length) parts.push(el('div', { class: 'card hint', text: 'Todavía no has pedido ninguna desde este móvil.' })); else S.mine.forEach(function (m) { parts.push(mineCard(m)); });
-    parts.push(el('div', { class: 'row' }, [el('button', { class: 's', text: 'Actualizar', onclick: function () { S.info = ''; loadMine(); } })]));
-    parts.push(el('h3', { text: 'Mis citas en el centro' }));
-    var c = store('cli'), box = el('div', { class: 'card' });
+    if (S.sent) parts.push(msg('¡Solicitud enviada! Te la confirmamos en menos de 24 horas. La respuesta te sale aquí.', 'ok'));
+    var c = store('cli');
+    if (!S.mine.length && !c) {
+      var e = el('div', { class: 'card empty', id: 'vacio' }), ic = el('div', { class: 'ic' }); ic.appendChild(ico(I.cal)); e.appendChild(ic);
+      e.appendChild(el('h2', { text: 'Todavía no tienes citas' })); e.appendChild(el('div', { class: 'hint', text: 'Pide una en un momento: eliges el servicio, el día y la hora, y te la confirmamos.' }));
+      e.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; render(); window.scrollTo(0, 0); } })); parts.push(e);
+    }
+    if (S.mine.length) { parts.push(el('h3', { text: 'Pedidas desde este móvil' })); S.mine.forEach(function (m) { parts.push(mineCard(m)); }); parts.push(el('button', { class: 'lnk', type: 'button', text: '↻ Actualizar', onclick: function () { S.info = ''; loadMine(); } })); }
+    parts.push(el('h3', { text: 'Tus citas en el centro' }));
+    var box = el('div', { class: 'card', id: 'centro' });
     if (!c) {
       var ph = el('input', { type: 'tel', maxlength: 16, autocomplete: 'tel', placeholder: 'Tu teléfono' }), cd = el('input', { type: 'text', maxlength: 9, autocapitalize: 'characters', autocomplete: 'off', placeholder: 'Tu código (8 letras y números)' });
-      box.appendChild(el('div', { class: 'hint', text: 'Si ya eres clienta, el centro te da un código. Con tu teléfono y ese código ves tus próximas citas.' })); box.appendChild(el('label', { text: 'Teléfono' })); box.appendChild(ph); box.appendChild(el('label', { text: 'Código' })); box.appendChild(cd);
-      box.appendChild(el('button', { class: 'p', style: 'margin-top:10px', disabled: S.clBusy, text: S.clBusy ? 'Mirando…' : 'Ver mis citas', onclick: function () { if (digits(ph.value).length < 9 || codeNorm(cd.value).length !== 8) { S.clMsg = 'Escribe tu teléfono y el código de 8 letras y números.'; return render(); } store('cli', { p: ph.value, c: codeNorm(cd.value) }); showClient(); } }));
+      box.appendChild(el('div', { class: 'hint', text: '¿Ya eres clienta? Con tu teléfono y el código que te damos en el centro ves todas tus próximas citas.' })); box.appendChild(el('label', { text: 'Teléfono' })); box.appendChild(ph); box.appendChild(el('label', { text: 'Código' })); box.appendChild(cd);
+      box.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:12px', disabled: S.clBusy, text: S.clBusy ? 'Mirando…' : 'Ver mis citas', onclick: function () { if (digits(ph.value).length < 9 || codeNorm(cd.value).length !== 8) { S.clMsg = 'Escribe tu teléfono y el código de 8 letras y números.'; return render(); } store('cli', { p: ph.value, c: codeNorm(cd.value) }); showClient(); } }));
     } else {
       if (S.clBusy) box.appendChild(el('div', { class: 'hint', text: 'Mirando tus citas…' }));
       else if (S.cl) {
         box.appendChild(el('h2', { text: 'Hola' + (S.cl.nombre ? ', ' + S.cl.nombre : '') }));
         if (!S.cl.citas.length) box.appendChild(el('div', { class: 'hint', text: 'No tienes citas próximas. ¡Pide una!' }));
-        S.cl.citas.forEach(function (x) { box.appendChild(el('div', { class: 'sv' }, [el('div', { class: 'n' }, [el('b', { text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e }), el('div', { class: 'hint', text: (x.sv || []).join(' + ') + (x.emp ? ' · con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])); });
+        S.cl.citas.forEach(function (x) { box.appendChild(el('div', { class: 'ap', style: 'padding:10px 0;border-top:1px solid var(--line)' }, [dateBadge(x.d), el('div', { class: 'x' }, [el('b', { text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e }), el('div', { class: 'hint', text: (x.sv || []).join(' + ') + (x.emp ? ' · con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])); });
         box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'Para cambiar o anular una cita, escríbenos.' }));
       }
-      box.appendChild(el('div', { class: 'row', style: 'margin-top:10px' }, [el('button', { class: 's', text: 'Actualizar', onclick: showClient }), el('button', { class: 's bad', text: 'Olvidar mi código en este móvil', onclick: function () { store('cli', null); S.cl = null; S.clMsg = ''; render(); } })]));
+      box.appendChild(el('div', { class: 'row', style: 'margin-top:10px' }, [el('button', { class: 's', type: 'button', text: 'Actualizar', onclick: showClient }), el('button', { class: 'lnk', type: 'button', text: 'Olvidar mi código en este móvil', onclick: function () { store('cli', null); S.cl = null; S.clMsg = ''; render(); } })]));
     }
     if (S.clMsg) box.appendChild(msg(S.clMsg, 'bad')); parts.push(box);
     return parts;
   }
   function render() {
-    var y = window.scrollY; root.textContent = '';
-    root.appendChild(head());
-    if (!link.k) { root.appendChild(el('div', { class: 'card' }, [el('h2', { text: 'Falta el enlace' }), el('div', { text: 'Abre el enlace (o el QR) que te ha dado el centro.' })])); return; }
-    root.appendChild(el('div', { class: 'tabs' }, [el('button', { class: S.tab === 'pedir' ? 'on' : '', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; S.sent = null; S.full = false; render(); } }), el('button', { class: S.tab === 'mis' ? 'on' : '', text: 'Mis citas', onclick: function () { S.tab = 'mis'; S.info = ''; render(); loadMine(); if (store('cli') && !S.cl) showClient(); } })]));
-    if (S.loading) { root.appendChild(el('div', { class: 'hint', text: 'Cargando…' })); return; }
+    var y = window.scrollY; root.textContent = ''; head(); nav();
+    if (!link.k) { root.appendChild(el('div', { class: 'card empty' }, [el('h2', { text: 'Falta el enlace' }), el('div', { class: 'hint', text: 'Abre el enlace (o el QR) que te ha dado el centro.' })])); return; }
+    if (S.loading) { root.appendChild(el('div', { class: 'hint', style: 'padding:20px 4px', text: 'Cargando…' })); return; }
     if (S.err) root.appendChild(msg(S.err, 'bad'));
     var parts = S.tab === 'pedir' ? pedir() : mis();
-    if (S.tab === 'pedir' && !S.zdata && !S.err) parts = [el('div', { class: 'hint', text: 'Cargando…' })];
+    if (S.tab === 'pedir' && !S.zdata && !S.err) parts = [el('div', { class: 'hint', style: 'padding:20px 4px', text: 'Cargando…' })];
     parts.forEach(function (p) { if (p) root.appendChild(p); });
     window.scrollTo(0, y);
   }
 
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }); } catch (e) { }
   render();
-  if (link.k && link.z) loadLocal(link.z).then(function () { if (store('reqs') && store('reqs').length) loadMine(); });
+  if (link.k && link.z) loadLocal(link.z).then(function () { if (store('reqs') && store('reqs').length) loadMine(); if (store('cli')) showClient(); });
 })();
 </script>
 </body>
