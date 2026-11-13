@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.5.0">
-<meta name="consentia-agenda-firma" content="yxKjIQ87v3mtce4hhIpAval+o0hhNS99eDwq2GFLYjiYdKJv30b/X5q3po+/CiCSqcPIn4OLpMlfL9NirUTZDQ==">
+<meta name="consentia-agenda-version" content="4.5.1">
+<meta name="consentia-agenda-firma" content="DV6/4tUWhQ6hmzMWwveTulXyU9QNifcrwhnJCog106UW2EJzFfjboq3DCCV2NIJo/lQ3gUEy6rv71tGfA1sRCQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-mw85a7+g/BOksezUhmCCx6TbtgWRrH4IDj6MQr4JZfE='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-YEZT+noR9Yf9aH2xp4kQYGRvBvMJMrtJQDcFCNxXFkc='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -40,6 +40,14 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 .cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box;margin:0}
 .cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
 .cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* (4.5.1) Extras: varios a la vez */
+.cTabs.xMode{margin:0 0 10px}
+.xmHead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 8px;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:14px}
+.xmHead span{flex:1}.xmHead .xmAdd{border:0;border-radius:10px;background:var(--pink);color:#fff;font:inherit;font-weight:800;padding:9px 14px}.xmHead .xmAdd:disabled{opacity:.4}
+.xmRow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line)}.xmRow.on{background:#fff0f7;border-radius:10px}
+.xmName{flex:1;min-width:0}.xmName b{display:block;font-size:14.5px}.xmName small{display:block;color:var(--muted);font-size:12.5px}
+.xmStep{display:flex;align-items:center;gap:6px;flex:none}.xmStep button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:18px;font-weight:800}.xmStep button:disabled{opacity:.35}
+.xmN{min-width:58px;text-align:center;font-size:13px;font-weight:700}.xmAmt{width:84px;border:1.5px solid var(--line);border-radius:10px;padding:8px;font:inherit;text-align:right}
 /* (4.5.0) «Nueva cita» desde el móvil con Control total */
 body:has(.sheetBack) .fabCita{display:none}
 .sheet .nc{padding-bottom:4px}
@@ -941,9 +949,54 @@ body.many-modes{--mh:74px;overflow-x:clip}
     });
     sync(); if (amt) setTimeout(function () { try { amt.focus(); } catch (e) { } }, 60);
   }
+  // (4.5.1) «Elegir varios a la vez», como en el programa: todos los extras en una lista con − / + (uñas, unidades o veces)
+  // o el importe, y arriba «Añadir N extras» que los pone todos en la cuenta de una vez.
+  function xModeBar() {
+    var b = function (m, t) { return el('button', { type: 'button', class: !!st.xMulti === m ? 'on' : '', id: m ? 'xVarios' : 'xCategorias', text: t, on: { click: function () { if (!!st.xMulti === m) return; st.xMulti = m; st.xPick = {}; st.cNode = null; render(); } } }); };
+    return el('div', { class: 'cTabs xMode' }, [b(false, 'Por categorías'), b(true, 'Varios a la vez')]);
+  }
+  function xmPrice(a, x) {
+    var fw = fewOf(a);
+    if (a.mode === 'open') return addonPrice(a, 0, x.amt || 0, 10);
+    if (fw && a.mode === 'fixed') return addonPrice(a, 1, a.min, x.n);
+    if (a.mode === 'perNail') return addonPrice(a, x.n, a.min, 10);
+    if (a.mode === 'steps') return addonPrice(a, x.n, '', 10);
+    return { amount: r2((+a.min || 0) * x.n), detail: txt(a.g, 60) };
+  }
+  function xmStart(a) { if (a.mode === 'perNail') return Math.max(1, Math.min(10, (+a.inc || 0) + 1)); if (a.mode === 'steps') return Math.max(1, +a.inc || 1); return 1; }
+  function xMultiList(body, calc, cats) {
+    st.xPick = st.xPick || {}; var P = st.xPick, box = el('div', { id: 'extrasVarios' }), head = el('div', { class: 'xmHead' }), list = el('div', { class: 'xmList' });
+    var picks = function () { return Object.keys(P).map(function (k) { return [calc.addons[+k], P[k]]; }).filter(function (p) { return p[0] && (p[0].mode === 'open' ? +p[1].amt > 0 : p[1].n > 0); }); };
+    var drawHead = function () {
+      var ps = picks(), sum = r2(ps.reduce(function (t, p) { return t + (xmPrice(p[0], p[1]).amount || 0); }, 0)); head.textContent = '';
+      head.appendChild(el('span', { text: ps.length ? nUn(ps.length, 'extra elegido', 'extras elegidos') + ' · ' + money(sum) : 'Pon cuántas uñas, unidades o veces' }));
+      head.appendChild(el('button', { type: 'button', id: 'xAddAll', class: 'xmAdd', disabled: ps.length ? null : 'disabled', text: ps.length > 1 ? 'Añadir ' + ps.length : 'Añadir', on: { click: function () {
+        var list2 = picks(); if (!list2.length) return;
+        list2.forEach(function (p) { var a = p[0], x = p[1], pr = xmPrice(a, x);
+          if (a.mode === 'fixed' && !fewOf(a)) { for (var i = 0; i < x.n; i++) addLine({ kind: 'addon', name: a.n, detail: a.g, amount: +a.min || 0 }); }
+          else addLine({ kind: 'addon', name: a.n, detail: pr.detail === txt(a.g, 60) ? a.g : (a.g === a.n ? '' : txt(a.g, 60) + ' · ') + pr.detail, amount: pr.amount }); });
+        toast(list2.length === 1 ? 'Añadido 1 extra a la cuenta.' : 'Añadidos ' + list2.length + ' extras a la cuenta.'); st.xPick = {}; P = st.xPick; fill(); } } }));
+    };
+    var row = function (a, i) {
+      var x = P[i], n = x ? x.n : 0, kind = a.mode === 'open' ? 'open' : a.mode === 'perNail' || fewOf(a) ? 'nails' : a.mode === 'steps' ? 'steps' : 'times';
+      var unit = kind === 'nails' ? (n === 1 ? 'uña' : 'uñas') : kind === 'steps' ? (txt(a.us, 30) || 'unid.') : n === 1 ? 'vez' : 'veces';
+      var pr = x ? xmPrice(a, x) : null, ctl;
+      if (kind === 'open') { ctl = el('input', { type: 'number', inputmode: 'decimal', min: '0', step: '0.5', placeholder: '€', class: 'xmAmt', value: x && x.amt ? x.amt : '' }); ctl.addEventListener('input', function () { var v = parseFloat(String(ctl.value).replace(',', '.')); if (v > 0) P[i] = { n: 1, amt: v }; else delete P[i]; drawHead(); }); }
+      else ctl = el('div', { class: 'xmStep' }, [el('button', { type: 'button', 'data-xm': '-', disabled: n ? null : 'disabled', 'aria-label': 'Menos', text: '−', on: { click: function () { if (!x) return; if (x.n <= 1) delete P[i]; else P[i] = { n: x.n - 1 }; fill(); } } }), el('span', { class: 'xmN', text: n ? n + ' ' + unit : '—' }),
+        el('button', { type: 'button', 'data-xm': '+', 'aria-label': 'Más', text: '+', on: { click: function () { var max = a.mode === 'perNail' || (fewOf(a) && a.mode === 'fixed') ? 10 : a.mode === 'steps' ? 30 : 20; P[i] = { n: x ? Math.min(max, x.n + 1) : xmStart(a) }; fill(); } } })]);
+      return el('div', { class: 'xmRow' + (x ? ' on' : ''), 'data-x': txt(a.n, 80) }, [el('div', { class: 'xmName' }, [el('b', { text: txt(a.n, 80) }), el('small', { text: (a.g && a.g !== a.n ? txt(a.g, 60) + ' · ' : '') + addonText(a) + (pr && pr.amount > 0 ? ' → ' + money(pr.amount) : '') })]), ctl]);
+    };
+    var fill = function () {
+      var y = list.scrollTop; list.textContent = '';
+      cats.forEach(function (c) { var idx = []; c.groups.forEach(function (g) { g.list.forEach(function (a) { idx.push(calc.addons.indexOf(a)); }); });
+        if (!idx.length) return; list.appendChild(el('div', { class: 'cCat' }, [xcDot(calc, c.name), txt(c.name, 60)])); idx.forEach(function (i) { list.appendChild(row(calc.addons[i], i)); }); });
+      drawHead(); list.scrollTop = y;
+    };
+    box.appendChild(head); box.appendChild(list); body.appendChild(box); fill();
+  }
   function calcPane(c) {
     var d = c && c.data, calc = calcOf(d);
-    var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev;
+    var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev + '|' + (st.xMulti ? 'v' : 'c');
     if (st.cNode && st.cKey === key) { calcData = calc; drawTicket(); return st.cNode; } // (misma lista de precios: no se rehace lo que se estaba escribiendo)
     if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; } // otro centro: otros precios
     else if (st.cJson !== json) st.disc = -1; // han cambiado los precios del centro: el descuento se vuelve a elegir
@@ -979,6 +1032,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
       // «‹ Extras» / «‹ <categoría>» vuelven un paso. El buscador, arriba, mira en todos. Al tocar un extra sube su ficha.
       var cats = []; calc.addons.forEach(function (a) { var cn = txt(a.k || a.s || a.g, 60) || 'Extras', c = cats.filter(function (x) { return x.name === cn; })[0]; if (!c) cats.push(c = { name: cn, groups: [] }); var g = c.groups.filter(function (x) { return x.name === a.g; })[0]; if (!g) c.groups.push(g = { name: a.g, list: [] }); g.list.push(a); });
       if (!cats.length) body.appendChild(el('div', { class: 'none', text: 'Este centro no tiene extras de uñas.' }));
+      else if ((body.appendChild(xModeBar()), st.xMulti)) xMultiList(body, calc, cats);
       else {
         if (cats.length === 1) st.xCat = cats[0].name; else if (st.xCat && !cats.some(function (c) { return c.name === st.xCat; })) { st.xCat = ''; st.xGrp = ''; }
         var xq = el('input', { class: 'cSearch', id: 'buscarExtra', type: 'search', placeholder: 'Buscar un extra…', autocomplete: 'off' }), xl = el('div', { id: 'extras' }), wait = fotosWait(calc);
