@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.5.2">
-<meta name="consentia-agenda-firma" content="whPLHnihXh0kfLt0/HsY3rps0ujKc+d+jyzZe2lGyxUYSMOlzfDyjA+rBTFMKwaSW8mIgf5WOeG4EMCgw0YtAQ==">
+<meta name="consentia-agenda-version" content="4.6.0">
+<meta name="consentia-agenda-firma" content="SfjEPJukCnHYC4hEQOkXHcj8IlwMozfh+sHXA8mwKOFk/12dYTjGr+3jU7VbQd+DnmzfBo8PBGT4j8kNqZB5BA==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-YEZT+noR9Yf9aH2xp4kQYGRvBvMJMrtJQDcFCNxXFkc='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-0dLFaK0y+mt1xjwioGgJmwrKuwDXc4GJsw3XbbIVGqI='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -51,6 +51,31 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 /* (4.5.0) «Nueva cita» desde el móvil con Control total */
 body:has(.sheetBack) .fabCita{display:none}
 .sheet .nc{padding-bottom:4px}
+/* (4.6.0) «＋ Cita» a pantalla completa, por apartados que se pliegan (como la app de las clientas) */
+.sheetBack.full{align-items:stretch}
+.sheet.full{max-height:none;height:100%;border-radius:0;padding:0;background:#f4f2ee;display:flex;flex-direction:column;overflow:auto}
+.sheet.full::before{display:none}
+.ncTop{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:rgba(244,242,238,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.sheet .ncTop .ncX{flex:none;width:40px;height:40px;margin:0;padding:0;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center}
+.ncX svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
+.ncTopT b{display:block;font-size:16px;font-weight:800}.ncTopT small{display:block;font-size:12.5px;color:var(--muted)}
+.sheet.full .cForm.nc{flex:1;padding:4px 16px 8px}
+.ncSec{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
+.ncSec.on{border:1.5px solid var(--pink)}
+.sheet .nc .ncHd{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;padding:14px;text-align:left;color:var(--ink);border-radius:0}
+.ncHd .ncN{flex:none;width:26px;height:26px;font-size:13px}
+.ncSec.done .ncN{background:#1d8a4a}.ncSec.todo .ncN{background:transparent;border:2px solid #cfcac2;color:var(--muted);box-sizing:border-box}
+.ncSec.todo .ncTit{color:var(--muted);font-weight:650}
+.ncTit{flex:1;min-width:0;font-size:15px}.ncTit small{display:block;font-size:11.5px;color:var(--muted);font-weight:800;letter-spacing:.04em}.ncTit b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ncTit em{display:block;font-style:normal;font-size:12.5px;color:var(--muted)}
+.ncCh{flex:none;color:#c4006a;font-weight:800;font-size:13px}
+.ncBody{padding:0 14px 14px}.ncSec:not(.on) .ncBody{display:none}
+.ncBody>label:first-child{margin-top:0}
+.sheet .nc .ncGo{display:block;width:100%;margin-top:12px;background:var(--ink);color:#fff;border-radius:12px;padding:12px;font-weight:800;font-size:15px}
+.sheet.full .ncBar{position:sticky;bottom:0;margin:0;padding:10px 14px calc(14px + env(safe-area-inset-bottom));background:transparent;border:0}
+.sheet.full .ncBar{display:block}
+.sheet.full .ncBarIn{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
+.sheet.full .ncBarT{color:#fff;font-size:14px}
+@media (min-width:720px){.sheetBack.full{align-items:center}.sheet.full{max-width:480px;height:92vh;border-radius:18px}}
 .ncCard{background:#faf9f6;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
 .ncT{display:flex;align-items:center;gap:8px;margin-bottom:8px}.ncT b{font-size:15px}
 .ncN{width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
@@ -664,10 +689,11 @@ body.many-modes{--mh:74px;overflow-x:clip}
   function apColor(a, e, d) { var done = a.st === 'c' || a.st === 'h', pc = done && /^#[0-9a-f]{6}$/i.test(d.pc || '') ? d.pc : ''; return { done: done, pc: pc, c: color(pc || a.col || e.c) }; }
   function stateTag(a) { return a.st === 'o' ? el('span', { class: 'tag o', text: 'Ofrecida' }) : a.st === 'c' ? el('span', { class: 'tag c', text: 'Cobrada' }) : a.st === 'h' ? el('span', { class: 'tag c', text: 'Hecha' }) : a.st === 'x' ? el('span', { class: 'tag x', text: 'Cancelada' }) : a.st === 'n' ? el('span', { class: 'tag n', text: 'No vino' }) : null; }
   // Ficha que sube desde abajo (el detalle de una cita o de un bloqueo, o las canceladas del día).
-  function sheet(kids, more) {
+  function sheet(kids, more, full) {
     var old = document.querySelector('.sheetBack'); if (old) old.remove();
-    var back = el('div', { class: 'sheetBack' }); var close = function () { back.remove(); };
-    back.appendChild(el('div', { class: 'sheet', id: 'ficha' }, kids.concat([more ? more(close) : null, el('button', { id: 'cerrarFicha', type: 'button', text: 'Cerrar', on: { click: close } })])));
+    var back = el('div', { class: 'sheetBack' + (full ? ' full' : '') }); var close = function () { back.remove(); };
+    if (typeof kids === 'function') kids = kids(close); // (4.6.0) la pantalla completa lleva su ✕ arriba (y no «Cerrar» abajo)
+    back.appendChild(el('div', { class: 'sheet' + (full ? ' full' : ''), id: 'ficha' }, kids.concat([more ? more(close) : null, full ? null : el('button', { id: 'cerrarFicha', type: 'button', text: 'Cerrar', on: { click: close } })])));
     back.addEventListener('click', function (e) { if (e.target === back) close(); });
     document.body.appendChild(back);
   }
@@ -704,15 +730,16 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var cq = el('input', { type: 'search', id: 'cClienta', placeholder: 'Busca por nombre', autocomplete: 'off', value: '' });
     var res = el('div', { class: 'cRes', id: 'cRes' }), chosen = el('div', { class: 'ncPick', id: 'cElegida' });
     var nn = el('input', { type: 'text', id: 'cNombre', maxlength: '80', placeholder: 'Nombre y apellidos' }), nt = el('input', { type: 'tel', id: 'cTel', maxlength: '16', placeholder: 'Teléfono' });
-    var nueva = el('div', { class: 'ncNew', id: 'cNueva', style: 'display:none' }, [el('label', { for: 'cNombre', text: 'Clienta nueva' }), nn, el('label', { for: 'cTel', text: 'Teléfono' }), nt]);
+    var nueva = el('div', { class: 'ncNew', id: 'cNueva', style: 'display:none' }, [el('label', { for: 'cNombre', text: 'Clienta nueva' }), nn, el('label', { for: 'cTel', text: 'Teléfono' }), nt,
+      el('button', { type: 'button', class: 'ncGo', id: 'cNuevaOk', text: 'Seguir ›', on: { click: function () { if (!nn.value.trim() || nt.value.replace(/\D/g, '').length < 9) return toast('Escribe su nombre y su teléfono.'); next('cli'); } } })]);
     var drawClient = function () {
       chosen.innerHTML = ''; cq.style.display = client || edit ? 'none' : ''; nueva.style.display = newC && !client ? '' : 'none';
-      if (client) chosen.appendChild(el('div', { class: 'ncChosen' }, [el('span', { class: 'ncAv', text: (client.n || '?').trim().charAt(0).toUpperCase() }), el('b', { text: client.n }), edit ? null : el('button', { type: 'button', class: 'ncLink', id: 'cCambiarClienta', text: 'Cambiar', on: { click: function () { client = null; newC = false; cq.value = ''; drawClient(); drawRes(); warn(); cq.focus(); } } })]));
+      if (client) chosen.appendChild(el('div', { class: 'ncChosen' }, [el('span', { class: 'ncAv', text: (client.n || '?').trim().charAt(0).toUpperCase() }), el('b', { text: client.n }), edit ? null : el('button', { type: 'button', class: 'ncLink', id: 'cCambiarClienta', text: 'Otra', on: { click: function () { client = null; newC = false; cq.value = ''; drawClient(); drawRes(); warn(); cq.focus(); } } })]));
     };
     var drawRes = function () {
       res.innerHTML = ''; var q = low(cq.value).trim(); if (client || !q || edit) return;
       var found = cl.filter(function (c) { return q.split(/\s+/).every(function (w) { return low(c[1]).indexOf(w) >= 0; }); }).slice(0, 8);
-      found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; newC = false; res.innerHTML = ''; drawClient(); warn(); } } })); });
+      found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; newC = false; res.innerHTML = ''; drawClient(); warn(); next('cli'); } } })); });
       res.appendChild(el('button', { type: 'button', class: 'cItem ncAdd', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; newC = true; nn.value = cq.value.trim(); res.innerHTML = ''; drawClient(); nt.focus(); } } }));
     };
     cq.addEventListener('input', function () { client = null; newC = false; nueva.style.display = 'none'; drawRes(); warn(); });
@@ -766,7 +793,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var drawSlots = function () {
       slots.innerHTML = ''; var f = freeTimes();
       if (!f.length) slots.appendChild(el('div', { class: 'ncEmpty', text: 'No le queda ningún hueco libre de ' + durTxt(Math.max(5, +dur.value || 30)) + ' ese día. Puedes poner otra hora a mano.' }));
-      f.slice(0, 48).forEach(function (m) { var h = pad(Math.floor(m / 60)) + ':' + pad(m % 60); slots.appendChild(el('button', { type: 'button', class: 'ncSlot' + (h === time.value ? ' on' : ''), 'data-h': h, text: h, on: { click: function () { time.value = h; drawSlots(); warn(); } } })); });
+      f.slice(0, 48).forEach(function (m) { var h = pad(Math.floor(m / 60)) + ':' + pad(m % 60); slots.appendChild(el('button', { type: 'button', class: 'ncSlot' + (h === time.value ? ' on' : ''), 'data-h': h, text: h, on: { click: function () { time.value = h; drawSlots(); warn(); next('cuando'); } } })); });
     };
     var step = function (n) { durTouched = true; dur.value = String(Math.min(600, Math.max(5, (Math.round((+dur.value || 30) / 5) * 5) + n))); drawSlots(); warn(); };
     var warnBox = el('div', { class: 'cWarn', id: 'cWarn' });
@@ -781,21 +808,44 @@ body.many-modes{--mh:74px;overflow-x:clip}
     dur.addEventListener('input', function () { durTouched = true; drawSlots(); warn(); });
 
     var bar = el('div', { class: 'ncBar' }), sumTxt = el('div', { class: 'ncBarT', id: 'cResumen' });
-    var foot = function () { var e = emps.filter(function (x) { return x.id === empSel; })[0];
+    var foot = function () { var e = emps.filter(function (x) { return x.id === empSel; })[0]; drawSecs();
       sumTxt.textContent = (client ? client.n : newC && nn.value.trim() ? nn.value.trim() : 'Sin clienta') + ' · ' + (day.value ? (day.value === today() ? 'hoy' : DN[dow(day.value)] + ' ' + (+day.value.slice(8, 10))) : '—') + (time.value ? ' ' + time.value : '') + (e ? ' · ' + txt(e.n, 20) : ''); };
     nn.addEventListener('input', foot);
 
-    drawClient(); drawCats(); drawSvc(); drawDays(); drawEmps(); drawSlots(); warn();
+    // (4.6.0) Una sola pantalla con apartados que se pliegan (como la app de las clientas): el que toca, abierto y con el borde
+    // rosa; los hechos, con ✓ verde, lo elegido y «Cambiar»; los que faltan, en gris. Al elegir algo se pasa solo al siguiente.
+    var open = edit ? 'cuando' : 'cli', secs = {};
+    var svNames = function () { return pick.map(function (id) { var x = svOf(id); return x ? txt(x.n, 40) : ''; }).filter(Boolean).join(' + '); };
+    var dayLbl = function (k) { return k === today() ? 'hoy' : DN[dow(k)] + ' ' + (+k.slice(8, 10)); };
+    var SECS = [
+      ['cli', 'Clienta', function () { return client || edit || (newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9); }, function () { return client ? client.n : nn.value.trim() + ' · nueva'; }, function () { return ''; }],
+      ['serv', 'Servicios', function () { return pick.length > 0; }, function () { return svNames(); }, function () { return [sum() ? durTxt(sum()) : '', price() ? euro(price()) : ''].filter(Boolean).join(' · '); }],
+      ['cuando', '¿Cuándo?', function () { return !!(day.value && time.value && empSel); }, function () { var e = emps.filter(function (x) { return x.id === empSel; })[0]; return dayLbl(day.value) + ' · ' + time.value + (e ? ' · ' + txt(e.n, 20) : ''); }, function () { return durTxt(Math.max(5, +dur.value || 30)); }],
+      ['nota', 'Nota (opcional)', function () { return !!note.value.trim(); }, function () { return note.value.trim(); }, function () { return ''; }]];
+    var next = function (k) { var i = SECS.findIndex(function (x) { return x[0] === k; }); var n = SECS.slice(i + 1).filter(function (x) { return !x[2](); })[0] || SECS.slice(i + 1)[0]; open = n ? n[0] : ''; drawSecs(); var o = secs[open]; if (o) setTimeout(function () { try { o.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch (e) { } }, 30); };
+    var drawSecs = function () {
+      SECS.forEach(function (x, i) {
+        var box = secs[x[0]]; if (!box) return; var done = !!x[2](), on = open === x[0]; box.className = 'ncSec' + (on ? ' on' : done ? ' done' : ' todo');
+        var hd = box.firstChild; hd.innerHTML = '';
+        hd.appendChild(el('span', { class: 'ncN', text: done && !on ? '✓' : String(i + 1) }));
+        hd.appendChild(on || !done ? el('b', { class: 'ncTit', text: x[1] }) : el('span', { class: 'ncTit' }, [el('small', { text: x[1].replace(/[¿?]/g, '').replace(' (opcional)', '').toUpperCase() }), el('b', { text: x[3]() }), x[4]() ? el('em', { text: x[4]() }) : null]));
+        if (!on && done && !(edit && x[0] === 'cli')) hd.appendChild(el('span', { class: 'ncCh', text: 'Cambiar' }));
+      });
+    };
+    var sec = function (k, kids) { var hd = el('button', { type: 'button', class: 'ncHd', on: { click: function () { if (edit && k === 'cli') return; open = open === k ? '' : k; drawSecs(); } } }); var box = el('div', { class: 'ncSec', id: 'sec-' + k }, [hd, el('div', { class: 'ncBody' }, kids)]); secs[k] = box; return box; };
+    note.addEventListener('input', foot);
+    drawClient(); drawCats(); drawDays(); drawEmps(); drawSlots();
     var form = el('div', { class: 'cForm nc' }, [
-      card(1, 'Clienta', [cq, res, chosen, nueva]),
-      card(2, 'Servicios', [sq, catBar, list, svSum]),
-      card(3, 'Cuándo', [days, el('div', { class: 'ncRow' }, [el('label', { for: 'cDia', text: 'Otro día' }), day]), el('label', { text: 'Con quién' }), empBar,
+      sec('cli', [cq, res, chosen, nueva]),
+      sec('serv', [sq, catBar, list, svSum, el('button', { type: 'button', class: 'ncGo', id: 'cSvcOk', text: 'Seguir ›', on: { click: function () { if (!pick.length) return toast('Elige al menos un servicio.'); next('serv'); } } })]),
+      sec('cuando', [el('label', { text: 'Con quién' }), empBar, days, el('div', { class: 'ncRow' }, [el('label', { for: 'cDia', text: 'Otro día' }), day]),
         el('label', { text: 'Duración' }), el('div', { class: 'ncDur' }, [el('button', { type: 'button', class: 'ncStep', text: '−', 'aria-label': 'Menos', on: { click: function () { step(-15); } } }), dur, el('span', { text: 'min' }), el('button', { type: 'button', class: 'ncStep', text: '+', 'aria-label': 'Más', on: { click: function () { step(15); } } })]),
         el('label', { text: 'Horas libres' }), slots, el('div', { class: 'ncRow' }, [el('label', { for: 'cHora', text: 'Otra hora' }), time])]),
-      card(4, 'Nota de la cita', [note]), warnBox]);
-    sheet([el('div', { class: 'h', text: txt(d.center.l || d.center.n, 80) }), el('h2', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), form], function (close) {
-      bar.appendChild(sumTxt);
-      bar.appendChild(el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
+      sec('nota', [note]), warnBox]);
+    drawSvc(); warn();
+    sheet(function (close) { return [el('div', { class: 'ncTop' }, [el('button', { type: 'button', class: 'ncX', id: 'cerrarCita', 'aria-label': 'Cerrar', title: 'Cerrar', on: { click: close } }, [svgX()]), el('div', { class: 'ncTopT' }, [el('b', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), el('small', { text: txt(d.center.l || d.center.n, 80) })])]), form]; }, function (close) {
+      var inner = el('div', { class: 'ncBarIn' }); bar.appendChild(inner); inner.appendChild(sumTxt);
+      inner.appendChild(el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
         if (!edit && !client && !(newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
         if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Elige el día y la hora (toca una hora libre o escribe otra).'); if (!empSel) return toast('Elige con quién.');
         var m = warn(); if (m.length && !confirm(m.join('\n') + '\n\n¿Guardarla igualmente?')) return;
@@ -803,8 +853,9 @@ body.many-modes{--mh:74px;overflow-x:clip}
         if (edit) { args.id = a.id; close(); citaOrder('citaCambiar', args, 'Cita cambiada: la agenda se actualiza en unos segundos.'); }
         else { if (client) args.cid = client.id; else { args.name = nn.value.trim(); args.tel = nt.value.trim(); } close(); citaOrder('citaNueva', args, 'Cita dada: la agenda se actualiza en unos segundos.'); }
       } } })); foot(); return bar;
-    });
+    }, true);
   }
+  function svgX() { var n = 'http://www.w3.org/2000/svg', s = document.createElementNS(n, 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); var p = document.createElementNS(n, 'path'); p.setAttribute('d', 'M6 6l12 12M18 6L6 18'); s.appendChild(p); return s; }
 
   /* ---------- calculadora: precios del centro (van cifrados dentro de su agenda) ---------- */
   function r2(n) { return Math.round(((+n || 0) + Number.EPSILON) * 100) / 100; } // (igual que el programa: util.js → round2)
