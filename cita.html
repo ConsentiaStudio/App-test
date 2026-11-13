@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.5.2">
-<meta name="consentia-agenda-firma" content="NAEpo27r3liAwOu+vgVhxlKZrnIAz76dKFihxrH4Yd5pP/mapKKfDAHcL8SO2d6aVA7t2G0GY4tOdXqiXpXgDA==">
+<meta name="consentia-agenda-version" content="4.6.0">
+<meta name="consentia-agenda-firma" content="xG8688Lo6NbJVlkWGRu8XFh1ds9Te+sGoo8RWubA2BrqjCf1ze0TQYAdDP5872NefkPdQs6/XcXQPKxC4XxdAg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-EpovU/sY3cIo9DzUKacbBz5O5m6gZdnYvXqBAKPmb0g='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-bjdFiqlHZo+Dm5jAmtt3YIFXuglBY9zKGeEZGzcynVQ='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <title>Pide tu cita</title>
 <style>
@@ -92,6 +92,17 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
 .refresh{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink)}.refresh svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .refresh.spin svg{animation:sp 0.9s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 .loc.off{opacity:.5}.loc:disabled{cursor:default}
+.tabs{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:6px 0 12px}
+.tabs button{flex:1 1 0;min-width:0;border:0;background:transparent;border-radius:9px;padding:8px 0;font-size:13px;font-weight:650;color:#5b5b61;white-space:nowrap}
+.tabs button.on{background:#fff;color:var(--ink);font-weight:750;box-shadow:0 2px 6px rgba(17,17,19,.12)}
+.tabs button b{margin-left:3px}.tabs .n-ok{color:var(--ok)}.tabs .n-warn{color:var(--warn)}
+.ap .d.ok{background:#e4f6ea}.ap .d.ok small{color:var(--ok)}.ap .d.warn{background:#fff1d6}.ap .d.warn small{color:var(--warn)}.ap .d.gone{background:#f1efea}.ap .d.gone small{color:var(--mute)}
+.card.past,.card.gone{background:#faf9f6;color:#4a4740}.card.gone .sv-t{text-decoration:line-through}
+.when{font-size:12.5px;font-weight:700;margin-top:6px;color:var(--mute)}.when.soon{color:var(--ok)}
+.prop{border:2px solid #6d3fd8;box-shadow:0 10px 26px rgba(109,63,216,.15)}
+.pp{display:flex;gap:12px;align-items:center;margin:14px 0}.pp>div{flex:1;text-align:center;border-radius:14px;padding:10px}.pp small{display:block;font-size:11px;font-weight:800}
+.pp .was{background:var(--bg);color:var(--mute)}.pp .was s{font-size:15px}.pp .new{background:#f1ebff;color:#3b1a8f}.pp .new b{font-size:17px}.pp .ar{flex:none;font-size:20px;color:#6d3fd8}
+.tag.vio{background:#f1ebff;color:#4b22a8}
 .ap{display:flex;gap:12px;align-items:flex-start}.ap .d{flex:none;width:52px;border-radius:14px;background:var(--bg);text-align:center;padding:6px 0}.ap .d small{display:block;font-size:11px;font-weight:800;color:var(--pink);text-transform:uppercase}.ap .d b{display:block;font-size:20px;line-height:1.1}.ap .x{flex:1;min-width:0}
 </style>
 </head>
@@ -333,14 +344,14 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     S.mineBusy = true; render();
     var d = store('dev'), priv = d ? await devPriv(d) : null, out = [];
     for (var i = 0; i < list.length; i++) {
-      var r = list[i], res = null; if (r.hidden) continue; // (4.5.1) las que anuló ella, fuera de «Mis citas»
+      var r = list[i], res = null; // (4.6.0) las que anuló ella van a la pestaña «Anuladas»
       try { var j = priv ? await freshFile(r.zona, 'r-' + r.id + '.json') : null; if (j) res = await openEnv(j, r.id, priv); } catch (e) { res = null; }
-      if (res && res.state === 'anulada') { hideReq(r.id); continue; }
+      if (r.hidden || (res && res.state === 'anulada')) { if (!r.hidden) hideReq(r.id, true); res = Object.assign({}, res || {}, { state: 'anulada', mine: true }); }
       out.push({ r: r, res: res });
     }
     S.mine = out; S.mineBusy = false; render();
   }
-  function hideReq(id) { var l = store('reqs') || []; l.forEach(function (x) { if (x.id === id) x.hidden = true; }); store('reqs', l); S.mine = S.mine.filter(function (m) { return m.r.id !== id; }); }
+  function hideReq(id, keep) { var l = store('reqs') || []; l.forEach(function (x) { if (x.id === id) x.hidden = true; }); store('reqs', l); if (!keep) S.mine.forEach(function (m) { if (m.r.id === id) m.res = Object.assign({}, m.res || {}, { state: 'anulada', mine: true }); }); }
   async function answer(r, kind) {
     S.busy = true; render();
     try { var d = await device(); await send(await withPow({ v: 1, id: hex(8), kind: kind, at: new Date().toISOString(), pub: { x: d.x, y: d.y }, ref: r.id })); S.err = ''; S.info = kind === 'acepta' ? 'Enviado. En un momento te sale confirmada.' : 'Cita anulada. Se lo hemos dicho al centro.'; if (kind === 'anula') hideReq(r.id); }
@@ -489,39 +500,71 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     if (z.full || S.full) return [fullCard()]; // (4.5.0) topes del centro
     if (S.step === 0) return stepLocal(); if (S.step === 1) return stepServices(); if (S.step === 2) return stepTime(); return stepData();
   }
-  var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['info', 'Te proponen otra hora'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada'], cancelada: ['bad', 'Anulada por el centro'], completa: ['bad', 'Estamos completas'] };
-  function dateBadge(d) { var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), m = ''; try { m = dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''); } catch (e) { } return el('div', { class: 'd' }, [el('small', { text: m }), el('b', { text: String(+p[2]) })]); }
+  var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['vio', 'Nueva hora propuesta'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada por ti'], cancelada: ['bad', 'Anulada por el centro'], completa: ['bad', 'Estamos completas'] };
+  function dateBadge(d, cls) { var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), m = ''; try { m = dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''); } catch (e) { } return el('div', { class: 'd' + (cls ? ' ' + cls : '') }, [el('small', { text: m }), el('b', { text: String(+p[2]) })]); }
+  function todayKey() { var t = new Date(); return t.getFullYear() + '-' + pad2(t.getMonth() + 1) + '-' + pad2(t.getDate()); }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  // «Hoy», «Mañana», «Dentro de 5 días»
+  function whenTxt(d) { var p = d.split('-'), a = new Date(+p[0], +p[1] - 1, +p[2]), t = new Date(); t.setHours(0, 0, 0, 0); var n = Math.round((a - t) / 864e5); return n <= 0 ? 'Hoy' : n === 1 ? 'Mañana' : 'Dentro de ' + n + ' días'; }
+  function untilTxt(iso) { var t = new Date(iso); if (isNaN(t)) return ''; var today = new Date(), tm = new Date(); tm.setDate(today.getDate() + 1); var h = pad2(t.getHours()) + ':' + pad2(t.getMinutes()); return t.toDateString() === today.toDateString() ? 'hoy a las ' + h : t.toDateString() === tm.toDateString() ? 'mañana a las ' + h : dayText(t.getFullYear() + '-' + pad2(t.getMonth() + 1) + '-' + pad2(t.getDate()), true) + ' a las ' + h; }
+  // (4.6.0) A qué pestaña va cada cita: Próximas · Pendientes · Pasadas · Anuladas
+  function groupOf(m) { var st = m.res ? m.res.state : 'pendiente'; if (st === 'pendiente' || st === 'propuesta') return 'pend'; if (st === 'confirmada') { var c = m.res.cita || { d: m.r.d }; return c.d < todayKey() ? 'pas' : 'prox'; } return 'anu'; }
   function mineCard(m) {
-    var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, show = x && x.cita ? x.cita : { d: r.d, s: r.s };
-    var c = el('div', { class: 'card' }), body = el('div', { class: 'x' });
-    c.appendChild(el('div', { class: 'ap' }, [dateBadge(show.d), body]));
-    body.appendChild(el('div', { class: 'row', style: 'justify-content:space-between' }, [el('b', { text: (x && x.sv ? x.sv : r.sv).join(' + ') }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
-    body.appendChild(el('div', { class: 'hint', text: dayText(show.d, true) + ' · ' + show.s + (show.emp ? ' con ' + show.emp : '') + (x && x.local ? ' · ' + x.local.n : '') }));
-    if (x && st === 'propuesta' && x.cita) {
-      body.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: 'Te proponen: ' + dayText(x.cita.d, true) + ' a las ' + x.cita.s }));
-      body.appendChild(el('div', { class: 'row' }, [el('button', { class: 'p', type: 'button', style: 'flex:1', disabled: S.busy, text: 'Me viene bien', onclick: function () { answer(r, 'acepta'); } }), el('button', { class: 's bad', type: 'button', disabled: S.busy, text: 'No me viene', onclick: function () { answer(r, 'anula'); } })]));
+    var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, show = x && x.cita ? x.cita : { d: r.d, s: r.s }, g = groupOf(m);
+    var c = el('div', { class: 'card' + (st === 'propuesta' ? ' prop' : g === 'pas' ? ' past' : g === 'anu' ? ' gone' : ''), 'data-state': st }), body = el('div', { class: 'x' });
+    var svTxt = ((x && x.sv && x.sv.length ? x.sv : r.sv) || []).join(' + ') || 'Cita';
+    if (st === 'propuesta' && x && x.cita) {
+      var o = x.orig || { d: r.d, s: r.s };
+      c.appendChild(el('div', { class: 'row', style: 'justify-content:space-between' }, [el('b', { text: svTxt }), el('span', { class: 'tag vio', text: t[1] })]));
+      c.appendChild(el('div', { class: 'pp' }, [el('div', { class: 'was' }, [el('small', { text: 'PEDISTE' }), el('s', { text: dayText(o.d) + ' · ' + o.s })]), el('span', { class: 'ar', text: '→' }), el('div', { class: 'new', id: 'propuesta' }, [el('small', { text: 'TE PROPONEMOS' }), el('b', { text: dayText(x.cita.d) + ' · ' + x.cita.s }), x.cita.emp ? el('div', { style: 'font-size:12px', text: 'con ' + x.cita.emp }) : null])]));
+      if (x.msg) c.appendChild(msg(x.msg));
+      c.appendChild(el('div', { class: 'row' }, [el('button', { class: 'p', type: 'button', style: 'flex:1', disabled: S.busy ? true : null, text: 'Me viene bien', onclick: function () { answer(r, 'acepta'); } }), el('button', { class: 's bad', type: 'button', style: 'padding:14px', disabled: S.busy ? true : null, text: 'No me viene', onclick: function () { answer(r, 'anula'); } })]));
+      if (x.expires) c.appendChild(el('div', { class: 'hint', style: 'margin-top:10px;text-align:center', text: 'Tienes hasta ' + untilTxt(x.expires) + ' para contestar. Si no, se libera el hueco.' }));
+      return c;
     }
-    if (x && x.msg) body.appendChild(msg(x.msg));
+    c.appendChild(el('div', { class: 'ap' }, [dateBadge(show.d, g === 'prox' ? 'ok' : g === 'pend' ? 'warn' : 'gone'), body]));
+    body.appendChild(el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { class: 'sv-t', text: svTxt }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
+    body.appendChild(el('div', { class: 'hint', text: dayText(show.d, true) + ' · ' + show.s + (show.du ? '–' + endOf(show.s, show.du) : '') + (show.emp ? ' con ' + show.emp : '') + (x && x.local && x.local.n ? ' · ' + x.local.n : '') }));
+    if (g === 'prox') body.appendChild(el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(show.d)) ? ' soon' : ''), text: whenTxt(show.d) }));
+    if (x && x.msg && g !== 'pas') body.appendChild(msg(x.msg));
     if (x && st === 'completa' && x.msg && /\d{6,}/.test(String((S.zdata && S.zdata.local && S.zdata.local.tel) || ''))) body.appendChild(el('a', { class: 'tel', href: 'tel:' + String(S.zdata.local.tel).replace(/[^\d+]/g, ''), text: 'Llamar al ' + S.zdata.local.tel }));
     if (!x || st === 'pendiente') body.appendChild(el('div', { class: 'hint', style: 'margin-top:4px', text: 'Te contestamos en menos de 24 horas (si es fin de semana, el lunes).' }));
-    if (x && st === 'confirmada') body.appendChild(el('button', { class: 's bad', type: 'button', style: 'margin-top:8px', disabled: S.busy, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
+    if (x && st === 'confirmada' && g === 'prox') body.appendChild(el('button', { class: 's bad', type: 'button', style: 'margin-top:8px', disabled: S.busy ? true : null, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
     return c;
   }
+  function endOf(s, du) { var m = (+s.slice(0, 2)) * 60 + (+s.slice(3, 5)) + (+du || 0); return pad2(Math.floor(m / 60) % 24) + ':' + pad2(m % 60); }
+  function centroCard(x) { return el('div', { class: 'card', 'data-state': 'centro' }, [el('div', { class: 'ap' }, [dateBadge(x.d, 'ok'), el('div', { class: 'x' }, [el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('span', { class: 'tag ok', text: 'Confirmada' })]), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e + (x.emp ? ' con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') }), el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(x.d)) ? ' soon' : ''), text: whenTxt(x.d) })])])]); }
+  var TABS = [['prox', 'Próximas', 'n-ok'], ['pend', 'Pendientes', 'n-warn'], ['pas', 'Pasadas', ''], ['anu', 'Anuladas', '']];
   function mis() {
     var rb = el('button', { type: 'button', class: 'refresh' + (S.mineBusy || S.clBusy ? ' spin' : ''), id: 'actualizar', 'aria-label': 'Actualizar', title: 'Actualizar', onclick: function () { S.info = ''; S.sent = null; loadMine(); if (store('cli')) showClient(); } }); rb.appendChild(ico(I.sync));
     var parts = [el('div', { class: 'titleRow' }, [rb, el('h1', { text: 'Mis citas' })])];
     if (S.info) parts.push(msg(S.info, 'ok'));
-    if (S.sent) parts.push(msg('¡Solicitud enviada! Te la confirmamos en menos de 24 horas. La respuesta te sale aquí.', 'ok'));
+    if (S.sent) parts.push(msg('¡Solicitud enviada! Te la confirmamos en menos de 24 horas. La respuesta te sale aquí, en «Pendientes».', 'ok'));
     var c = store('cli'), centro = S.cl && S.cl.citas ? S.cl.citas : [];
-    if (!S.mine.length && !centro.length) {
+    // Las del centro que ya salen como confirmadas desde este móvil, una sola vez.
+    var mineKeys = {}; S.mine.forEach(function (m) { if (m.res && m.res.state === 'confirmada' && m.res.cita) mineKeys[m.res.cita.d + ' ' + m.res.cita.s] = 1; });
+    var g = { prox: [], pend: [], pas: [], anu: [] };
+    S.mine.forEach(function (m) { g[groupOf(m)].push({ k: (m.res && m.res.cita ? m.res.cita.d + m.res.cita.s : m.r.d + m.r.s), n: mineCard(m), prop: m.res && m.res.state === 'propuesta' }); });
+    centro.forEach(function (x) { if (!mineKeys[x.d + ' ' + x.s]) g.prox.push({ k: x.d + x.s, n: centroCard(x) }); });
+    g.prox.sort(function (a, b) { return a.k < b.k ? -1 : 1; }); g.pend.sort(function (a, b) { return (b.prop ? 1 : 0) - (a.prop ? 1 : 0) || (a.k < b.k ? -1 : 1); }); g.pas.sort(function (a, b) { return a.k > b.k ? -1 : 1; });
+    var total = g.prox.length + g.pend.length + g.pas.length + g.anu.length;
+    if (!total) {
       var e = el('div', { class: 'card empty', id: 'vacio' }), ic = el('div', { class: 'ic' }); ic.appendChild(ico(I.cal)); e.appendChild(ic);
       e.appendChild(el('h2', { text: 'Todavía no tienes citas' })); e.appendChild(el('div', { class: 'hint', text: 'Pide una en un momento: eliges el servicio, el día y la hora, y te la confirmamos.' }));
       e.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; render(); window.scrollTo(0, 0); } }));
       if (!c) e.appendChild(el('div', { class: 'hint', style: 'margin-top:12px', text: '¿Ya eres clienta? En «Perfil», con tu teléfono y tu código, ves también tus citas del centro.' }));
-      parts.push(e);
+      parts.push(e); return parts;
     }
-    if (S.mine.length) { parts.push(el('h3', { text: 'Pedidas desde este móvil' })); S.mine.forEach(function (m) { parts.push(mineCard(m)); }); }
-    if (centro.length) { parts.push(el('h3', { text: 'En el centro' })); centro.forEach(function (x) { parts.push(el('div', { class: 'card' }, [el('div', { class: 'ap' }, [dateBadge(x.d), el('div', { class: 'x' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e + (x.emp ? ' con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])])); }); }
+    // La pestaña: la que eligió; si no, «Pendientes» si le han propuesto otra hora (tiene que contestar), o la primera con algo.
+    var tab = S.misTab; if (S.sent) tab = 'pend';
+    if (!tab) tab = g.pend.some(function (x) { return x.prop; }) ? 'pend' : g.prox.length ? 'prox' : g.pend.length ? 'pend' : g.pas.length ? 'pas' : 'anu';
+    var bar = el('div', { class: 'tabs', role: 'tablist' });
+    TABS.forEach(function (t) { var n = g[t[0]].length; bar.appendChild(el('button', { type: 'button', role: 'tab', id: 'tab-' + t[0], class: tab === t[0] ? 'on' : '', 'aria-selected': tab === t[0] ? 'true' : 'false', onclick: function () { S.misTab = t[0]; S.sent = null; render(); } }, [document.createTextNode(t[1]), n && (t[0] === 'prox' || t[0] === 'pend') ? el('b', { class: t[2], text: String(n) }) : null])); });
+    parts.push(bar);
+    var list = g[tab];
+    if (!list.length) parts.push(el('div', { class: 'card empty', id: 'vacioTab' }, [el('div', { class: 'hint', text: { prox: 'No tienes citas próximas.', pend: 'No tienes solicitudes esperando respuesta.', pas: 'Aún no hay citas pasadas.', anu: 'No hay citas anuladas.' }[tab] })]));
+    list.forEach(function (x) { parts.push(x.n); });
+    if (tab === 'prox' && centro.length) parts.push(el('div', { class: 'hint', style: 'text-align:center;margin-top:4px', text: 'Para cambiar una cita del centro, escríbenos o llámanos.' }));
     return parts;
   }
   // (4.5.1) «Perfil»: «Tus citas en el centro» con el teléfono y el código que le dan en el centro (y olvidarlo en este móvil).
