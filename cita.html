@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.5.1">
-<meta name="consentia-agenda-firma" content="CdYlujIhdGQh6tHCFy60i2LT2BefiKKMa4sdwB8om4ENv2swTwqP1bz1+NaM0Z2+tCy4VtqWTeSfG2DjvKKUCg==">
+<meta name="consentia-agenda-version" content="4.5.2">
+<meta name="consentia-agenda-firma" content="NAEpo27r3liAwOu+vgVhxlKZrnIAz76dKFihxrH4Yd5pP/mapKKfDAHcL8SO2d6aVA7t2G0GY4tOdXqiXpXgDA==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-0e0X+vJguBP3vkua/VAqOqabQbtQYApyrGBreOx3wDw='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-EpovU/sY3cIo9DzUKacbBz5O5m6gZdnYvXqBAKPmb0g='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <title>Pide tu cita</title>
 <style>
@@ -88,6 +88,10 @@ button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight
 .full{text-align:center;padding:24px 16px}.full .ic{font-size:40px;line-height:1}.full h2{font-size:19px;margin:10px 0 6px}
 a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font-size:17px;font-weight:750}
 .empty{text-align:center;padding:26px 18px}.empty .ic{width:56px;height:56px;margin:0 auto 10px;border-radius:18px;background:var(--soft);display:grid;place-items:center}.empty .ic svg{width:28px;height:28px;fill:none;stroke:var(--pink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.titleRow{display:flex;align-items:center;gap:8px;margin:2px 0 4px}.titleRow h1{margin:4px 0}
+.refresh{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink)}.refresh svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.refresh.spin svg{animation:sp 0.9s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.loc.off{opacity:.5}.loc:disabled{cursor:default}
 .ap{display:flex;gap:12px;align-items:flex-start}.ap .d{flex:none;width:52px;border-radius:14px;background:var(--bg);text-align:center;padding:6px 0}.ap .d small{display:block;font-size:11px;font-weight:800;color:var(--pink);text-transform:uppercase}.ap .d b{display:block;font-size:20px;line-height:1.1}.ap .x{flex:1;min-width:0}
 </style>
 </head>
@@ -233,12 +237,15 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   }
 
   // (4.5.0) z.json recién leído (con la API y la llave del enlace, que no tiene la caché de raw); si falla, de raw.
-  async function freshZ(zona) {
+  async function freshZ(zona) { return freshFile(zona, 'z.json'); }
+  // (4.5.1) Un archivo de la rama del local recién leído (la API, con la llave del enlace, no tiene la caché de raw).
+  async function freshFile(zona, file) {
     try {
-      var r = await fetch(cfg.api + '/repos/' + cfg.repo + '/contents/z.json?ref=cs-cita-' + zona, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', headers: { Authorization: 'Bearer ' + link.k, Accept: 'application/vnd.github.raw+json', 'X-GitHub-Api-Version': '2022-11-28' } });
-      if (r.ok) { var j = await r.json(); if (j && j.encoding === 'base64' && typeof j.content === 'string') { var bin = atob(j.content.replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); j = JSON.parse(TD.decode(by)); } if (j && j.v === 1) return j; }
+      var r = await fetch(cfg.api + '/repos/' + cfg.repo + '/contents/' + file + '?ref=cs-cita-' + zona, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', headers: { Authorization: 'Bearer ' + link.k, Accept: 'application/vnd.github.raw+json', 'X-GitHub-Api-Version': '2022-11-28' } });
+      if (r.ok) { var j = await r.json(); if (j && j.encoding === 'base64' && typeof j.content === 'string') { var bin = atob(j.content.replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); j = JSON.parse(TD.decode(by)); } if (j) return j; }
+      if (r.status === 404) return null;
     } catch (e) { }
-    return getJson(cfg.raw + '/' + cfg.repo + '/cs-cita-' + zona + '/z.json?t=' + Date.now());
+    return getJson(cfg.raw + '/' + cfg.repo + '/cs-cita-' + zona + '/' + file + '?t=' + Date.now());
   }
   /* ---------- datos del local ---------- */
   async function loadLocal(zona) {
@@ -323,17 +330,20 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   /* ---------- mis citas ---------- */
   async function loadMine() {
     var list = (store('reqs') || []).filter(function (r) { return Date.now() - Date.parse(r.at) < 14 * 86400e3; }); store('reqs', list);
+    S.mineBusy = true; render();
     var d = store('dev'), priv = d ? await devPriv(d) : null, out = [];
     for (var i = 0; i < list.length; i++) {
-      var r = list[i], res = null;
-      try { var j = priv ? await getJson(rawUrl(r.zona, 'r-' + r.id + '.json', 8000)) : null; if (j) res = await openEnv(j, r.id, priv); } catch (e) { res = null; }
+      var r = list[i], res = null; if (r.hidden) continue; // (4.5.1) las que anuló ella, fuera de «Mis citas»
+      try { var j = priv ? await freshFile(r.zona, 'r-' + r.id + '.json') : null; if (j) res = await openEnv(j, r.id, priv); } catch (e) { res = null; }
+      if (res && res.state === 'anulada') { hideReq(r.id); continue; }
       out.push({ r: r, res: res });
     }
-    S.mine = out; render();
+    S.mine = out; S.mineBusy = false; render();
   }
+  function hideReq(id) { var l = store('reqs') || []; l.forEach(function (x) { if (x.id === id) x.hidden = true; }); store('reqs', l); S.mine = S.mine.filter(function (m) { return m.r.id !== id; }); }
   async function answer(r, kind) {
     S.busy = true; render();
-    try { var d = await device(); await send(await withPow({ v: 1, id: hex(8), kind: kind, at: new Date().toISOString(), pub: { x: d.x, y: d.y }, ref: r.id })); S.err = ''; S.info = kind === 'acepta' ? 'Enviado. En un momento te sale confirmada.' : 'Enviado. En un momento se anula.'; }
+    try { var d = await device(); await send(await withPow({ v: 1, id: hex(8), kind: kind, at: new Date().toISOString(), pub: { x: d.x, y: d.y }, ref: r.id })); S.err = ''; S.info = kind === 'acepta' ? 'Enviado. En un momento te sale confirmada.' : 'Cita anulada. Se lo hemos dicho al centro.'; if (kind === 'anula') hideReq(r.id); }
     catch (e) { S.err = e.message; }
     S.busy = false; render(); setTimeout(loadMine, 6000); setTimeout(loadMine, 20000);
   }
@@ -359,7 +369,9 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     pin: [['path', { d: 'M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z' }], ['circle', { cx: '12', cy: '10', r: '2.5' }]],
     sun: [['circle', { cx: '12', cy: '12', r: '4' }], ['path', { d: 'M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4' }]],
     sunset: [['path', { d: 'M17 18a5 5 0 0 0-10 0M12 9V2M4.2 10.2l1.4 1.4M1 18h2M21 18h2M18.4 11.6l1.4-1.4M23 22H1M16 5l-4 4-4-4' }]],
-    moon: [['path', { d: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z' }]]
+    moon: [['path', { d: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z' }]],
+    user: [['circle', { cx: '12', cy: '8', r: '4' }], ['path', { d: 'M4 21a8 8 0 0 1 16 0' }]],
+    sync: [['path', { d: 'M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9' }], ['path', { d: 'M18.5 3v4.2h-4.2M5.5 21v-4.2h4.2' }]]
   };
   function head() {
     var z = S.zdata, top = document.getElementById('top');
@@ -374,7 +386,8 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     var b = function (id, tab, txt, ic, go) { var x = el('button', { type: 'button', id: id, class: S.tab === tab ? 'on' : '', onclick: go }); x.appendChild(ico(ic)); x.appendChild(el('span', { text: txt })); return x; };
     var mis = b('navMis', 'mis', 'Mis citas', I.cal, function () { S.tab = 'mis'; S.info = ''; render(); window.scrollTo(0, 0); loadMine(); if (store('cli') && !S.cl) showClient(); });
     if (wait) mis.appendChild(el('span', { class: 'dot', text: String(wait) }));
-    n.appendChild(el('div', { class: 'seg' }, [mis, b('navPedir', 'pedir', 'Pedir cita', I.plus, function () { S.tab = 'pedir'; S.sent = null; S.full = false; render(); window.scrollTo(0, 0); })]));
+    n.appendChild(el('div', { class: 'seg' }, [mis, b('navPedir', 'pedir', 'Pedir cita', I.plus, function () { S.tab = 'pedir'; S.sent = null; S.full = false; if (!S.zdata && link.z) loadLocal(link.z); else render(); window.scrollTo(0, 0); }),
+      b('navPerfil', 'perfil', 'Perfil', I.user, function () { S.tab = 'perfil'; S.info = ''; render(); window.scrollTo(0, 0); if (store('cli') && !S.cl) showClient(); })])); // (4.5.1) «Perfil»: las citas en el centro con su código
   }
   function msg(t, k) { return t ? el('div', { class: 'msg ' + (k || ''), text: t }) : null; }
   var STEPS = ['Centro', 'Servicios', 'Cuándo', 'Tus datos'];
@@ -386,8 +399,18 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   function stepLocal() {
     var z = S.zdata, ls = (z.locales || []).length ? z.locales : [{ z: S.zona, n: z.local.n }];
     var out = stepHead(0, '¿A qué centro vienes?', ls.length > 1 ? 'Elige el local donde quieres la cita.' : '');
-    ls.forEach(function (l) { var on = l.z === S.zona; var b = el('button', { type: 'button', class: 'loc' + (on ? ' on' : ''), 'data-z': l.z, onclick: function () { if (l.z === S.zona) return; S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; loadLocal(l.z); } }); var ic = el('span', { class: 'ic' }); ic.appendChild(ico(I.pin)); b.appendChild(ic); b.appendChild(el('span', {}, [el('b', { text: l.n }), on && z.local.a ? el('small', { text: z.local.a }) : null])); b.appendChild(el('span', { class: 'ck', text: on ? '✓' : '' })); out.push(b); });
+    if (S.locErr) out.push(msg(S.locErr, 'warn'));
+    ls.forEach(function (l) { var on = l.z === S.zona, off = (S.locOff || []).indexOf(l.z) >= 0; var b = el('button', { type: 'button', class: 'loc' + (on ? ' on' : '') + (off ? ' off' : ''), 'data-z': l.z, disabled: off || S.locBusy ? true : null, onclick: function () { if (l.z === S.zona) return; switchLocal(l.z); } }); var ic = el('span', { class: 'ic' }); ic.appendChild(ico(I.pin)); b.appendChild(ic); b.appendChild(el('span', {}, [el('b', { text: l.n }), on && z.local.a ? el('small', { text: z.local.a }) : off ? el('small', { text: 'Sin cita por internet' }) : S.locBusy === l.z ? el('small', { text: 'Mirando…' }) : null])); b.appendChild(el('span', { class: 'ck', text: on ? '✓' : '' })); out.push(b); });
     out.push(bar(z.local.n, function () { go(1); }, 'Siguiente', false)); return out;
+  }
+  // (4.5.1) Cambiar de centro sin perder el que había: si el otro no tiene la cita por internet, se dice y se sigue aquí.
+  async function switchLocal(zn) {
+    S.locBusy = zn; S.locErr = ''; render(); var nz = null;
+    try { nz = await freshFile(zn, 'z.json'); } catch (e) { nz = null; }
+    S.locBusy = '';
+    if (nz && nz.v === 1) { S.zdata = nz; S.zona = zn; S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; S.cat = ''; S.q = ''; store('link', Object.assign({}, link, { z: zn })); }
+    else { S.locOff = (S.locOff || []).concat([zn]); S.locErr = 'Ese centro todavía no tiene la cita por internet. Llámalo o elige otro.'; }
+    render();
   }
   function stepServices() {
     var z = S.zdata, cats = []; z.svc.forEach(function (s) { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
@@ -460,11 +483,13 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     return out;
   }
   function pedir() {
-    var z = S.zdata; if (!z) return [];
+    var z = S.zdata;
+    if (!z && S.err && !S.loading) { var e0 = S.err; S.err = ''; return [el('div', { class: 'card empty', id: 'sinCita' }, [el('h2', { text: 'Aquí todavía no se puede pedir cita' }), el('div', { class: 'hint', text: e0 + ' Llámanos o escríbenos.' }), el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Volver a intentarlo', onclick: function () { loadLocal(link.z); } }), el('button', { class: 'lnk', type: 'button', text: 'Ir a Mis citas', onclick: function () { S.tab = 'mis'; render(); } })])]; }
+    if (!z) return [];
     if (z.full || S.full) return [fullCard()]; // (4.5.0) topes del centro
     if (S.step === 0) return stepLocal(); if (S.step === 1) return stepServices(); if (S.step === 2) return stepTime(); return stepData();
   }
-  var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['info', 'Te proponen otra hora'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada'], completa: ['bad', 'Estamos completas'] };
+  var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['info', 'Te proponen otra hora'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada'], cancelada: ['bad', 'Anulada por el centro'], completa: ['bad', 'Estamos completas'] };
   function dateBadge(d) { var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), m = ''; try { m = dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''); } catch (e) { } return el('div', { class: 'd' }, [el('small', { text: m }), el('b', { text: String(+p[2]) })]); }
   function mineCard(m) {
     var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, show = x && x.cita ? x.cita : { d: r.d, s: r.s };
@@ -483,41 +508,51 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     return c;
   }
   function mis() {
-    var parts = [el('h1', { text: 'Mis citas' })];
+    var rb = el('button', { type: 'button', class: 'refresh' + (S.mineBusy || S.clBusy ? ' spin' : ''), id: 'actualizar', 'aria-label': 'Actualizar', title: 'Actualizar', onclick: function () { S.info = ''; S.sent = null; loadMine(); if (store('cli')) showClient(); } }); rb.appendChild(ico(I.sync));
+    var parts = [el('div', { class: 'titleRow' }, [rb, el('h1', { text: 'Mis citas' })])];
     if (S.info) parts.push(msg(S.info, 'ok'));
     if (S.sent) parts.push(msg('¡Solicitud enviada! Te la confirmamos en menos de 24 horas. La respuesta te sale aquí.', 'ok'));
-    var c = store('cli');
-    if (!S.mine.length && !c) {
+    var c = store('cli'), centro = S.cl && S.cl.citas ? S.cl.citas : [];
+    if (!S.mine.length && !centro.length) {
       var e = el('div', { class: 'card empty', id: 'vacio' }), ic = el('div', { class: 'ic' }); ic.appendChild(ico(I.cal)); e.appendChild(ic);
       e.appendChild(el('h2', { text: 'Todavía no tienes citas' })); e.appendChild(el('div', { class: 'hint', text: 'Pide una en un momento: eliges el servicio, el día y la hora, y te la confirmamos.' }));
-      e.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; render(); window.scrollTo(0, 0); } })); parts.push(e);
+      e.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; render(); window.scrollTo(0, 0); } }));
+      if (!c) e.appendChild(el('div', { class: 'hint', style: 'margin-top:12px', text: '¿Ya eres clienta? En «Perfil», con tu teléfono y tu código, ves también tus citas del centro.' }));
+      parts.push(e);
     }
-    if (S.mine.length) { parts.push(el('h3', { text: 'Pedidas desde este móvil' })); S.mine.forEach(function (m) { parts.push(mineCard(m)); }); parts.push(el('button', { class: 'lnk', type: 'button', text: '↻ Actualizar', onclick: function () { S.info = ''; loadMine(); } })); }
-    parts.push(el('h3', { text: 'Tus citas en el centro' }));
-    var box = el('div', { class: 'card', id: 'centro' });
+    if (S.mine.length) { parts.push(el('h3', { text: 'Pedidas desde este móvil' })); S.mine.forEach(function (m) { parts.push(mineCard(m)); }); }
+    if (centro.length) { parts.push(el('h3', { text: 'En el centro' })); centro.forEach(function (x) { parts.push(el('div', { class: 'card' }, [el('div', { class: 'ap' }, [dateBadge(x.d), el('div', { class: 'x' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e + (x.emp ? ' con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])])); }); }
+    return parts;
+  }
+  // (4.5.1) «Perfil»: «Tus citas en el centro» con el teléfono y el código que le dan en el centro (y olvidarlo en este móvil).
+  function perfil() {
+    var parts = [el('h1', { text: 'Perfil' }), el('p', { class: 'lead', text: 'Si ya eres clienta, con tu teléfono y el código que te damos en el centro ves aquí y en «Mis citas» todas tus próximas citas.' })];
+    var c = store('cli'), box = el('div', { class: 'card', id: 'centro' });
     if (!c) {
       var ph = el('input', { type: 'tel', maxlength: 16, autocomplete: 'tel', placeholder: 'Tu teléfono' }), cd = el('input', { type: 'text', maxlength: 9, autocapitalize: 'characters', autocomplete: 'off', placeholder: 'Tu código (8 letras y números)' });
-      box.appendChild(el('div', { class: 'hint', text: '¿Ya eres clienta? Con tu teléfono y el código que te damos en el centro ves todas tus próximas citas.' })); box.appendChild(el('label', { text: 'Teléfono' })); box.appendChild(ph); box.appendChild(el('label', { text: 'Código' })); box.appendChild(cd);
-      box.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:12px', disabled: S.clBusy, text: S.clBusy ? 'Mirando…' : 'Ver mis citas', onclick: function () { if (digits(ph.value).length < 9 || codeNorm(cd.value).length !== 8) { S.clMsg = 'Escribe tu teléfono y el código de 8 letras y números.'; return render(); } store('cli', { p: ph.value, c: codeNorm(cd.value) }); showClient(); } }));
+      box.appendChild(el('h2', { text: 'Tus citas en el centro' })); box.appendChild(el('label', { text: 'Teléfono' })); box.appendChild(ph); box.appendChild(el('label', { text: 'Código' })); box.appendChild(cd);
+      box.appendChild(el('button', { class: 'p', type: 'button', style: 'margin-top:12px', disabled: S.clBusy ? true : null, text: S.clBusy ? 'Mirando…' : 'Ver mis citas', onclick: function () { if (digits(ph.value).length < 9 || codeNorm(cd.value).length !== 8) { S.clMsg = 'Escribe tu teléfono y el código de 8 letras y números.'; return render(); } store('cli', { p: ph.value, c: codeNorm(cd.value) }); showClient(); } }));
+      box.appendChild(el('div', { class: 'hint', style: 'margin-top:10px', text: '¿No tienes código? Pídelo en el centro: te lo mandamos por WhatsApp.' }));
     } else {
       if (S.clBusy) box.appendChild(el('div', { class: 'hint', text: 'Mirando tus citas…' }));
       else if (S.cl) {
         box.appendChild(el('h2', { text: 'Hola' + (S.cl.nombre ? ', ' + S.cl.nombre : '') }));
         if (!S.cl.citas.length) box.appendChild(el('div', { class: 'hint', text: 'No tienes citas próximas. ¡Pide una!' }));
         S.cl.citas.forEach(function (x) { box.appendChild(el('div', { class: 'ap', style: 'padding:10px 0;border-top:1px solid var(--line)' }, [dateBadge(x.d), el('div', { class: 'x' }, [el('b', { text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e }), el('div', { class: 'hint', text: (x.sv || []).join(' + ') + (x.emp ? ' · con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])); });
-        box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'Para cambiar o anular una cita, escríbenos.' }));
+        box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'Para cambiar o anular una cita del centro, escríbenos o llámanos.' }));
       }
       box.appendChild(el('div', { class: 'row', style: 'margin-top:10px' }, [el('button', { class: 's', type: 'button', text: 'Actualizar', onclick: showClient }), el('button', { class: 'lnk', type: 'button', text: 'Olvidar mi código en este móvil', onclick: function () { store('cli', null); S.cl = null; S.clMsg = ''; render(); } })]));
     }
     if (S.clMsg) box.appendChild(msg(S.clMsg, 'bad')); parts.push(box);
+    var tel = S.zdata && S.zdata.local && S.zdata.local.tel; if (tel) parts.push(el('a', { class: 'tel', href: 'tel:' + String(tel).replace(/[^\d+]/g, ''), text: 'Llamar al centro · ' + tel }));
     return parts;
   }
   function render() {
     var y = window.scrollY; root.textContent = ''; head(); nav();
     if (!link.k) { root.appendChild(el('div', { class: 'card empty' }, [el('h2', { text: 'Falta el enlace' }), el('div', { class: 'hint', text: 'Abre el enlace (o el QR) que te ha dado el centro.' })])); return; }
     if (S.loading) { root.appendChild(el('div', { class: 'hint', style: 'padding:20px 4px', text: 'Cargando…' })); return; }
-    if (S.err) root.appendChild(msg(S.err, 'bad'));
-    var parts = S.tab === 'pedir' ? pedir() : mis();
+    if (S.err && S.zdata) root.appendChild(msg(S.err, 'bad')); // (sin datos del centro, el error lo enseña «Pedir cita» con su salida)
+    var parts = S.tab === 'pedir' ? pedir() : S.tab === 'perfil' ? perfil() : mis();
     if (S.tab === 'pedir' && !S.zdata && !S.err) parts = [el('div', { class: 'hint', style: 'padding:20px 4px', text: 'Cargando…' })];
     parts.forEach(function (p) { if (p) root.appendChild(p); });
     window.scrollTo(0, y);
