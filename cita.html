@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="consentia-pagina" content="cita">
+<meta name="consentia-agenda-version" content="4.5.0">
+<meta name="consentia-agenda-firma" content="eb+w094c2XBzNBCJDa+91RQv+I37JOP5cZWuezlq0MaewJI6AsKMy7Jem08nacpTgzbVDA6TvVmNJfFiCB19AA==">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-T4yilK4+ItzvZmeLhWM6OQRVObMgMZdYAvUe9fO1u+4='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#ffffff">
+<title>Pide tu cita</title>
+<style>
+:root{--pink:#ff2b91;--ink:#1c1b1f;--mute:#6f6c76;--line:#e7e4ea;--bg:#faf8fb;--ok:#1d8a4a;--warn:#b07000;--bad:#c62828}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:560px;margin:0 auto;padding:14px 14px 80px}
+header{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
+header .c{width:40px;height:40px;border-radius:12px;background:var(--pink);color:#fff;display:grid;place-items:center;font:800 22px Georgia,serif}
+header h1{font-size:19px;margin:0;line-height:1.15}header small{color:var(--mute);display:block;font-size:13px}
+.tabs{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:14px}
+.tabs button{flex:1;border:0;background:none;padding:10px;border-radius:10px;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--mute)}
+.tabs button.on{background:var(--pink);color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+h2{font-size:16px;margin:0 0 8px}h3{font-size:13px;margin:12px 0 4px;color:var(--mute);text-transform:uppercase;letter-spacing:.05em}
+.hint{color:var(--mute);font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sv{display:flex;gap:10px;align-items:center;padding:10px 4px;border-bottom:1px solid var(--line)}
+.sv:last-child{border:0}.sv input{width:20px;height:20px;accent-color:var(--pink)}.sv .n{flex:1}.sv .m{color:var(--mute);font-size:13px;white-space:nowrap}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.chip{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;font:600 14px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);text-align:center;min-width:64px}
+.chip.on{border-color:var(--pink);background:#fff0f7;color:var(--pink)}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slots .chip{min-width:0;padding:10px 4px}
+label{display:block;font-weight:600;font-size:14px;margin:10px 0 4px}
+input[type=text],input[type=tel],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+button.p{border:0;background:var(--pink);color:#fff;border-radius:14px;padding:14px 18px;font:700 16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;width:100%}
+button.p:disabled{opacity:.45}
+button.s{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font:600 14px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button.s.bad{color:var(--bad)}
+.tag{display:inline-block;border-radius:999px;padding:2px 10px;font:700 12px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#eee;color:#555}
+.tag.ok{background:#e4f6ea;color:var(--ok)}.tag.warn{background:#fff1d6;color:var(--warn)}.tag.bad{background:#fde7e7;color:var(--bad)}.tag.info{background:#e4eefc;color:#1d5fb4}
+.msg{border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px;background:#eef2fb;color:#1d3a6b}
+.msg.warn{background:#fff6e0;color:#6b4a00}.msg.bad{background:#fde7e7;color:#8a1c1c}.msg.ok{background:#e4f6ea;color:#14532d}
+.sum{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);margin:0 -14px;padding:10px 14px;display:flex;gap:10px;align-items:center}
+.sum b{flex:1}.sum button{width:auto;padding:12px 18px}
+.photo{max-width:100%;max-height:200px;border-radius:12px;display:block;margin-top:8px}
+.big{font:800 20px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:12px 0}.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--pink)}
+.full{text-align:center;padding:22px 16px}.full .ic{font-size:40px;line-height:1}.full h2{font-size:19px;margin:10px 0 6px}
+a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font:700 17px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+input[type=search]{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font:16px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#fff;color:var(--ink)}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+(function () {
+  'use strict';
+  var SC = crypto.subtle, TE = new TextEncoder(), TD = new TextDecoder();
+  var FMT_ACC = 'consentia-acc-1', FMT_AG2 = 'consentia-agenda-2', FMT_PANEL = 'consentia-panel-1', FMT_C = 'consentia-cita-c1';
+  var ECDH = { name: 'ECDH', namedCurve: 'P-256' };
+  var ZONE_RE = /^[A-Za-z0-9][A-Za-z0-9-]{0,59}$/, REPO_RE = /^[\w.-]+\/[\w.-]+$/, TOK_RE = /^github_pat_[A-Za-z0-9_]{20,}$/, ID_RE = /^[a-f0-9]{16}$/;
+  var PHOTO_MAX = 150000, C_ITER = 300000;
+
+  /* ---------- utilidades ---------- */
+  function b64u(buf) { var b = buf instanceof Uint8Array ? buf : new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+  function unb64u(t) { t = String(t || '').replace(/-/g, '+').replace(/_/g, '/'); while (t.length % 4) t += '='; var s = atob(t), b = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) b[i] = s.charCodeAt(i); return b; }
+  function u8(x) { return x instanceof Uint8Array ? x : new Uint8Array(x); }
+  function rnd(n) { return crypto.getRandomValues(new Uint8Array(n)); }
+  function hex(n) { return Array.prototype.map.call(rnd(n), function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); }
+  function el(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) { var v = attrs[k]; if (v == null || v === false) return; if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else if (k.indexOf('on') === 0) e[k] = v; else if (k === 'value') e.value = v; else if (k === 'checked' || k === 'disabled' || k === 'selected') e[k] = !!v; else e.setAttribute(k, v === true ? '' : v); });
+    (kids || []).forEach(function (c) { if (c == null || c === false) return; e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem('cs-cita-' + k) || 'null'); if (v === null) localStorage.removeItem('cs-cita-' + k); else localStorage.setItem('cs-cita-' + k, JSON.stringify(v)); } catch (e) { return null; } }
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  function hm(m) { return pad(Math.floor(m / 60) % 24) + ':' + pad(m % 60); }
+  function mins(s) { return +s.slice(0, 2) * 60 + +s.slice(3, 5); }
+  function dayText(d, long) { var p = d.split('-'); var t = new Date(+p[0], +p[1] - 1, +p[2]); var o = long ? { weekday: 'long', day: 'numeric', month: 'long' } : { weekday: 'short', day: 'numeric', month: 'short' }; try { return t.toLocaleDateString('es-ES', o); } catch (e) { return d; } }
+  function durText(m) { var h = Math.floor(m / 60), r = m % 60; return (h ? h + ' h' : '') + (h && r ? ' ' : '') + (r ? r + ' min' : ''); }
+  function money(v) { try { return v.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }); } catch (e) { return v + ' €'; } }
+  function digits(t) { return String(t || '').replace(/\D/g, ''); }
+  function codeNorm(c) { return String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+  // (4.5.0) SHA-256 sin esperas (para la prueba de trabajo: hacen falta muchos seguidos) y la prueba en sí: el ordenador del
+  // centro solo recoge las solicitudes que la traen (lib/citas-web.js → powOk). Cuesta un par de segundos en un móvil.
+  var K256 = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
+  var W256 = new Int32Array(64);
+  function sha256First(bytes) { // → los 32 primeros bits del SHA-256 (es lo único que mira la prueba)
+    var l = bytes.length, n = ((l + 9 + 63) >> 6) << 6, m = new Uint8Array(n); m.set(bytes); m[l] = 0x80; var bits = l * 8; m[n - 4] = bits >>> 24; m[n - 3] = (bits >>> 16) & 255; m[n - 2] = (bits >>> 8) & 255; m[n - 1] = bits & 255;
+    var h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a, h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19, w = W256;
+    for (var o = 0; o < n; o += 64) {
+      for (var i = 0; i < 16; i++) w[i] = (m[o + i * 4] << 24) | (m[o + i * 4 + 1] << 16) | (m[o + i * 4 + 2] << 8) | m[o + i * 4 + 3];
+      for (i = 16; i < 64; i++) { var x = w[i - 15], y = w[i - 2]; var s0 = ((x >>> 7) | (x << 25)) ^ ((x >>> 18) | (x << 14)) ^ (x >>> 3), s1 = ((y >>> 17) | (y << 15)) ^ ((y >>> 19) | (y << 13)) ^ (y >>> 10); w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0; }
+      var a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+      for (i = 0; i < 64; i++) { var S1 = ((e >>> 6) | (e << 26)) ^ ((e >>> 11) | (e << 21)) ^ ((e >>> 25) | (e << 7)), ch = (e & f) ^ (~e & g), t1 = (h + S1 + ch + K256[i] + w[i]) | 0, S0 = ((a >>> 2) | (a << 30)) ^ ((a >>> 13) | (a << 19)) ^ ((a >>> 22) | (a << 10)), mj = (a & b) ^ (a & c) ^ (b & c), t2 = (S0 + mj) | 0; h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0; }
+      h0 = (h0 + a) | 0; h1 = (h1 + b) | 0; h2 = (h2 + c) | 0; h3 = (h3 + d) | 0; h4 = (h4 + e) | 0; h5 = (h5 + f) | 0; h6 = (h6 + g) | 0; h7 = (h7 + h) | 0;
+    }
+    return h0 >>> 0;
+  }
+  function powFind(base, bits) { // base: «id|at|x|» → el sufijo que hace que el SHA-256 empiece por `bits` ceros
+    var lim = bits >= 32 ? 0 : (0xffffffff >>> bits) >>> 0, pre = TE.encode(base), n = 0;
+    return new Promise(function (ok) { (function step() { var t0 = Date.now(); while (Date.now() - t0 < 40) { for (var k = 0; k < 500; k++, n++) { var sfx = n.toString(36), b = new Uint8Array(pre.length + sfx.length); b.set(pre); for (var j = 0; j < sfx.length; j++) b[pre.length + j] = sfx.charCodeAt(j); if (sha256First(b) <= lim) return ok(sfx); } } setTimeout(step, 0); })(); });
+  }
+  async function withPow(obj) { var bits = Math.max(0, Math.min(24, +((S.zdata || {}).pow) || 18)); obj.pow = await powFind(obj.id + '|' + obj.at + '|' + obj.pub.x + '|', bits); return obj; }
+
+  /* ---------- dónde estamos: repositorio de la página, del buzón (Citas), llave y local ---------- */
+  var cfg = (function () {
+    var h = location.hostname, seg = location.pathname.split('/').filter(Boolean), q = new URLSearchParams(location.search);
+    if (/\.github\.io$/i.test(h) && seg.length) return { repo: h.split('.')[0] + '/' + seg[0], api: 'https://api.github.com', raw: 'https://raw.githubusercontent.com' };
+    if (h !== 'localhost' && h !== '127.0.0.1') return { repo: '', api: '', raw: '' };
+    return { repo: q.get('repo') || '', api: q.get('api') || 'https://api.github.com', raw: q.get('raw') || 'https://raw.githubusercontent.com' };
+  })();
+  var link = store('link') || {};
+  (function () {
+    var m = /[#&]k=([^&]+)/.exec(location.hash), z = /[#&]z=([^&]+)/.exec(location.hash), r = /[#&]r=([^&]+)/.exec(location.hash);
+    if (m && TOK_RE.test(m[1]) && z && ZONE_RE.test(z[1]) && r && REPO_RE.test(decodeURIComponent(r[1]))) { link = { k: m[1], z: z[1], r: decodeURIComponent(r[1]) }; store('link', link); }
+    try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
+  })();
+
+  var S = { tab: 'pedir', step: 0, z: null, zona: link.z || '', zdata: null, loading: false, err: '', sel: {}, day: '', time: '', emp: '', f: { name: '', phone: '', note: '', consent: false, photo: '' }, busy: false, sent: null, mine: [], cl: null, clMsg: '', clBusy: false };
+  var root = document.getElementById('app');
+
+  /* ---------- cifrado (lo mismo que la app del móvil) ---------- */
+  async function pubOf(p) { return SC.importKey('jwk', { kty: 'EC', crv: 'P-256', x: p.x, y: p.y, ext: true }, ECDH, false, []); }
+  async function kek(fmt, priv, other, saltX, kid) {
+    var shared = await SC.deriveBits({ name: 'ECDH', public: await pubOf(other) }, priv, 256);
+    var hk = await SC.importKey('raw', shared, 'HKDF', false, ['deriveKey']);
+    return SC.deriveKey({ name: 'HKDF', hash: 'SHA-256', salt: unb64u(saltX), info: TE.encode(fmt + '|' + kid) }, hk, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  async function sealEnv(obj, rcp, zona, file) {
+    var eph = await SC.generateKey(ECDH, true, ['deriveBits']), ej = await SC.exportKey('jwk', eph.publicKey);
+    var cek = rnd(32), iv = rnd(12), ck = await SC.importKey('raw', cek, 'AES-GCM', false, ['encrypt']);
+    var c = await SC.encrypt({ name: 'AES-GCM', iv: iv, additionalData: TE.encode(FMT_ACC + ':' + zona + '/' + file) }, ck, TE.encode(JSON.stringify(obj)));
+    var k = await kek(FMT_ACC, eph.privateKey, { x: rcp.x, y: rcp.y }, ej.x, rcp.kid), wiv = rnd(12);
+    var w = await SC.encrypt({ name: 'AES-GCM', iv: wiv, additionalData: TE.encode(rcp.kid) }, k, cek);
+    var wb = new Uint8Array(12 + w.byteLength); wb.set(wiv, 0); wb.set(u8(w), 12);
+    return JSON.stringify({ f: FMT_ACC, z: zona, n: file, epk: { x: ej.x, y: ej.y }, r: [{ k: rcp.kid, w: b64u(wb) }], iv: b64u(iv), c: b64u(c) });
+  }
+  async function openEnv(e, kid, priv) {
+    if (typeof e === 'string') e = JSON.parse(e);
+    if (!e || [FMT_ACC, FMT_AG2, FMT_PANEL].indexOf(e.f) < 0 || !e.epk) throw new Error('formato');
+    var mine = (e.r || []).filter(function (r) { return r && r.k === kid; })[0]; if (!mine) throw new Error('sin-mi');
+    var k = await kek(e.f, priv, e.epk, e.epk.x, kid), w = unb64u(mine.w);
+    var cek = await SC.decrypt({ name: 'AES-GCM', iv: w.slice(0, 12), additionalData: TE.encode(kid) }, k, w.slice(12));
+    var ck = await SC.importKey('raw', cek, 'AES-GCM', false, ['decrypt']);
+    var plain = await SC.decrypt({ name: 'AES-GCM', iv: unb64u(e.iv), additionalData: TE.encode(e.f + ':' + e.z + '/' + e.n) }, ck, unb64u(e.c));
+    return JSON.parse(TD.decode(plain));
+  }
+  // La clienta con su teléfono y su código: PBKDF2 → nombre del archivo + clave (lib/citas-web.js → clientKeys)
+  async function clientKeys(phone, code) {
+    var base = await SC.importKey('raw', TE.encode(digits(phone).slice(-9) + '|' + codeNorm(code)), 'PBKDF2', false, ['deriveBits']);
+    var bits = u8(await SC.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: TE.encode('consentia-cita-1'), iterations: C_ITER }, base, 352));
+    return { name: 'c-' + b64u(bits.slice(0, 12)) + '.json', key: await SC.importKey('raw', bits.slice(12), 'AES-GCM', false, ['decrypt']) };
+  }
+  async function openClient(text, keys) {
+    var e = typeof text === 'string' ? JSON.parse(text) : text; if (!e || e.f !== FMT_C) throw new Error('formato');
+    var p = await SC.decrypt({ name: 'AES-GCM', iv: unb64u(e.iv), additionalData: TE.encode(FMT_C) }, keys.key, unb64u(e.c));
+    return JSON.parse(TD.decode(p));
+  }
+  // La llave de ESTE móvil (solo para leer las respuestas a SUS solicitudes): se crea la primera vez que pide algo.
+  async function device() {
+    var d = store('dev');
+    if (!d) { var kp = await SC.generateKey(ECDH, true, ['deriveBits']), j = await SC.exportKey('jwk', kp.privateKey); d = { x: j.x, y: j.y, d: j.d }; store('dev', d); }
+    return d;
+  }
+  function devPriv(d) { return SC.importKey('jwk', { kty: 'EC', crv: 'P-256', x: d.x, y: d.y, d: d.d, ext: false }, ECDH, false, ['deriveBits']); }
+
+  /* ---------- GitHub ---------- */
+  async function getJson(url) {
+    var r; try { r = await fetch(url, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); } catch (e) { throw new Error('Sin conexión (¿hay Internet?).'); }
+    if (r.status === 404) return null; if (!r.ok) throw new Error('No se ha podido leer (' + r.status + ').');
+    return r.json();
+  }
+  function rawUrl(zona, path, every) { return cfg.raw + '/' + cfg.repo + '/cs-cita-' + zona + '/' + path + '?t=' + Math.floor(Date.now() / (every || 15000)); }
+  async function putRequest(id, env) {
+    var body = JSON.stringify({ message: 'Consentia Studio', content: btoa(JSON.stringify({ v: 1, env: env })), branch: 'main' });
+    var r; try { r = await fetch(cfg.api + '/repos/' + link.r + '/contents/p/' + id + '.json', { method: 'PUT', credentials: 'omit', referrerPolicy: 'no-referrer', headers: { Authorization: 'Bearer ' + link.k, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' }, body: body }); }
+    catch (e) { throw new Error('Sin conexión (¿hay Internet?).'); }
+    if (r.status === 401 || r.status === 403) throw new Error('Este enlace ya no vale. Pide uno nuevo al centro.');
+    if (r.status === 404) throw new Error('El centro todavía no ha preparado las citas por internet.');
+    if (r.status === 422) throw new Error('Esa solicitud ya estaba enviada.');
+    if (!r.ok) throw new Error('GitHub respondió ' + r.status + '. Inténtalo en un momento.');
+  }
+  async function send(obj) { // obj: lo de dentro (ya con id, kind, at, pub)
+    var z = S.zdata; if (!z || !z.pk) throw new Error('El centro todavía no tiene las citas listas.');
+    var env = await sealEnv(obj, { kid: 'accesos', x: z.pk.x, y: z.pk.y }, '-', 'cita');
+    if (env.length > 255000) throw new Error('La foto pesa demasiado: quítala o prueba con otra.');
+    await putRequest(obj.id, env);
+  }
+
+  // (4.5.0) z.json recién leído (con la API y la llave del enlace, que no tiene la caché de raw); si falla, de raw.
+  async function freshZ(zona) {
+    try {
+      var r = await fetch(cfg.api + '/repos/' + cfg.repo + '/contents/z.json?ref=cs-cita-' + zona, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', headers: { Authorization: 'Bearer ' + link.k, Accept: 'application/vnd.github.raw+json', 'X-GitHub-Api-Version': '2022-11-28' } });
+      if (r.ok) { var j = await r.json(); if (j && j.encoding === 'base64' && typeof j.content === 'string') { var bin = atob(j.content.replace(/\s/g, '')), by = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) by[i] = bin.charCodeAt(i); j = JSON.parse(TD.decode(by)); } if (j && j.v === 1) return j; }
+    } catch (e) { }
+    return getJson(cfg.raw + '/' + cfg.repo + '/cs-cita-' + zona + '/z.json?t=' + Date.now());
+  }
+  /* ---------- datos del local ---------- */
+  async function loadLocal(zona) {
+    S.loading = true; S.err = ''; render();
+    try {
+      if (!cfg.repo || !link.k) throw new Error('Falta el enlace del centro. Pídelo en el local.');
+      var z = await getJson(rawUrl(zona, 'z.json', 10000)); if (!z || z.v !== 1) throw new Error('Este local todavía no tiene las citas por internet.');
+      S.zdata = z; S.zona = zona; store('link', Object.assign({}, link, { z: zona }));
+    } catch (e) { S.err = e.message; S.zdata = null; }
+    S.loading = false; render();
+  }
+
+  /* ---------- pedir cita ---------- */
+  function chosenSvc() { var z = S.zdata; return z ? z.svc.filter(function (s) { return S.sel[s.id]; }) : []; }
+  function totals() { var l = chosenSvc(); return { m: l.reduce(function (t, s) { return t + s.m; }, 0), p: l.reduce(function (t, s) { return t + s.p; }, 0), n: l.length }; }
+  // Las horas en las que cabe, para el día elegido: [{ s: 'HH:MM', emps: [ids] }]
+  function times(day) {
+    var z = S.zdata, per = (z.days || {})[day], du = totals().m, step = z.step || 15, out = {};
+    if (!per || !du) return [];
+    Object.keys(per).forEach(function (id) {
+      if (S.emp && id !== S.emp) return;
+      per[id].forEach(function (r) { for (var t = Math.ceil(r[0] / step) * step; t + du <= r[1]; t += step) { var k = hm(t); (out[k] = out[k] || []).push(id); } });
+    });
+    return Object.keys(out).sort().map(function (k) { return { s: k, emps: out[k] }; });
+  }
+  function daysWith() { var z = S.zdata, du = totals().m; return Object.keys(z.days || {}).sort().filter(function (d) { return times(d).length; }); }
+  function shrinkPhoto(file) {
+    return new Promise(function (ok, no) {
+      if (!file || !/^image\//.test(file.type)) return no(new Error('Elige una foto.'));
+      var fr = new FileReader(); fr.onerror = function () { no(new Error('No se ha podido leer la foto.')); };
+      fr.onload = function () {
+        var im = new Image(); im.onerror = function () { no(new Error('No se ha podido abrir la foto.')); };
+        im.onload = function () {
+          var side = 640, k = Math.min(1, side / Math.max(im.width, im.height)), w = Math.max(1, Math.round(im.width * k)), h = Math.max(1, Math.round(im.height * k));
+          var c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(im, 0, 0, w, h); /* al pasar por aquí se pierde el lugar y los datos de la cámara */
+          var q = 0.7, out = c.toDataURL('image/jpeg', q); while (out.length > PHOTO_MAX && q > 0.2) { q -= 0.1; out = c.toDataURL('image/jpeg', q); }
+          if (out.length > PHOTO_MAX) return no(new Error('La foto es demasiado grande.'));
+          ok(out);
+        };
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+  async function submit() {
+    if (S.busy) return; var f = S.f, z = S.zdata, t = totals();
+    var last = store('last') || 0; if (Date.now() - last < 45000) { S.err = 'Espera un momento antes de enviar otra solicitud.'; return render(); }
+    if (!f.name.trim() || digits(f.phone).length < 9) { S.err = 'Pon tu nombre y tu teléfono (con los 9 números).'; return render(); }
+    if (!f.consent) { S.err = 'Tienes que aceptar el uso de tus datos para poder pedir la cita.'; return render(); }
+    if (myLimit()) { S.full = true; return render(); } // (4.5.0) este móvil ya ha pedido bastantes
+    S.busy = true; S.busyTxt = 'Comprobando que el hueco sigue libre…'; S.err = ''; render();
+    try {
+      // (4.5.0) Justo antes de enviar, el hueco otra vez (por si alguien lo acaba de coger).
+      var fz = await freshZ(S.zona).catch(function () { return null; });
+      if (fz && fz.v === 1) { S.zdata = fz; z = fz; if (fz.full) { S.full = true; S.busy = false; return render(); } if (!times(S.day).some(function (t) { return t.s === S.time; })) { S.busy = false; S.step = 1; S.time = ''; S.err = 'Ese hueco se acaba de ocupar. Elige otra hora, por favor.'; render(); window.scrollTo(0, 0); return; } }
+      S.busyTxt = 'Enviando…'; render();
+      var d = await device(), id = hex(8), req = { v: 1, id: id, kind: 'cita', at: new Date().toISOString(), pub: { x: d.x, y: d.y }, zona: S.zona, d: S.day, s: S.time, name: f.name.trim(), phone: f.phone.trim(), svc: chosenSvc().map(function (s) { return s.id; }), emp: S.emp || '', note: f.note.trim() };
+      if (f.photo && z.photo) req.photo = f.photo;
+      await withPow(req); await send(req); store('last', Date.now());
+      var list = store('reqs') || []; list.unshift({ id: id, zona: S.zona, at: req.at, d: S.day, s: S.time, sv: chosenSvc().map(function (s) { return s.n; }), name: f.name.trim() }); store('reqs', list.slice(0, 20));
+      S.sent = id; S.sel = {}; S.step = 0; S.day = ''; S.time = ''; S.emp = ''; S.f = { name: f.name, phone: f.phone, note: '', consent: false, photo: '' };
+      S.tab = 'mis'; S.busy = false; await loadMine(); return;
+    } catch (e) { S.err = e.message; }
+    S.busy = false; render();
+  }
+
+  // (4.5.0) Lo que ya ha pedido ESTE móvil: si pasa de los topes del centro, ni se intenta (el ordenador lo apartaría igual).
+  function myLimit() {
+    var z = S.zdata || {}, lim = z.lim || {}, list = store('reqs') || [], now = Date.now();
+    var day = list.filter(function (r) { return now - Date.parse(r.at) < 86400e3; }).length;
+    var open = list.filter(function (r) { var m = S.mine.filter(function (x) { return x.r.id === r.id; })[0]; var st = m && m.res ? m.res.state : (now - Date.parse(r.at) < 86400e3 ? 'pendiente' : ''); return st === 'pendiente' || st === 'propuesta'; }).length;
+    return (lim.dd && day >= lim.dd) || (lim.dp && open >= lim.dp);
+  }
+  function fullCard() {
+    var z = S.zdata || {}, tel = (z.local || {}).tel || '';
+    return el('div', { class: 'card full', id: 'completas' }, [el('div', { class: 'ic', text: '📞' }), el('h2', { text: 'Ahora mismo estamos completas por aquí' }),
+      el('div', { class: 'hint', text: 'Hay muchas solicitudes esperando respuesta. Llámanos y te buscamos un hueco.' }),
+      tel ? el('a', { class: 'tel', href: 'tel:' + tel.replace(/[^\d+]/g, ''), text: 'Llamar al ' + tel }) : el('div', { class: 'msg', text: 'Llámanos o escríbenos por WhatsApp.' }),
+      el('button', { class: 's', style: 'margin-top:12px', text: 'Ver mis solicitudes', onclick: function () { S.tab = 'mis'; render(); loadMine(); } })]);
+  }
+
+  /* ---------- mis citas ---------- */
+  async function loadMine() {
+    var list = (store('reqs') || []).filter(function (r) { return Date.now() - Date.parse(r.at) < 14 * 86400e3; }); store('reqs', list);
+    var d = store('dev'), priv = d ? await devPriv(d) : null, out = [];
+    for (var i = 0; i < list.length; i++) {
+      var r = list[i], res = null;
+      try { var j = priv ? await getJson(rawUrl(r.zona, 'r-' + r.id + '.json', 8000)) : null; if (j) res = await openEnv(j, r.id, priv); } catch (e) { res = null; }
+      out.push({ r: r, res: res });
+    }
+    S.mine = out; render();
+  }
+  async function answer(r, kind) {
+    S.busy = true; render();
+    try { var d = await device(); await send(await withPow({ v: 1, id: hex(8), kind: kind, at: new Date().toISOString(), pub: { x: d.x, y: d.y }, ref: r.id })); S.err = ''; S.info = kind === 'acepta' ? 'Enviado. En un momento te sale confirmada.' : 'Enviado. En un momento se anula.'; }
+    catch (e) { S.err = e.message; }
+    S.busy = false; render(); setTimeout(loadMine, 6000); setTimeout(loadMine, 20000);
+  }
+  async function showClient() {
+    var c = store('cli'); if (!c) return; S.clBusy = true; S.clMsg = ''; render();
+    try {
+      var keys = await clientKeys(c.p, c.c), zs = S.zdata ? [{ z: S.zdata.zona, n: S.zdata.local.n }].concat((S.zdata.locales || []).filter(function (l) { return l.z !== S.zdata.zona; }).map(function (l) { return { z: l.z, n: l.n }; })) : [{ z: link.z, n: '' }], all = [], found = false, nombre = '';
+      for (var i = 0; i < zs.length; i++) { var j = await getJson(rawUrl(zs[i].z, keys.name, 10000)); if (!j) continue; var p = await openClient(j, keys); found = true; nombre = p.nombre || nombre; (p.citas || []).forEach(function (x) { all.push(x); }); }
+      if (!found) throw new Error('No encontramos tus citas con ese teléfono y código. Revisa los dos o pídenos el código.');
+      all.sort(function (a, b) { return (a.d + a.s) < (b.d + b.s) ? -1 : 1; }); S.cl = { nombre: nombre, citas: all };
+    } catch (e) { S.cl = null; S.clMsg = e.message === 'formato' || /operation/i.test(e.message) ? 'No encontramos tus citas con ese teléfono y código.' : e.message; }
+    S.clBusy = false; render();
+  }
+
+  /* ---------- pantallas ---------- */
+  function head() { var z = S.zdata; return el('header', {}, [el('div', { class: 'c', text: 'C' }), el('div', {}, [el('h1', { text: z ? z.local.n : 'Pide tu cita' }), el('small', { text: z ? [z.local.l, z.local.a].filter(Boolean).join(' · ') : '' })])]); }
+  function msg(t, k) { return t ? el('div', { class: 'msg ' + (k || '') , text: t }) : null; }
+  function stepLocal() {
+    var z = S.zdata, ls = z.locales || [];
+    return el('div', { class: 'card' }, [el('h2', { text: 'Elige tu local' }), el('div', { class: 'row' }, ls.map(function (l) { return el('button', { class: 'chip' + (l.z === S.zona ? ' on' : ''), text: l.n, onclick: function () { S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; loadLocal(l.z); } }); }))]);
+  }
+  function stepServices() {
+    var z = S.zdata, by = {}, cats = []; z.svc.forEach(function (s) { if (!by[s.c]) { by[s.c] = []; cats.push(s.c); } by[s.c].push(s); });
+    var t = totals(), box = el('div', { class: 'card' }, [el('h2', { text: '1 · ¿Qué te quieres hacer?' }), el('div', { class: 'hint', text: 'Puedes elegir hasta 6 servicios.' })]);
+    if (!z.svc.length) box.appendChild(msg('Ahora mismo no hay servicios para pedir por aquí. Escríbenos.', 'warn'));
+    // (4.5.0) Ahora salen todos los servicios: con muchos, un buscador.
+    var q = String(S.q || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(), low = function (t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
+    if (z.svc.length > 10) { var qi = el('input', { type: 'search', id: 'svBuscar', placeholder: 'Busca un servicio', value: S.q || '', style: 'margin-top:8px', oninput: function (e) { S.q = e.target.value; var p = e.target.selectionStart; render(); var n = document.getElementById('svBuscar'); if (n) { n.focus(); try { n.setSelectionRange(p, p); } catch (er) { } } } }); box.appendChild(qi); }
+    cats.forEach(function (c) {
+      var list = by[c].filter(function (s) { return !q || S.sel[s.id] || q.split(/\s+/).every(function (w) { return low(s.n + ' ' + c).indexOf(w) >= 0; }); }); if (!list.length) return;
+      box.appendChild(el('h3', { text: c || 'Otros' }));
+      list.forEach(function (s) { box.appendChild(el('label', { class: 'sv', style: 'font-weight:400;margin:0' }, [el('input', { type: 'checkbox', checked: !!S.sel[s.id], onchange: function (e) { if (e.target.checked && totals().n >= 6) { e.target.checked = false; return; } S.sel[s.id] = e.target.checked; S.day = ''; S.time = ''; render(); } }), el('span', { class: 'n', text: s.n }), el('span', { class: 'm', text: durText(s.m) + ' · ' + money(s.p) })])); });
+    });
+    return [box, t.n ? el('div', { class: 'sum' }, [el('b', { text: t.n + ' servicio' + (t.n > 1 ? 's' : '') + ' · ' + durText(t.m) + ' · ' + money(t.p) }), el('button', { class: 'p', text: 'Siguiente', onclick: function () { S.step = 1; render(); window.scrollTo(0, 0); } })]) : null];
+  }
+  function stepTime() {
+    var z = S.zdata, days = daysWith(), box = el('div', { class: 'card' }, [el('h2', { text: '2 · ¿Cuándo te viene bien?' })]);
+    if (z.pick && z.emps.length > 1) { var sel = el('select', { onchange: function (e) { S.emp = e.target.value; S.day = ''; S.time = ''; render(); } }, [el('option', { value: '', text: 'Con quien esté libre' })].concat(z.emps.map(function (e) { return el('option', { value: e.id, text: 'Con ' + e.n, selected: e.id === S.emp }); }))); box.appendChild(el('label', { text: 'Con quién' })); box.appendChild(sel); }
+    if (!days.length) { box.appendChild(msg('No hay huecos libres para ese tiempo en los próximos días. Prueba con menos servicios o escríbenos.', 'warn')); return [box, back()]; }
+    if (!S.day || days.indexOf(S.day) < 0) { S.day = days[0]; S.time = ''; }
+    box.appendChild(el('h3', { text: 'Día' })); box.appendChild(el('div', { class: 'chips' }, days.map(function (d) { return el('button', { class: 'chip' + (d === S.day ? ' on' : ''), text: dayText(d), onclick: function () { S.day = d; S.time = ''; render(); } }); })));
+    box.appendChild(el('h3', { text: 'Hora' })); box.appendChild(el('div', { class: 'slots' }, times(S.day).map(function (t) { return el('button', { class: 'chip' + (t.s === S.time ? ' on' : ''), text: t.s, onclick: function () { S.time = t.s; render(); } }); })));
+    return [box, S.time ? el('div', { class: 'sum' }, [el('b', { text: dayText(S.day) + ' · ' + S.time }), el('button', { class: 'p', text: 'Siguiente', onclick: function () { S.step = 2; render(); window.scrollTo(0, 0); } })]) : back()];
+  }
+  function back() { return el('div', { class: 'row', style: 'margin:6px 0' }, [el('button', { class: 's', text: '‹ Atrás', onclick: function () { S.step = Math.max(0, S.step - 1); render(); } })]); }
+  function stepData() {
+    var z = S.zdata, f = S.f, t = totals();
+    var box = el('div', { class: 'card' }, [el('h2', { text: '3 · Tus datos' }),
+      el('div', { class: 'msg', text: chosenSvc().map(function (s) { return s.n; }).join(' + ') + ' · ' + dayText(S.day, true) + ' a las ' + S.time + ' (' + durText(t.m) + ')' }),
+      el('label', { text: 'Nombre y apellido' }), el('input', { type: 'text', autocomplete: 'name', maxlength: 80, value: f.name, oninput: function (e) { f.name = e.target.value; } }),
+      el('label', { text: 'Teléfono' }), el('input', { type: 'tel', autocomplete: 'tel', maxlength: 16, value: f.phone, oninput: function (e) { f.phone = e.target.value; } }),
+      el('label', { text: 'Algo que debamos saber (opcional)' }), el('textarea', { maxlength: 300, placeholder: 'Alergias, qué te quieres hacer, si vienes con alguien…', oninput: function (e) { f.note = e.target.value; } }, [f.note])]);
+    if (z.photo) {
+      box.appendChild(el('label', { text: 'Una foto (opcional)' }));
+      box.appendChild(el('div', { class: 'hint', text: 'Por ejemplo, de tus uñas o tu pelo de ahora: así podemos ver si hace falta más tiempo. Se envía cifrada y se borra cuando te contestemos, o a las 24 horas.' }));
+      box.appendChild(el('input', { type: 'file', accept: 'image/*', style: 'margin-top:6px', onchange: function (e) { var fl = e.target.files && e.target.files[0]; if (!fl) { f.photo = ''; render(); return; } shrinkPhoto(fl).then(function (u) { f.photo = u; S.err = ''; render(); }, function (er) { S.err = er.message; render(); }); } }));
+      if (f.photo) { box.appendChild(el('img', { class: 'photo', src: f.photo, alt: 'Tu foto' })); box.appendChild(el('button', { class: 's', style: 'margin-top:6px', text: 'Quitar la foto', onclick: function () { f.photo = ''; render(); } })); }
+    }
+    box.appendChild(el('label', { class: 'check' }, [el('input', { type: 'checkbox', checked: f.consent, onchange: function (e) { f.consent = e.target.checked; } }), el('span', { text: 'Acepto que el centro use mi nombre, mi teléfono' + (z.photo ? ', mi nota y mi foto' : ' y mi nota') + ' solo para gestionar esta cita. La solicitud y la foto se borran en cuanto me contestan o a las 24 horas.' })]));
+    box.appendChild(el('button', { class: 'p', disabled: S.busy, text: S.busy ? (S.busyTxt || 'Enviando…') : 'Pedir la cita', onclick: submit }));
+    box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'No es una reserva hasta que el centro te la confirme.' + (z.local.t ? ' ' + z.local.t : '') }));
+    return [box, back()];
+  }
+  function pedir() {
+    var z = S.zdata; if (!z) return [];
+    if (z.full || S.full) return [fullCard()]; // (4.5.0) topes del centro
+    var parts = []; if ((z.locales || []).length > 1 && S.step === 0) parts.push(stepLocal());
+    if (S.step === 0) return parts.concat(stepServices()); if (S.step === 1) return stepTime(); return stepData();
+  }
+  var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['info', 'Te proponen otra hora'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada'], completa: ['bad', 'Estamos completas'] };
+  function mineCard(m) {
+    var r = m.r, x = m.res, st = x ? x.state : 'pendiente', t = STATE[st] || STATE.pendiente, c = el('div', { class: 'card' });
+    c.appendChild(el('div', { class: 'row', style: 'justify-content:space-between' }, [el('b', { text: (x && x.sv ? x.sv : r.sv).join(' + ') }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
+    c.appendChild(el('div', { class: 'hint', text: 'Pediste: ' + dayText(r.d) + ' · ' + r.s + (x && x.local ? ' · ' + x.local.n : '') }));
+    if (x && st === 'confirmada' && x.cita) c.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: dayText(x.cita.d, true) + ' a las ' + x.cita.s + (x.cita.emp ? ' con ' + x.cita.emp : '') }));
+    if (x && st === 'propuesta' && x.cita) {
+      c.appendChild(el('div', { class: 'big', style: 'margin:8px 0', text: 'Te proponen: ' + dayText(x.cita.d, true) + ' a las ' + x.cita.s }));
+      c.appendChild(el('div', { class: 'row' }, [el('button', { class: 'p', style: 'flex:1', disabled: S.busy, text: 'Me viene bien', onclick: function () { answer(r, 'acepta'); } }), el('button', { class: 's bad', disabled: S.busy, text: 'No me viene', onclick: function () { answer(r, 'anula'); } })]));
+    }
+    if (x && x.msg) c.appendChild(msg(x.msg));
+    if (x && st === 'completa' && x.msg && /\d{6,}/.test(String((S.zdata && S.zdata.local && S.zdata.local.tel) || ''))) c.appendChild(el('a', { class: 'tel', href: 'tel:' + String(S.zdata.local.tel).replace(/[^\d+]/g, ''), text: 'Llamar al ' + S.zdata.local.tel }));
+    if (!x || st === 'pendiente') c.appendChild(el('div', { class: 'hint', text: 'El centro te contesta en menos de 24 horas (si es fin de semana, el lunes).' }));
+    if (x && st === 'confirmada') c.appendChild(el('button', { class: 's bad', style: 'margin-top:8px', disabled: S.busy, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
+    return c;
+  }
+  function mis() {
+    var parts = [];
+    if (S.info) parts.push(msg(S.info, 'ok'));
+    if (S.sent) { parts.push(msg('¡Solicitud enviada! El centro te la confirma en menos de 24 horas. Vuelve aquí para ver la respuesta.', 'ok')); }
+    parts.push(el('h3', { text: 'Mis solicitudes (en este móvil)' }));
+    if (!S.mine.length) parts.push(el('div', { class: 'card hint', text: 'Todavía no has pedido ninguna desde este móvil.' })); else S.mine.forEach(function (m) { parts.push(mineCard(m)); });
+    parts.push(el('div', { class: 'row' }, [el('button', { class: 's', text: 'Actualizar', onclick: function () { S.info = ''; loadMine(); } })]));
+    parts.push(el('h3', { text: 'Mis citas en el centro' }));
+    var c = store('cli'), box = el('div', { class: 'card' });
+    if (!c) {
+      var ph = el('input', { type: 'tel', maxlength: 16, autocomplete: 'tel', placeholder: 'Tu teléfono' }), cd = el('input', { type: 'text', maxlength: 9, autocapitalize: 'characters', autocomplete: 'off', placeholder: 'Tu código (8 letras y números)' });
+      box.appendChild(el('div', { class: 'hint', text: 'Si ya eres clienta, el centro te da un código. Con tu teléfono y ese código ves tus próximas citas.' })); box.appendChild(el('label', { text: 'Teléfono' })); box.appendChild(ph); box.appendChild(el('label', { text: 'Código' })); box.appendChild(cd);
+      box.appendChild(el('button', { class: 'p', style: 'margin-top:10px', disabled: S.clBusy, text: S.clBusy ? 'Mirando…' : 'Ver mis citas', onclick: function () { if (digits(ph.value).length < 9 || codeNorm(cd.value).length !== 8) { S.clMsg = 'Escribe tu teléfono y el código de 8 letras y números.'; return render(); } store('cli', { p: ph.value, c: codeNorm(cd.value) }); showClient(); } }));
+    } else {
+      if (S.clBusy) box.appendChild(el('div', { class: 'hint', text: 'Mirando tus citas…' }));
+      else if (S.cl) {
+        box.appendChild(el('h2', { text: 'Hola' + (S.cl.nombre ? ', ' + S.cl.nombre : '') }));
+        if (!S.cl.citas.length) box.appendChild(el('div', { class: 'hint', text: 'No tienes citas próximas. ¡Pide una!' }));
+        S.cl.citas.forEach(function (x) { box.appendChild(el('div', { class: 'sv' }, [el('div', { class: 'n' }, [el('b', { text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e }), el('div', { class: 'hint', text: (x.sv || []).join(' + ') + (x.emp ? ' · con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') })])])); });
+        box.appendChild(el('div', { class: 'hint', style: 'margin-top:8px', text: 'Para cambiar o anular una cita, escríbenos.' }));
+      }
+      box.appendChild(el('div', { class: 'row', style: 'margin-top:10px' }, [el('button', { class: 's', text: 'Actualizar', onclick: showClient }), el('button', { class: 's bad', text: 'Olvidar mi código en este móvil', onclick: function () { store('cli', null); S.cl = null; S.clMsg = ''; render(); } })]));
+    }
+    if (S.clMsg) box.appendChild(msg(S.clMsg, 'bad')); parts.push(box);
+    return parts;
+  }
+  function render() {
+    var y = window.scrollY; root.textContent = '';
+    root.appendChild(head());
+    if (!link.k) { root.appendChild(el('div', { class: 'card' }, [el('h2', { text: 'Falta el enlace' }), el('div', { text: 'Abre el enlace (o el QR) que te ha dado el centro.' })])); return; }
+    root.appendChild(el('div', { class: 'tabs' }, [el('button', { class: S.tab === 'pedir' ? 'on' : '', text: 'Pedir cita', onclick: function () { S.tab = 'pedir'; S.sent = null; S.full = false; render(); } }), el('button', { class: S.tab === 'mis' ? 'on' : '', text: 'Mis citas', onclick: function () { S.tab = 'mis'; S.info = ''; render(); loadMine(); if (store('cli') && !S.cl) showClient(); } })]));
+    if (S.loading) { root.appendChild(el('div', { class: 'hint', text: 'Cargando…' })); return; }
+    if (S.err) root.appendChild(msg(S.err, 'bad'));
+    var parts = S.tab === 'pedir' ? pedir() : mis();
+    if (S.tab === 'pedir' && !S.zdata && !S.err) parts = [el('div', { class: 'hint', text: 'Cargando…' })];
+    parts.forEach(function (p) { if (p) root.appendChild(p); });
+    window.scrollTo(0, y);
+  }
+
+  try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }); } catch (e) { }
+  render();
+  if (link.k && link.z) loadLocal(link.z).then(function () { if (store('reqs') && store('reqs').length) loadMine(); });
+})();
+</script>
+</body>
+</html>
