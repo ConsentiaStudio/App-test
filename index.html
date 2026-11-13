@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.4.0">
-<meta name="consentia-agenda-firma" content="bALSHawcowihbVBxBuym3V7TwB5dICsJ+PssgjFvhduLhvQ9c72+PklhBjLwkG1OnrsbCHXz/xttROFRFGHaCg==">
+<meta name="consentia-agenda-version" content="4.5.0">
+<meta name="consentia-agenda-firma" content="yxKjIQ87v3mtce4hhIpAval+o0hhNS99eDwq2GFLYjiYdKJv30b/X5q3po+/CiCSqcPIn4OLpMlfL9NirUTZDQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-0AyzeXStk2WMzP08Vte5pnOXiay3X4gg6ralkCU7h7g='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-mw85a7+g/BOksezUhmCCx6TbtgWRrH4IDj6MQr4JZfE='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -40,6 +40,49 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 .cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box;margin:0}
 .cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
 .cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* (4.5.0) «Nueva cita» desde el móvil con Control total */
+body:has(.sheetBack) .fabCita{display:none}
+.sheet .nc{padding-bottom:4px}
+.ncCard{background:#faf9f6;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
+.ncT{display:flex;align-items:center;gap:8px;margin-bottom:8px}.ncT b{font-size:15px}
+.ncN{width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
+.cForm.nc label{margin:12px 0 6px}
+.sheet .nc button{width:auto;margin:0;font-size:14px}
+.sheet .nc .cItem{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:700;text-align:left}
+.sheet .nc .cItem.ncAdd{color:var(--pink)}
+.ncChosen{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ncChosen b{flex:1;font-size:16px}
+.ncAv{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}
+.sheet .nc .ncLink{background:none;color:var(--pink);padding:6px 4px;font-weight:800}
+.ncNew{margin-top:8px}
+.ncCats{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}.ncCats::-webkit-scrollbar{display:none}
+.sheet .nc .ncPill{flex:none;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700;white-space:nowrap}
+.sheet .nc .ncPill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ncList{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:none;overflow:visible}
+.ncList .cCat{margin:8px 0 0}
+.sheet .nc .ncSvc{display:flex;align-items:center;gap:10px;width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;text-align:left;font-weight:600}
+.sheet .nc .ncSvc.on{border-color:var(--pink);background:#fff0f7}
+.ncChk{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff}
+.ncSvc.on .ncChk{background:var(--pink);border-color:var(--pink)}
+.ncSvN{flex:1;line-height:1.25}.ncSvM{flex:none;color:var(--muted);font-size:12.5px;font-weight:600;white-space:nowrap}
+.ncSum{margin-top:10px;font-size:13px;color:var(--muted)}.ncSum.on{color:var(--ink);font-weight:800}
+.ncEmpty{color:var(--muted);font-size:13px;padding:6px 2px}
+.ncDays{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.ncDays::-webkit-scrollbar{display:none}
+.sheet .nc .ncDay{flex:none;width:54px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ncDay small{font-size:11px;color:var(--muted);font-weight:700;text-transform:capitalize}.ncDay b{font-size:18px}
+.sheet .nc .ncDay.on{background:var(--ink);border-color:var(--ink);color:#fff}.ncDay.on small{color:#ddd}
+.ncRow{display:flex;align-items:center;gap:10px;margin-top:8px}.ncRow label{margin:0!important;flex:none;min-width:70px}.ncRow input{flex:1}
+.ncEmps{display:flex;gap:6px;flex-wrap:wrap}
+.sheet .nc .ncEmp{display:flex;align-items:center;gap:6px;background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700}
+.ncDot{width:10px;height:10px;border-radius:50%}
+.ncDur{display:flex;align-items:center;gap:8px}.ncDur input{width:90px!important;text-align:center}
+.sheet .nc .ncStep{width:40px;height:40px;border-radius:12px;background:#fff;color:var(--ink);border:1px solid var(--line);font-size:20px;font-weight:800;padding:0}
+.ncSlots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.sheet .nc .ncSlot{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 0;font-weight:700;width:100%}
+.sheet .nc .ncSlot.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.ncBar{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));margin:12px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.ncBarT{flex:1;font-size:13px;font-weight:700;color:#44423d;line-height:1.25}
+.sheet .ncBar button{width:auto;margin:0;padding:12px 18px;background:var(--pink)}
 .cWarn .warn{margin-top:8px}.citaBtns{display:flex;gap:8px;margin-top:8px}.citaBtns button{flex:1}
 .vacForm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.vacForm label{font-size:12px;font-weight:700;color:var(--muted)}.vacForm input{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box}.vacForm .full{grid-column:1/-1}
 .accSel{width:100%;margin:4px 0 8px;padding:10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;background:#fff}
@@ -636,54 +679,122 @@ body.many-modes{--mh:74px;overflow-x:clip}
     try { var oid = await order(op, args); acc.waits[oid].cita = okMsg || 'Hecho.'; toast('Enviado: lo hace el ordenador del local en unos segundos.'); } catch (e) { toast(e.message || 'No se ha podido enviar.'); }
   }
   function durTxt(m) { var h = Math.floor(m / 60), r = m % 60; return (h ? h + ' h' : '') + (h && r ? ' ' : '') + (r || !h ? r + ' min' : ''); }
+  // (4.5.0) «Nueva cita» / «Cambiar la cita», más clara: por pasos en tarjetas (clienta → servicios → cuándo), TODOS los servicios
+  // con buscador y categorías, los días como botones, la trabajadora con su color y las horas LIBRES de ese día para tocar (o
+  // cualquier otra hora a mano). Abajo, siempre a la vista, el resumen y el botón.
   function citaForm(d, a) {
-    var edit = !!a, emps = (d.employees || []).filter(function (e) { return e && e.id; }), svc = Array.isArray(d.svc) ? d.svc : [], cl = Array.isArray(d.clients) ? d.clients : [];
-    var pick = edit ? (a.sid || []).slice() : [], client = edit && a.ci ? { id: a.ci, n: txt(a.c, 80) } : null, durTouched = edit;
-    var cq = el('input', { type: 'search', id: 'cClienta', placeholder: 'Busca a la clienta por su nombre', autocomplete: 'off', value: client ? client.n : '' });
-    var res = el('div', { class: 'cRes', id: 'cRes' }), nueva = el('div', { class: 'vacForm', id: 'cNueva', style: 'display:none' });
+    var edit = !!a, emps = (d.employees || []).filter(function (e) { return e && e.id && e.id !== '__sin'; }), svc = Array.isArray(d.svc) ? d.svc : [], cl = Array.isArray(d.clients) ? d.clients : [];
+    var pick = edit ? (a.sid || []).slice() : [], client = edit && a.ci ? { id: a.ci, n: txt(a.c, 80) } : null, durTouched = edit, cat = '', newC = false;
+    var low = function (t) { return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+    var euro = function (v) { return (Math.round((+v || 0) * 100) / 100).toFixed(2).replace('.', ',').replace(',00', '') + ' €'; };
+    var svOf = function (id) { return svc.filter(function (v) { return v.id === id; })[0]; };
+    var sum = function () { return pick.reduce(function (t, id) { var x = svOf(id); return t + (x ? x.m || 0 : 0); }, 0); };
+    var price = function () { return pick.reduce(function (t, id) { var x = svOf(id); return t + (x ? +x.p || 0 : 0); }, 0); };
+    var card = function (n, title, kids) { return el('div', { class: 'ncCard' }, [el('div', { class: 'ncT' }, [el('span', { class: 'ncN', text: String(n) }), el('b', { text: title })])].concat(kids)); };
+
+    /* 1 · clienta */
+    var cq = el('input', { type: 'search', id: 'cClienta', placeholder: 'Busca por nombre', autocomplete: 'off', value: '' });
+    var res = el('div', { class: 'cRes', id: 'cRes' }), chosen = el('div', { class: 'ncPick', id: 'cElegida' });
     var nn = el('input', { type: 'text', id: 'cNombre', maxlength: '80', placeholder: 'Nombre y apellidos' }), nt = el('input', { type: 'tel', id: 'cTel', maxlength: '16', placeholder: 'Teléfono' });
-    nueva.appendChild(el('div', {}, [el('label', { for: 'cNombre', text: 'Nombre de la clienta nueva' }), nn])); nueva.appendChild(el('div', {}, [el('label', { for: 'cTel', text: 'Teléfono' }), nt]));
-    var low = function (t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
+    var nueva = el('div', { class: 'ncNew', id: 'cNueva', style: 'display:none' }, [el('label', { for: 'cNombre', text: 'Clienta nueva' }), nn, el('label', { for: 'cTel', text: 'Teléfono' }), nt]);
+    var drawClient = function () {
+      chosen.innerHTML = ''; cq.style.display = client || edit ? 'none' : ''; nueva.style.display = newC && !client ? '' : 'none';
+      if (client) chosen.appendChild(el('div', { class: 'ncChosen' }, [el('span', { class: 'ncAv', text: (client.n || '?').trim().charAt(0).toUpperCase() }), el('b', { text: client.n }), edit ? null : el('button', { type: 'button', class: 'ncLink', id: 'cCambiarClienta', text: 'Cambiar', on: { click: function () { client = null; newC = false; cq.value = ''; drawClient(); drawRes(); warn(); cq.focus(); } } })]));
+    };
     var drawRes = function () {
       res.innerHTML = ''; var q = low(cq.value).trim(); if (client || !q || edit) return;
       var found = cl.filter(function (c) { return q.split(/\s+/).every(function (w) { return low(c[1]).indexOf(w) >= 0; }); }).slice(0, 8);
-      found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; cq.value = c[1]; res.innerHTML = ''; warn(); } } })); });
-      res.appendChild(el('button', { type: 'button', class: 'cItem', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; nueva.style.display = ''; nn.value = cq.value.trim(); res.innerHTML = ''; nt.focus(); } } }));
+      found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; newC = false; res.innerHTML = ''; drawClient(); warn(); } } })); });
+      res.appendChild(el('button', { type: 'button', class: 'cItem ncAdd', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; newC = true; nn.value = cq.value.trim(); res.innerHTML = ''; drawClient(); nt.focus(); } } }));
     };
-    cq.addEventListener('input', function () { client = null; nueva.style.display = 'none'; drawRes(); warn(); });
-    var emp = el('select', { id: 'cEmp' }, emps.map(function (e) { return el('option', { value: e.id, text: txt(e.n, 40) }); }));
-    var day = el('input', { type: 'date', id: 'cDia', value: edit ? a.d : (st.day || today()), min: edit ? '' : today() });
-    var time = el('input', { type: 'time', id: 'cHora', step: '300', value: edit ? txt(a.s, 5) : '10:00' });
-    var dur = el('input', { type: 'number', id: 'cDur', min: '5', max: '600', step: '5', value: edit ? String(a.du || 30) : '30' });
-    var note = el('input', { type: 'text', id: 'cNota', maxlength: '200', placeholder: 'Opcional', value: edit && a.n ? txt(a.n, 200) : '' });
-    if (edit && a.emp) emp.value = a.emp;
-    var chips = el('div', { class: 'cChips', id: 'cSvcs' }), warnBox = el('div', { class: 'cWarn', id: 'cWarn' });
-    var sum = function () { return pick.reduce(function (t, id) { var x = svc.filter(function (v) { return v.id === id; })[0]; return t + (x ? x.m || 0 : 0); }, 0); };
+    cq.addEventListener('input', function () { client = null; newC = false; nueva.style.display = 'none'; drawRes(); warn(); });
+
+    /* 2 · servicios */
+    var sq = el('input', { type: 'search', id: 'cBuscar', placeholder: 'Busca un servicio', autocomplete: 'off' });
     var cats = []; svc.forEach(function (v) { if (cats.indexOf(v.c) < 0) cats.push(v.c); });
+    var catBar = el('div', { class: 'ncCats', id: 'cCats' }), list = el('div', { class: 'ncList cChips', id: 'cSvcs' }), svSum = el('div', { class: 'ncSum', id: 'cSvSum' });
+    var drawCats = function () { catBar.innerHTML = ''; if (cats.length < 2) return; [''].concat(cats).forEach(function (c) { catBar.appendChild(el('button', { type: 'button', class: 'ncPill' + (c === cat ? ' on' : ''), text: c || 'Todos', on: { click: function () { cat = c; drawCats(); drawSvc(); } } })); }); };
     var drawSvc = function () {
-      chips.innerHTML = ''; cats.forEach(function (c) { chips.appendChild(el('div', { class: 'cCat', text: c || 'Servicios' })); svc.filter(function (v) { return v.c === c; }).forEach(function (v) { var on = pick.indexOf(v.id) >= 0;
-        chips.appendChild(el('button', { type: 'button', class: 'cChip' + (on ? ' on' : ''), 'data-s': v.id, text: txt(v.n, 80) + (v.m ? ' · ' + v.m + '′' : ''), on: { click: function () { var i = pick.indexOf(v.id); if (i >= 0) pick.splice(i, 1); else pick.push(v.id); if (!durTouched && sum()) dur.value = String(Math.ceil(sum() / 5) * 5); drawSvc(); warn(); } } })); }); });
+      list.innerHTML = ''; var q = low(sq.value).trim();
+      var show = svc.filter(function (v) { return (!cat || v.c === cat) && (!q || q.split(/\s+/).every(function (w) { return low(v.n + ' ' + v.c).indexOf(w) >= 0; })); });
+      var lastC = null;
+      show.forEach(function (v) { var on = pick.indexOf(v.id) >= 0;
+        if (!cat && v.c !== lastC) { lastC = v.c; list.appendChild(el('div', { class: 'cCat', text: v.c || 'Servicios' })); }
+        list.appendChild(el('button', { type: 'button', class: 'ncSvc' + (on ? ' on' : ''), 'data-s': v.id, on: { click: function () { var i = pick.indexOf(v.id); if (i >= 0) pick.splice(i, 1); else pick.push(v.id); if (!durTouched && sum()) dur.value = String(Math.ceil(sum() / 5) * 5); drawSvc(); drawSlots(); warn(); } } },
+          [el('span', { class: 'ncChk', text: on ? '✓' : '' }), el('span', { class: 'ncSvN', text: txt(v.n, 80) }), el('span', { class: 'ncSvM', text: (v.m ? durTxt(v.m) : '') + (v.p ? (v.m ? ' · ' : '') + euro(v.p) : '') })])); });
+      if (!show.length) list.appendChild(el('div', { class: 'ncEmpty', text: 'No hay ningún servicio con ese nombre.' }));
+      svSum.textContent = pick.length ? pick.length + (pick.length === 1 ? ' servicio' : ' servicios') + ' · ' + durTxt(sum()) + ' · ' + euro(price()) : 'Toca los servicios que se va a hacer.';
+      svSum.className = 'ncSum' + (pick.length ? ' on' : '');
     };
+    sq.addEventListener('input', drawSvc);
+
+    /* 3 · cuándo */
+    var day = el('input', { type: 'date', id: 'cDia', value: edit ? a.d : (st.day && st.day >= today() ? st.day : today()), min: edit ? '' : today() });
+    var time = el('input', { type: 'time', id: 'cHora', step: '300', value: edit ? txt(a.s, 5) : '' });
+    var dur = el('input', { type: 'number', id: 'cDur', min: '5', max: '600', step: '5', value: edit ? String(a.du || 30) : '30', inputmode: 'numeric' });
+    var note = el('input', { type: 'text', id: 'cNota', maxlength: '200', placeholder: 'Opcional', value: edit && a.n ? txt(a.n, 200) : '' });
+    var empSel = edit && a.emp ? a.emp : (emps[0] || {}).id || '';
+    var days = el('div', { class: 'ncDays', id: 'cDias' }), empBar = el('div', { class: 'ncEmps', id: 'cEmps' }), slots = el('div', { class: 'ncSlots', id: 'cHuecos' });
+    var addD = function (k, n) { var p = k.split('-'), t = new Date(+p[0], +p[1] - 1, +p[2] + n); return t.getFullYear() + '-' + pad(t.getMonth() + 1) + '-' + pad(t.getDate()); };
+    var DN = ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'];
+    var drawDays = function () {
+      days.innerHTML = ''; var t0 = today(), first = edit && a.d < t0 ? a.d : t0, list2 = []; for (var i = 0; i < 21; i++) list2.push(addD(first, i)); if (list2.indexOf(day.value) < 0 && day.value) list2.unshift(day.value);
+      list2.forEach(function (k) { var lbl = k === t0 ? 'Hoy' : k === addD(t0, 1) ? 'Mañana' : DN[dow(k)];
+        days.appendChild(el('button', { type: 'button', class: 'ncDay' + (k === day.value ? ' on' : ''), 'data-d': k, on: { click: function () { day.value = k; drawDays(); drawSlots(); warn(); } } }, [el('small', { text: lbl }), el('b', { text: String(+k.slice(8, 10)) })])); });
+      var on = days.querySelector('.on'); if (on) setTimeout(function () { try { on.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) { } }, 0);
+    };
+    var drawEmps = function () { empBar.innerHTML = ''; emps.forEach(function (e) { empBar.appendChild(el('button', { type: 'button', class: 'ncEmp' + (e.id === empSel ? ' on' : ''), 'data-e': e.id, style: e.id === empSel ? 'border-color:' + color(e.c) + ';background:' + tint(color(e.c), 0.14) : '', on: { click: function () { empSel = e.id; drawEmps(); drawSlots(); warn(); } } }, [el('span', { class: 'ncDot', style: 'background:' + color(e.c) }), txt(e.n, 40)])); }); };
+    // Las horas libres de esa trabajadora ese día para lo que dura la cita (su horario, sin citas ni bloqueos; hoy, desde ahora).
+    var freeTimes = function () {
+      var e = emps.filter(function (x) { return x.id === empSel; })[0]; if (!e || !day.value) return [];
+      var du = Math.max(5, +dur.value || 30), r = empRanges(d, e, day.value); if (r === null) r = [[(d.ag || [540, 1260])[0], (d.ag || [540, 1260])[1]]];
+      var busy = [];
+      (d.appts || []).forEach(function (x) { if (x.d !== day.value || x.emp !== empSel || x.st === 'x' || x.st === 'n' || (edit && x.id === a.id)) return; busy.push([mins(x.s), mins(x.e)]); });
+      (d.blocks || []).forEach(function (b) { if (b.emp && b.emp !== empSel) return; var f = String(b.from).slice(0, 10), t = String(b.to).slice(0, 10); if (f > day.value || t < day.value) return; busy.push(blockSpan(b, day.value, 0, 1440)); });
+      var nowM = day.value === today() ? (function () { var n = new Date(); return n.getHours() * 60 + n.getMinutes(); })() : -1, out = [];
+      r.forEach(function (g) { for (var t0 = Math.ceil(Math.max(g[0], nowM + 1) / 15) * 15; t0 + du <= g[1]; t0 += 15) { var t1 = t0 + du; if (!busy.some(function (b) { return b[0] < t1 && b[1] > t0; })) out.push(t0); } });
+      return out;
+    };
+    var drawSlots = function () {
+      slots.innerHTML = ''; var f = freeTimes();
+      if (!f.length) slots.appendChild(el('div', { class: 'ncEmpty', text: 'No le queda ningún hueco libre de ' + durTxt(Math.max(5, +dur.value || 30)) + ' ese día. Puedes poner otra hora a mano.' }));
+      f.slice(0, 48).forEach(function (m) { var h = pad(Math.floor(m / 60)) + ':' + pad(m % 60); slots.appendChild(el('button', { type: 'button', class: 'ncSlot' + (h === time.value ? ' on' : ''), 'data-h': h, text: h, on: { click: function () { time.value = h; drawSlots(); warn(); } } })); });
+    };
+    var step = function (n) { durTouched = true; dur.value = String(Math.min(600, Math.max(5, (Math.round((+dur.value || 30) / 5) * 5) + n))); drawSlots(); warn(); };
+    var warnBox = el('div', { class: 'cWarn', id: 'cWarn' });
     var warn = function () {
       var m = [], du = +dur.value || 0, lim = client && d.lim ? d.lim[client.id] : 0;
       if (lim && du > lim) m.push((client.n) + ' no puede estar más de ' + durTxt(lim) + ' (límite fijado por la Administración). Esta cita dura ' + durTxt(du) + '.');
-      var s0 = (+String(time.value).slice(0, 2)) * 60 + (+String(time.value).slice(3, 5)), e0 = s0 + du;
-      (d.appts || []).forEach(function (x) { if (x.d !== day.value || x.emp !== emp.value || x.st === 'x' || x.st === 'n' || (edit && x.id === a.id)) return; var a0 = (+x.s.slice(0, 2)) * 60 + (+x.s.slice(3, 5)), a1 = (+x.e.slice(0, 2)) * 60 + (+x.e.slice(3, 5)); if (a0 < e0 && a1 > s0) m.push('Se solapa con ' + txt(x.c, 80) + ' (' + x.s + '–' + x.e + ').'); });
-      warnBox.innerHTML = ''; m.forEach(function (t) { warnBox.appendChild(el('div', { class: 'warn', text: t })); }); return m;
+      if (time.value) { var s0 = mins(time.value), e0 = s0 + du;
+        (d.appts || []).forEach(function (x) { if (x.d !== day.value || x.emp !== empSel || x.st === 'x' || x.st === 'n' || (edit && x.id === a.id)) return; var a0 = mins(x.s), a1 = mins(x.e); if (a0 < e0 && a1 > s0) m.push('Se solapa con ' + txt(x.c, 80) + ' (' + x.s + '–' + x.e + ').'); }); }
+      warnBox.innerHTML = ''; m.forEach(function (t) { warnBox.appendChild(el('div', { class: 'warn', text: t })); }); foot(); return m;
     };
-    [day, time, dur, emp].forEach(function (n) { n.addEventListener('change', warn); }); dur.addEventListener('input', function () { durTouched = true; warn(); });
-    drawSvc(); warn();
-    var form = el('div', { class: 'cForm' }, [el('label', { text: 'Clienta' }), cq, res, nueva, el('label', { text: 'Servicios' }), chips,
-      el('div', { class: 'vacForm' }, [el('div', {}, [el('label', { for: 'cDia', text: 'Día' }), day]), el('div', {}, [el('label', { for: 'cHora', text: 'Hora' }), time]), el('div', {}, [el('label', { for: 'cEmp', text: 'Trabajadora' }), emp]), el('div', {}, [el('label', { for: 'cDur', text: 'Duración (min)' }), dur]), el('div', { class: 'full' }, [el('label', { for: 'cNota', text: 'Nota de la cita' }), note])]), warnBox]);
+    [day, time].forEach(function (n) { n.addEventListener('change', function () { if (n === day) { drawDays(); } drawSlots(); warn(); }); });
+    dur.addEventListener('input', function () { durTouched = true; drawSlots(); warn(); });
+
+    var bar = el('div', { class: 'ncBar' }), sumTxt = el('div', { class: 'ncBarT', id: 'cResumen' });
+    var foot = function () { var e = emps.filter(function (x) { return x.id === empSel; })[0];
+      sumTxt.textContent = (client ? client.n : newC && nn.value.trim() ? nn.value.trim() : 'Sin clienta') + ' · ' + (day.value ? (day.value === today() ? 'hoy' : DN[dow(day.value)] + ' ' + (+day.value.slice(8, 10))) : '—') + (time.value ? ' ' + time.value : '') + (e ? ' · ' + txt(e.n, 20) : ''); };
+    nn.addEventListener('input', foot);
+
+    drawClient(); drawCats(); drawSvc(); drawDays(); drawEmps(); drawSlots(); warn();
+    var form = el('div', { class: 'cForm nc' }, [
+      card(1, 'Clienta', [cq, res, chosen, nueva]),
+      card(2, 'Servicios', [sq, catBar, list, svSum]),
+      card(3, 'Cuándo', [days, el('div', { class: 'ncRow' }, [el('label', { for: 'cDia', text: 'Otro día' }), day]), el('label', { text: 'Con quién' }), empBar,
+        el('label', { text: 'Duración' }), el('div', { class: 'ncDur' }, [el('button', { type: 'button', class: 'ncStep', text: '−', 'aria-label': 'Menos', on: { click: function () { step(-15); } } }), dur, el('span', { text: 'min' }), el('button', { type: 'button', class: 'ncStep', text: '+', 'aria-label': 'Más', on: { click: function () { step(15); } } })]),
+        el('label', { text: 'Horas libres' }), slots, el('div', { class: 'ncRow' }, [el('label', { for: 'cHora', text: 'Otra hora' }), time])]),
+      card(4, 'Nota de la cita', [note]), warnBox]);
     sheet([el('div', { class: 'h', text: txt(d.center.l || d.center.n, 80) }), el('h2', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), form], function (close) {
-      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
-        if (!edit && !client && !(nueva.style.display !== 'none' && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
-        if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Falta el día o la hora.');
+      bar.appendChild(sumTxt);
+      bar.appendChild(el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
+        if (!edit && !client && !(newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
+        if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Elige el día y la hora (toca una hora libre o escribe otra).'); if (!empSel) return toast('Elige con quién.');
         var m = warn(); if (m.length && !confirm(m.join('\n') + '\n\n¿Guardarla igualmente?')) return;
-        var args = { zona: d.$z, emp: emp.value, d: day.value, s: time.value, du: Math.round((+dur.value || 30) / 5) * 5, svc: pick, note: note.value.trim() };
+        var args = { zona: d.$z, emp: empSel, d: day.value, s: time.value, du: Math.round((+dur.value || 30) / 5) * 5, svc: pick, note: note.value.trim() };
         if (edit) { args.id = a.id; close(); citaOrder('citaCambiar', args, 'Cita cambiada: la agenda se actualiza en unos segundos.'); }
         else { if (client) args.cid = client.id; else { args.name = nn.value.trim(); args.tel = nt.value.trim(); } close(); citaOrder('citaNueva', args, 'Cita dada: la agenda se actualiza en unos segundos.'); }
-      } } })]);
+      } } })); foot(); return bar;
     });
   }
 
@@ -1348,7 +1459,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   }
   async function sessionData(s) { try { return await aesOff(s.sk, s.box, 'consentia-sesion-1'); } catch (e) { return null; } }
   async function sessionSave() { var s = await aget('sesion'); if (!s || !acc.me) return; s.box = await aesOn(s.sk, { mk: acc.mk || '', grant: acc.grant || null }, 'consentia-sesion-1'); await aput('sesion', s); }
-  async function wipeMe(msg) { await adel('sesion'); await adel('yo'); acc.me = null; acc.grant = null; acc.mk = ''; acc.vac = null; acc.rec = null; acc.state = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = msg || ''; st.centers = []; st.loginAt = 0; st.mode = 'agenda'; render(); }
+  async function wipeMe(msg) { await adel('sesion'); await adel('yo'); await adel('piso'); acc.me = null; acc.grant = null; acc.mk = ''; acc.vac = null; acc.rec = null; acc.state = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = msg || ''; st.centers = []; st.loginAt = 0; st.mode = 'agenda'; render(); }
 
   /* ---------- pedir acceso ---------- */
   async function requestAccess(name, pw) {
@@ -1404,11 +1515,25 @@ body.many-modes{--mh:74px;overflow-x:clip}
       if (f.n !== 'g-' + acc.me.id) return; var g = await openEnv(f, acc.me.id, acc.me.e);
       if (!g || g.id !== acc.me.id) return; acc.grantC = f.c || ''; /* (4.3.1) para ver al momento si cambia */
       if (g.revoked) { await wipeMe('Tu acceso a esta app se ha quitado. Si es un error, pide acceso otra vez en el local.'); return; }
+      // (4.5.0) Una copia más vieja que la que ya conoce (la caché de GitHub tarda en soltarla) no cuenta.
+      var vg = gVer(g), floor = String((await aget('piso')) || ''); if ((floor && vg < floor) || (acc.grant && vg < gVer(acc.grant))) return;
+      if (acc.grant && lessAccess(acc.grant, g)) { await aput('piso', vg); logout(); acc.msg = 'Te han cambiado el acceso a la app. Por seguridad, vuelve a entrar con tu contraseña: verás solo lo que tienes ahora.'; render(); return; } // (4.5.0)
       acc.grant = g; acc.mk = g.mk || '';
       if (st.mode === 'numeros' && g.nivel === 'agenda') st.mode = 'agenda';
       if (st.mode === 'control' && g.nivel !== 'control' && g.nivel !== 'gestion') st.mode = 'agenda';
       await sessionSave();
     } catch (e) { /* (otro aparato con el mismo nombre de archivo no puede pasar: se ignora) */ }
+  }
+  // (4.5.0) ¿Le han bajado el acceso? (un nivel menor, algún local menos o ya no es la misma persona del equipo). Entonces se cierra
+  // la sesión de este móvil (y se borra lo que tenía guardado de la agenda) y tiene que volver a entrar con su contraseña.
+  var RANK = { agenda: 1, numeros: 2, gestion: 3, control: 4 };
+  function gVer(g) { return String((g && (g.ch || g.at)) || ''); }
+  function lessAccess(o, n) {
+    if ((RANK[n.nivel] || 0) < (RANK[o.nivel] || 0)) return true;
+    var oz = o.zonas, nz = n.zonas; if (oz === '*' && nz !== '*') return true;
+    if (Array.isArray(oz) && nz !== '*' && oz.some(function (z) { return !Array.isArray(nz) || nz.indexOf(z) < 0; })) return true;
+    var se = function (x) { return x && x.emp ? String(x.emp.sid || x.emp) : ''; }; if (se(o) && se(o) !== se(n)) return true; // (la persona: emp.sid)
+    return false;
   }
   function dropHash() { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } }
   function v2On() { return !!(acc.me && acc.grant && acc.state === 'activo'); }
@@ -1643,16 +1768,31 @@ body.many-modes{--mh:74px;overflow-x:clip}
       box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'altaPc', text: 'Añadir un ordenador (código de alta)', on: { click: function () { doOrder('alta', {}, 'Pedido: el código sale aquí en 1 o 2 minutos.'); } } }));
     }
     if (acc.ctab === 'llaves') {
-      ['moviles', 'ordenadores'].forEach(function (t) {
+      citasCard(box, e); // (4.5.0) el enlace de las citas de las clientas
+      ['moviles', 'ordenadores'].concat(e.llaves && e.llaves.clientas !== undefined || e.citas ? ['clientas'] : []).forEach(function (t) {
         var L = (e.llaves || {})[t]; var d = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
         var inp = el('input', { type: 'password', id: 'llave-' + t, placeholder: 'github_pat_…', autocomplete: 'off' });
-        box.appendChild(el('div', { class: 'accCard', 'data-llave': t }, [el('div', { class: 'accRow' }, [el('div', {}, [el('b', { text: t === 'moviles' ? 'Llave de los móviles' : 'Llave de los ordenadores' }), el('small', { text: t === 'moviles' ? 'Se renueva cada 30 días' : 'La comparten todos los locales · cada año' })]), el('span', { class: 'accPill ' + (d == null ? 'w' : d <= 7 ? 'w' : 'ok'), text: d == null ? 'sin fecha' : d <= 0 ? 'caduca hoy' : d + ' días' })]),
+        box.appendChild(el('div', { class: 'accCard', 'data-llave': t }, [el('div', { class: 'accRow' }, [el('div', {}, [el('b', { text: t === 'moviles' ? 'Llave de los móviles' : t === 'clientas' ? 'Llave de las clientas' : 'Llave de los ordenadores' }), el('small', { text: t === 'moviles' ? 'Se renueva cada 30 días' : t === 'clientas' ? 'Va dentro del enlace de las citas · solo para el repositorio «Citas»' : 'La comparten todos los locales · cada año' })]), el('span', { class: 'accPill ' + (d == null ? 'w' : d <= 7 ? 'w' : 'ok'), text: d == null ? 'sin fecha' : d <= 0 ? 'caduca hoy' : d + ' días' })]),
           el('small', { text: L ? 'Versión ' + L.v + ' · la tienen ' + L.tienen + ' de ' + e.ordenadores.filter(function (p) { return !p.revokedAt; }).length + ' ordenadores' : 'Sin poner' }),
           el('div', { class: 'pwBox' }, [inp]), el('button', { class: 'accBtn pink', type: 'button', 'data-renovar': t, text: 'Renovar', on: { click: function () { var v = inp.value.trim(); if (!/^github_pat_[A-Za-z0-9_]{20,}$/.test(v)) return showErr('Pega el permiso nuevo de GitHub (empieza por github_pat_).'); doOrder('llave', { tipo: t, token: v }); } } })]));
       });
       box.appendChild(el('div', { class: 'accCard' }, [el('b', { text: 'Kit de recuperación' }), el('small', { text: e.kit ? 'Creado el ' + String(e.kit.at).slice(0, 10) + ' · ' + e.kit.by + '. Para crear uno nuevo: en un ordenador, como empresario, Ajustes → Accesos.' : 'Todavía no hay kit: créalo en un ordenador (Ajustes → Accesos).' })]));
     }
     root.appendChild(box);
+  }
+  // (4.5.0) Citas por la web: el enlace de cada local (con su QR) para compartirlo, desde Control total. Lleva la llave de las
+  // clientas: llega cifrado solo para los móviles de Control total. Para cambiar la llave: «Llave de las clientas», más abajo.
+  function citasCard(box, e) {
+    var L = (e.citas && e.citas.links) || []; if (!e.citas) return;
+    var card = el('div', { class: 'accCard', id: 'citasWeb' }, [el('b', { text: 'Enlace de las citas (para las clientas)' })]);
+    if (!L.length) { card.appendChild(el('small', { text: 'Todavía no hay llave de las clientas: ponla abajo, en «Llave de las clientas».' })); box.appendChild(card); return; }
+    var sel = el('select', { id: 'citasLocal', class: 'accSel' }, L.map(function (l) { return el('option', { value: l.zona, text: l.name }); }));
+    var out = el('div', { class: 'accQr', id: 'citasQr' });
+    var draw = function () { var l = L.filter(function (x) { return x.zona === sel.value; })[0] || L[0]; out.innerHTML = ''; try { out.innerHTML = QR.svg(l.link, { size: 220 }); } catch (err) { out.textContent = ''; }
+      out.appendChild(el('div', { class: 'row citaBtns' }, [el('button', { type: 'button', class: 'accBtn', id: 'citasCompartir', text: 'Compartir', on: { click: function () { if (navigator.share) navigator.share({ title: 'Pide tu cita', url: l.link }).catch(function () { }); else { try { navigator.clipboard.writeText(l.link); toast('Enlace copiado.'); } catch (err) { } } } } }),
+        el('button', { type: 'button', class: 'accBtn', id: 'citasCopiar', text: 'Copiar', on: { click: function () { try { navigator.clipboard.writeText(l.link).then(function () { toast('Enlace copiado.'); }, function () { toast('No se ha podido copiar.'); }); } catch (err) { toast('No se ha podido copiar.'); } } } })])); };
+    sel.addEventListener('change', draw);
+    if (L.length > 1) card.appendChild(sel); card.appendChild(el('small', { text: 'Para Instagram, WhatsApp o un cartel en el local. Si ves solicitudes raras, cambia la llave de las clientas y comparte el enlace nuevo.' })); card.appendChild(out); box.appendChild(card); draw();
   }
   function devSheet(d) {
     var box = el('div', {}, [el('small', { text: 'Qué puede ver' }), lvPick('dL', d.nivel), el('small', { text: 'Locales' }), zPick('dZ', d.zonas), el('small', { text: '¿Quién es del equipo?' }), empPick('dE', d.emp || '')]);
