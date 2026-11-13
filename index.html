@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.3.1">
-<meta name="consentia-agenda-firma" content="Ek4mfPcYlc0dEwCOiRA9uf34Qev9xmanPgQYP2+HUSpAc95AmiFOoQRrMvTOWnGacGWHCa1DTK1Nh0RAuIeYBQ==">
+<meta name="consentia-agenda-version" content="4.4.0">
+<meta name="consentia-agenda-firma" content="bALSHawcowihbVBxBuym3V7TwB5dICsJ+PssgjFvhduLhvQ9c72+PklhBjLwkG1OnrsbCHXz/xttROFRFGHaCg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-b3QnK0Rusw1dVYMnE/mtVur7enp45cb6UiyENbt5CRM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-0AyzeXStk2WMzP08Vte5pnOXiay3X4gg6ralkCU7h7g='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -36,6 +36,11 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 .vacList{margin:10px 0 4px;display:grid;gap:6px}.vacRow{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px}
 .vacRow small{color:var(--muted);display:block;font-size:12px}.vacTag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:99px;background:#f2f0ec;color:var(--muted);white-space:nowrap}
 .vacTag.ok{background:#e3f4ea;color:#1d7a45}.vacTag.warn{background:#fff3d6;color:#8a5a00}.vacTag.bad{background:#fde7e7;color:#b3261e}
+.fabCita{position:fixed;right:14px;bottom:78px;z-index:30;border:0;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-weight:800;font-size:15px;padding:13px 18px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box;margin:0}
+.cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
+.cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cWarn .warn{margin-top:8px}.citaBtns{display:flex;gap:8px;margin-top:8px}.citaBtns button{flex:1}
 .vacForm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.vacForm label{font-size:12px;font-weight:700;color:var(--muted)}.vacForm input{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box}.vacForm .full{grid-column:1/-1}
 .accSel{width:100%;margin:4px 0 8px;padding:10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px}
@@ -620,7 +625,66 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var can = d && calcOf(d) && Array.isArray(a.si) && a.si.some(function (i) { return calcOf(d).services[i]; });
     var w = WA_ST[a.w];
     sheet([el('div', { class: 'h', text: txt(a.s, 5) + '–' + txt(a.e, 5) }), el('h2', {}, [txt(a.c, 80) || 'Sin clienta', vipStar(a), stateTag(a)]), el('div', { class: 'who' }, [who + ' ', cabPill(a, d)]), w ? el('div', { class: 'waLine' }, [waIco(a), ' ' + w[2]]) : null, a.sv ? el('p', {}, svNodes(a)) : null].concat(notes(a).map(function (n) { if (n && n.className !== 'offTag') n.title = ''; return n; })),
-      can ? function (close) { return el('button', { class: 'calcBtn', id: 'calcular', text: 'Calcular', on: { click: function () { close(); fromAppt(a, d); } } }); } : null);
+      (can || canEdit(a, d)) ? function (close) { return el('div', {}, [can ? el('button', { class: 'calcBtn', id: 'calcular', text: 'Calcular', on: { click: function () { close(); fromAppt(a, d); } } }) : null,
+        canEdit(a, d) ? el('div', { class: 'row citaBtns' }, [el('button', { type: 'button', id: 'editarCita', text: 'Cambiar la cita', on: { click: function () { close(); citaForm(d, a); } } }), el('button', { type: 'button', id: 'cancelarCita', class: 'danger', text: 'Cancelar la cita', on: { click: function () { if (!confirm('¿Cancelar la cita de ' + (txt(a.c, 80) || 'esta clienta') + '?')) return; close(); citaOrder('citaCancelar', { zona: d.$z, id: a.id }, 'Cita cancelada: la agenda se actualiza en unos segundos.'); } } })]) : null]); } : null);
+  }
+  /* ---------- (4.4.0) citas desde el móvil con «Control total»: dar, cambiar y cancelar ---------- */
+  // Solo con la agenda completa (agenda-c.json, cifrada solo para Control total). La orden va firmada y la hace el ordenador de
+  // ese local: allí se comprueba todo otra vez. Una cita cobrada o hecha no se cambia desde aquí.
+  function canEdit(a, d) { return nivel() === 'control' && d && d.full && d.$z && a && a.id && a.st !== 'c' && a.st !== 'h' && a.st !== 'x' && a.st !== 'n'; }
+  async function citaOrder(op, args, okMsg) {
+    try { var oid = await order(op, args); acc.waits[oid].cita = okMsg || 'Hecho.'; toast('Enviado: lo hace el ordenador del local en unos segundos.'); } catch (e) { toast(e.message || 'No se ha podido enviar.'); }
+  }
+  function durTxt(m) { var h = Math.floor(m / 60), r = m % 60; return (h ? h + ' h' : '') + (h && r ? ' ' : '') + (r || !h ? r + ' min' : ''); }
+  function citaForm(d, a) {
+    var edit = !!a, emps = (d.employees || []).filter(function (e) { return e && e.id; }), svc = Array.isArray(d.svc) ? d.svc : [], cl = Array.isArray(d.clients) ? d.clients : [];
+    var pick = edit ? (a.sid || []).slice() : [], client = edit && a.ci ? { id: a.ci, n: txt(a.c, 80) } : null, durTouched = edit;
+    var cq = el('input', { type: 'search', id: 'cClienta', placeholder: 'Busca a la clienta por su nombre', autocomplete: 'off', value: client ? client.n : '' });
+    var res = el('div', { class: 'cRes', id: 'cRes' }), nueva = el('div', { class: 'vacForm', id: 'cNueva', style: 'display:none' });
+    var nn = el('input', { type: 'text', id: 'cNombre', maxlength: '80', placeholder: 'Nombre y apellidos' }), nt = el('input', { type: 'tel', id: 'cTel', maxlength: '16', placeholder: 'Teléfono' });
+    nueva.appendChild(el('div', {}, [el('label', { for: 'cNombre', text: 'Nombre de la clienta nueva' }), nn])); nueva.appendChild(el('div', {}, [el('label', { for: 'cTel', text: 'Teléfono' }), nt]));
+    var low = function (t) { return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
+    var drawRes = function () {
+      res.innerHTML = ''; var q = low(cq.value).trim(); if (client || !q || edit) return;
+      var found = cl.filter(function (c) { return q.split(/\s+/).every(function (w) { return low(c[1]).indexOf(w) >= 0; }); }).slice(0, 8);
+      found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; cq.value = c[1]; res.innerHTML = ''; warn(); } } })); });
+      res.appendChild(el('button', { type: 'button', class: 'cItem', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; nueva.style.display = ''; nn.value = cq.value.trim(); res.innerHTML = ''; nt.focus(); } } }));
+    };
+    cq.addEventListener('input', function () { client = null; nueva.style.display = 'none'; drawRes(); warn(); });
+    var emp = el('select', { id: 'cEmp' }, emps.map(function (e) { return el('option', { value: e.id, text: txt(e.n, 40) }); }));
+    var day = el('input', { type: 'date', id: 'cDia', value: edit ? a.d : (st.day || today()), min: edit ? '' : today() });
+    var time = el('input', { type: 'time', id: 'cHora', step: '300', value: edit ? txt(a.s, 5) : '10:00' });
+    var dur = el('input', { type: 'number', id: 'cDur', min: '5', max: '600', step: '5', value: edit ? String(a.du || 30) : '30' });
+    var note = el('input', { type: 'text', id: 'cNota', maxlength: '200', placeholder: 'Opcional', value: edit && a.n ? txt(a.n, 200) : '' });
+    if (edit && a.emp) emp.value = a.emp;
+    var chips = el('div', { class: 'cChips', id: 'cSvcs' }), warnBox = el('div', { class: 'cWarn', id: 'cWarn' });
+    var sum = function () { return pick.reduce(function (t, id) { var x = svc.filter(function (v) { return v.id === id; })[0]; return t + (x ? x.m || 0 : 0); }, 0); };
+    var cats = []; svc.forEach(function (v) { if (cats.indexOf(v.c) < 0) cats.push(v.c); });
+    var drawSvc = function () {
+      chips.innerHTML = ''; cats.forEach(function (c) { chips.appendChild(el('div', { class: 'cCat', text: c || 'Servicios' })); svc.filter(function (v) { return v.c === c; }).forEach(function (v) { var on = pick.indexOf(v.id) >= 0;
+        chips.appendChild(el('button', { type: 'button', class: 'cChip' + (on ? ' on' : ''), 'data-s': v.id, text: txt(v.n, 80) + (v.m ? ' · ' + v.m + '′' : ''), on: { click: function () { var i = pick.indexOf(v.id); if (i >= 0) pick.splice(i, 1); else pick.push(v.id); if (!durTouched && sum()) dur.value = String(Math.ceil(sum() / 5) * 5); drawSvc(); warn(); } } })); }); });
+    };
+    var warn = function () {
+      var m = [], du = +dur.value || 0, lim = client && d.lim ? d.lim[client.id] : 0;
+      if (lim && du > lim) m.push((client.n) + ' no puede estar más de ' + durTxt(lim) + ' (límite fijado por la Administración). Esta cita dura ' + durTxt(du) + '.');
+      var s0 = (+String(time.value).slice(0, 2)) * 60 + (+String(time.value).slice(3, 5)), e0 = s0 + du;
+      (d.appts || []).forEach(function (x) { if (x.d !== day.value || x.emp !== emp.value || x.st === 'x' || x.st === 'n' || (edit && x.id === a.id)) return; var a0 = (+x.s.slice(0, 2)) * 60 + (+x.s.slice(3, 5)), a1 = (+x.e.slice(0, 2)) * 60 + (+x.e.slice(3, 5)); if (a0 < e0 && a1 > s0) m.push('Se solapa con ' + txt(x.c, 80) + ' (' + x.s + '–' + x.e + ').'); });
+      warnBox.innerHTML = ''; m.forEach(function (t) { warnBox.appendChild(el('div', { class: 'warn', text: t })); }); return m;
+    };
+    [day, time, dur, emp].forEach(function (n) { n.addEventListener('change', warn); }); dur.addEventListener('input', function () { durTouched = true; warn(); });
+    drawSvc(); warn();
+    var form = el('div', { class: 'cForm' }, [el('label', { text: 'Clienta' }), cq, res, nueva, el('label', { text: 'Servicios' }), chips,
+      el('div', { class: 'vacForm' }, [el('div', {}, [el('label', { for: 'cDia', text: 'Día' }), day]), el('div', {}, [el('label', { for: 'cHora', text: 'Hora' }), time]), el('div', {}, [el('label', { for: 'cEmp', text: 'Trabajadora' }), emp]), el('div', {}, [el('label', { for: 'cDur', text: 'Duración (min)' }), dur]), el('div', { class: 'full' }, [el('label', { for: 'cNota', text: 'Nota de la cita' }), note])]), warnBox]);
+    sheet([el('div', { class: 'h', text: txt(d.center.l || d.center.n, 80) }), el('h2', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), form], function (close) {
+      return el('div', { class: 'row' }, [el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
+        if (!edit && !client && !(nueva.style.display !== 'none' && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
+        if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Falta el día o la hora.');
+        var m = warn(); if (m.length && !confirm(m.join('\n') + '\n\n¿Guardarla igualmente?')) return;
+        var args = { zona: d.$z, emp: emp.value, d: day.value, s: time.value, du: Math.round((+dur.value || 30) / 5) * 5, svc: pick, note: note.value.trim() };
+        if (edit) { args.id = a.id; close(); citaOrder('citaCambiar', args, 'Cita cambiada: la agenda se actualiza en unos segundos.'); }
+        else { if (client) args.cid = client.id; else { args.name = nn.value.trim(); args.tel = nt.value.trim(); } close(); citaOrder('citaNueva', args, 'Cita dada: la agenda se actualiza en unos segundos.'); }
+      } } })]);
+    });
   }
 
   /* ---------- calculadora: precios del centro (van cifrados dentro de su agenda) ---------- */
@@ -927,8 +991,12 @@ body.many-modes{--mh:74px;overflow-x:clip}
       for (var i = 0; i < ls.length; i++) {
         var key = ls[i].rama, p = prev[key], f = await getJson(rawUrl(key, 'agenda.json'));
         if (!f || f.f !== FMT_AG2 || f.z !== key || f.n !== 'agenda.json' || typeof f.id !== 'string') continue; // (cada agenda, solo en su rama)
-        var data = p && p.file && p.file.c === f.c && p.data ? p.data : await openFile(f); if (!data) continue;
-        out.push({ key: key, file: f, data: data });
+        // (4.4.0) Con «Control total»: la agenda COMPLETA (nombres completos y lo necesario para cambiar citas), cifrada solo para este móvil.
+        var fc = null; if (nivel() === 'control') { try { fc = await getJson(rawUrl(key, 'agenda-c.json')); } catch (e) { fc = null; } if (fc && (fc.f !== FMT_AG2 || fc.z !== key || fc.n !== 'agenda-c.json')) fc = null; }
+        var tag = f.c + (fc ? '|' + fc.c : '');
+        var data = p && p.tag === tag && p.data ? p.data : (fc && await openFile(fc)) || await openFile(f); if (!data) continue;
+        data.$z = ls[i].zona; /* (4.4.0) a qué local pertenece, para las órdenes de citas */
+        out.push({ key: key, file: f, tag: tag, data: data });
       }
       out.sort(function (a, b) { return txt(a.data.center.l || a.data.center.n).localeCompare(txt(b.data.center.l || b.data.center.n)); });
       var was = st.centers[st.cur] && st.centers[st.cur].key;
@@ -984,7 +1052,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
     // (si al actualizar se estaba escribiendo en la calculadora, se sigue donde se estaba: se mira antes de vaciar la pantalla)
     var foc = st.cNode && st.cNode.contains(document.activeElement) ? document.activeElement : null, cb = st.cNode && st.cNode.querySelector('.cBody'), cbTop = cb ? cb.scrollTop : 0;
     app.innerHTML = '';
-    var m0 = document.querySelector('.modes'); if (m0) m0.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
+    var m0 = document.querySelector('.modes'); if (m0) m0.remove(); var fb = document.getElementById('nuevaCita'); if (fb) fb.remove(); document.body.className = ''; // (la barra de abajo solo va con la agenda abierta)
     var v2 = v2On();
     if (v2 && modesFor().indexOf(st.mode) < 0) st.mode = 'agenda';
     // (4.0.1) La entrada: arriba, la C con «Consentía Studio»; en el centro, la tarjeta.
@@ -1071,6 +1139,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
       el('button', { class: 'd', id: 'fecha', type: 'button', title: 'Elegir otro día en el calendario', 'aria-haspopup': 'dialog', on: { click: function () { calSheet(dd); } } }, [svg(ICON.agenda), el('span', { text: longDay(st.day) + (st.day.slice(0, 4) !== today().slice(0, 4) ? ' ' + st.day.slice(0, 4) : '') }), el('i', { text: '▾' })])]));
     var main = el('main');
     if (st.msg) main.appendChild(el('div', { class: 'warn', text: st.msg }));
+    if (c && c.data && c.data.full && nivel() === 'control') setTimeout(function () { if (!document.getElementById('nuevaCita') && document.querySelector('main')) { var b = el('button', { id: 'nuevaCita', type: 'button', class: 'fabCita', text: '＋ Cita', title: 'Dar una cita', on: { click: function () { citaForm(c.data, null); } } }); document.body.appendChild(b); } }, 0);
     if (!c) { main.appendChild(el('div', { class: 'none', text: st.loading ? 'Cargando…' : 'No hay agendas publicadas.' })); app.appendChild(main); return; }
     if (!c.data) {
       var oi = el('input', { type: 'password', placeholder: 'Contraseña de este centro' });
@@ -1251,13 +1320,14 @@ body.many-modes{--mh:74px;overflow-x:clip}
   }
 
   /* ---------- GitHub: Accesos (con la llave de móviles) y App (sin permiso) ---------- */
-  async function accCall(method, repo, path, tok, body) {
-    var r; try { r = await fetch(cfg.api + '/repos/' + repo + '/contents/' + path + (method === 'GET' ? '?ref=main' : ''), { method: method, headers: { Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); }
+  async function accCall(method, repo, path, tok, body, etag) {
+    var r; try { r = await fetch(cfg.api + '/repos/' + repo + '/contents/' + path + (method === 'GET' ? '?ref=main' : ''), { method: method, headers: Object.assign({ Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' }, etag ? { 'If-None-Match': etag } : {}), body: body ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' }); }
     catch (e) { throw new Error('Sin conexión (¿hay Internet?).'); }
     if (r.status === 404 && method === 'GET') return null;
+    if (r.status === 304) return { notModified: true }; /* (4.4.0) sin cambios: no gasta consultas */
     if (r.status === 401) { var e1 = new Error('La llave de este acceso ya no vale. Pide un QR nuevo en el local.'); e1.auth = true; throw e1; }
     if (!r.ok) throw new Error('GitHub respondió ' + r.status + '.');
-    return r.status === 204 ? {} : r.json();
+    if (r.status === 204) return {}; var jj = await r.json(); try { var et = r.headers.get('etag'); if (et && jj && typeof jj === 'object') Object.defineProperty(jj, '_etag', { value: et }); } catch (e2) { } return jj;
   }
   async function accGetJson(repo, path, tok) { var r = await accCall('GET', repo, path, tok); if (!r || !r.content) return null; return { sha: r.sha, json: JSON.parse(TD.decode(unb64u(String(r.content).replace(/\s/g, '').replace(/\+/g, '-').replace(/\//g, '_')))) }; }
   function accPut(repo, path, obj, tok) { return accCall('PUT', repo, path, tok, { message: 'Consentia Studio', content: btoa(JSON.stringify(obj)), branch: 'main' }); }
@@ -1389,6 +1459,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   }
   function orderDone(w) {
     var a = w.res || {};
+    if (w.cita) { toast(a.ok ? w.cita : (a.why || 'No se ha podido hacer.')); if (a.ok) { setTimeout(function () { refresh(); }, 6000); setTimeout(function () { refresh(); }, 20000); } return; } // (4.4.0) citas
     if (!a.ok) { if (w.op === 'vacaciones') toast(a.why || 'No se han podido pedir.'); else acc.msg = a.why || 'No se ha podido hacer.'; return; }
     if (w.op === 'vacaciones') { toast('Vacaciones pedidas: el Administrador de tu local las acepta o las deniega.'); acc.vac = null; return; } // (4.3.0)
     acc.msg = '';
@@ -1398,7 +1469,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
   }
   async function loadEstado() {
     if (!v2On() || !isCtl() || !acc.mk) return;
-    try { var r = await accGetJson(acc.grant.accRepo, 'e/' + acc.me.id + '.json', acc.mk); if (r && r.json && r.json.env) { var before = JSON.stringify(acc.estado); acc.estado = await openEnv(r.json.env, acc.me.id, acc.me.e); acc.estadoAt = Date.now(); return before !== JSON.stringify(acc.estado); } } catch (e) { acc.msg = e.auth ? e.message : acc.msg; }
+    try { var raw = await accCall('GET', acc.grant.accRepo, 'e/' + acc.me.id + '.json', acc.mk, null, acc.estado ? acc.estEtag : null); if (raw && raw.notModified) return false; var r = raw && raw.content ? { sha: raw.sha, json: JSON.parse(TD.decode(unb64u(String(raw.content).replace(/\s/g, '').replace(/\+/g, '-').replace(/\//g, '_')))) } : null; if (raw && raw._etag) acc.estEtag = raw._etag; if (r && r.json && r.json.env) { var before = JSON.stringify(acc.estado); acc.estado = await openEnv(r.json.env, acc.me.id, acc.me.e); acc.estadoAt = Date.now(); return before !== JSON.stringify(acc.estado); } } catch (e) { acc.msg = e.auth ? e.message : acc.msg; }
     return false;
   }
   function toast(t) { var n = el('div', { class: 'accToast', text: t }); document.body.appendChild(n); setTimeout(function () { n.remove(); }, 3500); }
@@ -1634,6 +1705,15 @@ body.many-modes{--mh:74px;overflow-x:clip}
     try { var f = await appRaw2('g-' + acc.me.id + '.json'); if (f && f.n === 'g-' + acc.me.id && f.c && acc.grantC && f.c !== acc.grantC) await refresh(); } catch (e) { } finally { grantBusy = false; }
   }
   setInterval(grantWatch, 15 * 1000);
+  // (4.4.0) Control y Gestión: las solicitudes (y lo demás de Control) se miran cada 15 s con una consulta condicional (si no ha
+  // cambiado nada, GitHub contesta «304» y no gasta consultas). Si llega una solicitud nueva, se avisa y se pinta, en la pestaña que sea.
+  var estBusy = false;
+  async function estadoWatch() {
+    if (estBusy || !v2On() || document.hidden || !acc.mk || !isCtl() || !acc.grant || !acc.me) return; estBusy = true;
+    try { var n0 = acc.estado && acc.estado.solicitudes ? acc.estado.solicitudes.length : 0; var ch = await loadEstado(); if (ch) { var n1 = acc.estado && acc.estado.solicitudes ? acc.estado.solicitudes.length : 0; if (n1 > n0) toast(n1 === 1 ? 'Hay una solicitud de acceso nueva.' : 'Hay ' + n1 + ' solicitudes de acceso.'); if (st.mode === 'control' || n1 !== n0) render(); } }
+    catch (e) { } finally { estBusy = false; }
+  }
+  setInterval(estadoWatch, 15 * 1000);
   setInterval(sessionOver, 60 * 1000); // (los 7 días)
   window.addEventListener('resize', fitGrid);
   window.addEventListener('hashchange', function () { var w = wanted(); if (!w) return; var i = st.centers.findIndex(function (c) { return centerSlug(c) === w; }); if (i >= 0) { if (i !== st.cur) { st.cur = i; st.scroll = null; render(); } } else st.want = w; });
