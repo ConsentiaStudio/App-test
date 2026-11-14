@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="panel">
-<meta name="consentia-agenda-version" content="4.6.0">
-<meta name="consentia-agenda-firma" content="W6uivbj5iokCY74/g0j4QSDPlVLUu/ZCmn8nkYq7EfDu1QB1ig8w24YhLayX+TAiA6j51gBN0U41W4OS91mLCA==">
+<meta name="consentia-agenda-version" content="4.6.2">
+<meta name="consentia-agenda-firma" content="/OOUUhzqQuPKjiRjYpvfAEmwv8s4RwSYmv4oz/6aWZr8k1epWuL9syALUIS+wY3w5mm7yPecU/W4kmCzYuz6Dw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-WFK3R5ITWZcudX2TE3yXQ0v47XuQcxF24yhMYOkP8CM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-ts4n6fbhVqgGrOlzt5AXiDvwUdRZK/rAAQQ3qv4xYhI='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -472,9 +472,14 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     var ym = st.day.slice(0, 7); var ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; });
     var at = sum(ms, function (x) { return x.mes.clientasAtendidas; }), nu = sum(ms, function (x) { return x.mes.nuevas; }), f = sum(ms, function (x) { return x.mes.facturacion; }), c = sum(ms, function (x) { return x.mes.cobros; });
     var h = head('Clientas · ' + mname(ym), 'Clientas') + unreadNote(bad);
-    h += '<div class="kpis k3">' + kpi('Atendidas', at, 'todos los locales', 'hero') + kpi('Nuevas', nu, at ? Math.round(nu / at * 100) + ' % de las atendidas' : '') + kpi('Ticket medio', money(c ? f / c : 0), c + ' cobros') + '</div><div class="grid g2b">';
+    h += '<div class="kpis k3">' + kpi('Atendidas', at, 'todos los locales', 'hero') + kpi('Nuevas', nu, at ? Math.round(nu / at * 100) + ' % de las atendidas' : '') + kpi('Ticket medio', money(c ? f / c : 0), c + ' cobros') + '</div>';
+    // (4.6.1) ¿Las clientas cogen cita desde la app? (los locales que ya lo mandan: desde la 4.6.1)
+    var ca = ms.filter(function (x) { return x.mes.citasApp; });
+    if (ca.length) { var tc = sum(ca, function (x) { return x.mes.citasApp.citas; }), ta = sum(ca, function (x) { return x.mes.citasApp.app; }), tn = sum(ca, function (x) { return x.mes.citasApp.nuevas; }), tr = sum(ca, function (x) { return x.mes.citasApp.recibidas; });
+      h += '<h3 id="citasApp" style="margin:16px 0 8px">Citas desde la app de las clientas</h3><div class="kpis k3">' + kpi('Desde la app', ta, 'de ' + tc + ' citas · ' + (tc ? Math.round(ta / tc * 100) : 0) + ' %', 'hero') + kpi('Nuevas por la app', tn, 'pidieron cita por primera vez') + kpi('Solicitudes', tr, 'recibidas este mes') + '</div>'; }
+    h += '<div class="grid g2b">';
     ms.forEach(function (x) { var m = x.mes;
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2></div><div class="minis" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="mini"><span>Atendidas</span><strong class="num">' + (m.clientasAtendidas || 0) + '</strong></div><div class="mini"><span>Nuevas</span><strong class="num">' + (m.nuevas || 0) + '</strong></div><div class="mini"><span>Ticket medio</span><strong class="num">' + money(m.ticketMedio || 0) + '</strong></div></div></div>'; });
+      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2></div><div class="minis" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="mini"><span>Atendidas</span><strong class="num">' + (m.clientasAtendidas || 0) + '</strong></div><div class="mini"><span>Nuevas</span><strong class="num">' + (m.nuevas || 0) + '</strong></div><div class="mini"><span>Ticket medio</span><strong class="num">' + money(m.ticketMedio || 0) + '</strong></div></div>' + (m.citasApp ? '<div class="minis" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px"><div class="mini"><span>Citas por la app</span><strong class="num">' + (m.citasApp.app || 0) + '</strong></div><div class="mini"><span>% de las citas</span><strong class="num">' + (m.citasApp.pct || 0) + ' %</strong></div><div class="mini"><span>Nuevas por la app</span><strong class="num">' + (m.citasApp.nuevas || 0) + '</strong></div></div>' : '') + '</div>'; });
     return h + '</div>';
   }
   // (4.0.2) Rosquilla de lo que ha generado cada una sobre el total del local; al pasar el ratón o tocar, sus cifras.
