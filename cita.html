@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.6.0">
-<meta name="consentia-agenda-firma" content="xG8688Lo6NbJVlkWGRu8XFh1ds9Te+sGoo8RWubA2BrqjCf1ze0TQYAdDP5872NefkPdQs6/XcXQPKxC4XxdAg==">
+<meta name="consentia-agenda-version" content="4.6.2">
+<meta name="consentia-agenda-firma" content="GofBZQNeTIgyEu+0i/sE/peO80uirYfPCAapCWi9KLaA/V1H3oQdzoAeNWx2dxjcrvWwpIMKGXKxT5L4O7gIDw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-bjdFiqlHZo+Dm5jAmtt3YIFXuglBY9zKGeEZGzcynVQ='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zoVkHyqb/g9aP11Tm9Bn8AaMKNFOx2S4SdudoBjzkxM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <title>Pide tu cita</title>
 <style>
@@ -92,10 +92,14 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
 .refresh{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink)}.refresh svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .refresh.spin svg{animation:sp 0.9s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 .loc.off{opacity:.5}.loc:disabled{cursor:default}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.telRow{display:flex;gap:8px}.telRow #prefijo{flex:0 0 76px;text-align:center;font-weight:700}.telRow #telefono{flex:1;min-width:0}
 .tabs{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:6px 0 12px}
 .tabs button{flex:1 1 0;min-width:0;border:0;background:transparent;border-radius:9px;padding:8px 0;font-size:13px;font-weight:650;color:#5b5b61;white-space:nowrap}
 .tabs button.on{background:#fff;color:var(--ink);font-weight:750;box-shadow:0 2px 6px rgba(17,17,19,.12)}
-.tabs button b{margin-left:3px}.tabs .n-ok{color:var(--ok)}.tabs .n-warn{color:var(--warn)}
+/* (4.6.1) el número, separado del texto y a la derecha, en una pastilla */
+.tabs button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 4px}
+.tabs button b{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:999px;font-size:11.5px;line-height:1}.tabs .n-ok{color:var(--ok);background:#e4f6ea}.tabs .n-warn{color:var(--warn);background:#fff1d6}
 .ap .d.ok{background:#e4f6ea}.ap .d.ok small{color:var(--ok)}.ap .d.warn{background:#fff1d6}.ap .d.warn small{color:var(--warn)}.ap .d.gone{background:#f1efea}.ap .d.gone small{color:var(--mute)}
 .card.past,.card.gone{background:#faf9f6;color:#4a4740}.card.gone .sv-t{text-decoration:line-through}
 .when{font-size:12.5px;font-weight:700;margin-top:6px;color:var(--mute)}.when.soon{color:var(--ok)}
@@ -174,7 +178,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) { }
   })();
 
-  var S = { tab: 'mis', step: 0, cat: '', q: '', z: null, zona: link.z || '', zdata: null, loading: false, err: '', sel: {}, day: '', time: '', emp: '', f: { name: '', phone: '', note: '', consent: false, photo: '' }, busy: false, sent: null, mine: [], cl: null, clMsg: '', clBusy: false };
+  var S = { tab: 'mis', step: 0, cat: '', q: '', z: null, zona: link.z || '', zdata: null, loading: false, err: '', sel: {}, day: '', time: '', emp: '', f: { n1: '', a1: '', a2: '', pre: '+34', phone: '', note: '', consent: false, photo: '' }, busy: false, sent: null, mine: [], cl: null, clMsg: '', clBusy: false };
   var root = document.getElementById('app');
   // (4.5.1) El logotipo (la C con la estrella), el mismo de la app de la agenda, dentro de la página.
   var LOGO = 'data:image/png;base64,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';
@@ -248,7 +252,13 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   }
 
   // (4.5.0) z.json recién leído (con la API y la llave del enlace, que no tiene la caché de raw); si falla, de raw.
-  async function freshZ(zona) { return freshFile(zona, 'z.json'); }
+  // (4.6.2) z.json llega CIFRADO (AES-256-GCM): la clave sale de la llave del enlace; sin el enlace no se puede leer.
+  async function openZ(j, zona) {
+    if (!j || j.f !== 'cs-z1' || j.z !== zona || !link.k) return null;
+    try { var kb = await SC.digest('SHA-256', TE.encode('consentia-z1|' + link.k)); var key = await SC.importKey('raw', kb, 'AES-GCM', false, ['decrypt']);
+      var pt = await SC.decrypt({ name: 'AES-GCM', iv: unb64u(j.iv), additionalData: TE.encode('cs-z1|' + zona) }, key, unb64u(j.c)); return JSON.parse(TD.decode(pt)); } catch (e) { return null; }
+  }
+  async function freshZ(zona) { return openZ(await freshFile(zona, 'z.json'), zona); }
   // (4.5.1) Un archivo de la rama del local recién leído (la API, con la llave del enlace, no tiene la caché de raw).
   async function freshFile(zona, file) {
     try {
@@ -263,7 +273,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     S.loading = true; S.err = ''; render();
     try {
       if (!cfg.repo || !link.k) throw new Error('Falta el enlace del centro. Pídelo en el local.');
-      var z = await getJson(rawUrl(zona, 'z.json', 10000)); if (!z || z.v !== 1) throw new Error('Este local todavía no tiene las citas por internet.');
+      var z = await openZ(await getJson(rawUrl(zona, 'z.json', 10000)), zona); if (!z || z.v !== 1) throw new Error('Este local todavía no tiene las citas por internet.');
       S.zdata = z; S.zona = zona; store('link', Object.assign({}, link, { z: zona }));
     } catch (e) { S.err = e.message; S.zdata = null; }
     S.loading = false; render();
@@ -301,10 +311,25 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       fr.readAsDataURL(file);
     });
   }
+  // (4.6.2) Comprobaciones de los datos de la clienta (también las repite el ordenador al recibirla).
+  function noDigits(inp) { var v = inp.value.replace(/[0-9_@#$%&*+=<>{}\[\]|\\\/:;"!?¿¡()]/g, ''); if (v !== inp.value) inp.value = v; return v; }
+  function nameErr(f) {
+    var ok = function (x) { return /^[\p{L}][\p{L}' .-]*$/u.test(String(x || '').trim()); };
+    if (!String(f.n1).trim() || !String(f.a1).trim() || !String(f.a2).trim()) return 'Pon tu nombre y tus dos apellidos.';
+    if (!ok(f.n1) || !ok(f.a1) || !ok(f.a2)) return 'El nombre y los apellidos solo pueden llevar letras.';
+    return '';
+  }
+  function cap(x) { return String(x || '').trim().replace(/\s+/g, ' ').toLowerCase().replace(/(^|[\s'-])(\p{L})/gu, function (m, a, b) { return a + b.toUpperCase(); }); }
+  function fullName(f) { return [cap(f.n1), cap(f.a1), cap(f.a2)].join(' '); }
+  function phoneOk(pre, num) { var p = String(pre || '').replace(/\D/g, ''), n = digits(num); if (!p) return false; if (p === '34') return /^[6789]\d{8}$/.test(n); return /^[1-9]\d{0,3}$/.test(p) && (p + n).length >= 8 && (p + n).length <= 15 && n.length >= 6; }
+  function phoneMsg(pre) { return String(pre || '').replace(/\D/g, '') === '34' ? 'El teléfono no es válido: tiene que tener 9 números y empezar por 6, 7, 8 o 9.' : 'El teléfono no es válido: revisa el prefijo del país y el número.'; }
+  function fullPhone(f) { return '+' + String(f.pre).replace(/\D/g, '') + ' ' + digits(f.phone); }
   async function submit() {
     if (S.busy) return; var f = S.f, z = S.zdata, t = totals();
     var last = store('last') || 0; if (Date.now() - last < 45000) { S.err = 'Espera un momento antes de enviar otra solicitud.'; return render(); }
-    if (!f.name.trim() || digits(f.phone).length < 9) { S.err = 'Pon tu nombre y tu teléfono (con los 9 números).'; return render(); }
+    // (4.6.2) Nombre y los dos apellidos, sin números; el teléfono, de verdad (con +34: 9 cifras que empiezan por 6, 7, 8 o 9).
+    var bad = nameErr(f); if (bad) { S.err = bad; return render(); }
+    if (!phoneOk(f.pre, f.phone)) { S.err = phoneMsg(f.pre); return render(); }
     if (!f.consent) { S.err = 'Tienes que aceptar el uso de tus datos para poder pedir la cita.'; return render(); }
     if (myLimit()) { S.full = true; return render(); } // (4.5.0) este móvil ya ha pedido bastantes
     S.busy = true; S.busyTxt = 'Comprobando que el hueco sigue libre…'; S.err = ''; render();
@@ -313,11 +338,11 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       var fz = await freshZ(S.zona).catch(function () { return null; });
       if (fz && fz.v === 1) { S.zdata = fz; z = fz; if (fz.full) { S.full = true; S.busy = false; return render(); } if (!times(S.day).some(function (t) { return t.s === S.time; })) { S.busy = false; S.step = 2; S.time = ''; S.err = 'Ese hueco se acaba de ocupar. Elige otra hora, por favor.'; render(); window.scrollTo(0, 0); return; } }
       S.busyTxt = 'Enviando…'; render();
-      var d = await device(), id = hex(8), req = { v: 1, id: id, kind: 'cita', at: new Date().toISOString(), pub: { x: d.x, y: d.y }, zona: S.zona, d: S.day, s: S.time, name: f.name.trim(), phone: f.phone.trim(), svc: chosenSvc().map(function (s) { return s.id; }), emp: S.emp || '', note: f.note.trim() };
+      var d = await device(), id = hex(8), req = { v: 1, id: id, kind: 'cita', at: new Date().toISOString(), pub: { x: d.x, y: d.y }, zona: S.zona, d: S.day, s: S.time, name: fullName(f), phone: fullPhone(f), svc: chosenSvc().map(function (s) { return s.id; }), emp: S.emp || '', note: f.note.trim() };
       if (f.photo && z.photo) req.photo = f.photo;
       await withPow(req); await send(req); store('last', Date.now());
-      var list = store('reqs') || []; list.unshift({ id: id, zona: S.zona, at: req.at, d: S.day, s: S.time, sv: chosenSvc().map(function (s) { return s.n; }), name: f.name.trim() }); store('reqs', list.slice(0, 20));
-      S.sent = id; S.sel = {}; S.step = 0; S.day = ''; S.time = ''; S.emp = ''; S.f = { name: f.name, phone: f.phone, note: '', consent: false, photo: '' };
+      var list = store('reqs') || []; list.unshift({ id: id, zona: S.zona, at: req.at, d: S.day, s: S.time, sv: chosenSvc().map(function (s) { return s.n; }), name: fullName(f) }); store('reqs', list.slice(0, 20));
+      S.sent = id; S.sel = {}; S.step = 0; S.day = ''; S.time = ''; S.emp = ''; S.f = { n1: f.n1, a1: f.a1, a2: f.a2, pre: f.pre, phone: f.phone, note: '', consent: false, photo: '' };
       S.tab = 'mis'; S.busy = false; await loadMine(); return;
     } catch (e) { S.err = e.message; }
     S.busy = false; render();
@@ -417,7 +442,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   // (4.5.1) Cambiar de centro sin perder el que había: si el otro no tiene la cita por internet, se dice y se sigue aquí.
   async function switchLocal(zn) {
     S.locBusy = zn; S.locErr = ''; render(); var nz = null;
-    try { nz = await freshFile(zn, 'z.json'); } catch (e) { nz = null; }
+    try { nz = await freshZ(zn); } catch (e) { nz = null; }
     S.locBusy = '';
     if (nz && nz.v === 1) { S.zdata = nz; S.zona = zn; S.sel = {}; S.day = ''; S.time = ''; S.emp = ''; S.cat = ''; S.q = ''; store('link', Object.assign({}, link, { z: zn })); }
     else { S.locOff = (S.locOff || []).concat([zn]); S.locErr = 'Ese centro todavía no tiene la cita por internet. Llámalo o elige otro.'; }
@@ -478,8 +503,13 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       el('span', { text: 'Día' }), el('b', { text: dayText(S.day, true) }), el('span', { text: 'Hora' }), el('b', { text: S.time + ' (' + durText(t.m) + ')' }),
       el('span', { text: 'Con' }), el('b', { text: em || 'Quien esté libre' }), el('span', { text: 'Precio' }), el('b', { text: money(t.p) })])]));
     var box = el('div', { class: 'card' }, [
-      el('label', { text: 'Nombre y apellido' }), el('input', { type: 'text', id: 'nombre', autocomplete: 'name', maxlength: 80, value: f.name, oninput: function (e) { f.name = e.target.value; } }),
-      el('label', { text: 'Teléfono' }), el('input', { type: 'tel', id: 'telefono', autocomplete: 'tel', maxlength: 16, value: f.phone, oninput: function (e) { f.phone = e.target.value; } }),
+      // (4.6.2) Nombre, primer apellido y segundo apellido, cada uno en su cajita (obligatorios y sin números)
+      el('label', { for: 'nombre', text: 'Nombre' }), el('input', { type: 'text', id: 'nombre', autocomplete: 'given-name', maxlength: 30, value: f.n1, oninput: function (e) { f.n1 = noDigits(e.target); } }),
+      el('div', { class: 'two' }, [el('div', {}, [el('label', { for: 'apellido1', text: 'Primer apellido' }), el('input', { type: 'text', id: 'apellido1', autocomplete: 'family-name', maxlength: 30, value: f.a1, oninput: function (e) { f.a1 = noDigits(e.target); } })]),
+        el('div', {}, [el('label', { for: 'apellido2', text: 'Segundo apellido' }), el('input', { type: 'text', id: 'apellido2', autocomplete: 'off', maxlength: 30, value: f.a2, oninput: function (e) { f.a2 = noDigits(e.target); } })])]),
+      el('label', { for: 'telefono', text: 'Teléfono' }), el('div', { class: 'telRow' }, [el('input', { type: 'tel', id: 'prefijo', 'aria-label': 'Prefijo del país', maxlength: 5, value: f.pre, oninput: function (e) { var v = '+' + e.target.value.replace(/\D/g, '').slice(0, 4); e.target.value = v; f.pre = v; } }),
+        el('input', { type: 'tel', id: 'telefono', autocomplete: 'tel-national', inputmode: 'numeric', maxlength: 16, placeholder: f.pre === '+34' ? '612 345 678' : '', value: f.phone, oninput: function (e) { var v = e.target.value.replace(/[^\d ]/g, ''); if (v !== e.target.value) e.target.value = v; f.phone = v; } })]),
+      el('div', { class: 'hint', text: 'Con el prefijo del país (+34 en España). Lo usaremos para confirmarte la cita.' }),
       el('label', { text: 'Algo que debamos saber (opcional)' }), el('textarea', { id: 'nota', maxlength: 300, placeholder: 'Alergias, qué te quieres hacer, si vienes con alguien…', oninput: function (e) { f.note = e.target.value; } }, [f.note])]);
     if (z.photo) {
       box.appendChild(el('label', { text: 'Una foto (opcional)' }));
