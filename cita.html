@@ -4,74 +4,79 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.6.2">
-<meta name="consentia-agenda-firma" content="GofBZQNeTIgyEu+0i/sE/peO80uirYfPCAapCWi9KLaA/V1H3oQdzoAeNWx2dxjcrvWwpIMKGXKxT5L4O7gIDw==">
+<meta name="consentia-agenda-version" content="4.7.1">
+<meta name="consentia-agenda-firma" content="Tdl6MucErPz3fFo9aZ2t/zlltMBePpO6u+S4BSmbTyt6d0e4a8TxkW7mLO9liml2T6Q9dY6MA/U0Lf06Q2soAQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zoVkHyqb/g9aP11Tm9Bn8AaMKNFOx2S4SdudoBjzkxM='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-u8uQ2y5Aw5+b3VZTz3Mf0mtFxkY9xMdTPElI9sPsWuo='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="cita.webmanifest">
+<link rel="apple-touch-icon" href="icono-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mis citas">
 <title>Pide tu cita</title>
 <style>
-:root{--pink:#ff2b91;--ink:#111113;--mute:#77736c;--line:#e4e0d8;--bg:#f4f2ee;--ok:#1d8a4a;--warn:#9a6400;--bad:#c62828;--soft:#fff0f7}
+:root{--pink:#ff2b91;--ink:#111113;--mute:#6b6b72;--line:#ececef;--bg:#ffffff;--ok:#1d8a4a;--warn:#9a6400;--bad:#c62828;--soft:#fff0f7;--card:#ffffff;--field:#f5f5f7;--bar:rgba(255,255,255,.94);--solid:#111113;--line2:#f1f1f3;color-scheme:light}
+html[data-theme=oscuro]{--ink:#f4f2ee;--mute:#9b9aa3;--line:#26262c;--bg:#0e0e11;--ok:#4cc38a;--warn:#ffd98a;--bad:#ff8fa3;--soft:rgba(255,43,145,.16);--card:#18181c;--field:#1d1d22;--bar:rgba(18,18,21,.94);--solid:#ff2b91;--line2:#222228;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
 button,input,select,textarea{font-family:inherit}
 /* (4.5.1) Como la app de la agenda: barra de arriba con el logotipo, contenido y la barra de abajo («Mis citas» · «Pedir cita») */
-.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:rgba(244,242,238,.92);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid rgba(17,17,19,.08)}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);border-bottom:1px solid rgba(17,17,19,.08)}
 .top img{width:30px;height:30px;flex:none}
 .top .t{min-width:0}.top b{display:block;font-size:16px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top small{display:block;color:var(--mute);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 main{max-width:560px;margin:0 auto;padding:14px 14px calc(150px + env(safe-area-inset-bottom))}
-.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#f7f6f3;border-top:1px solid rgba(17,17,19,.12)}
-@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.modes{background:rgba(247,246,243,.82);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}
+.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--bar);border-top:1px solid rgba(17,17,19,.12)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.modes{background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}
 .modes .seg{display:flex;gap:2px;max-width:520px;margin:0 auto;padding:3px;border-radius:14px;background:rgba(118,118,128,.16)}
-.modes button{flex:1 1 0;min-width:0;height:46px;display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:11px;background:transparent;color:#5b5b61;font-size:15px;font-weight:650;position:relative}
+.modes button{flex:1 1 0;min-width:0;height:46px;display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:11px;background:transparent;color:var(--mute);font-size:15px;font-weight:650;position:relative}
 .modes button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.modes button.on{background:#fff;color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
+.modes button.on{background:var(--card);color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
 .modes .dot{position:absolute;top:7px;right:calc(50% - 52px);min-width:18px;height:18px;border-radius:9px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(17,17,19,.04)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(17,17,19,.04)}
 h1{font-size:24px;letter-spacing:-.02em;margin:6px 2px 4px}.lead{color:var(--mute);margin:0 2px 14px;font-size:14.5px}
 h2{font-size:17px;margin:0 0 8px;letter-spacing:-.01em}h3{font-size:12px;margin:16px 2px 8px;color:var(--mute);text-transform:uppercase;letter-spacing:.07em}
 .hint{color:var(--mute);font-size:13.5px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 /* pasos */
-.steps{display:flex;gap:6px;margin:2px 2px 6px}.steps i{flex:1;height:4px;border-radius:2px;background:#ddd8cf}.steps i.on{background:var(--pink)}
+.steps{display:flex;gap:6px;margin:2px 2px 6px}.steps i{flex:1;height:4px;border-radius:2px;background:var(--line)}.steps i.on{background:var(--pink)}
 .stepT{font-size:12.5px;color:var(--mute);font-weight:700;margin:0 2px;text-transform:uppercase;letter-spacing:.06em}
 /* locales */
-.loc{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;color:var(--ink)}
+.loc{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;color:var(--ink)}
 .loc .ic{width:42px;height:42px;border-radius:12px;background:var(--bg);display:grid;place-items:center;flex:none}.loc .ic svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .loc b{display:block;font-size:16px}.loc small{color:var(--mute)}.loc.on{border-color:var(--pink);background:var(--soft)}.loc .ck{margin-left:auto}
 /* servicios */
 .cats{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
-.pill{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:650;color:var(--ink);white-space:nowrap}.pill.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.sv{display:flex;gap:12px;align-items:center;padding:13px 14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;font-weight:400;cursor:pointer}
+.pill{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:650;color:var(--ink);white-space:nowrap}.pill.on{background:var(--solid);border-color:var(--solid);color:#fff}
+.sv{display:flex;gap:12px;align-items:center;padding:13px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;font-weight:400;cursor:pointer}
 .sv input{position:absolute;opacity:0;pointer-events:none}
-.sv .ck{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}
+.sv .ck{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}
 .sv.on{border-color:var(--pink);background:var(--soft)}.sv.on .ck{background:var(--pink);border-color:var(--pink)}
 .sv .n{flex:1;font-weight:600;line-height:1.25}.sv .m{color:var(--mute);font-size:13px;white-space:nowrap;text-align:right}
-.ck{width:24px;height:24px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}.on>.ck{background:var(--pink);border-color:var(--pink)}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}.on>.ck{background:var(--pink);border-color:var(--pink)}
 /* cuándo */
 .who{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.who::-webkit-scrollbar{display:none}
 .wh{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:70px;border:0;background:none;color:var(--ink);font-size:13px;font-weight:650}
-.wh .av{width:52px;height:52px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-size:19px;font-weight:800}
+.wh .av{width:52px;height:52px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center;font-size:19px;font-weight:800}
 .wh.on .av{border-color:var(--pink);background:var(--pink);color:#fff}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;scroll-snap-type:x proximity}.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;scroll-snap-align:start;width:64px;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:8px 0;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink)}
+.chip{flex:none;scroll-snap-align:start;width:64px;border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:8px 0;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink)}
 .chip small{font-size:11.5px;color:var(--mute);font-weight:700;text-transform:capitalize}.chip b{font-size:21px;line-height:1.1}.chip em{font-style:normal;font-size:10.5px;color:var(--mute);font-weight:700;text-transform:uppercase}
-.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}.chip.on small,.chip.on em{color:#ddd}
+.chip.on{background:var(--solid);border-color:var(--solid);color:#fff}.chip.on small,.chip.on em{color:#ddd}
 .chip.off{background:transparent;border-style:dashed;color:#b3ada4}.chip.off small,.chip.off em{color:#b3ada4}
 .month{font-weight:800;font-size:15px;margin:4px 2px 8px}
 .part{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--mute);margin:14px 2px 8px;text-transform:uppercase;letter-spacing:.06em}.part svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
 .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.slot{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:11px 0;font-size:15px;font-weight:700;color:var(--ink)}.slot.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.slot{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:11px 0;font-size:15px;font-weight:700;color:var(--ink)}.slot.on{background:var(--pink);border-color:var(--pink);color:#fff}
 /* datos */
 label{display:block;font-weight:650;font-size:14px;margin:12px 2px 6px}
-input[type=text],input[type=tel],input[type=search],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:#fff;color:var(--ink);outline:none}
+input[type=text],input[type=tel],input[type=search],select,textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:var(--card);color:var(--ink);outline:none}
 input:focus,textarea:focus{border-color:var(--pink)}
 textarea{min-height:76px;resize:vertical}
 .resume{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14.5px}.resume span{color:var(--mute)}.resume b{font-weight:650}
 button.p{border:0;background:var(--pink);color:#fff;border-radius:14px;padding:15px 18px;font-size:16px;font-weight:750;width:100%}
 button.p:disabled{opacity:.45}
-button.s{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:650}
+button.s{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:650}
 button.s.bad{color:var(--bad)}
 button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight:650;padding:8px 2px}
 .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:750;background:#eee;color:#555}
@@ -79,7 +84,7 @@ button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight
 .msg{border-radius:14px;padding:11px 13px;margin:8px 0;font-size:14px;background:#eef2fb;color:#1d3a6b}
 .msg.warn{background:#fff6e0;color:#6b4a00}.msg.bad{background:#fde7e7;color:#8a1c1c}.msg.ok{background:#e4f6ea;color:#14532d}
 .sum{position:fixed;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom));z-index:8;display:flex;gap:10px;align-items:center;max-width:560px;margin:0 auto;padding:10px 14px}
-.sum .in{flex:1;display:flex;gap:10px;align-items:center;background:var(--ink);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
+.sum .in{flex:1;display:flex;gap:10px;align-items:center;background:var(--solid);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
 .sum b{flex:1;font-size:14px;line-height:1.25}.sum button.p{width:auto;padding:12px 18px}
 .sum button.bk{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:12px 12px;font-size:15px;font-weight:700}
 .photo{max-width:100%;max-height:200px;border-radius:12px;display:block;margin-top:8px}
@@ -89,25 +94,88 @@ button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight
 a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font-size:17px;font-weight:750}
 .empty{text-align:center;padding:26px 18px}.empty .ic{width:56px;height:56px;margin:0 auto 10px;border-radius:18px;background:var(--soft);display:grid;place-items:center}.empty .ic svg{width:28px;height:28px;fill:none;stroke:var(--pink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .titleRow{display:flex;align-items:center;gap:8px;margin:2px 0 4px}.titleRow h1{margin:4px 0}
-.refresh{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink)}.refresh svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.refresh{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--ink)}.refresh svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .refresh.spin svg{animation:sp 0.9s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
 .loc.off{opacity:.5}.loc:disabled{cursor:default}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .telRow{display:flex;gap:8px}.telRow #prefijo{flex:0 0 76px;text-align:center;font-weight:700}.telRow #telefono{flex:1;min-width:0}
 .tabs{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:6px 0 12px}
-.tabs button{flex:1 1 0;min-width:0;border:0;background:transparent;border-radius:9px;padding:8px 0;font-size:13px;font-weight:650;color:#5b5b61;white-space:nowrap}
-.tabs button.on{background:#fff;color:var(--ink);font-weight:750;box-shadow:0 2px 6px rgba(17,17,19,.12)}
+.tabs button{flex:1 1 0;min-width:0;border:0;background:transparent;border-radius:9px;padding:8px 0;font-size:13px;font-weight:650;color:var(--mute);white-space:nowrap}
+.tabs button.on{background:var(--card);color:var(--ink);font-weight:750;box-shadow:0 2px 6px rgba(17,17,19,.12)}
 /* (4.6.1) el número, separado del texto y a la derecha, en una pastilla */
 .tabs button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 4px}
 .tabs button b{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:999px;font-size:11.5px;line-height:1}.tabs .n-ok{color:var(--ok);background:#e4f6ea}.tabs .n-warn{color:var(--warn);background:#fff1d6}
-.ap .d.ok{background:#e4f6ea}.ap .d.ok small{color:var(--ok)}.ap .d.warn{background:#fff1d6}.ap .d.warn small{color:var(--warn)}.ap .d.gone{background:#f1efea}.ap .d.gone small{color:var(--mute)}
-.card.past,.card.gone{background:#faf9f6;color:#4a4740}.card.gone .sv-t{text-decoration:line-through}
+.ap .d.ok{background:#e4f6ea}.ap .d.ok small{color:var(--ok)}.ap .d.warn{background:#fff1d6}.ap .d.warn small{color:var(--warn)}.ap .d.gone{background:var(--field)}.ap .d.gone small{color:var(--mute)}
+.card.past,.card.gone{background:var(--field);color:var(--mute)}.card.gone .sv-t{text-decoration:line-through}
 .when{font-size:12.5px;font-weight:700;margin-top:6px;color:var(--mute)}.when.soon{color:var(--ok)}
 .prop{border:2px solid #6d3fd8;box-shadow:0 10px 26px rgba(109,63,216,.15)}
 .pp{display:flex;gap:12px;align-items:center;margin:14px 0}.pp>div{flex:1;text-align:center;border-radius:14px;padding:10px}.pp small{display:block;font-size:11px;font-weight:800}
 .pp .was{background:var(--bg);color:var(--mute)}.pp .was s{font-size:15px}.pp .new{background:#f1ebff;color:#3b1a8f}.pp .new b{font-size:17px}.pp .ar{flex:none;font-size:20px;color:#6d3fd8}
 .tag.vio{background:#f1ebff;color:#4b22a8}
 .ap{display:flex;gap:12px;align-items:flex-start}.ap .d{flex:none;width:52px;border-radius:14px;background:var(--bg);text-align:center;padding:6px 0}.ap .d small{display:block;font-size:11px;font-weight:800;color:var(--pink);text-transform:uppercase}.ap .d b{display:block;font-size:20px;line-height:1.1}.ap .x{flex:1;min-width:0}
+
+/* ===================== (4.7.1) Como la app del equipo: claro (de fábrica) u oscuro, pasos en flecha, servicios en índice ===================== */
+.top{border-bottom-color:var(--line)}.top .tb{margin-left:auto;flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;padding:0}
+.top .tb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+html[data-theme=oscuro] .top img{filter:invert(1)}
+.card{background:var(--card);border-color:var(--line);box-shadow:none}
+.stpr{display:flex;margin:2px 0 10px}
+.stpr span{flex:1;min-width:0;height:34px;margin-left:-6px;padding:0 4px 0 12px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:12.5px;font-weight:750;white-space:nowrap;background:var(--field);color:var(--mute);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
+.stpr span:first-child{margin-left:0;padding-left:4px;border-radius:10px 0 0 10px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.stpr span:last-child{border-radius:0 10px 10px 0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,10px 50%)}
+.stpr span.on{background:var(--pink);color:#fff}.stpr span.done{background:var(--soft);color:var(--pink)}
+.grp{display:flex;align-items:center;gap:10px;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;margin:0 0 8px;font-size:15.5px;font-weight:750}
+.grp .gn{flex:1}.grp small{color:var(--mute);font-size:12px;font-weight:600}.grp i{min-width:20px;height:20px;border-radius:10px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;font-style:normal;display:grid;place-items:center;padding:0 5px}
+.grp svg{width:18px;height:18px;fill:none;stroke:var(--mute);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transform:rotate(180deg)}.grp.on svg{transform:none}
+.grp.on{margin-bottom:0;border-radius:14px 14px 0 0;border-bottom-color:var(--line2)}
+.grpB{border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px;overflow:hidden;background:var(--field);margin-bottom:8px}
+.grpB .sv{margin:0;border:0;border-radius:0;border-top:1px solid var(--line2);background:transparent;padding:12px 14px 12px 20px}.grpB .sv:first-child{border-top:0}.grpB .sv.on{background:var(--soft)}
+.again{display:flex;align-items:center;gap:12px;background:var(--soft);border:1px solid var(--pink);border-radius:16px;padding:12px 14px;margin:0 0 12px}
+.again .x{flex:1;min-width:0}.again b{display:block;font-size:14.5px}.again small{display:block;color:var(--mute);font-size:12.5px}
+.again button{flex:none;border:0;border-radius:12px;background:var(--pink);color:#fff;font-weight:800;font-size:14px;padding:10px 14px}
+.telOk{font-size:12.5px;font-weight:800;color:var(--ok);margin:6px 2px 0;min-height:16px}
+.hero{background:var(--solid);color:#fff;border-radius:20px;padding:16px;margin-bottom:12px}
+.hero .hk{display:flex;align-items:center;gap:8px}.hero .hk small{flex:1;font-size:11px;font-weight:800;letter-spacing:.1em;opacity:.8}.hero .hk span{font-size:11px;font-weight:800;color:#1d8a4a;background:#fff;border-radius:999px;padding:3px 9px}
+.hero .hd{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.02em;text-transform:capitalize}.hero .hh{font-size:17px;font-weight:700;opacity:.9}.hero .hs{margin-top:10px;font-size:14px}.hero .hw{font-size:13px;opacity:.8}
+.hero .hb{display:flex;gap:8px;margin-top:14px}.hero .hb a,.hero .hb button{flex:1;height:42px;border-radius:12px;background:rgba(255,255,255,.16);color:#fff;border:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:750;text-decoration:none}
+.hero .hb svg,.cb svg,.calB svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lbl{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--mute);margin:14px 2px 8px}
+.calB{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 11px;font-size:13px;font-weight:700}
+.aviso{display:flex;gap:10px;align-items:flex-start;border-radius:14px;padding:11px 13px;margin:0 0 10px;background:var(--soft);border:1px solid var(--pink);font-size:14px}
+.aviso b{display:block}.aviso button{margin-left:auto;flex:none;border:0;background:none;color:var(--mute);font-size:18px;line-height:1;padding:0 2px}
+.okBox{text-align:center;padding:22px 16px}.okBox .ck2{width:76px;height:76px;border-radius:50%;background:#e4f6ea;display:grid;place-items:center;margin:0 auto;color:#1d8a4a;font-size:38px;font-weight:900}
+.okBox h2{font-size:22px;margin:12px 0 4px}.okBox .resume{text-align:left;margin-top:14px}
+.ctr{display:flex;align-items:center;gap:10px}.ctr .ci{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--pink);display:grid;place-items:center;flex:none}.ctr .ci svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ctr b{display:block}.ctr small{display:block;color:var(--mute);font-size:12.5px}
+.cb{display:flex;gap:8px;margin-top:12px}.cb a{flex:1;height:40px;border-radius:12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:750}
+/* Mis citas: las pestañas con icono; la elegida, en rosa con su nombre */
+.tabs{background:transparent;padding:0;gap:6px;margin:6px 0 12px}
+.tabs button{flex:none;width:48px;height:44px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:0;position:relative;box-shadow:none}
+.tabs button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tabs button .tl{display:none}
+.tabs button.on{flex:1 1 auto;width:auto;background:var(--pink);border-color:var(--pink);color:#fff;padding:0 14px;box-shadow:none}.tabs button.on .tl{display:inline}
+.tabs button b{position:absolute;top:-4px;right:-4px}.tabs button.on b{position:static}
+.tabs .n-ok,.tabs .n-warn{background:#ffc21a;color:#3a2a00}
+/* hojas (Apariencia e Instalar) */
+.shBack{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.5);display:flex;align-items:flex-end}
+.sh{width:100%;max-width:560px;margin:0 auto;background:var(--card);color:var(--ink);border-radius:22px 22px 0 0;padding:12px 16px calc(18px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.sh::before{content:'';display:block;width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sh h2{margin:0 0 10px}.opt{display:flex;align-items:center;gap:12px;width:100%;border:0;border-top:1px solid var(--line2);background:transparent;color:var(--ink);padding:12px 4px;text-align:left;font-size:15px;font-weight:650}.opt:first-of-type{border-top:0}
+.opt i{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);box-sizing:border-box}.opt.on i{border:7px solid var(--pink)}
+.inst{text-align:center}.inst .ii{width:72px;height:72px;border-radius:18px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.18);display:grid;place-items:center;margin:0 auto}.inst .ii img{width:54px;height:54px}
+.inst h2{margin:12px 0 4px}.inst .st{text-align:left;margin-top:8px}.inst .sr{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}.inst .sr:first-child{border-top:0}
+.inst .sr i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--pink);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:13px}.inst .sr span{flex:1;font-size:14px;line-height:1.35}
+.inst button.p{margin-top:12px}.inst button.lnk{display:block;width:100%;margin-top:4px}
+html[data-theme=oscuro] .msg{background:#16223a;color:#cfe0ff}html[data-theme=oscuro] .msg.warn{background:#2b2210;color:#ffd98a}html[data-theme=oscuro] .msg.bad{background:#2c1219;color:#ffb3c7}html[data-theme=oscuro] .msg.ok{background:#12301f;color:#9fe3bd}
+html[data-theme=oscuro] .tag{background:#26262c;color:#c9c7d0}html[data-theme=oscuro] .tag.ok{background:#12301f;color:#4cc38a}html[data-theme=oscuro] .tag.warn{background:#2b2210;color:#ffd98a}html[data-theme=oscuro] .tag.bad{background:#2c1219;color:#ff8fa3}html[data-theme=oscuro] .tag.vio,html[data-theme=oscuro] .pp .new{background:#241a3d;color:#cbb6ff}
+/* la barra de abajo, como la de la app del equipo: icono y nombre; la elegida en rosa con su puntito */
+.modes{background:var(--bar);border-top:1px solid var(--line);padding:8px 6px calc(10px + env(safe-area-inset-bottom))}
+.modes .seg{background:transparent;padding:0;gap:0}
+.modes button{flex-direction:column;gap:3px;height:52px;font-size:11px;font-weight:650;color:var(--mute);background:transparent!important;box-shadow:none!important;border-radius:0}
+.modes button svg{width:22px;height:22px}
+.modes button.on{color:var(--pink);font-weight:800}.modes button.on::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--pink)}
+.modes .dot{top:0;right:calc(50% - 22px);background:#ffc21a;color:#3a2a00}
+html[data-theme=oscuro] .ap .d.ok{background:#12301f}html[data-theme=oscuro] .ap .d.warn{background:#2b2210}html[data-theme=oscuro] .okBox .ck2{background:#12301f}
 </style>
 </head>
 <body>
@@ -323,6 +391,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   function fullName(f) { return [cap(f.n1), cap(f.a1), cap(f.a2)].join(' '); }
   function phoneOk(pre, num) { var p = String(pre || '').replace(/\D/g, ''), n = digits(num); if (!p) return false; if (p === '34') return /^[6789]\d{8}$/.test(n); return /^[1-9]\d{0,3}$/.test(p) && (p + n).length >= 8 && (p + n).length <= 15 && n.length >= 6; }
   function phoneMsg(pre) { return String(pre || '').replace(/\D/g, '') === '34' ? 'El teléfono no es válido: tiene que tener 9 números y empezar por 6, 7, 8 o 9.' : 'El teléfono no es válido: revisa el prefijo del país y el número.'; }
+  function telOk() { var n = document.getElementById('telOk'); if (n) n.textContent = phoneOk(S.f.pre, S.f.phone) ? '✓ Teléfono correcto' : ''; }
   function fullPhone(f) { return '+' + String(f.pre).replace(/\D/g, '') + ' ' + digits(f.phone); }
   async function submit() {
     if (S.busy) return; var f = S.f, z = S.zdata, t = totals();
@@ -341,7 +410,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       var d = await device(), id = hex(8), req = { v: 1, id: id, kind: 'cita', at: new Date().toISOString(), pub: { x: d.x, y: d.y }, zona: S.zona, d: S.day, s: S.time, name: fullName(f), phone: fullPhone(f), svc: chosenSvc().map(function (s) { return s.id; }), emp: S.emp || '', note: f.note.trim() };
       if (f.photo && z.photo) req.photo = f.photo;
       await withPow(req); await send(req); store('last', Date.now());
-      var list = store('reqs') || []; list.unshift({ id: id, zona: S.zona, at: req.at, d: S.day, s: S.time, sv: chosenSvc().map(function (s) { return s.n; }), name: fullName(f) }); store('reqs', list.slice(0, 20));
+      var list = store('reqs') || []; list.unshift({ id: id, zona: S.zona, at: req.at, d: S.day, s: S.time, sv: chosenSvc().map(function (s) { return s.n; }), name: fullName(f), empN: S.emp ? ((S.zdata.emps || []).filter(function (e) { return e.id === S.emp; })[0] || {}).n || '' : '' }); store('reqs', list.slice(0, 20));
       S.sent = id; S.sel = {}; S.step = 0; S.day = ''; S.time = ''; S.emp = ''; S.f = { n1: f.n1, a1: f.a1, a2: f.a2, pre: f.pre, phone: f.phone, note: '', consent: false, photo: '' };
       S.tab = 'mis'; S.busy = false; await loadMine(); return;
     } catch (e) { S.err = e.message; }
@@ -374,7 +443,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       if (r.hidden || (res && res.state === 'anulada')) { if (!r.hidden) hideReq(r.id, true); res = Object.assign({}, res || {}, { state: 'anulada', mine: true }); }
       out.push({ r: r, res: res });
     }
-    S.mine = out; S.mineBusy = false; render();
+    S.mine = out; S.mineBusy = false; S.avisos = null; render(); instCheck(); // (4.7.1)
   }
   function hideReq(id, keep) { var l = store('reqs') || []; l.forEach(function (x) { if (x.id === id) x.hidden = true; }); store('reqs', l); if (!keep) S.mine.forEach(function (m) { if (m.r.id === id) m.res = Object.assign({}, m.res || {}, { state: 'anulada', mine: true }); }); }
   async function answer(r, kind) {
@@ -407,13 +476,47 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     sunset: [['path', { d: 'M17 18a5 5 0 0 0-10 0M12 9V2M4.2 10.2l1.4 1.4M1 18h2M21 18h2M18.4 11.6l1.4-1.4M23 22H1M16 5l-4 4-4-4' }]],
     moon: [['path', { d: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z' }]],
     user: [['circle', { cx: '12', cy: '8', r: '4' }], ['path', { d: 'M4 21a8 8 0 0 1 16 0' }]],
-    sync: [['path', { d: 'M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9' }], ['path', { d: 'M18.5 3v4.2h-4.2M5.5 21v-4.2h4.2' }]]
+    sync: [['path', { d: 'M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9' }], ['path', { d: 'M18.5 3v4.2h-4.2M5.5 21v-4.2h4.2' }]],
+    half: [['circle', { cx: '12', cy: '12', r: '9' }], ['path', { d: 'M12 3a9 9 0 0 1 0 18z', fill: 'currentColor' }]],
+    chev: [['path', { d: 'M6 15l6-6 6 6' }]], hour: [['path', { d: 'M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9' }]],
+    check: [['path', { d: 'M5 12l5 5 9-10' }]], x: [['path', { d: 'M6 6l12 12M18 6L6 18' }]], phone: [['path', { d: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z' }]],
+    wa: [['path', { d: 'M4 20l1.3-4A8 8 0 1 1 8 18.7z' }]], store: [['path', { d: 'M3 9l1.5-5h15L21 9' }], ['path', { d: 'M5 12v9h14v-9M10 21v-5h4v5M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0' }]],
+    calAdd: [['rect', { x: '3', y: '5', width: '18', height: '16', rx: '3' }], ['path', { d: 'M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5' }]]
   };
+  // (4.7.1) Tema claro (de fábrica), oscuro o automático: lo elige la clienta con el botón de arriba (se guarda en este móvil).
+  function temaCur() { var t = store('tema'); return t === 'oscuro' || t === 'auto' ? t : 'claro'; }
+  function temaApply() { var t = temaCur(); if (t === 'auto') { try { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro'; } catch (e) { t = 'claro'; } } document.documentElement.setAttribute('data-theme', t); var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', t === 'oscuro' ? '#0e0e11' : '#ffffff'); }
+  function shSheet(id, kids) { var old = document.getElementById('shBack'); if (old) old.remove(); var b = el('div', { class: 'shBack', id: 'shBack', onclick: function (e) { if (e.target === b) b.remove(); } }, [el('div', { class: 'sh', id: id }, kids)]); document.body.appendChild(b); return function () { b.remove(); }; }
+  function temaSheet() {
+    var opts = [['claro', 'Claro', 'Fondo blanco, como de día'], ['oscuro', 'Oscuro', 'Cansa menos la vista'], ['auto', 'Automático', 'Como tenga puesto el móvil']];
+    var close = shSheet('temaOpts', [el('h2', { text: 'Apariencia' })].concat(opts.map(function (o) { return el('button', { type: 'button', class: 'opt' + (temaCur() === o[0] ? ' on' : ''), id: 'tema-' + o[0], onclick: function () { store('tema', o[0]); temaApply(); close(); } }, [el('span', {}, [el('b', { text: o[1] }), el('div', { class: 'hint', text: o[2] })]), el('i')]); })));
+  }
+  temaApply(); try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', temaApply); } catch (e) { }
+  // (4.7.1) Nada más abrirla en el navegador, ofrece instalarla: Android con el botón «Instalar» (el aviso del propio móvil);
+  // iPhone con los 3 toques de Safari (y deja el enlace en la dirección para que el icono lo guarde). «Ahora no»: 14 días.
+  var INST = { prompt: null, shown: false };
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); INST.prompt = e; });
+  function isStandalone() { try { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
+  function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+  function instCheck() {
+    if (INST.shown || isStandalone() || navigator.webdriver || !link.k) return; INST.shown = true;
+    var android = /android/i.test(navigator.userAgent); if (!isIOS() && !android && !INST.prompt) return; if ((+store('instalar') || 0) > Date.now() || document.getElementById('shBack')) return;
+    if (isIOS()) { try { history.replaceState(null, '', location.pathname + location.search + '#k=' + link.k + '&z=' + link.z + '&r=' + encodeURIComponent(link.r)); } catch (e) { } }
+    var name = S.zdata && S.zdata.local ? S.zdata.local.n : 'tu centro';
+    var steps = isIOS() ? [['Toca ', 'Compartir', ' abajo en Safari'], ['Elige ', 'Añadir a pantalla de inicio', ''], ['Toca ', 'Añadir', ' arriba a la derecha']]
+      : INST.prompt ? [['Toca ', 'Instalar', ' aquí abajo'], ['Acepta en el aviso del móvil', '', ''], ['Ya la tienes en la pantalla de inicio', '', '']] : [['Toca el menú ', '⋮', ' de Chrome'], ['Elige ', 'Instalar aplicación', ''], ['Acepta', '', '']];
+    var close = shSheet('instalar', [el('div', { class: 'inst' }, [el('div', { class: 'ii' }, [el('img', { src: LOGO, alt: '' })]), el('h2', { text: 'Instala la app de ' + name }),
+      el('div', { class: 'hint', text: 'Pide cita y mira tus citas con un toque, sin buscar el enlace. ' + (isIOS() ? 'En iPhone se instala desde Safari en 3 toques:' : 'Se instala con un toque:') }),
+      el('div', { class: 'st' }, steps.map(function (x, i) { return el('div', { class: 'sr' }, [el('i', { text: String(i + 1) }), el('span', {}, [x[0], x[1] ? el('b', { text: x[1] }) : null, x[2]])]); })),
+      !isIOS() && INST.prompt ? el('button', { class: 'p', type: 'button', id: 'instalarYa', text: 'Instalar', onclick: function () { var pr = INST.prompt; INST.prompt = null; close(); try { pr.prompt(); } catch (e) { } } }) : null,
+      el('button', { class: 'lnk', type: 'button', id: 'instalarNo', text: 'Ahora no', onclick: function () { store('instalar', Date.now() + 14 * 86400e3); try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) { } close(); } })])]);
+  }
   function head() {
     var z = S.zdata, top = document.getElementById('top');
     if (!top) { top = el('div', { class: 'top', id: 'top' }); document.body.insertBefore(top, root); }
     top.textContent = ''; top.appendChild(el('img', { src: LOGO, alt: 'Consentía Studio', id: 'logo' }));
     top.appendChild(el('div', { class: 't' }, [el('b', { text: z ? z.local.n : 'Consentía Studio' }), el('small', { text: z ? [z.local.l, z.local.a].filter(Boolean).join(' · ') || 'Pide tu cita' : 'Pide tu cita' })]));
+    var tb = el('button', { type: 'button', class: 'tb', id: 'temaBtn', 'aria-label': 'Apariencia: claro u oscuro', title: 'Claro u oscuro', onclick: temaSheet }); tb.appendChild(ico(I.half)); top.appendChild(tb); // (4.7.1)
   }
   function nav() {
     var n = document.getElementById('nav'); if (!link.k) { if (n) n.remove(); return; }
@@ -427,7 +530,9 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
   }
   function msg(t, k) { return t ? el('div', { class: 'msg ' + (k || ''), text: t }) : null; }
   var STEPS = ['Centro', 'Servicios', 'Cuándo', 'Tus datos'];
-  function stepHead(n, title, lead) { return [el('div', { class: 'steps' }, STEPS.map(function (x, i) { return el('i', { class: i <= n ? 'on' : '' }); })), el('div', { class: 'stepT', text: 'Paso ' + (n + 1) + ' de 4 · ' + STEPS[n] }), el('h1', { text: title }), lead ? el('p', { class: 'lead', text: lead }) : null]; }
+  function multiLoc() { var z = S.zdata; return !!(z && (z.locales || []).length > 1); } // (4.7.1) el paso «Centro», solo con varios locales
+  function stepHead(n, title, lead) { var off = multiLoc() ? 0 : 1, list = STEPS.slice(off);
+    return [el('div', { class: 'stpr', id: 'pasos' }, list.map(function (x, i) { var k = i + off; return el('span', { class: k === n ? 'on' : k < n ? 'done' : '' }, [k < n ? '✓ ' : '', x]); })), el('h1', { text: title }), lead ? el('p', { class: 'lead', text: lead }) : null]; }
   function go(n) { S.step = n; S.err = ''; render(); window.scrollTo(0, 0); }
   function bar(text, next, nextTxt, canBack) {
     return el('div', { class: 'sum', id: 'sumBar' }, [el('div', { class: 'in' }, [canBack ? el('button', { class: 'bk', type: 'button', text: '‹', 'aria-label': 'Atrás', onclick: function () { go(Math.max(0, S.step - 1)); } }) : null, el('b', { text: text }), next ? el('button', { class: 'p', type: 'button', id: 'siguiente', text: nextTxt || 'Siguiente', onclick: next }) : null])]);
@@ -454,18 +559,38 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     if (!z.svc.length) { out.push(msg('Ahora mismo no hay servicios para pedir por aquí. Escríbenos.', 'warn')); return out; }
     var low = function (x) { return String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }, q = low(S.q).trim();
     if (z.svc.length > 10) out.push(el('input', { type: 'search', id: 'svBuscar', placeholder: 'Busca un servicio', value: S.q || '', style: 'margin-bottom:10px', oninput: function (e) { S.q = e.target.value; var p = e.target.selectionStart; render(); var n = document.getElementById('svBuscar'); if (n) { n.focus(); try { n.setSelectionRange(p, p); } catch (er) { } } } }));
-    if (cats.length > 1) out.push(el('div', { class: 'cats', id: 'svCats' }, [''].concat(cats).map(function (c) { return el('button', { type: 'button', class: 'pill' + ((S.cat || '') === c ? ' on' : ''), text: c || 'Todos', onclick: function () { S.cat = c; render(); } }); })));
+    // (4.7.1) «Pedir lo mismo otra vez»: el servicio (y la persona) de su última cita, de un toque.
+    var ag = again(); if (ag && !q) out.push(el('div', { class: 'again', id: 'otraVez' }, [el('div', { class: 'x' }, [el('b', { text: '¿Lo mismo que la última vez?' }), el('small', { text: ag.sv.map(function (s) { return s.n; }).join(' + ') + (ag.emp ? ' · con ' + ag.emp.n : '') })]),
+      el('button', { type: 'button', id: 'pedirIgual', text: 'Pedir lo mismo', onclick: function () { S.sel = {}; ag.sv.forEach(function (s) { S.sel[s.id] = true; }); S.emp = ag.emp ? ag.emp.id : ''; S.day = ''; S.time = ''; go(2); } })]));
+    // (4.7.1) Los servicios como un índice: cada grupo se despliega al tocarlo (con cuántos llevas de ese grupo). Al buscar, todos.
+    var svLabel = function (s) { var on = !!S.sel[s.id];
+      return el('label', { class: 'sv' + (on ? ' on' : '') }, [el('input', { type: 'checkbox', checked: on, onchange: function (e) { if (e.target.checked && totals().n >= 6) { e.target.checked = false; S.err = 'Como mucho 6 servicios.'; render(); return; } S.sel[s.id] = e.target.checked; S.day = ''; S.time = ''; S.err = ''; render(); } }), el('span', { class: 'ck', text: on ? '✓' : '' }), el('span', { class: 'n', text: s.n }), el('span', { class: 'm' }, [durText(s.m), el('br'), money(s.p)])]); };
     var shown = 0;
-    cats.forEach(function (c) {
-      if (S.cat && S.cat !== c) return;
-      var list = z.svc.filter(function (s) { return s.c === c && (!q || S.sel[s.id] || q.split(/\s+/).every(function (w) { return low(s.n + ' ' + c).indexOf(w) >= 0; })); }); if (!list.length) return;
-      out.push(el('h3', { text: c || 'Otros' }));
-      list.forEach(function (s) { shown++; var on = !!S.sel[s.id];
-        out.push(el('label', { class: 'sv' + (on ? ' on' : '') }, [el('input', { type: 'checkbox', checked: on, onchange: function (e) { if (e.target.checked && totals().n >= 6) { e.target.checked = false; S.err = 'Como mucho 6 servicios.'; render(); return; } S.sel[s.id] = e.target.checked; S.day = ''; S.time = ''; S.err = ''; render(); } }), el('span', { class: 'ck', text: on ? '✓' : '' }), el('span', { class: 'n', text: s.n }), el('span', { class: 'm' }, [durText(s.m), el('br'), money(s.p)])])); });
-    });
+    if (q || cats.length < 2) {
+      cats.forEach(function (c) {
+        var list = z.svc.filter(function (s) { return s.c === c && (!q || S.sel[s.id] || q.split(/\s+/).every(function (w) { return low(s.n + ' ' + c).indexOf(w) >= 0; })); }); if (!list.length) return;
+        if (cats.length > 1) out.push(el('h3', { text: c || 'Otros' })); list.forEach(function (s) { shown++; out.push(svLabel(s)); }); });
+    } else {
+      if (S.openCat == null) { var pc = z.svc.filter(function (s) { return S.sel[s.id]; })[0]; S.openCat = pc ? pc.c : cats[0]; }
+      var idx = el('div', { id: 'svIndice' });
+      cats.forEach(function (c) { var list = z.svc.filter(function (s) { return s.c === c; }), n = list.filter(function (s) { return S.sel[s.id]; }).length, o = c === S.openCat; shown += list.length;
+        var h = el('button', { type: 'button', class: 'grp' + (o ? ' on' : ''), 'data-g': c, onclick: function () { S.openCat = o ? '' : c; render(); } }, [el('span', { class: 'gn', text: c || 'Otros' }), n ? el('i', { text: String(n) }) : el('small', { text: String(list.length) })]); h.appendChild(ico(I.chev)); idx.appendChild(h);
+        if (o) idx.appendChild(el('div', { class: 'grpB' }, list.map(svLabel))); });
+      out.push(idx);
+    }
     if (!shown) out.push(el('div', { class: 'card hint', text: 'No hay ningún servicio con ese nombre.' }));
-    out.push(t.n ? bar(t.n + ' servicio' + (t.n > 1 ? 's' : '') + ' · ' + durText(t.m) + ' · ' + money(t.p), function () { go(2); }, 'Siguiente', true) : bar('Elige al menos un servicio', null, '', true));
+    out.push(t.n ? bar(t.n + ' servicio' + (t.n > 1 ? 's' : '') + ' · ' + durText(t.m) + ' · ' + money(t.p), function () { go(2); }, 'Siguiente', multiLoc()) : bar('Elige al menos un servicio', null, '', multiLoc())); // (4.7.1) «‹» solo si hay paso «Centro»
     return out;
+  }
+  // (4.7.1) Su última cita (de este móvil o del centro) con servicios que se siguen pudiendo pedir aquí.
+  function again() {
+    var z = S.zdata; if (!z || !z.svc) return null; var cand = [];
+    (S.mine || []).forEach(function (m) { var x = m.res || {}; if (x.state === 'confirmada' || x.state === 'pendiente' || !m.res) cand.push({ d: (x.cita || m.r).d, sv: (x.sv && x.sv.length ? x.sv : m.r.sv) || [], emp: (x.cita && x.cita.emp) || m.r.empN || '' }); });
+    ((S.cl && S.cl.citas) || []).forEach(function (x) { cand.push({ d: x.d, sv: x.sv || [], emp: x.emp || '' }); });
+    cand.sort(function (a, b) { return a.d < b.d ? 1 : -1; });
+    for (var i = 0; i < cand.length; i++) { var sv = cand[i].sv.map(function (n) { return z.svc.filter(function (s) { return s.n === n; })[0]; }); if (!sv.length || sv.some(function (x) { return !x; })) continue;
+      var e = cand[i].emp ? (z.emps || []).filter(function (x) { return x.n === cand[i].emp || x.n.split(' ')[0] === cand[i].emp; })[0] : null; return { sv: sv, emp: z.pick ? e || null : null }; }
+    return null;
   }
   function allDays() { var z = S.zdata, out = [], p = String(z.from || '').split('-'); if (p.length !== 3) return Object.keys(z.days || {}).sort(); var d = new Date(+p[0], +p[1] - 1, +p[2]); for (var i = 0; i < 70; i++) { var k = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); if (k > z.to) break; out.push(k); d.setDate(d.getDate() + 1); } return out; }
   function stepTime() {
@@ -482,7 +607,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     var strip = el('div', { class: 'chips', id: 'dias' }, days.map(function (d) {
       var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), wd = ''; try { wd = dt.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', ''); } catch (e) { }
       var isClosed = closed.indexOf(d) >= 0, isOk = ok.indexOf(d) >= 0;
-      return el('button', { type: 'button', class: 'chip' + (d === S.day ? ' on' : '') + (isOk ? '' : ' off'), 'data-d': d, disabled: !isOk, title: dayText(d, true), onclick: function () { S.day = d; S.time = ''; render(); } }, [el('small', { text: wd }), el('b', { text: String(+p[2]) }), el('em', { text: isClosed ? 'Cerrado' : isOk ? (+p[1] === new Date().getMonth() + 1 ? '' : dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', '')) : 'Completo' })]);
+      return el('button', { type: 'button', class: 'chip' + (d === S.day ? ' on' : '') + (isOk ? '' : ' off'), 'data-d': d, disabled: !isOk, title: dayText(d, true), onclick: function () { S.day = d; S.time = ''; render(); } }, [el('small', { text: wd }), el('b', { text: String(+p[2]) }), el('em', { text: isClosed ? 'Cerrado' : isOk ? (function (n) { return n === 1 ? '1 libre' : n + ' libres'; })(times(d).length) : 'Completo' })]); /* (4.7.1) cuántas horas libres */
     }));
     out.push(strip); setTimeout(function () { var on = strip.querySelector('.on'); if (on && on.scrollIntoView) try { on.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) { } }, 0);
     out.push(el('h3', { text: 'Hora · ' + dayText(S.day, true) }));
@@ -507,8 +632,9 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       el('label', { for: 'nombre', text: 'Nombre' }), el('input', { type: 'text', id: 'nombre', autocomplete: 'given-name', maxlength: 30, value: f.n1, oninput: function (e) { f.n1 = noDigits(e.target); } }),
       el('div', { class: 'two' }, [el('div', {}, [el('label', { for: 'apellido1', text: 'Primer apellido' }), el('input', { type: 'text', id: 'apellido1', autocomplete: 'family-name', maxlength: 30, value: f.a1, oninput: function (e) { f.a1 = noDigits(e.target); } })]),
         el('div', {}, [el('label', { for: 'apellido2', text: 'Segundo apellido' }), el('input', { type: 'text', id: 'apellido2', autocomplete: 'off', maxlength: 30, value: f.a2, oninput: function (e) { f.a2 = noDigits(e.target); } })])]),
-      el('label', { for: 'telefono', text: 'Teléfono' }), el('div', { class: 'telRow' }, [el('input', { type: 'tel', id: 'prefijo', 'aria-label': 'Prefijo del país', maxlength: 5, value: f.pre, oninput: function (e) { var v = '+' + e.target.value.replace(/\D/g, '').slice(0, 4); e.target.value = v; f.pre = v; } }),
-        el('input', { type: 'tel', id: 'telefono', autocomplete: 'tel-national', inputmode: 'numeric', maxlength: 16, placeholder: f.pre === '+34' ? '612 345 678' : '', value: f.phone, oninput: function (e) { var v = e.target.value.replace(/[^\d ]/g, ''); if (v !== e.target.value) e.target.value = v; f.phone = v; } })]),
+      el('label', { for: 'telefono', text: 'Teléfono' }), el('div', { class: 'telRow' }, [el('input', { type: 'tel', id: 'prefijo', 'aria-label': 'Prefijo del país', maxlength: 5, value: f.pre, oninput: function (e) { var v = '+' + e.target.value.replace(/\D/g, '').slice(0, 4); e.target.value = v; f.pre = v; telOk(); } }),
+        el('input', { type: 'tel', id: 'telefono', autocomplete: 'tel-national', inputmode: 'numeric', maxlength: 16, placeholder: f.pre === '+34' ? '612 345 678' : '', value: f.phone, oninput: function (e) { var v = e.target.value.replace(/[^\d ]/g, ''); if (v !== e.target.value) e.target.value = v; f.phone = v; telOk(); } })]),
+      el('div', { class: 'telOk', id: 'telOk', text: phoneOk(f.pre, f.phone) ? '✓ Teléfono correcto' : '' }), /* (4.7.1) */
       el('div', { class: 'hint', text: 'Con el prefijo del país (+34 en España). Lo usaremos para confirmarte la cita.' }),
       el('label', { text: 'Algo que debamos saber (opcional)' }), el('textarea', { id: 'nota', maxlength: 300, placeholder: 'Alergias, qué te quieres hacer, si vienes con alguien…', oninput: function (e) { f.note = e.target.value; } }, [f.note])]);
     if (z.photo) {
@@ -528,7 +654,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     if (!z && S.err && !S.loading) { var e0 = S.err; S.err = ''; return [el('div', { class: 'card empty', id: 'sinCita' }, [el('h2', { text: 'Aquí todavía no se puede pedir cita' }), el('div', { class: 'hint', text: e0 + ' Llámanos o escríbenos.' }), el('button', { class: 'p', type: 'button', style: 'margin-top:14px', text: 'Volver a intentarlo', onclick: function () { loadLocal(link.z); } }), el('button', { class: 'lnk', type: 'button', text: 'Ir a Mis citas', onclick: function () { S.tab = 'mis'; render(); } })])]; }
     if (!z) return [];
     if (z.full || S.full) return [fullCard()]; // (4.5.0) topes del centro
-    if (S.step === 0) return stepLocal(); if (S.step === 1) return stepServices(); if (S.step === 2) return stepTime(); return stepData();
+    if (S.step === 0 && !multiLoc()) S.step = 1; if (S.step === 0) return stepLocal(); if (S.step === 1) return stepServices(); if (S.step === 2) return stepTime(); return stepData();
   }
   var STATE = { pendiente: ['warn', 'Esperando respuesta'], confirmada: ['ok', 'Confirmada'], propuesta: ['vio', 'Nueva hora propuesta'], rechazada: ['bad', 'No ha podido ser'], caducada: ['bad', 'Sin respuesta a tiempo'], anulada: ['bad', 'Anulada por ti'], cancelada: ['bad', 'Anulada por el centro'], completa: ['bad', 'Estamos completas'] };
   function dateBadge(d, cls) { var p = d.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]), m = ''; try { m = dt.toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''); } catch (e) { } return el('div', { class: 'd' + (cls ? ' ' + cls : '') }, [el('small', { text: m }), el('b', { text: String(+p[2]) })]); }
@@ -562,20 +688,61 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     if (x && st === 'confirmada' && g === 'prox') body.appendChild(el('button', { class: 's bad', type: 'button', style: 'margin-top:8px', disabled: S.busy ? true : null, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(r, 'anula'); } }));
     return c;
   }
+  // (4.7.1) Su próxima cita, en grande: día, hora, servicios y con quién; «Cómo llegar» y «Llamar»; «Añadir a mi calendario».
+  function heroCard(h) {
+    var z = S.zdata, loc = z && z.local ? z.local : {}, tel = String(loc.tel || '').replace(/[^\d+]/g, ''), adr = [loc.a, loc.n].filter(Boolean).join(', ');
+    var hd = ''; try { var p = h.d.split('-'); hd = new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' }).replace('.', ''); } catch (e) { hd = h.d; }
+    var bts = el('div', { class: 'hb' });
+    if (adr) { var a1 = el('a', { href: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(adr), target: '_blank', rel: 'noopener noreferrer', id: 'comoLlegar' }); a1.appendChild(ico(I.pin)); a1.appendChild(document.createTextNode('Cómo llegar')); bts.appendChild(a1); }
+    if (tel.replace(/\D/g, '').length >= 6) { var a2 = el('a', { href: 'tel:' + tel, id: 'llamar' }); a2.appendChild(ico(I.phone)); a2.appendChild(document.createTextNode('Llamar')); bts.appendChild(a2); }
+    var c = el('div', { class: 'hero', id: 'proxima', 'data-state': h.centro ? 'centro' : 'confirmada' }, [el('div', { class: 'hk' }, [el('small', { text: 'TU PRÓXIMA CITA' }), el('span', { text: '✓ Confirmada' })]), el('div', { class: 'hd', text: hd }), el('div', { class: 'hh', text: h.s + (h.e ? '–' + h.e : '') + ' · ' + whenTxt(h.d).toLowerCase() }),
+      el('div', { class: 'hs', text: (h.sv || []).join(' + ') || 'Cita' }), el('div', { class: 'hw', text: [h.emp ? 'con ' + h.emp : '', h.l || ''].filter(Boolean).join(' · ') }), h.msg ? el('div', { class: 'hw', style: 'margin-top:6px;opacity:1', text: '«' + h.msg + '»' }) : null, bts.children.length ? bts : null]);
+    var cb = el('button', { type: 'button', class: 'calB', id: 'alCalendario', style: 'background:rgba(255,255,255,.16);color:#fff;border:0', onclick: function () { icsDown(h); } }); cb.appendChild(ico(I.calAdd)); cb.appendChild(document.createTextNode('Añadir a mi calendario')); c.appendChild(cb);
+    if (h.r) c.appendChild(el('button', { class: 'lnk', type: 'button', style: 'color:#fff;opacity:.85;display:block;margin-top:6px', disabled: S.busy ? true : null, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(h.r, 'anula'); } }));
+    return c;
+  }
+  // (4.7.1) «Añadir a mi calendario»: un archivo .ics con la cita (lo abre el calendario del móvil). No sale nada a internet.
+  function icsDown(h) {
+    var z = S.zdata, loc = z && z.local ? z.local : {}, dd = h.d.replace(/-/g, ''), t = function (x) { return String(x || '').replace(/:/g, '') + '00'; }, end = h.e || endOf(h.s, 60);
+    var esc2 = function (x) { return String(x || '').replace(/[\\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, ' '); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Consentia Studio//Cita//ES', 'BEGIN:VEVENT', 'UID:' + hex(8) + '@consentia', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', 'DTSTART:' + dd + 'T' + t(h.s), 'DTEND:' + dd + 'T' + t(end),
+      'SUMMARY:' + esc2((h.sv || []).join(' + ') || 'Cita') + ' · ' + esc2(loc.n || 'Centro'), 'LOCATION:' + esc2([loc.a, loc.n].filter(Boolean).join(', ')), 'DESCRIPTION:' + esc2(h.emp ? 'Con ' + h.emp : ''), 'BEGIN:VALARM', 'TRIGGER:-PT2H', 'ACTION:DISPLAY', 'DESCRIPTION:Tienes cita', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    try { var u = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })), a = el('a', { href: u, download: 'cita-' + h.d + '.ics' }); document.body.appendChild(a); a.click(); setTimeout(function () { a.remove(); URL.revokeObjectURL(u); }, 2000); } catch (e) { }
+  }
+  // (4.7.1) «¡Solicitud enviada!» con el resumen de lo que ha pedido.
+  function okBox() {
+    var r = (store('reqs') || []).filter(function (x) { return x.id === S.sent; })[0] || {};
+    var res = r.d ? el('div', { class: 'resume' }, [el('span', { text: 'Día' }), el('b', { text: dayText(r.d, true) }), el('span', { text: 'Hora' }), el('b', { text: r.s || '' }), el('span', { text: 'Servicios' }), el('b', { text: (r.sv || []).join(' + ') }), r.empN ? el('span', { text: 'Con' }) : null, r.empN ? el('b', { text: r.empN }) : null]) : null;
+    return el('div', { class: 'card okBox', id: 'enviada' }, [el('div', { class: 'ck2', text: '✓' }), el('h2', { text: '¡Solicitud enviada!' }), el('div', { class: 'hint', text: 'Te la confirmamos en menos de 24 horas. La respuesta te sale aquí, en «Pendientes».' }), res]);
+  }
+  // (4.7.1) Avisos dentro de la app: lo que ha cambiado desde la última vez que la abrió (confirmada, otra hora propuesta,
+  // no ha podido ser, anulada por el centro). Se ve una vez; con la ✕ se quita.
+  function avisos() {
+    if (S.mineBusy || !S.mine.length) return [];
+    if (!S.avisos) { var seen = store('vistos') || {}, out = [], now = {};
+      S.mine.forEach(function (m) { var st = m.res && m.res.state; if (!st) return; now[m.r.id] = st; if (seen[m.r.id] === st || st === 'pendiente' || st === 'anulada') return;
+        var c = m.res.cita || { d: m.r.d, s: m.r.s }, w = dayText(c.d) + ' · ' + c.s;
+        var t = st === 'confirmada' ? ['Tu cita está confirmada', w] : st === 'propuesta' ? ['Te proponemos otra hora', 'Contesta en «Pendientes»'] : st === 'rechazada' || st === 'completa' ? ['Tu solicitud no ha podido ser', w] : st === 'cancelada' ? ['El centro ha anulado tu cita', w] : st === 'caducada' ? ['Tu solicitud se quedó sin respuesta', w] : null;
+        if (t) out.push(t); });
+      store('vistos', now); S.avisos = out; }
+    return S.avisos.map(function (t, i) { return el('div', { class: 'aviso', 'data-aviso': String(i) }, [el('div', {}, [el('b', { text: t[0] }), el('span', { class: 'hint', text: t[1] })]), el('button', { type: 'button', 'aria-label': 'Quitar el aviso', text: '×', onclick: function () { S.avisos.splice(i, 1); render(); } })]); });
+  }
   function endOf(s, du) { var m = (+s.slice(0, 2)) * 60 + (+s.slice(3, 5)) + (+du || 0); return pad2(Math.floor(m / 60) % 24) + ':' + pad2(m % 60); }
   function centroCard(x) { return el('div', { class: 'card', 'data-state': 'centro' }, [el('div', { class: 'ap' }, [dateBadge(x.d, 'ok'), el('div', { class: 'x' }, [el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('span', { class: 'tag ok', text: 'Confirmada' })]), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e + (x.emp ? ' con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') }), el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(x.d)) ? ' soon' : ''), text: whenTxt(x.d) })])])]); }
-  var TABS = [['prox', 'Próximas', 'n-ok'], ['pend', 'Pendientes', 'n-warn'], ['pas', 'Pasadas', ''], ['anu', 'Anuladas', '']];
+  var TABS = [['prox', 'Próximas', 'n-ok', 'cal'], ['pend', 'Pendientes', 'n-warn', 'hour'], ['pas', 'Pasadas', '', 'check'], ['anu', 'Anuladas', '', 'x']]; // (4.7.1) con su icono
   function mis() {
     var rb = el('button', { type: 'button', class: 'refresh' + (S.mineBusy || S.clBusy ? ' spin' : ''), id: 'actualizar', 'aria-label': 'Actualizar', title: 'Actualizar', onclick: function () { S.info = ''; S.sent = null; loadMine(); if (store('cli')) showClient(); } }); rb.appendChild(ico(I.sync));
     var parts = [el('div', { class: 'titleRow' }, [rb, el('h1', { text: 'Mis citas' })])];
     if (S.info) parts.push(msg(S.info, 'ok'));
-    if (S.sent) parts.push(msg('¡Solicitud enviada! Te la confirmamos en menos de 24 horas. La respuesta te sale aquí, en «Pendientes».', 'ok'));
+    if (S.sent) parts.push(okBox()); /* (4.7.1) «¡Solicitud enviada!» con el resumen */
+    avisos().forEach(function (a) { parts.push(a); }); // (4.7.1) lo que ha cambiado desde la última vez
     var c = store('cli'), centro = S.cl && S.cl.citas ? S.cl.citas : [];
     // Las del centro que ya salen como confirmadas desde este móvil, una sola vez.
     var mineKeys = {}; S.mine.forEach(function (m) { if (m.res && m.res.state === 'confirmada' && m.res.cita) mineKeys[m.res.cita.d + ' ' + m.res.cita.s] = 1; });
     var g = { prox: [], pend: [], pas: [], anu: [] };
-    S.mine.forEach(function (m) { g[groupOf(m)].push({ k: (m.res && m.res.cita ? m.res.cita.d + m.res.cita.s : m.r.d + m.r.s), n: mineCard(m), prop: m.res && m.res.state === 'propuesta' }); });
-    centro.forEach(function (x) { if (!mineKeys[x.d + ' ' + x.s]) g.prox.push({ k: x.d + x.s, n: centroCard(x) }); });
+    S.mine.forEach(function (m) { var gg = groupOf(m), x0 = m.res, sh = x0 && x0.cita ? x0.cita : { d: m.r.d, s: m.r.s };
+      g[gg].push({ k: (m.res && m.res.cita ? m.res.cita.d + m.res.cita.s : m.r.d + m.r.s), n: mineCard(m), prop: m.res && m.res.state === 'propuesta', h: gg === 'prox' ? { d: sh.d, s: sh.s, e: sh.du ? endOf(sh.s, sh.du) : '', sv: (x0 && x0.sv && x0.sv.length ? x0.sv : m.r.sv) || [], emp: sh.emp || '', r: x0 && x0.state === 'confirmada' ? m.r : null, msg: x0 && x0.msg ? x0.msg : '' } : null }); });
+    centro.forEach(function (x) { if (!mineKeys[x.d + ' ' + x.s]) g.prox.push({ k: x.d + x.s, n: centroCard(x), h: { d: x.d, s: x.s, e: x.e, sv: x.sv || [], emp: x.emp || '', l: x.l || '', centro: true } }); });
     g.prox.sort(function (a, b) { return a.k < b.k ? -1 : 1; }); g.pend.sort(function (a, b) { return (b.prop ? 1 : 0) - (a.prop ? 1 : 0) || (a.k < b.k ? -1 : 1); }); g.pas.sort(function (a, b) { return a.k > b.k ? -1 : 1; });
     var total = g.prox.length + g.pend.length + g.pas.length + g.anu.length;
     if (!total) {
@@ -589,11 +756,12 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
     var tab = S.misTab; if (S.sent) tab = 'pend';
     if (!tab) tab = g.pend.some(function (x) { return x.prop; }) ? 'pend' : g.prox.length ? 'prox' : g.pend.length ? 'pend' : g.pas.length ? 'pas' : 'anu';
     var bar = el('div', { class: 'tabs', role: 'tablist' });
-    TABS.forEach(function (t) { var n = g[t[0]].length; bar.appendChild(el('button', { type: 'button', role: 'tab', id: 'tab-' + t[0], class: tab === t[0] ? 'on' : '', 'aria-selected': tab === t[0] ? 'true' : 'false', onclick: function () { S.misTab = t[0]; S.sent = null; render(); } }, [document.createTextNode(t[1]), n && (t[0] === 'prox' || t[0] === 'pend') ? el('b', { class: t[2], text: String(n) }) : null])); });
+    TABS.forEach(function (t) { var n = g[t[0]].length; var bt = el('button', { type: 'button', role: 'tab', id: 'tab-' + t[0], class: tab === t[0] ? 'on' : '', 'aria-selected': tab === t[0] ? 'true' : 'false', 'aria-label': t[1], title: t[1], onclick: function () { S.misTab = t[0]; S.sent = null; render(); } }); bt.appendChild(ico(I[t[3]])); bt.appendChild(el('span', { class: 'tl', text: t[1] })); if (n && (t[0] === 'prox' || t[0] === 'pend')) bt.appendChild(el('b', { class: t[2], text: String(n) })); bar.appendChild(bt); });
     parts.push(bar);
     var list = g[tab];
     if (!list.length) parts.push(el('div', { class: 'card empty', id: 'vacioTab' }, [el('div', { class: 'hint', text: { prox: 'No tienes citas próximas.', pend: 'No tienes solicitudes esperando respuesta.', pas: 'Aún no hay citas pasadas.', anu: 'No hay citas anuladas.' }[tab] })]));
-    list.forEach(function (x) { parts.push(x.n); });
+    if (tab === 'prox' && list.length && list[0].h) { parts.push(heroCard(list[0].h)); if (list.length > 1) parts.push(el('div', { class: 'lbl', text: 'SIGUIENTES CITAS' })); list.slice(1).forEach(function (x) { parts.push(x.n); }); } // (4.7.1)
+    else list.forEach(function (x) { parts.push(x.n); });
     if (tab === 'prox' && centro.length) parts.push(el('div', { class: 'hint', style: 'text-align:center;margin-top:4px', text: 'Para cambiar una cita del centro, escríbenos o llámanos.' }));
     return parts;
   }
@@ -617,7 +785,13 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
       box.appendChild(el('div', { class: 'row', style: 'margin-top:10px' }, [el('button', { class: 's', type: 'button', text: 'Actualizar', onclick: showClient }), el('button', { class: 'lnk', type: 'button', text: 'Olvidar mi código en este móvil', onclick: function () { store('cli', null); S.cl = null; S.clMsg = ''; render(); } })]));
     }
     if (S.clMsg) box.appendChild(msg(S.clMsg, 'bad')); parts.push(box);
-    var tel = S.zdata && S.zdata.local && S.zdata.local.tel; if (tel) parts.push(el('a', { class: 'tel', href: 'tel:' + String(tel).replace(/[^\d+]/g, ''), text: 'Llamar al centro · ' + tel }));
+    var loc = S.zdata && S.zdata.local; // (4.7.1) el centro, con Llamar · WhatsApp · Mapa
+    if (loc) { var tel = String(loc.tel || '').replace(/[^\d+]/g, ''), dg = tel.replace(/\D/g, ''), wa = dg.length === 9 ? '34' + dg : dg, adr = [loc.a, loc.n].filter(Boolean).join(', '), cb = el('div', { class: 'cb' });
+      var lk = function (href, txt, ic, id) { var a = el('a', { href: href, id: id }); if (/^https/.test(href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; } a.appendChild(ico(ic)); a.appendChild(document.createTextNode(txt)); cb.appendChild(a); };
+      if (dg.length >= 6) { lk('tel:' + tel, 'Llamar', I.phone, 'llamarCentro'); lk('https://wa.me/' + wa, 'WhatsApp', I.wa, 'waCentro'); } if (adr) lk('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(adr), 'Mapa', I.pin, 'mapaCentro');
+      var ci = el('span', { class: 'ci' }); ci.appendChild(ico(I.store));
+      parts.push(el('div', { class: 'card', id: 'tuCentro' }, [el('div', { class: 'ctr' }, [ci, el('div', {}, [el('b', { text: loc.n }), el('small', { text: [loc.l, loc.a].filter(Boolean).join(' · ') })])]), cb.children.length ? cb : null]));
+      if (tel) parts.push(el('a', { class: 'tel', href: 'tel:' + tel, text: 'Llamar al centro · ' + loc.tel })); }
     return parts;
   }
   function render() {
@@ -633,7 +807,7 @@ a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;borde
 
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }); } catch (e) { }
   render();
-  if (link.k && link.z) loadLocal(link.z).then(function () { if (store('reqs') && store('reqs').length) loadMine(); if (store('cli')) showClient(); });
+  if (link.k && link.z) loadLocal(link.z).then(function () { if (store('reqs') && store('reqs').length) loadMine(); else setTimeout(instCheck, 1500); if (store('cli')) showClient(); });
 })();
 </script>
 </body>
