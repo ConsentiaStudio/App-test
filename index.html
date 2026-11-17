@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.6.2">
-<meta name="consentia-agenda-firma" content="Lz5PN8Cz7rUMqc2guGp05tYPIwMTTkVxRXm51Z/jarQoYow5dKzFPnZG3zpIKvO7oe0aJ6hUv/WgiIB5lugNBw==">
+<meta name="consentia-agenda-version" content="4.7.1">
+<meta name="consentia-agenda-firma" content="a9ysJb5pctoG5AypvUduGzYDBrXZ8Wga/Z3YIuzXRg6jFk5KoG+E/Qk/sWeQCIAv9WMDW7PEEyWv3Vk1QRYZBA==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-KSTvvA71xzDnjQKXKm/rTYbCqLrSZl501TKylQcdilg='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-Ad8lEEP0vznt8ZxdiDK8vYiBlYwhPllJpb51GXW/QRk='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -26,27 +26,30 @@
      entra con SU contraseña: la agenda llega cifrada para ese móvil. Pestañas según lo que puede ver: Agenda y
      Calculadora; además Números; además Control (aprobar, quitar, llaves, añadir un ordenador). (4.2.2) Sin «Inicio». -->
 <style>
-:root{--ink:#111113;--pink:#ff2b91;--muted:#77736c;--line:#e4e0d8;--bg:#f4f2ee;--good:#1d8a4a}
+:root{--ink:#111113;--pink:#ff2b91;--muted:#6b6b72;--line:#ececef;--bg:#ffffff;--good:#1d8a4a;
+  /* (4.7.0) Tema claro (de fábrica) y oscuro: los colores van en variables; html[data-theme=oscuro] las cambia. */
+  --page:#ffffff;--card:#ffffff;--field:#f5f5f7;--line2:#f1f1f3;--line3:#d4d4da;--ink2:#3f3f46;--solid:#111113;--pinkSoft:#fff0f7;--bar:rgba(255,255,255,.94);--shadow:rgba(17,17,19,.12);color-scheme:light}
+html[data-theme=oscuro]{--ink:#f4f2ee;--muted:#9b9aa3;--line:#26262c;--bg:#0e0e11;--good:#4cc38a;--page:#0e0e11;--card:#18181c;--field:#1d1d22;--line2:#222228;--line3:#3a3a42;--ink2:#c9c7d0;--solid:#ff2b91;--pinkSoft:rgba(255,43,145,.16);--bar:rgba(18,18,21,.94);--shadow:rgba(0,0,0,.5);color-scheme:dark}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.35 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-header{background:var(--ink);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:5}
+header{background:var(--solid);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:5}
 header .t{display:flex;align-items:center;justify-content:space-between;gap:8px}
 header b{letter-spacing:.14em;font-size:13px;text-transform:uppercase}
 header button{background:transparent;color:#fff;border:1px solid #444;border-radius:4px;padding:6px 10px;font:inherit;font-size:12px}
 header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round} /* (4.3.0) Mis vacaciones */
 .vacList{margin:10px 0 4px;display:grid;gap:6px}.vacRow{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px}
-.vacRow small{color:var(--muted);display:block;font-size:12px}.vacTag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:99px;background:#f2f0ec;color:var(--muted);white-space:nowrap}
+.vacRow small{color:var(--muted);display:block;font-size:12px}.vacTag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:99px;background:var(--field);color:var(--muted);white-space:nowrap}
 .vacTag.ok{background:#e3f4ea;color:#1d7a45}.vacTag.warn{background:#fff3d6;color:#8a5a00}.vacTag.bad{background:#fde7e7;color:#b3261e}
-.fabCita{position:fixed;right:14px;bottom:78px;z-index:30;border:0;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-weight:800;font-size:15px;padding:13px 18px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
-.cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box;margin:0}
-.cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
-.cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fabCita{position:fixed;right:14px;bottom:78px;z-index:30;border:0;border-radius:999px;background:var(--solid);color:#fff;font:inherit;font-weight:800;font-size:15px;padding:13px 18px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
+.cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card);box-sizing:border-box;margin:0}
+.cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
+.cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--solid);color:#fff;border-color:var(--solid)}
 /* (4.5.1) Extras: varios a la vez */
 .cTabs.xMode{margin:0 0 10px}
-.xmHead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 8px;border-radius:14px;background:var(--ink);color:#fff;font-weight:700;font-size:14px}
+.xmHead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 8px;border-radius:14px;background:var(--solid);color:#fff;font-weight:700;font-size:14px}
 .xmHead span{flex:1}.xmHead .xmAdd{border:0;border-radius:10px;background:var(--pink);color:#fff;font:inherit;font-weight:800;padding:9px 14px}.xmHead .xmAdd:disabled{opacity:.4}
-.xmRow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line)}.xmRow.on{background:#fff0f7;border-radius:10px}
+.xmRow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line)}.xmRow.on{background:var(--pinkSoft);border-radius:10px}
 .xmName{flex:1;min-width:0}.xmName b{display:block;font-size:14.5px}.xmName small{display:block;color:var(--muted);font-size:12.5px}
-.xmStep{display:flex;align-items:center;gap:6px;flex:none}.xmStep button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:18px;font-weight:800}.xmStep button:disabled{opacity:.35}
+.xmStep{display:flex;align-items:center;gap:6px;flex:none}.xmStep button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:18px;font-weight:800}.xmStep button:disabled{opacity:.35}
 .xmN{min-width:58px;text-align:center;font-size:13px;font-weight:700}.xmAmt{width:84px;border:1.5px solid var(--line);border-radius:10px;padding:8px;font:inherit;text-align:right}
 /* (4.5.0) «Nueva cita» desde el móvil con Control total */
 body:has(.sheetBack) .fabCita{display:none}
@@ -54,71 +57,71 @@ body:has(.sheetBack) .fabCita{display:none}
 /* (4.6.2) Clientas (Control total y Gestión de locales) */
 #clientas{padding:12px 14px 120px}
 .cliTop h2{margin:0;font-size:22px}.cliTop small{display:block;color:var(--muted);font-size:12.5px;margin:2px 0 10px}
-.cliQ{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:#fff;outline:none}.cliQ:focus{border-color:var(--pink)}
+.cliQ{width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;background:var(--card);outline:none}.cliQ:focus{border-color:var(--pink)}
 .cliHint{color:var(--muted);font-size:12.5px;margin:12px 2px 6px}
 .cliList{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.cliItem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 13px;font:inherit;color:var(--ink)}
+.cliItem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px;font:inherit;color:var(--ink)}
 .cliN{flex:1;min-width:0}.cliN b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cliN small{color:var(--muted);font-size:12.5px;letter-spacing:.02em}
 .cliNext{flex:none;text-align:right}.cliNext small{display:block;font-size:11px;color:var(--muted);font-weight:700}.cliNext b{font-size:13px;color:#1d8a4a;text-transform:capitalize}.cliNext.none small{font-weight:500}
 .cliH{margin:16px 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-.cliCita{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin-bottom:6px;background:#fff}
+.cliCita{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin-bottom:6px;background:var(--card)}
 .cliCita .cd{flex:none;width:92px}.cliCita .cd b{display:block;text-transform:capitalize;font-size:14px}.cliCita .cd small,.cliCita .cs small{color:var(--muted);font-size:12px}
 .cliCita .cs{flex:1;min-width:0}.cliCita .cs b{display:block;font-size:14px}
 .cliCita.x{opacity:.6}.cliCita.x .cs b{text-decoration:line-through}
 .sheet .cliGo{background:var(--pink);color:#fff;border:0;font-weight:800}
 /* (4.6.0) «＋ Cita» a pantalla completa, por apartados que se pliegan (como la app de las clientas) */
 .sheetBack.full{align-items:stretch}
-.sheet.full{max-height:none;height:100%;border-radius:0;padding:0;background:#f4f2ee;display:flex;flex-direction:column;overflow:auto}
+.sheet.full{max-height:none;height:100%;border-radius:0;padding:0;background:var(--page);display:flex;flex-direction:column;overflow:auto}
 .sheet.full::before{display:none}
 .ncTop{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:rgba(244,242,238,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.sheet .ncTop .ncX{flex:none;width:40px;height:40px;margin:0;padding:0;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center}
+.sheet .ncTop .ncX{flex:none;width:40px;height:40px;margin:0;padding:0;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
 .ncX svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
 .ncTopT b{display:block;font-size:16px;font-weight:800}.ncTopT small{display:block;font-size:12.5px;color:var(--muted)}
 .sheet.full .cForm.nc{flex:1;padding:4px 16px 8px}
-.ncSec{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
+.ncSec{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
 .ncSec.on{border:1.5px solid var(--pink)}
 .sheet .nc .ncHd{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;padding:14px;text-align:left;color:var(--ink);border-radius:0}
 .ncHd .ncN{flex:none;width:26px;height:26px;font-size:13px}
-.ncSec.done .ncN{background:#1d8a4a}.ncSec.todo .ncN{background:transparent;border:2px solid #cfcac2;color:var(--muted);box-sizing:border-box}
+.ncSec.done .ncN{background:#1d8a4a}.ncSec.todo .ncN{background:transparent;border:2px solid var(--line3);color:var(--muted);box-sizing:border-box}
 .ncSec.todo .ncTit{color:var(--muted);font-weight:650}
 .ncTit{flex:1;min-width:0;font-size:15px}.ncTit small{display:block;font-size:11.5px;color:var(--muted);font-weight:800;letter-spacing:.04em}.ncTit b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ncTit em{display:block;font-style:normal;font-size:12.5px;color:var(--muted)}
 .ncCh{flex:none;color:#c4006a;font-weight:800;font-size:13px}
 .ncBody{padding:0 14px 14px}.ncSec:not(.on) .ncBody{display:none}
 .ncBody>label:first-child{margin-top:0}
-.sheet .nc .ncGo{display:block;width:100%;margin-top:12px;background:var(--ink);color:#fff;border-radius:12px;padding:12px;font-weight:800;font-size:15px}
+.sheet .nc .ncGo{display:block;width:100%;margin-top:12px;background:var(--solid);color:#fff;border-radius:12px;padding:12px;font-weight:800;font-size:15px}
 .sheet.full .ncBar{position:sticky;bottom:0;margin:0;padding:10px 14px calc(14px + env(safe-area-inset-bottom));background:transparent;border:0}
 .sheet.full .ncBar{display:block}
-.sheet.full .ncBarIn{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
+.sheet.full .ncBarIn{display:flex;align-items:center;gap:10px;background:var(--solid);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
 .sheet.full .ncBarT{color:#fff;font-size:14px}
 @media (min-width:720px){.sheetBack.full{align-items:center}.sheet.full{max-width:480px;height:92vh;border-radius:18px}}
-.ncCard{background:#faf9f6;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
+.ncCard{background:var(--field);border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
 .ncT{display:flex;align-items:center;gap:8px;margin-bottom:8px}.ncT b{font-size:15px}
 .ncN{width:22px;height:22px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900}
 .cForm.nc label{margin:12px 0 6px}
 .sheet .nc button{width:auto;margin:0;font-size:14px}
-.sheet .nc .cItem{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:700;text-align:left}
+.sheet .nc .cItem{width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:700;text-align:left}
 .sheet .nc .cItem.ncAdd{color:var(--pink)}
-.ncChosen{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ncChosen{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .ncChosen b{flex:1;font-size:16px}
-.ncAv{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}
+.ncAv{width:34px;height:34px;border-radius:50%;background:var(--solid);color:#fff;display:grid;place-items:center;font-weight:800}
 .sheet .nc .ncLink{background:none;color:var(--pink);padding:6px 4px;font-weight:800}
 .ncNew{margin-top:8px}
 .ncCats{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}.ncCats::-webkit-scrollbar{display:none}
-.sheet .nc .ncPill{flex:none;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700;white-space:nowrap}
-.sheet .nc .ncPill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sheet .nc .ncPill{flex:none;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700;white-space:nowrap}
+.sheet .nc .ncPill.on{background:var(--solid);color:#fff;border-color:var(--solid)}
 .ncList{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:none;overflow:visible}
 .ncList .cCat{margin:8px 0 0}
-.sheet .nc .ncSvc{display:flex;align-items:center;gap:10px;width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;text-align:left;font-weight:600}
-.sheet .nc .ncSvc.on{border-color:var(--pink);background:#fff0f7}
-.ncChk{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #cfcac2;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff}
+.sheet .nc .ncSvc{display:flex;align-items:center;gap:10px;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;text-align:left;font-weight:600}
+.sheet .nc .ncSvc.on{border-color:var(--pink);background:var(--pinkSoft)}
+.ncChk{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line3);display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff}
 .ncSvc.on .ncChk{background:var(--pink);border-color:var(--pink)}
 .ncSvN{flex:1;line-height:1.25}.ncSvM{flex:none;color:var(--muted);font-size:12.5px;font-weight:600;white-space:nowrap}
 .ncSum{margin-top:10px;font-size:13px;color:var(--muted)}.ncSum.on{color:var(--ink);font-weight:800}
 .ncEmpty{color:var(--muted);font-size:13px;padding:6px 2px}
 .ncDays{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.ncDays::-webkit-scrollbar{display:none}
-.sheet .nc .ncDay{flex:none;width:54px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:1px}
+.sheet .nc .ncDay{flex:none;width:54px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:1px}
 .ncDay small{font-size:11px;color:var(--muted);font-weight:700;text-transform:capitalize}.ncDay b{font-size:18px}
-.sheet .nc .ncDay.on{background:var(--ink);border-color:var(--ink);color:#fff}.ncDay.on small{color:#ddd}
+.sheet .nc .ncDay.on{background:var(--solid);border-color:var(--solid);color:#fff}.ncDay.on small{color:#ddd}
 /* (4.6.1) días cerrados: en gris, con «Cerrado» (como en la app de las clientas) */
 .sheet .nc .ncDay.closed{background:#efede8;border-style:dashed;border-color:#cfc9bf;color:#8a847b}.ncDay.closed small{color:#8a847b}.ncDay em{font-style:normal;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#8a847b}
 .sheet .nc .ncDay.closed.on{background:#6b665e;border-color:#6b665e;color:#fff}.ncDay.closed.on em,.ncDay.closed.on small{color:#eee}
@@ -129,27 +132,27 @@ main.closedDay .gcol .off{background:repeating-linear-gradient(135deg,#e4e1db 0 
 
 .ncRow{display:flex;align-items:center;gap:10px;margin-top:8px}.ncRow label{margin:0!important;flex:none;min-width:70px}.ncRow input{flex:1}
 .ncEmps{display:flex;gap:6px;flex-wrap:wrap}
-.sheet .nc .ncEmp{display:flex;align-items:center;gap:6px;background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700}
+.sheet .nc .ncEmp{display:flex;align-items:center;gap:6px;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700}
 .ncDot{width:10px;height:10px;border-radius:50%}
 .ncDur{display:flex;align-items:center;gap:8px}.ncDur input{width:90px!important;text-align:center}
-.sheet .nc .ncStep{width:40px;height:40px;border-radius:12px;background:#fff;color:var(--ink);border:1px solid var(--line);font-size:20px;font-weight:800;padding:0}
+.sheet .nc .ncStep{width:40px;height:40px;border-radius:12px;background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:20px;font-weight:800;padding:0}
 .ncSlots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.sheet .nc .ncSlot{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 0;font-weight:700;width:100%}
+.sheet .nc .ncSlot{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 0;font-weight:700;width:100%}
 .sheet .nc .ncSlot.on{background:var(--pink);border-color:var(--pink);color:#fff}
-.ncBar{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));margin:12px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
-.ncBarT{flex:1;font-size:13px;font-weight:700;color:#44423d;line-height:1.25}
+.ncBar{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));margin:12px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.ncBarT{flex:1;font-size:13px;font-weight:700;color:var(--ink2);line-height:1.25}
 .sheet .ncBar button{width:auto;margin:0;padding:12px 18px;background:var(--pink)}
 .cWarn .warn{margin-top:8px}.citaBtns{display:flex;gap:8px;margin-top:8px}.citaBtns button{flex:1}
-.vacForm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.vacForm label{font-size:12px;font-weight:700;color:var(--muted)}.vacForm input{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;box-sizing:border-box}.vacForm .full{grid-column:1/-1}
-.accSel{width:100%;margin:4px 0 8px;padding:10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.vacForm{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.vacForm label{font-size:12px;font-weight:700;color:var(--muted)}.vacForm input{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card);box-sizing:border-box}.vacForm .full{grid-column:1/-1}
+.accSel{width:100%;margin:4px 0 8px;padding:10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px}
 .tabs button{flex:none;background:#26262a;color:#ddd;border:0;border-radius:16px;padding:6px 12px;font:inherit;font-size:13px}
 .tabs button.on{background:var(--pink);color:#fff}
 /* (3.2.1) El selector de fechas, como el de la agenda del programa: botones blancos con borde y letra en mayúsculas
    (‹ HOY ›) y el recuadro de la fecha, que despliega el calendario. */
-.days{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:var(--hh,56px);z-index:4}
-.days button{background:#fff;color:var(--ink);border:1px solid #bdb9b1;border-radius:2px;min-width:38px;height:38px;font:inherit;font-size:18px;line-height:1;padding:0;-webkit-tap-highlight-color:transparent}
-.days button:active{border-color:var(--ink)}
+.days{display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:var(--hh,56px);z-index:4}
+.days button{background:var(--card);color:var(--ink);border:1px solid var(--line3);border-radius:2px;min-width:38px;height:38px;font:inherit;font-size:18px;line-height:1;padding:0;-webkit-tap-highlight-color:transparent}
+.days button:active{border-color:var(--solid)}
 .days .hoy{font-size:11px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;min-width:auto;padding:0 12px}
 .days .d{flex:1;min-width:0;display:flex;align-items:center;gap:8px;justify-content:flex-start;padding:0 10px;font-size:14px;font-weight:800;text-align:left}
 .days .d span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -164,13 +167,13 @@ main.closedDay .gcol .off{background:repeating-linear-gradient(135deg,#e4e1db 0 
 .calG{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
 .calW{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
 .sheet .cal .calD{height:42px;font-size:15px}
-.sheet .cal .calD.out{color:#bdb9b1}
+.sheet .cal .calD.out{color:var(--line3)}
 .sheet .cal .calD.nopub{opacity:.45}
 .sheet .cal .calD.today{color:var(--pink);font-weight:900}
 .sheet .cal .calD.closed{background:#e9e7e2;color:#8a847b}
-.sheet .cal .calD.sel{background:var(--ink);color:#fff;opacity:1}
+.sheet .cal .calD.sel{background:var(--solid);color:#fff;opacity:1}
 .calF{display:flex;align-items:center;gap:12px;margin-top:8px}
-.sheet .cal .calHoy{border:1px solid #bdb9b1;padding:8px 14px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+.sheet .cal .calHoy{border:1px solid var(--line3);padding:8px 14px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
 .calF small{color:var(--muted);font-size:12px}
 /* (3.2.1) Cabinas (como en el programa: el nombre en su color) y el estado de WhatsApp de cada cita. */
 .cabPill{display:inline-block;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 6px;border-radius:99px;font-size:9.5px;font-weight:800;line-height:1.55;vertical-align:1px;margin-left:4px}
@@ -181,14 +184,14 @@ main.closedDay .gcol .off{background:repeating-linear-gradient(135deg,#e4e1db 0 
 .waSt.ok{background:#1f5fbf;color:#fff}.waSt.chg{background:#f08c00;color:#fff}
 .waSt.sent{background:#e3f5ea;color:#1f9d55;border:1px solid #9fd8b4}.waSt.pend{background:#fff3d6;color:#b07000;border:1px dashed #d9a400}
 .waSt svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.sheet .waLine{display:flex;align-items:center;gap:6px;font-size:13px;color:#44423d;margin-top:6px}.sheet .waLine .waSt{margin:0}
-.status .cabSel{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:5px 6px;font:inherit;font-size:12px;font-weight:700;max-width:46%}
-.status .cabSel.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.sheet .waLine{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);margin-top:6px}.sheet .waLine .waSt{margin:0}
+.status .cabSel{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;padding:5px 6px;font:inherit;font-size:12px;font-weight:700;max-width:46%}
+.status .cabSel.on{border-color:var(--solid);background:var(--solid);color:#fff}
 main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
-.emp{background:#fff;border:1px solid var(--line);border-radius:6px;margin:10px 0;overflow:hidden}
+.emp{background:var(--card);border:1px solid var(--line);border-radius:6px;margin:10px 0;overflow:hidden}
 .emp h3{margin:0;padding:9px 12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
-.it{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid #f0ede7;border-left:4px solid var(--c,#999)}
+.it{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line2);border-left:4px solid var(--c,#999)}
 .it:last-child{border-bottom:0}
 .it .h{font:700 13px ui-monospace,Consolas,monospace;white-space:nowrap;min-width:92px}
 .it .w b{display:block}.it .w small{color:var(--muted)}
@@ -208,7 +211,7 @@ main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
 .offTag{display:inline-block;font-size:9.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;background:#fff4d6;color:#7a5600;padding:0 5px;margin:1px 0}
 .gcol .bk.vac{background:repeating-linear-gradient(135deg,#0e7c6b 0 7px,#11907c 7px 14px);border-color:#0b5f52}.gcol .bk.vac span{background:#0b5f52}
 .gh small.cl.vac{background:#0e7c6b}.it.blk.vac{background:repeating-linear-gradient(135deg,#0e7c6b 0 7px,#11907c 7px 14px)}
-.gh .goneChip{flex:none;margin-left:auto;border:1px solid #e3dfd7;background:#f4f2ee;color:#77756f;font:inherit;font-weight:800;font-size:10.5px;padding:2px 7px;border-radius:999px}
+.gh .goneChip{flex:none;margin-left:auto;border:1px solid var(--line2);background:var(--page);color:var(--muted);font:inherit;font-weight:800;font-size:10.5px;padding:2px 7px;border-radius:999px}
 .it.paid{background:var(--bg)}.tag.x{background:#eee;color:#555}.tag.n{background:#fde4ec;color:#a3164c}
 .blk{background:repeating-linear-gradient(135deg,#111 0 7px,#2b2b2b 7px 14px);color:#fff;border-left-color:#000}
 .blk .w b{text-transform:uppercase;letter-spacing:.1em}
@@ -219,7 +222,7 @@ main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
 /* (4.0.1) La entrada, igual que la del panel de empresa: arriba a la izquierda la C con «Consentia Studio», las C pequeñas
    de fondo y, en el centro, una tarjeta blanca con la contraseña. No se desplaza (ni «rebota» en el móvil). */
 html.lock,html.lock body{height:100%;overflow:hidden;overscroll-behavior:none}
-html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:#f4f2ee}
+html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--page)}
 .lockBg{display:none}
 .lockLogos{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0}
 .lockLogo{position:absolute;display:block;user-select:none;-webkit-user-drag:none}
@@ -227,7 +230,7 @@ html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:#f4f2ee}
 .brandTop{position:fixed;top:calc(26px + env(safe-area-inset-top));left:34px;z-index:2;display:flex;align-items:center;gap:12px;margin:0}
 .brandTop img{width:34px;height:34px;display:block}
 .brandTop b{font-size:13px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
-.login{width:100%;background:#fff;border:1px solid #e2ddd5;border-radius:12px;padding:44px 44px 34px;text-align:left;box-shadow:0 1px 0 rgba(17,17,19,.03),0 28px 60px -34px rgba(17,17,19,.28)}
+.login{width:100%;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:44px 44px 34px;text-align:left;box-shadow:0 1px 0 rgba(17,17,19,.03),0 28px 60px -34px rgba(17,17,19,.28)}
 .login .eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c2006b;margin:0}
 .login .eyebrow::before{content:"";width:18px;height:2px;background:var(--pink)}
 .login h1{margin:12px 0 6px;font-size:30px;line-height:1.1;letter-spacing:-.025em;font-weight:800;color:var(--ink);white-space:normal;text-transform:none}
@@ -235,15 +238,15 @@ html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:#f4f2ee}
 .login p{color:var(--muted);font-size:14.5px;margin:0 0 28px}
 .login label{display:block;font-size:13px;font-weight:700;color:#34322d;margin:0 0 7px}
 .pwUser{position:absolute;left:-9999px;width:1px;height:1px;opacity:0} /* (4.1.2) el «usuario» del formulario, para el llavero del móvil */
-.pwBox{display:flex;align-items:center;height:52px;background:#fff;border:1px solid #d4cfc6;border-radius:8px;transition:border-color .15s,box-shadow .15s}
-.pwBox:focus-within{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,43,145,.14)}
-.login svg{width:19px;height:19px;fill:none;stroke:#8a867e;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pwBox{display:flex;align-items:center;height:52px;background:var(--card);border:1px solid var(--line3);border-radius:8px;transition:border-color .15s,box-shadow .15s}
+.pwBox:focus-within{border-color:var(--solid);box-shadow:0 0 0 4px rgba(255,43,145,.14)}
+.login svg{width:19px;height:19px;fill:none;stroke:var(--muted);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .pwBox>svg{margin-left:15px}
 .login .pwBox input{flex:1;min-width:0;height:100%;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 10px 0 11px;font:inherit;font-size:16px;text-align:left;color:var(--ink);-webkit-appearance:none;appearance:none}
 .login .pwBox input:focus{outline:0;box-shadow:none}
-.login .pwBox input::placeholder{color:#a19c94}
+.login .pwBox input::placeholder{color:var(--muted)}
 .login .pwEye{flex:none;width:48px;height:100%;margin:0;padding:0;border:0;border-radius:0 8px 8px 0;background:transparent;box-shadow:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;margin-top:16px;padding:0;border:0;border-radius:8px;background:var(--ink);color:#fff;font:inherit;font-size:15.5px;font-weight:700;box-shadow:0 12px 24px -14px rgba(17,17,19,.7);cursor:pointer}
+.login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;margin-top:16px;padding:0;border:0;border-radius:8px;background:var(--solid);color:#fff;font:inherit;font-size:15.5px;font-weight:700;box-shadow:0 12px 24px -14px rgba(17,17,19,.7);cursor:pointer}
 .login #entrar[disabled]{opacity:.6}
 .login #entrar:active{transform:translateY(1px)}
 .login #entrar svg{stroke:#fff;width:18px;height:18px}
@@ -256,52 +259,52 @@ html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:#f4f2ee}
 }
 .status{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin:8px 0}
 .status span{flex:1;min-width:0}
-.status button{flex:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:4px;padding:5px 9px;font:inherit;font-size:12px;font-weight:700}
+.status button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;padding:5px 9px;font:inherit;font-size:12px;font-weight:700}
 .status button.lnk,.warn button.lnk{border:0;background:none;padding:0;text-decoration:underline;font-weight:700;font:inherit;font-weight:700;color:inherit}
 /* «Hay una versión más nueva de esta página»: barra dentro de la cabecera (siempre a la vista), con su botón. */
 .upd{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:#fff4d6;color:#5c3d00;border-top:1px solid #ecd18c;padding:9px 12px;font-size:13.5px;font-weight:700;line-height:1.35}
 .upd span{flex:1 1 200px;min-width:0}
 .upd small{flex:1 1 100%;font-weight:400;font-size:12px}
-.upd button{flex:none;background:var(--ink);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:inherit;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.upd button{flex:none;background:var(--solid);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:inherit;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 /* Vista en columnas, como la agenda del programa: una columna por trabajadora y las horas hacia abajo. */
 main.wide{max-width:none;padding:0}
 main.wide .warn,main.wide .bad{margin:8px 12px}
 main.wide .status{margin:6px 12px}
-.gw{overflow:auto;background:#fff;border-top:1px solid var(--line);overscroll-behavior:contain}
+.gw{overflow:auto;background:var(--card);border-top:1px solid var(--line);overscroll-behavior:contain}
 .g{display:grid;position:relative;min-width:100%}
-.gc,.gh{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--ink)}
+.gc,.gh{position:sticky;top:0;background:var(--card);border-bottom:2px solid var(--ink)}
 .gc{left:0;z-index:8}
-.gh{z-index:6;border-left:1px solid #e7e3dc;padding:7px 8px;min-height:48px;display:flex;gap:6px;align-items:flex-start;min-width:0}
+.gh{z-index:6;border-left:1px solid var(--line2);padding:7px 8px;min-height:48px;display:flex;gap:6px;align-items:flex-start;min-width:0}
 .gh .dot{margin-top:3px}
 .gh div{min-width:0}
 .gh b{display:block;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gh small{display:block;font-size:10px;font-weight:700;color:var(--muted);line-height:1.25}
 .gh small.cl{display:block;width:max-content;background:#111;color:#fff;text-transform:uppercase;letter-spacing:.1em;font-weight:900;padding:1px 5px;margin-top:2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gt{position:sticky;left:0;z-index:5;background:#faf9f6;border-right:1px solid var(--line)}
-.gt span{position:absolute;right:5px;font:700 10px ui-monospace,Consolas,monospace;color:#8a867e;transform:translateY(-6px)}
-.gcol{position:relative;border-left:1px solid #e7e3dc}
-.gcol .ln{position:absolute;left:0;right:0;border-top:1px solid #f0ede7}
-.gcol .ln.hr{border-top-color:#ddd9d1}
-.gcol .off{position:absolute;left:0;right:0;background:repeating-linear-gradient(135deg,#f3f1ec 0 6px,#ebe8e1 6px 12px)}
+.gt{position:sticky;left:0;z-index:5;background:var(--field);border-right:1px solid var(--line)}
+.gt span{position:absolute;right:5px;font:700 10px ui-monospace,Consolas,monospace;color:var(--muted);transform:translateY(-6px)}
+.gcol{position:relative;border-left:1px solid var(--line2)}
+.gcol .ln{position:absolute;left:0;right:0;border-top:1px solid var(--line2)}
+.gcol .ln.hr{border-top-color:var(--line2)}
+.gcol .off{position:absolute;left:0;right:0;background:repeating-linear-gradient(135deg,var(--field) 0 6px,var(--line2) 6px 12px)}
 .gcol .bk{position:absolute;left:2px;right:2px;background:repeating-linear-gradient(135deg,#111 0 7px,#2b2b2b 7px 14px);border:1px solid #000;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2}
 .gcol .bk span{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;background:#111;padding:2px 6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ap{position:absolute;border-left:4px solid var(--c,#ff2b91);background:linear-gradient(var(--bg,#ffe3f0),var(--bg,#ffe3f0)),#fff;padding:4px 6px 3px;font-size:11px;line-height:1.25;overflow:hidden;z-index:3;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.ap{position:absolute;border-left:4px solid var(--c,#ff2b91);background:linear-gradient(var(--bg,#ffe3f0),var(--bg,#ffe3f0)),var(--card);padding:4px 6px 3px;font-size:11px;line-height:1.25;overflow:hidden;z-index:3;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .ap b{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap .t{display:block;font:700 10px "Cascadia Mono",Consolas,ui-monospace,monospace;color:#56534e;white-space:nowrap;overflow:hidden}
-.ap .s{display:block;color:#44423d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap.done{background:repeating-linear-gradient(135deg,var(--bg) 0 8px,rgba(255,255,255,.55) 8px 16px),#fff}
+.ap .t{display:block;font:700 10px "Cascadia Mono",Consolas,ui-monospace,monospace;color:var(--ink2);white-space:nowrap;overflow:hidden}
+.ap .s{display:block;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap.done{background:repeating-linear-gradient(135deg,var(--bg) 0 8px,rgba(255,255,255,.55) 8px 16px),var(--card)}
 .ap.done>*{opacity:.66}
 .now{position:absolute;left:0;right:0;border-top:2px solid var(--pink);z-index:4;pointer-events:none}
 .sheetBack{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(17,17,19,.45);z-index:20;display:flex;align-items:flex-end}
-.sheet{background:#fff;width:100%;max-height:86vh;overflow:auto;border-radius:18px 18px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom))}
-.sheet::before{content:'';display:block;width:36px;height:5px;border-radius:3px;background:#d6d2ca;margin:0 auto 12px}
+.sheet{background:var(--card);width:100%;max-height:86vh;overflow:auto;border-radius:18px 18px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet::before{content:'';display:block;width:36px;height:5px;border-radius:3px;background:var(--line3);margin:0 auto 12px}
 .sheet h2{margin:2px 0;font-size:19px}
 @media (min-width:720px){.sheetBack{align-items:center;justify-content:center}.sheet{max-width:440px;border-radius:18px;padding-bottom:18px}.sheet::before{display:none}}
-.sheet .h{font:700 13px ui-monospace,Consolas,monospace;color:#56534e}
+.sheet .h{font:700 13px ui-monospace,Consolas,monospace;color:var(--ink2)}
 .sheet p{margin:8px 0 0}
 .sheet .who{color:var(--muted);font-size:13px}
-.sheet .row{padding:9px 0;border-bottom:1px solid #f0ede7}
-.sheet button{width:100%;margin-top:14px;background:var(--ink);color:#fff;border:0;border-radius:13px;padding:13px;font:inherit;font-size:16px;font-weight:600}
+.sheet .row{padding:9px 0;border-bottom:1px solid var(--line2)}
+.sheet button{width:100%;margin-top:14px;background:var(--solid);color:#fff;border:0;border-radius:13px;padding:13px;font:inherit;font-size:16px;font-weight:600}
 /* Agenda y calculadora en la misma pantalla: en el ordenador, una al lado de la otra; en el móvil, dos pestañas abajo. */
 .split{display:block}
 .split.m-calc .pA,.split.m-agenda .pC{display:none}
@@ -309,20 +312,20 @@ main.wide .status{margin:6px 12px}
    elegido en blanco y con su icono en rosa, sobre una barra translúcida. --mh es lo que mide la barra (sin el margen
    de seguridad del móvil): lo usan también el hueco que se deja debajo del contenido y el total de la calculadora. */
 :root{--mh:67px}
-.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#f7f6f3;border-top:1px solid rgba(17,17,19,.12)}
+.modes{position:fixed;left:0;right:0;bottom:0;z-index:9;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--field);border-top:1px solid rgba(17,17,19,.12)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.modes{background:rgba(247,246,243,.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}
 .modes .seg{display:flex;gap:2px;max-width:520px;margin:0 auto;padding:3px;border-radius:14px;background:rgba(118,118,128,.16)}
-.modes button{position:relative;flex:1 1 0;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;border:0;border-radius:11px;background:transparent;color:#5b5b61;font:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .12s ease-out,color .15s}
+.modes button{position:relative;flex:1 1 0;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 8px;border:0;border-radius:11px;background:transparent;color:var(--ink2);font:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .12s ease-out,color .15s}
 .modes button svg{flex:none;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .modes button svg .f{fill:currentColor;stroke:none}
 .modes button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.modes button.on{background:#fff;color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
+.modes button.on{background:var(--card);color:var(--ink);box-shadow:0 3px 8px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.08)}
 .modes button.on.go{animation:segOn .18s ease-out}
 .modes button.on svg{color:var(--pink)}
 .modes button:active{transform:scale(.97)}
 .modes button:focus-visible{outline:2px solid var(--pink);outline-offset:1px}
 /* Lo que lleva sumada la cuenta: una insignia en la esquina del botón (no le quita sitio al nombre). */
-.modes small{position:absolute;top:-8px;right:-3px;font:700 12px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff;background:var(--pink);border-radius:999px;padding:4px 8px;box-shadow:0 0 0 2px #f7f6f3}
+.modes small{position:absolute;top:-8px;right:-3px;font:700 12px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff;background:var(--pink);border-radius:999px;padding:4px 8px;box-shadow:0 0 0 2px var(--field)}
 .modes small:empty{display:none}
 @keyframes segOn{from{transform:scale(.96);box-shadow:none}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.modes button,.modes button.on.go{animation:none;transition:none}}
@@ -334,83 +337,83 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .pC{background:var(--bg)}
 .calc{display:flex;flex-direction:column;min-height:60vh}
 .cTabs{order:0;display:flex;gap:2px;margin:12px 12px 0;padding:3px;border-radius:12px;background:rgba(118,118,128,.16)}
-.cTabs button{flex:1 1 0;min-width:0;height:36px;border:0;border-radius:9px;background:transparent;color:#5b5b61;font:inherit;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
-.cTabs button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.06)}
+.cTabs button{flex:1 1 0;min-width:0;height:36px;border:0;border-radius:9px;background:transparent;color:var(--ink2);font:inherit;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.cTabs button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12),0 1px 1px rgba(17,17,19,.06)}
 .cBody{order:1;padding:12px 12px 16px}
 .cSearch{display:block;width:100%;font:inherit;font-size:16px;padding:10px 12px;border:0;border-radius:11px;background:rgba(118,118,128,.14);margin-bottom:10px;-webkit-appearance:none;appearance:none}
-.cSearch:focus{outline:2px solid var(--pink);background:#fff}
+.cSearch:focus{outline:2px solid var(--pink);background:var(--card)}
 .cCats{display:flex;gap:6px;overflow-x:auto;margin:0 -12px;padding:0 12px 10px;scrollbar-width:none}
 .cCats::-webkit-scrollbar{display:none}
-.cCats button{flex:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;color:#44423d;-webkit-tap-highlight-color:transparent}
-.cCats button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.cCats button{flex:none;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink2);-webkit-tap-highlight-color:transparent}
+.cCats button.on{background:var(--solid);border-color:var(--solid);color:#fff}
 .cCats button i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--pink);margin-left:6px;vertical-align:2px}
-.cList{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(17,17,19,.05)}
-.cItem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:0;border-bottom:1px solid #f0ede7;padding:12px 14px;font:inherit;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.cList{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(17,17,19,.05)}
+.cItem{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card);border:0;border-bottom:1px solid var(--line2);padding:12px 14px;font:inherit;color:var(--ink);-webkit-tap-highlight-color:transparent}
 .cItem:last-child{border-bottom:0}
 .cItem b{flex:1;min-width:0;font-weight:600}
 .cItem small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:1px}
 .cItem .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cItem .p s.antes{color:var(--muted);font-weight:400;font-size:12.5px} /* (4.3.1) packs: el precio sin el descuento del pack */
 .cItem .p.x{color:var(--pink);font-size:13.5px;max-width:46%;white-space:normal;text-align:right}
-.cItem:active,.xCard:active{background:#fff0f7}
+.cItem:active,.xCard:active{background:var(--pinkSoft)}
 .xGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.xCard{display:flex;flex-direction:column;text-align:left;background:#fff;border:0;border-radius:14px;overflow:hidden;padding:0;font:inherit;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,19,.06);-webkit-tap-highlight-color:transparent}
+.xCard{display:flex;flex-direction:column;text-align:left;background:var(--card);border:0;border-radius:14px;overflow:hidden;padding:0;font:inherit;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,19,.06);-webkit-tap-highlight-color:transparent}
 .xCard .ph{display:block;width:100%;aspect-ratio:1/1;background:#efece6}
 .xCard .ph img{display:block;width:100%;height:100%;object-fit:cover}
-.xCard .ph.no{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffe9f3,#f4f2ee);color:#e2a9c4;font:500 34px Didot,"Bodoni 72","Times New Roman",serif}
+.xCard .ph.no{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffe9f3,var(--page));color:#e2a9c4;font:500 34px Didot,"Bodoni 72","Times New Roman",serif}
 .xCard .tx{display:block;padding:9px 11px 11px}
 .xCard b{display:block;font-size:14px;font-weight:600;line-height:1.25}
 .xCard small{display:block;margin-top:3px;font-size:12.5px;font-weight:700;color:var(--pink)}
 .cHint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
 /* (3.2.1) Índice de categorías / grupos y «‹ volver» */
-.cIndex .cItem b{font-weight:700}.cIndex .chev{flex:none;font-size:22px;line-height:1;color:#b9b6b0}
+.cIndex .cItem b{font-weight:700}.cIndex .chev{flex:none;font-size:22px;line-height:1;color:var(--line3)}
 .cBack{display:flex;align-items:center;gap:10px;margin:0 0 10px}
 .cBack .back{flex:none;border:1px solid #7c4dff;background:#7c4dff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:700;color:#fff;-webkit-tap-highlight-color:transparent} /* (3.2.3) «‹ Categorías» y «‹ Extras», en morado */
 .cBack .back:active{background:#6a3df0}
 .cSec+.cSec{margin-top:12px}.cSecName{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 4px 6px}
 .cBack b{flex:1;min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Ficha de un extra */
-.sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:#f4f2ee;margin-bottom:12px}
+.sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:var(--page);margin-bottom:12px}
 .sheet .xPrecio{color:var(--pink);font-weight:700;margin-top:2px}
-.sheet .xAyuda{color:#44423d;font-size:13.5px;line-height:1.4}
-.stp{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #f0ede7}
+.sheet .xAyuda{color:var(--ink2);font-size:13.5px;line-height:1.4}
+.stp{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}
 .sheet .xAyuda+.stp,.sheet .xPrecio+.stp{margin-top:12px}
 .stp>span{font-weight:600}
 .stp>div{display:flex;align-items:center;background:rgba(118,118,128,.14);border-radius:11px}
 .sheet .stp button{width:46px;height:40px;margin:0;padding:0;border:0;border-radius:11px;background:transparent;color:var(--ink);font:400 24px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
 .sheet .stp button[disabled]{opacity:.3}
 .stp output{min-width:64px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
-.stp input{width:128px;font:inherit;font-size:17px;font-weight:700;text-align:right;padding:9px 12px;border:1px solid #d6d2ca;border-radius:11px;background:#fff}
+.stp input{width:128px;font:inherit;font-size:17px;font-weight:700;text-align:right;padding:9px 12px;border:1px solid var(--line3);border-radius:11px;background:var(--card)}
 .stp input:focus{outline:0;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,145,.18)}
-.xRes{margin-top:10px;padding:11px 12px;border-radius:12px;background:#f4f2ee;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+.xRes{margin-top:10px;padding:11px 12px;border-radius:12px;background:var(--page);font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
 .xRes.no{background:#fff4d6;color:#5c3d00;font-weight:600}
 .xRes:empty{display:none}
 .sheet button.calcBtn{background:var(--pink);margin-top:14px}
 .sheet button.calcBtn+button{margin-top:8px;background:transparent;color:var(--ink)}
 /* La cuenta */
 .tkBack{display:none}
-.cTicket{order:2;display:none;background:#fff}
+.cTicket{order:2;display:none;background:var(--card)}
 .cTicket h4{margin:0 0 4px;font-size:17px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .cTicket h4 span{flex:1}
 .cTicket h4 button{border:0;background:rgba(118,118,128,.14);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink)}
 .cTicket h4 button.x{width:30px;height:30px;padding:0;font-size:18px;line-height:1}
 .cTicket h4 #vaciar{background:var(--pink);color:#fff}
 .cTicket .cHint{margin:0 0 6px}
-.cLine{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f0ede7}
+.cLine{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line2)}
 .cLine div{flex:1;min-width:0;font-weight:600}.cLine small{display:block;color:var(--muted);font-size:12.5px;font-weight:400}
 .cLine .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.cLine button{flex:none;border:0;background:rgba(118,118,128,.14);border-radius:50%;width:28px;height:28px;font:inherit;font-size:17px;line-height:1;color:#5b5b61}
+.cLine button{flex:none;border:0;background:rgba(118,118,128,.14);border-radius:50%;width:28px;height:28px;font:inherit;font-size:17px;line-height:1;color:var(--ink2)}
 .cDisc{padding:10px 0 2px}
-.cDisc>span{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:#5b5b61;margin-bottom:6px}
+.cDisc>span{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}
 .cDisc>span b{color:var(--good);font-variant-numeric:tabular-nums}
 .cDisc div{display:flex;flex-wrap:wrap;gap:6px}
-.cDisc button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:#44423d}
-.cDisc button.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.cTotal{order:3;position:fixed;left:12px;right:12px;bottom:calc(var(--mh) + 10px + env(safe-area-inset-bottom));z-index:8;width:auto;margin:0;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;padding:10px 16px;border:0;border-radius:16px;background:var(--ink);color:#fff;font:inherit;text-align:left;box-shadow:0 8px 22px rgba(17,17,19,.22);-webkit-tap-highlight-color:transparent;transition:background .2s}
+.cDisc button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink2)}
+.cDisc button.on{background:var(--solid);border-color:var(--solid);color:#fff}
+.cTotal{order:3;position:fixed;left:12px;right:12px;bottom:calc(var(--mh) + 10px + env(safe-area-inset-bottom));z-index:8;width:auto;margin:0;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;padding:10px 16px;border:0;border-radius:16px;background:var(--solid);color:#fff;font:inherit;text-align:left;box-shadow:0 8px 22px rgba(17,17,19,.22);-webkit-tap-highlight-color:transparent;transition:background .2s}
 .cTotal span{display:flex;align-items:center;gap:8px;min-width:0;font-size:15px;font-weight:600}
 .cTotal span i{font-style:normal;font-size:12.5px;font-weight:700;min-width:22px;text-align:center;background:var(--pink);border-radius:999px;padding:2px 7px}
-.cTotal span small{font-size:13px;font-weight:400;color:#b9b6b0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cTotal span svg{flex:none;width:16px;height:16px;fill:none;stroke:#b9b6b0;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.cTotal span small{font-size:13px;font-weight:400;color:var(--line3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cTotal span svg{flex:none;width:16px;height:16px;fill:none;stroke:var(--line3);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .calc.tk .cTotal span svg{transform:rotate(180deg)}
 .cTotal b{flex:none;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
 .cTotal.flash{background:var(--pink)}
@@ -441,7 +444,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
   .calc.tk .tkBack{display:block;position:fixed;top:0;left:0;right:0;bottom:0;z-index:6;background:rgba(17,17,19,.4)}
   body.tkOpen .pC{z-index:30}
 }
-.other{display:flex;gap:6px;margin-top:8px}.other input{flex:1;font:inherit;padding:8px;border:1px solid #bdb9b1;border-radius:4px}.other button{border:0;background:var(--ink);color:#fff;border-radius:4px;padding:0 12px;font:inherit}
+.other{display:flex;gap:6px;margin-top:8px}.other input{flex:1;font:inherit;padding:8px;border:1px solid var(--line3);border-radius:4px}.other button{border:0;background:var(--solid);color:#fff;border-radius:4px;padding:0 12px;font:inherit}
 /* (3.2.4) Color de cada servicio (el de su categoría) y estrella de las clientas VIP */
 .svM{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:0;flex:none;box-shadow:0 0 0 1.5px rgba(255,255,255,.85)}
 .svI{white-space:normal}
@@ -450,7 +453,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .cItem b .svM{width:9px;height:9px;margin-right:7px}
 /* (4.2.0) Accesos: pedir acceso, esperar, entrar con la contraseña personal, Inicio, Números y Control. */
 .login form label{margin-top:14px}.login form label:first-of-type{margin-top:0}
-.login button[type=submit],.login .accSubmit{display:flex;align-items:center;justify-content:center;width:100%;height:52px;margin-top:18px;padding:0;border:0;border-radius:8px;background:var(--ink);color:#fff;font:inherit;font-size:15.5px;font-weight:700;cursor:pointer}
+.login button[type=submit],.login .accSubmit{display:flex;align-items:center;justify-content:center;width:100%;height:52px;margin-top:18px;padding:0;border:0;border-radius:8px;background:var(--solid);color:#fff;font:inherit;font-size:15.5px;font-weight:700;cursor:pointer}
 .login button[disabled]{opacity:.6}
 .login .lnk,.accPage .lnk{border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;color:var(--ink);cursor:pointer}
 .accCode{font:800 40px ui-monospace,Consolas,monospace;letter-spacing:.18em;text-align:center;margin:10px 0 4px;color:var(--ink)}
@@ -461,26 +464,26 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .accPage h1{margin:6px 0 2px;font-size:27px;letter-spacing:-.02em;line-height:1.1}
 .accPage .sub{color:var(--muted);margin:2px 0 14px;font-size:14px}
 .accGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
-.accCard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.accCard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
 .accGrid .accCard{margin:0}
 .accCard>small{display:block;color:var(--muted);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:4px 0 6px}
 .accCard>b{display:block;font-size:15px}
 .accCard strong{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:2px 0}
-.accCard.dark{background:var(--ink);color:#fff;border-color:var(--ink)}.accCard.dark small{color:#b9b6b0}
+.accCard.dark{background:var(--solid);color:#fff;border-color:var(--solid)}.accCard.dark small{color:var(--line3)}
 .accCard .pwBox{height:46px;margin-top:8px}.accCard .pwBox input{flex:1;border:0;background:transparent;padding:0 12px;font:inherit;font-size:16px;min-width:0}
-.accRow{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #f0ede7}
+.accRow{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}
 .accCard>.accRow:first-child,.accCard>small+.accRow{border-top:0}
 .accRow>div{flex:1;min-width:0}.accRow b{display:block;overflow:hidden;text-overflow:ellipsis}.accRow small{display:block;color:var(--muted);font-size:12.5px}
 .accRow>b:first-child{flex:none;font:700 13px ui-monospace,Consolas,monospace;min-width:44px}
 .accItem{width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .accAlert{display:flex;align-items:center;gap:6px;width:100%;margin:10px 0 0;padding:12px 14px;border:1px solid #ecd18c;border-radius:12px;background:#fff4d6;color:#5c3d00;font:inherit;font-size:14px;text-align:left;cursor:pointer}
-.accAlert span{flex:1}.accAlert.pink{background:#fff0f7;border-color:#ffb3d6;color:#8a0047}
-.accBtn{display:block;width:100%;margin:10px 0 0;padding:13px;border:1px solid var(--ink);border-radius:12px;background:var(--ink);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
-.accBtn.pink{background:var(--pink);border-color:var(--pink)}.accBtn.ghost{background:#fff;color:var(--ink)}
+.accAlert span{flex:1}.accAlert.pink{background:var(--pinkSoft);border-color:#ffb3d6;color:#8a0047}
+.accBtn{display:block;width:100%;margin:10px 0 0;padding:13px;border:1px solid var(--ink);border-radius:12px;background:var(--solid);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.accBtn.pink{background:var(--pink);border-color:var(--pink)}.accBtn.ghost{background:var(--card);color:var(--ink)}
 .accTwo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .accSeg{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:0 0 12px;overflow-x:auto}
-.accSeg button{flex:1 0 auto;height:36px;border:0;border-radius:9px;background:transparent;color:#5b5b61;font:inherit;font-size:13.5px;font-weight:600;padding:0 10px;white-space:nowrap}
-.accSeg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12)}
+.accSeg button{flex:1 0 auto;height:36px;border:0;border-radius:9px;background:transparent;color:var(--ink2);font:inherit;font-size:13.5px;font-weight:600;padding:0 10px;white-space:nowrap}
+.accSeg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12)}
 .accLv,.accZ{margin:4px 0 8px}
 .accOpt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer}
 .accOpt:has(input:checked){border-color:var(--pink);background:#fff7fb}
@@ -488,14 +491,14 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .accOpt b{display:block;font-size:14px}.accOpt small{display:block;color:var(--muted);font-size:12.5px}
 .accChk{display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:14px}
 .accPill{flex:none;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#eee;color:#444;white-space:nowrap}
-.accPill.agenda{background:#eaf2fd;color:#1f5fbf}.accPill.numeros{background:#e3f5ea;color:#1d8a4a}.accPill.control{background:#fff0f7;color:#c2006b}
+.accPill.agenda{background:#eaf2fd;color:#1f5fbf}.accPill.numeros{background:#e3f5ea;color:#1d8a4a}.accPill.control{background:var(--pinkSoft);color:#c2006b}
 .accPill.ok{background:#e3f5ea;color:#1d8a4a}.accPill.w{background:#fff4d6;color:#7a5600}
 .accCodeS{font:800 18px ui-monospace,Consolas,monospace;letter-spacing:.12em}
 .accFrame{display:block;width:100%;border:0;height:calc(100vh - var(--hh,56px) - var(--mh) - env(safe-area-inset-bottom) - 16px);background:var(--bg)}
 .accQr{display:flex;flex-direction:column;align-items:center;margin-top:12px}.accQr svg{width:240px;height:240px;max-width:100%}
-.sheet select{width:100%;margin-top:12px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.sheet select{width:100%;margin-top:12px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .sheet button.danger{background:#c2103f}
-.accToast{position:fixed;left:50%;bottom:calc(var(--mh) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 10px 26px rgba(17,17,19,.25)}
+.accToast{position:fixed;left:50%;bottom:calc(var(--mh) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--solid);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 10px 26px rgba(17,17,19,.25)}
 body.many-modes{--mh:74px;overflow-x:clip}
 .modes.many .seg{max-width:620px}
 .modes.many button{flex-direction:column;gap:3px;height:52px;padding:0 2px;font-size:11px;font-weight:600}
@@ -504,12 +507,160 @@ body.many-modes{--mh:74px;overflow-x:clip}
 .modes .nDot{position:absolute;top:3px;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font:800 10.5px/17px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-style:normal;text-align:center;padding:0 4px}
 @media (min-width:1040px){.modes.many{display:block}body.many-modes .pC{height:calc(100vh - var(--hh,56px) - var(--mh))}body.many-modes .pA main:not(.wide){padding-bottom:calc(var(--mh) + 18px)}}
 /* (4.2.2) Control: pestañas con icono, como las de Números */
-.accTabs{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-bottom:1px solid var(--line);margin:-16px calc(50% - 50vw) 12px;padding:6px 4px;height:58px;align-items:stretch;position:sticky;top:var(--hh,56px);z-index:4}
+.accTabs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-bottom:1px solid var(--line);margin:-16px calc(50% - 50vw) 12px;padding:6px 4px;height:58px;align-items:stretch;position:sticky;top:var(--hh,56px);z-index:4}
 /* (4.2.3) Las mismas medidas que la barra de Números (panel.html, body.embed .tabsNav): 58 px, icono de 20, letra de 11,5. */
 .accTabs button{position:relative;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:700 11.5px/1.25 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--muted);padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .accTabs button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .accTabs button.on{color:var(--pink)}
 .accTabs .nDot{position:absolute;top:0;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:999px;background:var(--pink);color:#fff;font:800 10.5px/17px -apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-style:normal;text-align:center;padding:0 4px}
+
+/* ===================== (4.7.0) Lavado de cara: limpio (claro) y elegante (oscuro) =====================
+   Arriba, el nombre del estudio y los botones redondos; debajo, el título grande de la sección. La barra de abajo,
+   con el icono encima del nombre y la elegida en rosa con un punto. Las mismas piezas en los dos temas. */
+html,body{background:var(--page);font-family:Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--page);color:var(--ink);padding:calc(12px + env(safe-area-inset-top)) 16px 10px;border-bottom:1px solid var(--line)}
+header .t{min-height:40px}
+header b{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-weight:800}
+header .t>span{display:flex;align-items:center;gap:8px}
+header button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;min-width:40px;height:40px;padding:0 12px;font-size:13px;font-weight:700}
+header button svg{width:19px;height:19px}
+header button svg .f{fill:currentColor;stroke:none}
+#temaBtn{padding:0;width:40px;display:inline-grid;place-items:center}
+.hT{margin:2px 0 0;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:-.025em}
+header .tabs{margin-top:10px}
+header .tabs button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;height:34px;padding:0 13px;font-weight:700}
+header .tabs button.on{background:var(--solid);border-color:var(--solid);color:#fff}
+.upd{border-radius:12px;margin-top:10px}
+/* el selector de fechas de siempre (‹ HOY › y el día, que abre el calendario), más amable */
+.days{background:var(--page);border-bottom:1px solid var(--line);padding:10px 14px;gap:8px}
+.days button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;height:40px;min-width:40px}
+.days .hoy{border-radius:12px;letter-spacing:.06em}
+.days .d{border-radius:12px;font-weight:750}
+.days .d svg{stroke:var(--pink)}
+.status{color:var(--muted)}
+.status button,.status .cabSel{border-radius:10px;border-color:var(--line);background:var(--card);color:var(--ink)}
+/* la rejilla */
+.gw{background:var(--card);border-top:0}
+.gc,.gh{background:var(--card);border-bottom:1px solid var(--line)}
+.gh{border-left:0;align-items:center;padding:8px 8px 8px 6px}
+.gh .dot.av{width:28px;height:28px;margin:0;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.gh .dot.av::before{content:attr(data-i)}
+.gh b{font-size:13px;letter-spacing:0;text-transform:none}
+.gt{background:var(--card);border-right:0}
+.gt span{color:var(--muted);font-family:inherit;font-weight:600}
+.gcol{border-left:1px solid var(--line2)}
+.gcol .ln{border-top-color:var(--line2)}.gcol .ln.hr{border-top-color:var(--line)}
+.gcol .off{background:repeating-linear-gradient(135deg,var(--field) 0 6px,var(--line2) 6px 12px)}
+.ap{border-radius:10px;border-left-width:3px;color:var(--ink)}
+.now{border-top-width:2px}
+.emp{border-radius:16px;background:var(--card)}
+.it{border-bottom-color:var(--line2)}
+/* las fichas que suben desde abajo */
+.sheetBack{background:rgba(0,0,0,.5)}
+.sheet{background:var(--card);color:var(--ink);border-radius:22px 22px 0 0}
+.sheet button{border-radius:14px}
+.sheet .row{border-bottom-color:var(--line2)}
+.fabCita{border-radius:18px;padding:15px 20px;box-shadow:0 10px 24px var(--shadow)}
+/* la barra de abajo */
+.modes{background:var(--bar);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.modes .seg{background:transparent;gap:0}
+.modes button{background:transparent;color:var(--muted)}
+.modes.many button{flex-direction:column;gap:3px;font-size:11px;font-weight:600}
+.modes button.on{background:transparent;box-shadow:none;color:var(--pink);font-weight:800}
+.modes button.on svg{color:var(--pink)}
+.modes button.on::after{content:"";position:absolute;bottom:0;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--pink)}
+.modes small{background:var(--pink);color:#fff;border-radius:999px}
+/* la calculadora */
+.cTabs{background:var(--field)}
+.cTabs button.on{background:var(--card);color:var(--ink)}
+.cList{border:1px solid var(--line);box-shadow:none;border-radius:18px}
+.cItem{border-bottom-color:var(--line2)}
+.cSearch{background:var(--field);color:var(--ink)}
+.xCard{border:1px solid var(--line);box-shadow:none}
+/* Clientas: todas en una lista, la inicial en un círculo y las VIP con su estrella */
+.cliList{gap:0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.cliItem{border:0;border-radius:0;border-top:1px solid var(--line2);background:var(--card);padding:12px 14px;gap:12px}
+.cliItem:first-of-type{border-top:0}
+.cliAv{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;background:var(--pinkSoft);color:var(--pink)}
+.cliQ{background:var(--field);color:var(--ink);border-color:var(--line)}
+.cliHint{margin:10px 14px}
+.cliCita{background:var(--card);border-color:var(--line)}
+/* Apariencia */
+.temaOpts{display:flex;flex-direction:column;margin-top:14px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sheet .temaOpt{display:flex;align-items:center;gap:12px;margin:0;width:100%;background:var(--card);color:var(--ink);border:0;border-top:1px solid var(--line2);border-radius:0;padding:12px 14px;text-align:left;font-weight:600}
+.sheet .temaOpt:first-child{border-top:0}
+.temaPrev{flex:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line3)}
+.temaPrev.claro{background:linear-gradient(#ffffff 0 45%,#ffe3f0 45% 70%,#ffffff 70%)}
+.temaPrev.oscuro{background:linear-gradient(#0e0e11 0 45%,#5a1a3a 45% 70%,#0e0e11 70%)}
+.temaPrev.auto{background:linear-gradient(90deg,#ffffff 0 50%,#0e0e11 50%)}
+.temaTxt{flex:1}.temaTxt b{display:block;font-size:15px}.temaTxt small{color:var(--muted);font-size:12.5px}
+.temaRad{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line3);box-sizing:border-box}
+.temaOpt.on .temaRad{border:7px solid var(--pink)}
+.accFrame{background:var(--page)}
+.warn{border-radius:12px}.bad{border-radius:12px}
+html[data-theme=oscuro] .warn{background:#2b2210;border-color:#5a4718;color:#ffd98a}
+html[data-theme=oscuro] .bad{background:#2c1219;border-color:#5c2333;color:#ffb3c7}
+html[data-theme=oscuro] .tag.c{background:#123522}html[data-theme=oscuro] .tag.o,html[data-theme=oscuro] .offTag{background:#3a2e10;color:#ffd98a}
+html[data-theme=oscuro] .gcol .bk{border-color:#3a3a42}
+html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a4718}
+/* (4.7.1) Las pestañas de Control con icono (como las de Números): la elegida, en rosa con su nombre; caben todas */
+.accTabs{display:flex;gap:5px;height:64px;padding:10px 12px;box-sizing:border-box;background:var(--page);border-bottom:0;border-top:1px solid var(--line);overflow:hidden;align-items:center}
+.accTabs button{flex:none;width:44px;height:44px;padding:0;box-sizing:border-box;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);display:flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;font:750 13.5px/1 Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;white-space:nowrap;min-width:0}
+.accTabs button svg{display:block;width:20px;height:20px}
+.accTabs button span{display:none}
+.accTabs button.on{flex:1 1 auto;width:auto;padding:0 14px;background:var(--pink);border-color:var(--pink);color:#fff}
+.accTabs button.on span{display:inline;overflow:hidden;text-overflow:ellipsis}
+.accTabs .nDot{position:absolute;top:-3px;right:-4px;min-width:18px;height:18px;line-height:18px;border-radius:999px;background:#ffc21a;color:#3a2a00}
+.accTabs button.on .nDot{position:static}
+.ajCard{padding:0;overflow:hidden}.ajRow{display:flex;align-items:center;gap:12px;padding:14px;margin:0;cursor:pointer}.ajRow>div{flex:1}.ajRow b{display:block;font-size:15px}.ajRow small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.sw{position:relative;flex:none;width:50px;height:30px}.sw .swIn{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}.sw i{position:absolute;inset:0;border-radius:15px;background:var(--line3);transition:background .15s}
+.sw i::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .15s}.sw .swIn:checked+i{background:var(--pink)}.sw .swIn:checked+i::after{left:23px}
+/* (4.7.1) Nueva cita por pasos: arriba la ✕ y las flechas; abajo el resumen y los botones, siempre a la vista */
+.ncCab{position:sticky;top:0;z-index:3;background:var(--card);border-bottom:1px solid var(--line)}
+.ncCab .ncTop{position:static;background:transparent;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.ncSteps{display:flex;padding:0 14px 12px}
+.sheet .ncSteps .ncStp{flex:1;min-width:0;height:34px;margin:0 0 0 -6px;padding:0 4px 0 12px;border:0;border-radius:0;display:flex;align-items:center;justify-content:center;gap:4px;font:750 12.5px/1 Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;white-space:nowrap;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%);background:var(--field);color:var(--muted)}
+.sheet .ncSteps .ncStp:first-child{margin-left:0;padding-left:4px;border-radius:10px 0 0 10px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.sheet .ncSteps .ncStp:last-child{border-radius:0 10px 10px 0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,10px 50%)}
+.sheet .ncSteps .ncStp.on{background:var(--pink);color:#fff}.sheet .ncSteps .ncStp.done{background:var(--pinkSoft);color:var(--pink)}
+.ncStp i{font-style:normal;font-weight:900}.ncStp span{overflow:hidden;text-overflow:ellipsis}
+.sheet.full .cForm.nc.steps{padding:6px 16px 12px}
+.sheet .nc.steps .ncSec{background:none;border:0;border-radius:0;margin:0;overflow:visible}
+.sheet .nc.steps .ncSec:not(.on){display:none}
+.sheet .nc.steps .ncBody{padding:8px 0 4px}
+.ncHint{color:var(--muted);font-size:12.5px;margin:8px 2px}
+.sheet .nc .ncIdx{display:flex;align-items:center;gap:10px;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;margin-top:8px}
+.ncIdx b{flex:1;font-size:15.5px}.ncIdx small{color:var(--muted);font-size:12px}.ncIdx svg{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:2;transform:rotate(180deg);transition:transform .15s}
+.ncIdx.on svg{transform:none}.sheet .nc .ncIdx.on{border-radius:14px 14px 0 0;border-bottom-color:var(--line2)}
+.ncIdxN{min-width:20px;height:20px;border-radius:10px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px;box-sizing:border-box}
+.ncIdxB{border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px;overflow:hidden;background:var(--field)}
+.sheet .nc .ncIdxB .ncSvc,.ncIdxB .ncXr{border:0;border-radius:0;border-top:1px solid var(--line2);background:transparent;padding:12px 14px 12px 20px}
+.sheet .nc .ncIdxB .ncSvc:first-child,.ncIdxB .ncXr:first-child{border-top:0}
+.sheet .nc .ncIdxB .ncSvc.on{background:var(--pinkSoft)}
+.ncSvN b{display:block;font-size:14.5px;font-weight:650}.ncSvN small{display:block;color:var(--muted);font-size:12px;font-weight:500}
+.ncSvc .ncSvM{color:var(--ink);font-weight:800;font-size:14px}
+.ncXr{display:flex;align-items:center;gap:10px}.ncXr.on{background:var(--pinkSoft)!important}
+.ncXs{display:flex;align-items:center;gap:7px}.ncXs b{min-width:14px;text-align:center;color:var(--pink)}
+.sheet .nc .ncXm,.sheet .nc .ncXp{width:28px;height:28px;border-radius:8px;padding:0;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;font-weight:800;display:grid;place-items:center}
+.sheet .nc .ncXp{background:var(--pink);border-color:var(--pink);color:#fff}
+.sheet .nc .ncXt{width:24px;height:24px;padding:0;background:transparent;border-radius:50%}.ncXr.on .ncXt{background:var(--pink);border-color:var(--pink)}
+.sheet.full .ncBar{position:sticky;bottom:0;margin:0;padding:12px 14px calc(16px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -8px 20px rgba(0,0,0,.06)}
+.sheet.full .ncBarIn{display:block;background:transparent;color:var(--ink);border-radius:0;padding:0;box-shadow:none}
+.ncBarS{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}.sheet.full .ncBarT{flex:1;min-width:0;color:var(--muted);font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ncBarP{font-size:16px}
+.ncBarB{display:flex;gap:8px}
+.sheet .ncBar .ncBack{flex:none;width:56px;height:50px;margin:0;padding:0;border-radius:14px;background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:22px;font-weight:800}
+.sheet .ncBar .ncBack.wide{width:110px;font-size:16px}
+.sheet .ncBar .ncNext{flex:1;height:50px;margin:0;padding:0 14px;border-radius:14px;background:var(--solid);color:#fff;border:0;font-size:16px;font-weight:800}
+/* (4.7.1) Ficha de la clienta a pantalla completa */
+.cliBody{padding:12px 16px 16px;flex:1}
+.cliMinis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cliMini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 10px}.cliMini small{display:block;font-size:10.5px;font-weight:700;color:var(--muted)}.cliMini b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+/* (4.7.1) «Instala la app» al abrirla */
+.instSheet{text-align:center}.instIco{width:72px;height:72px;border-radius:18px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.18);display:grid;place-items:center;margin:4px auto 0}.instIco img{width:54px;height:54px}
+.instSheet h2{margin:12px 0 4px;font-size:20px}.instSheet .sub{color:var(--muted);font-size:13.5px;line-height:1.4;margin:0}
+.instSteps{text-align:left;margin-top:10px}.instStep{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}.instStep:first-child{border-top:0}
+.instStep i{flex:none;width:28px;height:28px;border-radius:50%;background:var(--pinkSoft);color:var(--pink);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:13px}.instStep span{flex:1;font-size:14px;line-height:1.35}
+.sheet button.instGo{background:var(--solid)}.sheet button.instNo{background:transparent;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body>
@@ -654,6 +805,49 @@ body.many-modes{--mh:74px;overflow-x:clip}
 
   function el(tag, attrs, kids) { var e = document.createElement(tag); if (attrs) Object.keys(attrs).forEach(function (k) { if (k === 'text') e.textContent = attrs[k]; else if (k === 'on') Object.keys(attrs.on).forEach(function (ev) { e.addEventListener(ev, attrs.on[ev]); }); else if (attrs[k] == null) return; else if (k === 'style') e.setAttribute('style', attrs[k]); else e.setAttribute(k, attrs[k]); }); (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); }); return e; }
   // Iconos de la barra de abajo (trazo, 24×24). Cada pieza: [etiqueta, atributos]; la clase «f» va rellena.
+  // (4.7.0) Tema claro / oscuro / automático (lo que tenga el móvil). Cada móvil guarda el suyo; «Números» lo lee también.
+  // Se guarda en su propia base de datos del navegador (nada de localStorage), y solo cuando se elige.
+  var TEMA_DB = 'consentia-tema', temaCur = 'claro', TEMA_ICON = [['circle', { cx: '12', cy: '12', r: '8.5' }], ['path', { class: 'f', d: 'M12 3.5a8.5 8.5 0 0 1 0 17z' }]];
+  function temaGet() { return temaCur; }
+  function temaDb() { return new Promise(function (res, rej) { var r = indexedDB.open(TEMA_DB, 1); r.onupgradeneeded = function () { r.result.createObjectStore('k'); }; r.onerror = function () { rej(r.error); }; r.onsuccess = function () { res(r.result); }; }); }
+  async function temaLoad() { try { if (!window.indexedDB || (indexedDB.databases && !(await indexedDB.databases()).some(function (x) { return x.name === TEMA_DB; }))) return; var db = await temaDb(); var t = await new Promise(function (res) { var q = db.transaction('k').objectStore('k').get('tema'); q.onsuccess = function () { res(q.result); }; q.onerror = function () { res(null); }; }); db.close(); if (t === 'oscuro' || t === 'auto' || t === 'claro') { temaCur = t; temaApply(); } } catch (e) { } }
+  function temaApply() {
+    var t = temaGet(), dark = t === 'oscuro' || (t === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'oscuro' : 'claro');
+    var m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', dark ? '#0e0e11' : '#ffffff');
+    var f = document.getElementById('numeros'); if (f && f.contentWindow) try { f.contentWindow.postMessage({ csTema: dark ? 'oscuro' : 'claro' }, location.origin === 'null' ? '*' : location.origin); } catch (e) { }
+  }
+  function temaSet(t) { temaCur = t; temaApply(); temaDb().then(function (db) { var tx = db.transaction('k', 'readwrite'); tx.objectStore('k').put(t, 'tema'); tx.oncomplete = function () { db.close(); }; }).catch(function () { }); }
+  temaApply(); temaLoad(); try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', temaApply); } catch (e) { }
+  // (4.7.1) Nada más abrirla en el navegador, ofrece instalarla: en Android con el botón «Instalar» (el aviso del propio
+  // móvil); en iPhone explica los 3 toques de Safari (Apple no deja instalarla con un botón). «Ahora no»: 14 días sin salir.
+  var INST = { prompt: null, shown: false };
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); INST.prompt = e; });
+  function isStandalone() { try { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
+  function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+  function instKv(v) { return temaDb().then(function (db) { return new Promise(function (res) { var tx = db.transaction('k', v === undefined ? 'readonly' : 'readwrite'), os = tx.objectStore('k'); var q = v === undefined ? os.get('instalar') : os.put(v, 'instalar'); q.onsuccess = function () { res(q.result); }; q.onerror = function () { res(null); }; tx.oncomplete = function () { db.close(); }; }); }); }
+  async function instCheck() {
+    if (INST.shown || isStandalone() || window.parent !== window || navigator.webdriver) return; INST.shown = true;
+    var android = /android/i.test(navigator.userAgent); if (!isIOS() && !android && !INST.prompt) return;
+    var until = 0; try { until = +(await instKv()) || 0; } catch (e) { } if (until > Date.now() || document.querySelector('.sheetBack')) return;
+    var steps = isIOS() ? [['Toca ', 'Compartir', ' abajo en Safari'], ['Elige ', 'Añadir a pantalla de inicio', ''], ['Toca ', 'Añadir', ' arriba a la derecha']]
+      : INST.prompt ? [['Toca ', 'Instalar', ' aquí abajo'], ['Acepta en el aviso del móvil', '', ''], ['Ya la tienes en la pantalla de inicio', '', '']] : [['Toca el menú ', '⋮', ' de Chrome'], ['Elige ', 'Instalar aplicación', ''], ['Acepta', '', '']];
+    sheet([el('div', { class: 'instSheet', id: 'instalar' }, [el('div', { class: 'instIco' }, [el('img', { src: 'icono-192.png', alt: '' })]), el('h2', { text: 'Instala la app' }),
+      el('p', { class: 'sub', text: 'Ábrela con un toque desde la pantalla de inicio, a pantalla completa.' + (isIOS() && acc.me ? ' Al abrir la app instalada tendrás que volver a pedir acceso (Safari y la app no comparten nada).' : '') }),
+      el('div', { class: 'instSteps' }, steps.map(function (x, i) { return el('div', { class: 'instStep' }, [el('i', { text: String(i + 1) }), el('span', {}, [x[0], x[1] ? el('b', { text: x[1] }) : null, x[2]])]); }))])],
+      function (close) { return el('div', {}, [!isIOS() && INST.prompt ? el('button', { type: 'button', class: 'instGo', id: 'instalarYa', text: 'Instalar', on: { click: function () { var pr = INST.prompt; INST.prompt = null; close(); try { pr.prompt(); } catch (e) { } } } }) : null,
+        el('button', { type: 'button', class: 'instNo', id: 'instalarNo', text: 'Ahora no', on: { click: function () { close(); instKv(Date.now() + 14 * 86400e3).catch(function () { }); } } })]); }, false);
+    var cf = document.getElementById('cerrarFicha'); if (cf) cf.remove(); // («Ahora no» ya cierra)
+  }
+  setTimeout(function () { instCheck().catch(function () { }); }, 2500);
+  function temaSheet() {
+    var opts = [['claro', 'Claro', 'Blanco, como de día'], ['oscuro', 'Oscuro', 'Negro, cansa menos la vista'], ['auto', 'Automático', 'Como tenga puesto el móvil']], cur = temaGet();
+    sheet([el('h2', { text: 'Apariencia' }), el('p', { class: 'who', text: 'Solo en este móvil.' }), el('div', { class: 'temaOpts', id: 'temaOpts' }, opts.map(function (o) {
+      return el('button', { type: 'button', id: 'tema-' + o[0], class: 'temaOpt' + (o[0] === cur ? ' on' : ''), 'aria-pressed': o[0] === cur ? 'true' : 'false', on: { click: function () { temaSet(o[0]); var b = document.querySelector('.sheetBack'); if (b) b.remove(); } } }, [el('span', { class: 'temaPrev ' + o[0] }), el('span', { class: 'temaTxt' }, [el('b', { text: o[1] }), el('small', { text: o[2] })]), el('i', { class: 'temaRad' })]);
+    }))]);
+  }
+  function hTitle(m) { return el('h1', { class: 'hT', text: { agenda: 'Agenda', calc: 'Calculadora', clientas: 'Clientas', numeros: 'Números', control: nivel() === 'gestion' ? 'Gestión' : 'Control' }[m] || 'Agenda' }); }
+  function temaBtn() { return el('button', { id: 'temaBtn', type: 'button', title: 'Tema claro u oscuro', 'aria-label': 'Tema claro u oscuro', on: { click: temaSheet } }, [svg(TEMA_ICON)]); }
   var ICON = {
     agenda: [['rect', { x: 3.5, y: 5, width: 17, height: 15.5, rx: 3.5 }], ['path', { d: 'M3.5 10h17M8 3v4M16 3v4' }], ['circle', { class: 'f', cx: 8.2, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 12, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 15.8, cy: 14.6, r: 1.15 }]],
     calc: [['rect', { x: 5, y: 3, width: 14, height: 18, rx: 3.5 }], ['rect', { x: 8, y: 6, width: 8, height: 3.6, rx: 1.2 }], ['circle', { class: 'f', cx: 8.8, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 8.8, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 17, r: 1.1 }]]
@@ -758,13 +952,19 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var sum = function () { return pick.reduce(function (t, id) { var x = svOf(id); return t + (x ? x.m || 0 : 0); }, 0); };
     var price = function () { return pick.reduce(function (t, id) { var x = svOf(id); return t + (x ? +x.p || 0 : 0); }, 0); };
     var card = function (n, title, kids) { return el('div', { class: 'ncCard' }, [el('div', { class: 'ncT' }, [el('span', { class: 'ncN', text: String(n) }), el('b', { text: title })])].concat(kids)); };
+    // (4.7.1) Paso «Extras» (si Control total lo ha encendido en Control → Ajustes): los extras del centro, con − / +.
+    // Van en la nota de la cita («Extras: …»): en el programa, los extras se cobran al cobrar, como siempre.
+    var EXON = !edit && pasoExtras(), xs = EXON ? ((calcOf(d) || {}).addons || []).filter(function (x) { return x.mode !== 'open'; }) : [], xq = {};
+    var xPrice = function (x, n) { return n > 0 ? addonPrice(x, n, 0, 10).amount : 0; };
+    var xTot = function () { return xs.reduce(function (t, x, i) { return t + xPrice(x, xq[i] || 0); }, 0); };
+    var xTxt = function () { return xs.map(function (x, i) { var n = xq[i] || 0; return n ? txt(x.n, 40) + (n > 1 ? ' × ' + n : '') : ''; }).filter(Boolean).join(', '); };
 
     /* 1 · clienta */
     var cq = el('input', { type: 'search', id: 'cClienta', placeholder: 'Busca por nombre', autocomplete: 'off', value: '' });
     var res = el('div', { class: 'cRes', id: 'cRes' }), chosen = el('div', { class: 'ncPick', id: 'cElegida' });
     var nn = el('input', { type: 'text', id: 'cNombre', maxlength: '80', placeholder: 'Nombre y apellidos' }), nt = el('input', { type: 'tel', id: 'cTel', maxlength: '16', placeholder: 'Teléfono' });
     var nueva = el('div', { class: 'ncNew', id: 'cNueva', style: 'display:none' }, [el('label', { for: 'cNombre', text: 'Clienta nueva' }), nn, el('label', { for: 'cTel', text: 'Teléfono' }), nt,
-      el('button', { type: 'button', class: 'ncGo', id: 'cNuevaOk', text: 'Seguir ›', on: { click: function () { if (!nn.value.trim() || nt.value.replace(/\D/g, '').length < 9) return toast('Escribe su nombre y su teléfono.'); next('cli'); } } })]);
+      el('p', { class: 'ncHint', text: 'Luego pulsa «Siguiente».' })]); /* (4.7.1) el botón está abajo, siempre a la vista */
     var drawClient = function () {
       chosen.innerHTML = ''; cq.style.display = client || edit ? 'none' : ''; nueva.style.display = newC && !client ? '' : 'none';
       if (client) chosen.appendChild(el('div', { class: 'ncChosen' }, [el('span', { class: 'ncAv', text: (client.n || '?').trim().charAt(0).toUpperCase() }), el('b', { text: client.n }), edit ? null : el('button', { type: 'button', class: 'ncLink', id: 'cCambiarClienta', text: 'Otra', on: { click: function () { client = null; newC = false; cq.value = ''; drawClient(); drawRes(); warn(); cq.focus(); } } })]));
@@ -773,7 +973,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
       res.innerHTML = ''; var q = low(cq.value).trim(); if (client || !q || edit) return;
       var found = cl.filter(function (c) { return q.split(/\s+/).every(function (w) { return low(c[1]).indexOf(w) >= 0; }); }).slice(0, 8);
       found.forEach(function (c) { res.appendChild(el('button', { type: 'button', class: 'cItem', text: c[1] + (c[2] ? ' ★' : ''), on: { click: function () { client = { id: c[0], n: c[1] }; newC = false; res.innerHTML = ''; drawClient(); warn(); next('cli'); } } })); });
-      res.appendChild(el('button', { type: 'button', class: 'cItem ncAdd', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; newC = true; nn.value = cq.value.trim(); res.innerHTML = ''; drawClient(); nt.focus(); } } }));
+      res.appendChild(el('button', { type: 'button', class: 'cItem ncAdd', id: 'cNuevaBtn', text: '＋ Clienta nueva: «' + cq.value.trim() + '»', on: { click: function () { client = null; newC = true; nn.value = cq.value.trim(); res.innerHTML = ''; drawClient(); foot(); nt.focus(); } } }));
     };
     cq.addEventListener('input', function () { client = null; newC = false; nueva.style.display = 'none'; drawRes(); warn(); });
 
@@ -781,18 +981,42 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var sq = el('input', { type: 'search', id: 'cBuscar', placeholder: 'Busca un servicio', autocomplete: 'off' });
     var cats = []; svc.forEach(function (v) { if (cats.indexOf(v.c) < 0) cats.push(v.c); });
     var catBar = el('div', { class: 'ncCats', id: 'cCats' }), list = el('div', { class: 'ncList cChips', id: 'cSvcs' }), svSum = el('div', { class: 'ncSum', id: 'cSvSum' });
-    var drawCats = function () { catBar.innerHTML = ''; if (cats.length < 2) return; [''].concat(cats).forEach(function (c) { catBar.appendChild(el('button', { type: 'button', class: 'ncPill' + (c === cat ? ' on' : ''), text: c || 'Todos', on: { click: function () { cat = c; drawCats(); drawSvc(); } } })); }); };
+    // (4.7.1) Los servicios como un índice: cada grupo (Manicuras, Pedicuras…) se despliega al tocarlo; con el número de
+    // elegidos de ese grupo. Al buscar, salen todos los que coinciden.
+    var openCat = null, drawCats = function () { };
+    var svItem = function (v) { var on = pick.indexOf(v.id) >= 0;
+      return el('button', { type: 'button', class: 'ncSvc' + (on ? ' on' : ''), 'data-s': v.id, on: { click: function () { var i = pick.indexOf(v.id); if (i >= 0) pick.splice(i, 1); else pick.push(v.id); if (!durTouched && sum()) dur.value = String(Math.ceil(sum() / 5) * 5); drawSvc(); drawSlots(); warn(); } } },
+        [el('span', { class: 'ncSvN' }, [el('b', { text: txt(v.n, 80) }), el('small', { text: v.m ? durTxt(v.m) : '' })]), el('span', { class: 'ncSvM', text: v.p ? euro(v.p) : '' }), el('span', { class: 'ncChk', text: on ? '✓' : '' })]); };
     var drawSvc = function () {
       list.innerHTML = ''; var q = low(sq.value).trim();
-      var show = svc.filter(function (v) { return (!cat || v.c === cat) && (!q || q.split(/\s+/).every(function (w) { return low(v.n + ' ' + v.c).indexOf(w) >= 0; })); });
-      var lastC = null;
-      show.forEach(function (v) { var on = pick.indexOf(v.id) >= 0;
-        if (!cat && v.c !== lastC) { lastC = v.c; list.appendChild(el('div', { class: 'cCat', text: v.c || 'Servicios' })); }
-        list.appendChild(el('button', { type: 'button', class: 'ncSvc' + (on ? ' on' : ''), 'data-s': v.id, on: { click: function () { var i = pick.indexOf(v.id); if (i >= 0) pick.splice(i, 1); else pick.push(v.id); if (!durTouched && sum()) dur.value = String(Math.ceil(sum() / 5) * 5); drawSvc(); drawSlots(); warn(); } } },
-          [el('span', { class: 'ncChk', text: on ? '✓' : '' }), el('span', { class: 'ncSvN', text: txt(v.n, 80) }), el('span', { class: 'ncSvM', text: (v.m ? durTxt(v.m) : '') + (v.p ? (v.m ? ' · ' : '') + euro(v.p) : '') })])); });
-      if (!show.length) list.appendChild(el('div', { class: 'ncEmpty', text: 'No hay ningún servicio con ese nombre.' }));
+      if (q || cats.length < 2) {
+        var show = svc.filter(function (v) { return !q || q.split(/\s+/).every(function (w) { return low(v.n + ' ' + v.c).indexOf(w) >= 0; }); }), lastC = null;
+        show.forEach(function (v) { if (cats.length > 1 && v.c !== lastC) { lastC = v.c; list.appendChild(el('div', { class: 'cCat', text: v.c || 'Servicios' })); } list.appendChild(svItem(v)); });
+        if (!show.length) list.appendChild(el('div', { class: 'ncEmpty', text: 'No hay ningún servicio con ese nombre.' }));
+      } else {
+        if (openCat === null) { var pc = svc.filter(function (v) { return pick.indexOf(v.id) >= 0; })[0]; openCat = pc ? pc.c : cats[0]; }
+        cats.forEach(function (c) { var inC = svc.filter(function (v) { return v.c === c; }), n = inC.filter(function (v) { return pick.indexOf(v.id) >= 0; }).length, o = c === openCat;
+          list.appendChild(el('button', { type: 'button', class: 'ncIdx' + (o ? ' on' : ''), 'data-g': c, on: { click: function () { openCat = o ? '' : c; drawSvc(); } } }, [el('b', { text: c || 'Servicios' }), n ? el('span', { class: 'ncIdxN', text: String(n) }) : el('small', { text: String(inC.length) }), svg(CHEV)]));
+          if (o) list.appendChild(el('div', { class: 'ncIdxB' }, inC.map(svItem))); });
+      }
       svSum.textContent = pick.length ? pick.length + (pick.length === 1 ? ' servicio' : ' servicios') + ' · ' + durTxt(sum()) + ' · ' + euro(price()) : 'Toca los servicios que se va a hacer.';
-      svSum.className = 'ncSum' + (pick.length ? ' on' : '');
+      svSum.className = 'ncSum' + (pick.length ? ' on' : ''); foot();
+    };
+    // (4.7.1) Los extras, igual: por su grupo (Decoración…), con − / + (uñas, unidades o veces).
+    var xl = el('div', { class: 'ncList', id: 'cExtras' }), openX = null;
+    var drawX = function () {
+      xl.innerHTML = ''; var groups = []; xs.forEach(function (x) { var g = txt(x.g, 60) || 'Extras'; if (groups.indexOf(g) < 0) groups.push(g); });
+      if (!xs.length) { xl.appendChild(el('div', { class: 'ncEmpty', text: 'Este centro no tiene extras.' })); return; }
+      if (openX === null) openX = groups[0];
+      groups.forEach(function (g) { var idx = []; xs.forEach(function (x, i) { if ((txt(x.g, 60) || 'Extras') === g) idx.push(i); }); var n = idx.filter(function (i) { return xq[i] > 0; }).length, o = g === openX;
+        xl.appendChild(el('button', { type: 'button', class: 'ncIdx' + (o ? ' on' : ''), 'data-xg': g, on: { click: function () { openX = o ? '' : g; drawX(); } } }, [el('b', { text: g }), n ? el('span', { class: 'ncIdxN', text: String(n) }) : el('small', { text: String(idx.length) }), svg(CHEV)]));
+        if (o) xl.appendChild(el('div', { class: 'ncIdxB' }, idx.map(function (i) { var x = xs[i], q = xq[i] || 0, many = x.mode === 'perNail' || x.mode === 'steps';
+          var set = function (v) { xq[i] = Math.max(0, Math.min(many ? 20 : 1, v)); drawX(); foot(); };
+          return el('div', { class: 'ncXr' + (q ? ' on' : ''), 'data-x': String(i) }, [el('span', { class: 'ncSvN' }, [el('b', { text: txt(x.n, 80) }), el('small', { text: many ? (x.mode === 'perNail' ? 'por uña' : txt(x.u, 30) || 'por unidad') : '' })]),
+            el('span', { class: 'ncSvM', text: euro(xPrice(x, Math.max(1, q))) }),
+            many ? el('span', { class: 'ncXs' }, [el('button', { type: 'button', class: 'ncXm', 'aria-label': 'Menos', text: '−', on: { click: function () { set(q - 1); } } }), el('b', { text: String(q) }), el('button', { type: 'button', class: 'ncXp', 'aria-label': 'Más', text: '+', on: { click: function () { set(q + 1); } } })])
+              : el('button', { type: 'button', class: 'ncChk ncXt', 'aria-label': q ? 'Quitar' : 'Añadir', text: q ? '✓' : '', on: { click: function () { set(q ? 0 : 1); } } })]); })));
+      });
     };
     sq.addEventListener('input', drawSvc);
 
@@ -842,54 +1066,60 @@ body.many-modes{--mh:74px;overflow-x:clip}
     [day, time].forEach(function (n) { n.addEventListener('change', function () { if (n === day) { drawDays(); } drawSlots(); warn(); }); });
     dur.addEventListener('input', function () { durTouched = true; drawSlots(); warn(); });
 
-    var bar = el('div', { class: 'ncBar' }), sumTxt = el('div', { class: 'ncBarT', id: 'cResumen' });
+    var bar = el('div', { class: 'ncBar' }), sumTxt = el('div', { class: 'ncBarT', id: 'cResumen' }), priceTxt = el('b', { class: 'ncBarP', id: 'cPrecio' });
     var foot = function () { var e = emps.filter(function (x) { return x.id === empSel; })[0]; drawSecs();
-      sumTxt.textContent = (client ? client.n : newC && nn.value.trim() ? nn.value.trim() : 'Sin clienta') + ' · ' + (day.value ? (day.value === today() ? 'hoy' : DN[dow(day.value)] + ' ' + (+day.value.slice(8, 10))) : '—') + (time.value ? ' ' + time.value : '') + (e ? ' · ' + txt(e.n, 20) : ''); };
-    nn.addEventListener('input', foot);
+      sumTxt.textContent = (client ? client.n : newC && nn.value.trim() ? nn.value.trim() : 'Sin clienta') + ' · ' + (day.value ? (day.value === today() ? 'hoy' : DN[dow(day.value)] + ' ' + (+day.value.slice(8, 10))) : '—') + (time.value ? ' ' + time.value : '') + (e ? ' · ' + txt(e.n, 20) : ''); var pt = price() + xTot(); priceTxt.textContent = pt ? euro(pt) : ''; };
+    nn.addEventListener('input', foot); nt.addEventListener('input', foot);
 
-    // (4.6.0) Una sola pantalla con apartados que se pliegan (como la app de las clientas): el que toca, abierto y con el borde
-    // rosa; los hechos, con ✓ verde, lo elegido y «Cambiar»; los que faltan, en gris. Al elegir algo se pasa solo al siguiente.
-    var open = edit ? 'cuando' : client ? 'serv' : 'cli', secs = {};
-    var svNames = function () { return pick.map(function (id) { var x = svOf(id); return x ? txt(x.n, 40) : ''; }).filter(Boolean).join(' + '); };
-    var dayLbl = function (k) { return k === today() ? 'hoy' : DN[dow(k)] + ' ' + (+k.slice(8, 10)); };
-    var SECS = [
-      ['cli', 'Clienta', function () { return client || edit || (newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9); }, function () { return client ? client.n : nn.value.trim() + ' · nueva'; }, function () { return ''; }],
-      ['serv', 'Servicios', function () { return pick.length > 0; }, function () { return svNames(); }, function () { return [sum() ? durTxt(sum()) : '', price() ? euro(price()) : ''].filter(Boolean).join(' · '); }],
-      ['cuando', '¿Cuándo?', function () { return !!(day.value && time.value && empSel); }, function () { var e = emps.filter(function (x) { return x.id === empSel; })[0]; return dayLbl(day.value) + ' · ' + time.value + (e ? ' · ' + txt(e.n, 20) : ''); }, function () { return durTxt(Math.max(5, +dur.value || 30)); }],
-      ['nota', 'Nota (opcional)', function () { return !!note.value.trim(); }, function () { return note.value.trim(); }, function () { return ''; }]];
-    var next = function (k) { var i = SECS.findIndex(function (x) { return x[0] === k; }); var n = SECS.slice(i + 1).filter(function (x) { return !x[2](); })[0] || SECS.slice(i + 1)[0]; open = n ? n[0] : ''; drawSecs(); var o = secs[open]; if (o) setTimeout(function () { try { o.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch (e) { } }, 30); };
+    // (4.7.1) Por pasos, en flechas arriba: Clienta › Servicios › (Extras) › Cuándo. Se ve un paso cada vez; la ✕ arriba
+    // y el resumen con «‹» y «Siguiente ›» (o «Dar la cita») abajo, siempre a la vista.
+    var STEPS = ['cli', 'serv'].concat(EXON ? ['extras'] : []).concat(['cuando']), NAMES = { cli: 'Clienta', serv: 'Servicios', extras: 'Extras', cuando: 'Cuándo' };
+    var open = edit ? 'cuando' : client ? 'serv' : 'cli', secs = {}, navBtns = function () { };
+    var okStep = function (k) { if (k === 'cli') return !!(client || edit || (newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)); if (k === 'serv') return pick.length > 0; if (k === 'extras') return true; return !!(day.value && time.value && empSel); };
+    var stepsBar = el('div', { class: 'ncSteps', id: 'cPasos' });
+    var top0 = function () { var sh = document.querySelector('.sheet.full'); if (sh) sh.scrollTop = 0; };
+    var next = function (k) { var i = STEPS.indexOf(k); if (i >= 0 && i < STEPS.length - 1) { open = STEPS[i + 1]; drawSecs(); top0(); } else drawSecs(); };
     var drawSecs = function () {
-      SECS.forEach(function (x, i) {
-        var box = secs[x[0]]; if (!box) return; var done = !!x[2](), on = open === x[0]; box.className = 'ncSec' + (on ? ' on' : done ? ' done' : ' todo');
-        var hd = box.firstChild; hd.innerHTML = '';
-        hd.appendChild(el('span', { class: 'ncN', text: done && !on ? '✓' : String(i + 1) }));
-        hd.appendChild(on || !done ? el('b', { class: 'ncTit', text: x[1] }) : el('span', { class: 'ncTit' }, [el('small', { text: x[1].replace(/[¿?]/g, '').replace(' (opcional)', '').toUpperCase() }), el('b', { text: x[3]() }), x[4]() ? el('em', { text: x[4]() }) : null]));
-        if (!on && done && !(edit && x[0] === 'cli')) hd.appendChild(el('span', { class: 'ncCh', text: 'Cambiar' }));
-      });
+      var cur = STEPS.indexOf(open);
+      STEPS.forEach(function (k, i) { var box = secs[k]; if (box) box.className = 'ncSec ' + (i === cur ? 'on' : okStep(k) ? 'done' : 'todo'); });
+      stepsBar.innerHTML = '';
+      STEPS.forEach(function (k, i) { var st2 = i === cur ? 'on' : i < cur ? 'done' : 'todo';
+        stepsBar.appendChild(el('button', { type: 'button', class: 'ncStp ' + st2, 'data-p': k, on: { click: function () { if (i === cur || (edit && k === 'cli')) return; if (i < cur || STEPS.slice(0, i).every(okStep)) { open = k; drawSecs(); top0(); } } } }, [st2 === 'done' ? el('i', { text: '✓' }) : null, el('span', { text: NAMES[k] })])); });
+      navBtns();
     };
-    var sec = function (k, kids) { var hd = el('button', { type: 'button', class: 'ncHd', on: { click: function () { if (edit && k === 'cli') return; open = open === k ? '' : k; drawSecs(); } } }); var box = el('div', { class: 'ncSec', id: 'sec-' + k }, [hd, el('div', { class: 'ncBody' }, kids)]); secs[k] = box; return box; };
+    var sec = function (k, kids) { var box = el('div', { class: 'ncSec', id: 'sec-' + k }, [el('div', { class: 'ncBody' }, kids)]); secs[k] = box; return box; };
     note.addEventListener('input', foot);
-    drawClient(); drawCats(); drawDays(); drawEmps(); drawSlots();
-    var form = el('div', { class: 'cForm nc' }, [
+    drawClient(); drawCats(); drawDays(); drawEmps(); drawSlots(); if (EXON) drawX();
+    var form = el('div', { class: 'cForm nc steps' }, [
       sec('cli', [cq, res, chosen, nueva]),
-      sec('serv', [sq, catBar, list, svSum, el('button', { type: 'button', class: 'ncGo', id: 'cSvcOk', text: 'Seguir ›', on: { click: function () { if (!pick.length) return toast('Elige al menos un servicio.'); next('serv'); } } })]),
+      sec('serv', [sq, list, svSum]),
+      EXON ? sec('extras', [el('p', { class: 'ncHint', text: 'Opcional: si no lleva extras, pulsa «Siguiente».' }), xl]) : null,
       sec('cuando', [el('label', { text: 'Con quién' }), empBar, days, el('div', { class: 'ncRow' }, [el('label', { for: 'cDia', text: 'Otro día' }), day]),
         el('label', { text: 'Duración' }), el('div', { class: 'ncDur' }, [el('button', { type: 'button', class: 'ncStep', text: '−', 'aria-label': 'Menos', on: { click: function () { step(-15); } } }), dur, el('span', { text: 'min' }), el('button', { type: 'button', class: 'ncStep', text: '+', 'aria-label': 'Más', on: { click: function () { step(15); } } })]),
-        el('label', { text: 'Horas libres' }), slots, el('div', { class: 'ncRow' }, [el('label', { for: 'cHora', text: 'Otra hora' }), time])]),
-      sec('nota', [note]), warnBox]);
+        el('label', { text: 'Horas libres' }), slots, el('div', { class: 'ncRow' }, [el('label', { for: 'cHora', text: 'Otra hora' }), time]),
+        el('label', { for: 'cNota', text: 'Nota (opcional)' }), note]), warnBox]);
     drawSvc(); warn();
-    sheet(function (close) { return [el('div', { class: 'ncTop' }, [el('button', { type: 'button', class: 'ncX', id: 'cerrarCita', 'aria-label': 'Cerrar', title: 'Cerrar', on: { click: close } }, [svgX()]), el('div', { class: 'ncTopT' }, [el('b', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), el('small', { text: txt(d.center.l || d.center.n, 80) })])]), form]; }, function (close) {
-      var inner = el('div', { class: 'ncBarIn' }); bar.appendChild(inner); inner.appendChild(sumTxt);
-      inner.appendChild(el('button', { type: 'button', id: 'guardarCita', text: edit ? 'Guardar los cambios' : 'Dar la cita', on: { click: async function () {
+    sheet(function (close) { return [el('div', { class: 'ncCab' }, [el('div', { class: 'ncTop' }, [el('button', { type: 'button', class: 'ncX', id: 'cerrarCita', 'aria-label': 'Cerrar', title: 'Cerrar', on: { click: close } }, [svgX()]), el('div', { class: 'ncTopT' }, [el('b', { text: edit ? 'Cambiar la cita' : 'Nueva cita' }), el('small', { text: txt(d.center.l || d.center.n, 80) })])]), stepsBar]), form]; }, function (close) {
+      var inner = el('div', { class: 'ncBarIn' }); bar.appendChild(inner);
+      inner.appendChild(el('div', { class: 'ncBarS' }, [sumTxt, priceTxt]));
+      var backB = el('button', { type: 'button', class: 'ncBack', id: 'citaAtras', 'aria-label': 'Atrás', text: '‹', on: { click: function () { var i = STEPS.indexOf(open); if (i > 0) { open = STEPS[i - 1]; drawSecs(); top0(); } } } });
+      var sigB = el('button', { type: 'button', class: 'ncNext', id: 'citaSig', text: 'Siguiente ›', on: { click: function () {
+        if (open === 'cli' && !okStep('cli')) return toast(newC ? 'Escribe su nombre y su teléfono.' : 'Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
+        if (open === 'serv' && !pick.length) return toast('Elige al menos un servicio.'); next(open); } } });
+      var giveB = el('button', { type: 'button', class: 'ncNext', id: 'guardarCita', text: edit ? 'Guardar los cambios' : '✓ Dar la cita', on: { click: async function () {
         if (!edit && !client && !(newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
         if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Elige el día y la hora (toca una hora libre o escribe otra).'); if (!empSel) return toast('Elige con quién.');
         var m = warn(); if (m.length && !confirm(m.join('\n') + '\n\n¿Guardarla igualmente?')) return;
-        var args = { zona: d.$z, emp: empSel, d: day.value, s: time.value, du: Math.round((+dur.value || 30) / 5) * 5, svc: pick, note: note.value.trim() };
+        var nx = xTxt(), args = { zona: d.$z, emp: empSel, d: day.value, s: time.value, du: Math.round((+dur.value || 30) / 5) * 5, svc: pick, note: (note.value.trim() + (nx ? (note.value.trim() ? ' · ' : '') + 'Extras: ' + nx : '')).slice(0, 200) };
         if (edit) { args.id = a.id; close(); citaOrder('citaCambiar', args, 'Cita cambiada: la agenda se actualiza en unos segundos.'); }
         else { if (client) args.cid = client.id; else { args.name = nn.value.trim(); args.tel = nt.value.trim(); } close(); citaOrder('citaNueva', args, 'Cita dada: la agenda se actualiza en unos segundos.'); }
-      } } })); foot(); return bar;
+      } } });
+      inner.appendChild(el('div', { class: 'ncBarB' }, [backB, sigB, giveB]));
+      navBtns = function () { var i = STEPS.indexOf(open), last = i === STEPS.length - 1; backB.style.display = i > 0 ? '' : 'none'; sigB.style.display = last ? 'none' : ''; giveB.style.display = last ? '' : 'none'; };
+      drawSecs(); foot(); return bar;
     }, true);
   }
+  function pasoExtras() { return !!(acc.estado && acc.estado.ajustes && acc.estado.ajustes.pasoExtras); } // (4.7.1)
   function svgX() { var n = 'http://www.w3.org/2000/svg', s = document.createElementNS(n, 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); var p = document.createElementNS(n, 'path'); p.setAttribute('d', 'M6 6l12 12M18 6L6 18'); s.appendChild(p); return s; }
 
   /* ---------- calculadora: precios del centro (van cifrados dentro de su agenda) ---------- */
@@ -1318,13 +1548,13 @@ body.many-modes{--mh:74px;overflow-x:clip}
     if (!v2) { screenEntry(card); return; } // (4.3.0) sin acceso: escanear el QR del local (ya no hay contraseña común)
     var c = st.centers[st.cur] || st.centers[0];
     if (v2 && st.mode === 'clientas') { // (4.6.2) Clientas: con las pestañas de los locales, como la agenda
-      var hk = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), el('span', { text: 'Clientas' })])]);
+      var hk = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), el('span', {}, [temaBtn()])]), hTitle('clientas')]);
       if (st.centers.length > 1) hk.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : '…', on: { click: function () { st.cur = i; st.cliQ = ''; render(); } } }); })));
       app.appendChild(hk); var pk = el('div', { class: 'accWrap' }); app.appendChild(pk); renderClientas(pk, c);
       document.body.appendChild(tabsBar()); document.body.className = 'has-modes many-modes'; modesBadge(); return;
     }
     var page = v2 && ['numeros', 'control'].indexOf(st.mode) >= 0; // (4.2.0) pestañas que no son de un local
-    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), /* (4.2.3) siempre el nombre del estudio, no el de la persona */ el('span', {}, [acc.grant && acc.grant.emp ? el('button', { id: 'misVac', title: 'Mis vacaciones', 'aria-label': 'Mis vacaciones', on: { click: vacSheet } }, [svg(VAC_ICON)]) : null, acc.grant && acc.grant.emp ? ' ' : null, el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])])]);
+    var head = el('header', {}, [el('div', { class: 't' }, [el('b', { text: 'Consentía Studio' }), /* (4.2.3) siempre el nombre del estudio, no el de la persona */ el('span', {}, [acc.grant && acc.grant.emp ? el('button', { id: 'misVac', title: 'Mis vacaciones', 'aria-label': 'Mis vacaciones', on: { click: vacSheet } }, [svg(VAC_ICON)]) : null, acc.grant && acc.grant.emp ? ' ' : null, temaBtn(), ' ', el('button', { text: '↻', title: 'Actualizar', on: { click: function () { refresh(); } } }), ' ', el('button', { text: 'Salir', on: { click: logout } })])]), v2 ? hTitle(st.mode) : null]);
     if (st.centers.length > 1 && !page) head.appendChild(el('div', { class: 'tabs' }, st.centers.map(function (x, i) { return el('button', { class: i === st.cur ? 'on' : '', text: x.data ? txt(x.data.center.l || x.data.center.n, 40) : 'Centro bloqueado', on: { click: function () { st.cur = i; st.scroll = null; setHash(x); render(); } } }); })));
     if (st.stale) head.appendChild(staleNote());
     app.appendChild(head);
@@ -1469,7 +1699,7 @@ body.many-modes{--mh:74px;overflow-x:clip}
         var closed = bl.filter(function (b) { var f = String(b.from), t = String(b.to); return b.all || ((f.slice(0, 10) < day || mins(f.slice(11, 16)) <= from) && (t.slice(0, 10) > day || (mins(t.slice(11, 16)) || 1440) >= to)); })[0];
         var sub = closed ? el('small', { class: 'cl' + (closed.v ? ' vac' : ''), text: txt(closed.r, 60) || 'Cerrado' }) : e.r ? el('small', { text: e.r.length ? e.r.map(function (x) { return hm(x[0]) + '–' + hm(x[1]); }).join(' · ') : 'No trabaja' }) : null;
         var ng = gone.filter(function (a) { return e.id === '__sin' ? !a.emp || !known[a.emp] : a.emp === e.id; }).length;
-        grid.appendChild(el('div', { class: 'gh' }, [el('span', { class: 'dot', style: 'background:' + e.c }), el('div', {}, [el('b', { text: e.n }), sub]), ng ? el('button', { class: 'goneChip', type: 'button', title: 'Canceladas', text: '✕ ' + ng, on: { click: function () { var b = document.getElementById('canceladas'); if (b) b.click(); } } }) : null]));
+        grid.appendChild(el('div', { class: 'gh' }, [el('span', { class: 'dot av', 'aria-hidden': 'true', 'data-i': String(e.n || '?').trim().charAt(0).toUpperCase(), style: 'background:' + tint(e.c, 0.18) + ';color:' + e.c }), /* (4.7.0) la inicial en su color */ el('div', {}, [el('b', { text: e.n }), sub]), ng ? el('button', { class: 'goneChip', type: 'button', title: 'Canceladas', text: '✕ ' + ng, on: { click: function () { var b = document.getElementById('canceladas'); if (b) b.click(); } } }) : null]));
       });
       var times = el('div', { class: 'gt', style: 'height:' + H + 'px' }); for (var m = a0; m <= a1; m += 60) times.appendChild(el('span', { style: 'top:' + (m - a0) * PX + 'px', text: m === 1440 ? '24:00' : hm(m) })); grid.appendChild(times);
       emps.forEach(function (e) {
@@ -1878,12 +2108,13 @@ body.many-modes{--mh:74px;overflow-x:clip}
     var list = el('div', { class: 'cliList', id: 'cliLista' });
     var draw = function () {
       list.innerHTML = ''; var v = cliNorm(q.value.trim()), dg = v.replace(/\D/g, ''), out;
-      if (!v) { out = k.clients.filter(function (x) { return nextOf(x[0]); }).sort(function (a, b) { var p = nextOf(a[0]), r = nextOf(b[0]); return (p.d + p.s) < (r.d + r.s) ? -1 : 1; }).slice(0, 40);
-        list.appendChild(el('div', { class: 'cliHint', text: out.length ? 'Próximas citas · escribe para buscar a cualquier clienta' : 'Escribe el nombre o el teléfono de la clienta.' })); }
-      else out = k.clients.filter(function (x) { return cliNorm(x[1]).indexOf(v) >= 0 || (dg.length >= 3 && String(x[2] || '').replace(/\D/g, '').indexOf(dg) === 0); }).slice(0, 60);
+      // (4.7.0) Todas, por orden alfabético (sin apartados); las VIP con su estrella. Buscando, solo las que coinciden.
+      var all = v ? k.clients.filter(function (x) { return cliNorm(x[1]).indexOf(v) >= 0 || (dg.length >= 3 && String(x[2] || '').replace(/\D/g, '').indexOf(dg) === 0); }) : k.clients.slice().sort(function (a, b) { return String(a[1]).localeCompare(String(b[1]), 'es'); });
+      out = all.slice(0, v ? 80 : 300);
+      if (!v && all.length > out.length) list.appendChild(el('div', { class: 'cliHint', text: 'Se ven las ' + out.length + ' primeras: escribe para buscar a cualquiera.' }));
       if (v && !out.length) list.appendChild(el('div', { class: 'cliHint', text: 'No hay ninguna clienta con «' + q.value.trim() + '».' }));
-      out.forEach(function (x) { var n = nextOf(x[0]);
-        list.appendChild(el('button', { type: 'button', class: 'cliItem', 'data-c': x[0], on: { click: function () { cliSheet(c, x); } } }, [el('div', { class: 'cliN' }, [el('b', { text: txt(x[1], 80) + (x[3] ? ' ★' : '') }), el('small', { text: x[2] || 'sin teléfono' })]),
+      out.forEach(function (x) { var n = nextOf(x[0]), ini = String(x[1]).trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0).toUpperCase(); }).join('');
+        list.appendChild(el('button', { type: 'button', class: 'cliItem', 'data-c': x[0], on: { click: function () { cliSheet(c, x); } } }, [el('span', { class: 'cliAv', text: ini }), el('div', { class: 'cliN' }, [el('b', {}, [document.createTextNode(txt(x[1], 80)), x[3] ? el('span', { class: 'vipStar', title: 'VIP', 'aria-label': 'VIP', text: ' ★' }) : null]), el('small', { text: x[2] || 'sin teléfono' })]),
           el('div', { class: 'cliNext' + (n ? '' : ' none') }, n ? [el('small', { text: 'Próxima' }), el('b', { text: shortDay(n.d) + ' · ' + n.s })] : [el('small', { text: 'Sin citas próximas' })])])); });
     };
     q.addEventListener('input', function () { st.cliQ = q.value; draw(); });
@@ -1891,20 +2122,29 @@ body.many-modes{--mh:74px;overflow-x:clip}
     box.appendChild(q); box.appendChild(list); draw();
   }
   function shortDay(k) { var p = String(k).split('-'); return ['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'][dow(k)] + ' ' + (+p[2]) + ' ' + MESES[+p[1] - 1].slice(0, 3) + (p[0] !== today().slice(0, 4) ? ' ' + p[0] : ''); }
+  // (4.7.1) A pantalla completa: arriba la ✕ con su nombre (★ si es VIP) y su teléfono; abajo «Cerrar» y, con Control total,
+  // «＋ Darle cita», siempre a la vista. En medio: citas del último año, anuladas, con quién suele ir y sus citas.
   function cliSheet(c, x) {
     var k = c.cli, t0 = today(), mine = (k.citas || []).filter(function (a) { return a.c === x[0]; });
     var next = mine.filter(function (a) { return a.d >= t0 && !a.st; }), past = mine.filter(function (a) { return a.d < t0 || a.st; }).reverse().slice(0, 12);
+    var done = mine.filter(function (a) { return a.d < t0 && !a.st; }), anul = mine.filter(function (a) { return a.st === 'x'; }).length, cnt = {}, best = '';
+    mine.filter(function (a) { return !a.st && a.emp; }).forEach(function (a) { cnt[a.emp] = (cnt[a.emp] || 0) + 1; if (!best || cnt[a.emp] > cnt[best]) best = a.emp; });
     var row = function (a) { return el('div', { class: 'cliCita' + (a.st ? ' x' : '') }, [el('div', { class: 'cd' }, [el('b', { text: shortDay(a.d) }), el('small', { text: a.s + '–' + a.e })]), el('div', { class: 'cs' }, [el('b', { text: (a.sv || []).join(' + ') || 'Cita' }), el('small', { text: (a.emp ? 'con ' + a.emp : '') + (a.st === 'x' ? ' · anulada' : a.st === 'n' ? ' · no vino' : '') })])]); };
-    sheet([el('div', { class: 'h', text: x[2] || 'sin teléfono' }), el('h2', { text: txt(x[1], 80) + (x[3] ? ' ★' : '') }),
-      el('h3', { class: 'cliH', text: next.length ? 'Próximas citas (' + next.length + ')' : 'Próximas citas' }), next.length ? el('div', { id: 'cliProximas' }, next.map(row)) : el('p', { class: 'sub', id: 'cliProximas', text: 'No tiene ninguna cita pedida.' }),
-      past.length ? el('h3', { class: 'cliH', text: 'Últimas' }) : null, past.length ? el('div', { id: 'cliPasadas' }, past.map(row)) : null], function (close) {
-        return nivel() === 'control' && c.data && c.data.full ? el('button', { type: 'button', id: 'cliDarCita', class: 'cliGo', text: '＋ Darle cita', on: { click: function () { close(); citaForm(c.data, null, { id: x[0], n: x[1] }); } } }) : null; });
+    var mini = function (l, v) { return el('div', { class: 'cliMini' }, [el('small', { text: l }), el('b', { text: v })]); };
+    var can = nivel() === 'control' && c.data && c.data.full;
+    sheet(function (close) { return [el('div', { class: 'ncCab' }, [el('div', { class: 'ncTop' }, [el('button', { type: 'button', class: 'ncX', id: 'cerrarCli', 'aria-label': 'Cerrar', title: 'Cerrar', on: { click: close } }, [svgX()]),
+        el('div', { class: 'ncTopT' }, [el('b', {}, [document.createTextNode(txt(x[1], 80)), x[3] ? el('span', { class: 'vipStar', text: ' ★' }) : null]), el('small', { text: (x[2] || 'sin teléfono') + (x[3] ? ' · VIP' : '') })])])]),
+      el('div', { class: 'cliBody' }, [el('div', { class: 'cliMinis' }, [mini('Citas en 1 año', String(done.length)), mini('Anuladas', String(anul)), mini('Suele ir con', best || '—')]),
+        el('h3', { class: 'cliH', text: next.length ? 'Próximas citas (' + next.length + ')' : 'Próximas citas' }), next.length ? el('div', { id: 'cliProximas' }, next.map(row)) : el('p', { class: 'sub', id: 'cliProximas', text: 'No tiene ninguna cita pedida.' }),
+        past.length ? el('h3', { class: 'cliH', text: 'Últimas citas' }) : null, past.length ? el('div', { id: 'cliPasadas' }, past.map(row)) : null])]; },
+      function (close) { return el('div', { class: 'ncBar' }, [el('div', { class: 'ncBarIn' }, [el('div', { class: 'ncBarB' }, [el('button', { type: 'button', class: 'ncBack wide', id: 'cerrarFichaCli', text: 'Cerrar', on: { click: close } }),
+        can ? el('button', { type: 'button', id: 'cliDarCita', class: 'ncNext', text: '＋ Darle cita', on: { click: function () { close(); citaForm(c.data, null, { id: x[0], n: x[1] }); } } }) : null])])]); }, true);
   }
 
   function renderNumeros(root) {
     if (!acc.nNode) {
       var q = new URLSearchParams(location.search); q.set('embed', '1');
-      var f = el('iframe', { class: 'accFrame', id: 'numeros', title: 'Números', src: 'numeros.html' + (/\.github\.io$/i.test(location.hostname) ? '' : '?' + q.toString()) });
+      var f = el('iframe', { class: 'accFrame', id: 'numeros', title: 'Números', on: { load: temaApply } /* (4.7.0) el tema, también dentro */, src: 'numeros.html' + (/\.github\.io$/i.test(location.hostname) ? '' : '?' + q.toString()) });
       f.addEventListener('load', function () { try { f.contentWindow.postMessage({ t: 'cs-numeros', kid: acc.me.id, key: acc.me.e, zonas: myLocales().map(function (l) { return l.zona; }) }, location.origin); } catch (e) { } });
       acc.nNode = f;
     }
@@ -1921,17 +2161,25 @@ body.many-modes{--mh:74px;overflow-x:clip}
   function readPick(box, nm) { var lv = (box.querySelector('input[name="' + nm + 'L"]:checked') || {}).value || 'agenda'; var zs = Array.prototype.map.call(box.querySelectorAll('input[name="' + nm + 'Z"]:checked'), function (i) { return i.value; }); var em = box.querySelector('select[name="' + nm + 'E"]'); return { nivel: lv, zonas: lv === 'control' ? '*' : zs, emp: em ? em.value : '' }; }
   async function doOrder(op, args, msg) { try { await order(op, args); acc.msg = ''; toast(msg || 'Enviado: lo hace un ordenador de la empresa en unos segundos.'); } catch (e) { acc.msg = e.message; } render(); }
   var CT_ICONS = { sol: [['path', { d: 'M15 19a6 6 0 0 0-12 0' }], ['circle', { cx: '9', cy: '8', r: '4' }], ['path', { d: 'M19 8v6M16 11h6' }]], mov: [['rect', { x: '7', y: '2', width: '10', height: '20', rx: '2' }], ['path', { d: 'M11 18h2' }]],
-    pcs: [['rect', { x: '2', y: '4', width: '20', height: '13', rx: '2' }], ['path', { d: 'M8 21h8M12 17v4' }]], llaves: [['circle', { cx: '7.5', cy: '15.5', r: '4.5' }], ['path', { d: 'M10.7 12.3L21 2M16 7l3 3M19 4l2 2' }]] };
+    pcs: [['rect', { x: '2', y: '4', width: '20', height: '13', rx: '2' }], ['path', { d: 'M8 21h8M12 17v4' }]], llaves: [['circle', { cx: '7.5', cy: '15.5', r: '4.5' }], ['path', { d: 'M10.7 12.3L21 2M16 7l3 3M19 4l2 2' }]],
+    ajustes: [['circle', { cx: '12', cy: '12', r: '3' }], ['path', { d: 'M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z' }]] }; // (4.7.1) la rueda de Ajustes
   function renderControl(root) {
     // (4.2.2) Pestañas como las de Números: icono y nombre, la elegida en rosa.
     var e = acc.estado, nS = e && e.solicitudes ? e.solicitudes.length : 0;
-    var T = [['sol', 'Solicitudes', CT_ICONS.sol, nS], ['mov', 'Móviles', CT_ICONS.mov], ['pcs', 'Ordenadores', CT_ICONS.pcs], ['llaves', 'Llaves', CT_ICONS.llaves]];
+    var T = [['sol', 'Solicitudes', CT_ICONS.sol, nS], ['mov', 'Móviles', CT_ICONS.mov], ['pcs', 'Ordenadores', CT_ICONS.pcs], ['llaves', 'Llaves', CT_ICONS.llaves], ['ajustes', 'Ajustes', CT_ICONS.ajustes]]; // (4.7.1) + Ajustes
     if (nivel() === 'gestion') { T = T.slice(0, 2); if (['sol', 'mov'].indexOf(acc.ctab) < 0) acc.ctab = 'sol'; } // (4.3.0) «Gestión de locales»: sin ordenadores, llaves ni kit
     var L = e && e.llaves && e.llaves.moviles, dl = L && L.exp ? Math.ceil((Date.parse(L.exp) - Date.now()) / 86400e3) : null;
     var box = el('div', { class: 'accPage', id: 'control' }, [el('nav', { class: 'accTabs', id: 'ctlTabs' }, T.map(function (t) { return el('button', { type: 'button', 'data-ct': t[0], class: acc.ctab === t[0] ? 'on' : '', on: { click: function () { acc.ctab = t[0]; render(); window.scrollTo(0, 0); } } }, [svg(t[2]), el('span', { text: t[1] }), t[3] ? el('i', { class: 'nDot', text: String(t[3]) }) : null]); })),
       dl != null && dl <= 7 && acc.ctab !== 'llaves' ? el('button', { class: 'accAlert', id: 'avisoLlave', type: 'button', on: { click: function () { acc.ctab = 'llaves'; render(); } } }, [el('span', { text: 'La llave de los móviles caduca ' + (dl <= 0 ? 'hoy' : 'en ' + dl + (dl === 1 ? ' día' : ' días')) }), el('b', { text: 'Renovar ›' })]) : null, errBox(),
       Object.keys(acc.waits).length ? el('div', { class: 'warn', id: 'enCurso', text: 'Hay ' + nUn(Object.keys(acc.waits).length, 'orden', 'órdenes') + ' en curso: la hace un ordenador de la empresa en unos segundos (si hay alguno encendido).' }) : null]);
     if (!e) { box.appendChild(el('p', { class: 'sub', text: 'Cargando… (lo prepara un ordenador de la empresa: si acabas de entrar, tarda 1 o 2 minutos).' })); root.appendChild(box); return; }
+    // (4.7.1) Ajustes de la app para toda la empresa (solo Control total). El paso «Extras» al dar cita viene apagado.
+    if (acc.ctab === 'ajustes') {
+      var on0 = !!((e.ajustes || {}).pasoExtras), sw = el('input', { type: 'checkbox', id: 'ajExtras', class: 'swIn', checked: on0 ? 'checked' : null, on: { change: function () { doOrder('ajustesApp', { pasoExtras: sw.checked }, sw.checked ? 'Paso «Extras» encendido: se aplica en unos segundos.' : 'Paso «Extras» apagado: se aplica en unos segundos.'); } } });
+      box.appendChild(el('div', { class: 'accCard ajCard' }, [el('label', { class: 'ajRow', for: 'ajExtras' }, [el('div', {}, [el('b', { text: 'Paso «Extras» al dar cita' }), el('small', { text: 'Después de Servicios sale un paso para elegir los extras (nail art, francesa…). Van en la nota de la cita. Viene apagado.' })]), el('span', { class: 'sw' }, [sw, el('i')])])]));
+      box.appendChild(el('p', { class: 'sub', text: on0 ? 'Encendido: Clienta › Servicios › Extras › Cuándo.' : 'Apagado: Clienta › Servicios › Cuándo.' }));
+      box.appendChild(el('p', { class: 'sub', text: 'Solo lo ve Control total. Vale para todos los móviles de la empresa.' }));
+    }
     if (acc.ctab === 'sol') {
       box.appendChild(el('button', { class: 'accBtn', type: 'button', id: 'invitar', text: 'Invitar a alguien (QR)', on: { click: inviteSheet } }));
       if (!e.solicitudes.length) box.appendChild(el('p', { class: 'sub', text: 'No hay solicitudes esperando.' }));
