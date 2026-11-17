@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="panel">
-<meta name="consentia-agenda-version" content="4.7.1">
-<meta name="consentia-agenda-firma" content="F9CzJBJBJiK3qkip5XAOMsR3e6ZYq6j42J9ADS5shaKbBLkjNSZ9enYUTJnzVgLNzUwluUeQbZf38jzXL6HpCQ==">
+<meta name="consentia-agenda-version" content="4.7.2">
+<meta name="consentia-agenda-firma" content="LKZPK3IU2GtxD4rcJ6FozZXyEr87jGxgtQp5mF9rjQfw+j9IfIwc7mb8PT8B6HZJznA3GRmsdFKYoB+RFRBRDQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-1vqK12UUGJGEkECzM18reFHEBLT+m620gO/TYvtKrUs='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-+690HYblQdNzfcBQGzTl8B7JPLiaaPAGt4Im7J8ftAA='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -206,18 +206,6 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .calF small{color:var(--muted);font-size:12px}
 @media (max-width:599px){.calBox{left:0!important;right:0;bottom:0;top:auto!important;width:auto;border-radius:16px 16px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom))}.calD{height:44px}}
 /* (4.0.2) la rosquilla del equipo */
-.donutBox{display:grid;grid-template-columns:170px minmax(0,1fr);gap:16px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line2)}
-.donutBox svg{width:170px;height:170px;display:block}
-.donutBox path{cursor:pointer;transition:opacity .15s}
-.donutBox.hot path:not(.on){opacity:.3}
-.donutC{font-family:inherit}
-.dLeg{display:grid;gap:4px;font-size:13px}
-.dLeg button{display:flex;align-items:center;gap:8px;border:0;background:transparent;padding:5px 6px;border-radius:6px;text-align:left;width:100%}
-.dLeg button:hover,.dLeg button.on{background:var(--bg)}
-.dLeg i{width:10px;height:10px;border-radius:2px;flex:none}
-.dLeg span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dLeg b{font-variant-numeric:tabular-nums}.dLeg small{color:var(--muted);min-width:38px;text-align:right}
-@media (max-width:480px){.donutBox{grid-template-columns:1fr;justify-items:center}.dLeg{width:100%}}
 .legend .ln{display:inline-block;width:16px;height:0;border-top:2px solid #a20f3b;margin-right:6px;vertical-align:3px}
 .loading{display:flex;align-items:center;gap:10px;color:var(--muted)}
 .loading::before{content:"";width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--pink);border-radius:50%;animation:spin .8s linear infinite}
@@ -227,6 +215,21 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 @media (max-width:599px){.head .sub{display:none}.hide-m{display:none}.minis.m2{grid-template-columns:1fr 1fr}}
 .objB{margin:12px 0 4px}.objT{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:6px}.objT b{color:var(--ink)}.objBar{height:10px;border-radius:99px;background:var(--line2);overflow:hidden}.objBar i{display:block;height:100%;border-radius:99px}
 
+/* (4.7.2) Equipo, Clientas y el selector de cada apartado */
+.days.now{gap:10px;font-size:14px;color:var(--ink2)}.days.now svg{width:18px;height:18px;flex:none}.days.now>span:not(.upd){flex:1;min-width:0}
+.calMs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:4px 0 8px}.calM{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:12px 0;font:inherit;font-weight:700}.calM:disabled{opacity:.35}.calM.today{color:var(--pink)}.calM.sel{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.eqL{display:flex;flex-direction:column}.eqR{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line2)}.eqR:first-child{border-top:0;padding-top:2px}
+.eqAv{flex:none;width:36px;height:36px;border-radius:50%;background:var(--pinkS);color:var(--pinkD);display:grid;place-items:center;font-weight:900}
+.eqM{flex:1;min-width:0}.eqT{display:flex;align-items:baseline;gap:8px}.eqT b{flex:1;min-width:0;font-size:15px}.eqT strong{font-size:15px}.eqM>small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.eqM .eqObj{display:flex;align-items:center;gap:10px;margin-top:8px}.eqM .eqBar{flex:1}.eqBar i.ok{background:var(--good)}.eqBar i.warn{background:#e0a100}.eqBar i.bad{background:var(--bad)}
+.eqM .pct.ok{color:var(--good)}.eqM .pct.warn{color:var(--warn)}.eqM .pct.bad{color:var(--bad)}.eqM .pct{min-width:0;white-space:nowrap;font-size:12.5px;font-weight:800}.eqNo{color:var(--muted);font-size:12px;margin-top:6px;display:block}
+.cliHero{background:var(--solid);color:#fff;border-color:var(--solid);margin-bottom:12px}.cliHero .eb2{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.75}.cliHero>strong{display:block;font-size:40px;font-weight:800;line-height:1.1;margin:4px 0 12px}
+.stack{display:flex;height:12px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.18)}.stack i.nu{background:#ff2b91}.stack i.rp{background:#b9b6c0}
+html[data-theme=oscuro] .cliHero .stack i.nu{background:#fff}
+.sLeg{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:13px}.sLeg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}.sLeg i.nu{background:#ff2b91}.sLeg i.rp{background:#b9b6c0}html[data-theme=oscuro] .sLeg i.nu{background:#fff}
+.appC{margin-bottom:12px}.appRow{display:flex;align-items:center;gap:16px}.ring{width:84px;height:84px;flex:none}.ring .rbg{fill:none;stroke:var(--line2);stroke-width:8}.ring .rfg{fill:none;stroke:var(--pink);stroke-width:8;stroke-linecap:round}.ring text{font-size:14px;font-weight:800;fill:var(--ink)}
+.appL{flex:1;min-width:0}.appL>div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line2);font-size:13.5px}.appL>div:first-child{border-top:0}.appL span{color:var(--muted)}
+.plR{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line2);font-size:13px}.plR:first-child{border-top:0}.plR>span:last-child{flex-basis:100%;color:var(--muted);padding-left:18px}
 /* ===================== (4.7.0) Claro (de fábrica) y oscuro, como la app: lo elige el móvil (Apariencia) ===================== */
 html[data-theme=oscuro]{--ink:#f4f2ee;--pinkD:#ff7ab8;--pinkS:rgba(255,43,145,.18);--muted:#9b9aa3;--line:#26262c;--line2:#222228;--bg:#0e0e11;--card:#18181c;--field:#1d1d22;--line3:#3a3a42;--ink2:#c9c7d0;--solid:#ff2b91;--grid:#2a2a30;
   --good:#4cc38a;--goodS:#12301f;--warn:#ffd98a;--warnS:#2b2210;--bad:#ff8fb5;--badS:#2c1219;color-scheme:dark}
@@ -386,15 +389,43 @@ body.embed .days{background:var(--bg);border-bottom:0}
       '<nav class="tabsNav"' + (st.loading ? '' : ' id="tabs"') + '>' + TABS.map(function (t) { return '<button data-t="' + t[0] + '" class="' + (st.tab === t[0] ? 'on' : '') + '">' + ico(t[0]) + '<span class="l1">' + t[1] + '</span><span class="l2">' + t[2] + '</span></button>'; }).join('') + '</nav>' +
       '<div class="foot"><button id="sRe" type="button">Recargar</button><button id="sOut" type="button">Salir</button></div></aside>' +
       '<div class="mainCol"><div class="mtop"><img src="' + LOGO + '" alt=""><b>Panel</b><button id="tRe" type="button" aria-label="Recargar" title="Recargar">' + ico('reload') + '</button><button id="tOut" type="button" aria-label="Salir" title="Salir">' + ico('out') + '</button></div>' +
-      '<div class="days"><button id="dPrev" type="button" aria-label="Día anterior">‹</button><button class="hoy" id="dHoy" type="button"' + (st.day === today() ? ' disabled' : '') + '>Hoy</button><button class="d" id="dPick" type="button" aria-label="Elegir el día">' + ico('cal') + '<span>' + esc(cap(fdate(st.day))) + '</span></button><button id="dNext" type="button" aria-label="Día siguiente"' + (st.day >= today() ? ' disabled' : '') + '>›</button><span class="upd">' + (st.loaded ? 'Actualizado ' + esc(rel(st.loaded)) : '') + '</span></div>' +
+      daysBar() +
       '<main id="main"></main></div>';
     var re = function () { st.files = {}; st.open = {}; load(); }, out = function () { try { window.parent.postMessage({ t: 'cs-salir' }, location.origin); } catch (e) { } };
     document.getElementById('tRe').onclick = re; document.getElementById('sRe').onclick = re; document.getElementById('tOut').onclick = out; document.getElementById('sOut').onclick = out;
-    app.querySelector('.tabsNav').onclick = function (e) { var b = e.target.closest('[data-t]'); if (b) { st.tab = b.dataset.t; draw(); window.scrollTo(0, 0); } };
-    document.getElementById('dPrev').onclick = function () { st.day = addDays(st.day, -1); load(); };
-    document.getElementById('dNext').onclick = function () { if (st.day < today()) { st.day = addDays(st.day, 1); load(); } };
-    document.getElementById('dHoy').onclick = function () { st.day = today(); load(); };
-    document.getElementById('dPick').onclick = function () { openCal(this); };
+    app.querySelector('.tabsNav').onclick = function (e) { var b = e.target.closest('[data-t]'); if (b) { st.tab = b.dataset.t; if (st.tab === 'stock' && st.day !== today()) { st.day = today(); load(); } else draw(); window.scrollTo(0, 0); } };
+    var go = function (k) { if (k !== st.day) { st.day = k; load(); } }, mt = MONTH_TABS.indexOf(st.tab) >= 0, $ = function (id) { return document.getElementById(id); };
+    if ($('dPrev')) $('dPrev').onclick = function () { go(mt ? monthEnd(addMonths(st.day.slice(0, 7), -1)) : addDays(st.day, -1)); };
+    if ($('dNext')) $('dNext').onclick = function () { if (mt) { if (st.day.slice(0, 7) < today().slice(0, 7)) go(monthEnd(addMonths(st.day.slice(0, 7), 1))); } else if (st.day < today()) go(addDays(st.day, 1)); };
+    if ($('dHoy')) $('dHoy').onclick = function () { go(today()); };
+    if ($('dPick')) $('dPick').onclick = function () { if (mt) openMonths(this); else openCal(this); };
+  }
+  // (4.7.2) Cada apartado con lo que tiene sentido elegir: Resumen y Locales, un DÍA; Equipo y Clientas, un MES (un mes
+  // pasado se ve como quedó a final de mes); Stock, nada: es lo que hay ahora.
+  var MONTH_TABS = ['equipo', 'clientas'];
+  function addMonths(ym, n) { var d = new Date(+ym.slice(0, 4), +ym.slice(5, 7) - 1 + n, 1); return d.getFullYear() + '-' + pad(d.getMonth() + 1); }
+  function monthEnd(ym) { if (ym >= today().slice(0, 7)) return today(); var d = new Date(+ym.slice(0, 4), +ym.slice(5, 7), 0); return ym + '-' + pad(d.getDate()); }
+  function daysBar() {
+    var upd = '<span class="upd">' + (st.loaded ? 'Actualizado ' + esc(rel(st.loaded)) : '') + '</span>';
+    if (st.tab === 'stock') { var at = stockAt(); return '<div class="days now" id="ahora">' + ico('cal') + '<span><b>Ahora mismo</b>' + (at ? ' · lo último publicado ' + esc(rel(at)) : '') + '</span>' + upd + '</div>'; }
+    if (MONTH_TABS.indexOf(st.tab) >= 0) { var ym = st.day.slice(0, 7), cur = ym >= today().slice(0, 7);
+      return '<div class="days" data-modo="mes"><button id="dPrev" type="button" aria-label="Mes anterior">‹</button><button class="hoy" id="dHoy" type="button"' + (cur ? ' disabled' : '') + '>Este mes</button><button class="d" id="dPick" type="button" aria-label="Elegir el mes">' + ico('cal') + '<span>' + esc(cap(fmonth(ym))) + '</span></button><button id="dNext" type="button" aria-label="Mes siguiente"' + (cur ? ' disabled' : '') + '>›</button>' + upd + '</div>'; }
+    return '<div class="days" data-modo="dia"><button id="dPrev" type="button" aria-label="Día anterior">‹</button><button class="hoy" id="dHoy" type="button"' + (st.day === today() ? ' disabled' : '') + '>Hoy</button><button class="d" id="dPick" type="button" aria-label="Elegir el día">' + ico('cal') + '<span>' + esc(cap(fdate(st.day))) + '</span></button><button id="dNext" type="button" aria-label="Día siguiente"' + (st.day >= today() ? ' disabled' : '') + '>›</button>' + upd + '</div>';
+  }
+  function stockAt() { var t = ''; (st.data || []).forEach(function (x) { var a = x.mes && x.mes.at; if (a && a > t) t = a; }); return t; }
+  // Elegir el mes: los doce del año (no se puede elegir uno que todavía no ha llegado).
+  function openMonths(btn) {
+    closeCal(); var y = +st.day.slice(0, 4), tm = today().slice(0, 7);
+    var back = document.createElement('div'); back.className = 'calBack'; back.id = 'calBack';
+    var box = document.createElement('div'); box.className = 'calBox'; box.id = 'calBox'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Elegir el mes');
+    var paint = function () { var cells = ''; for (var m = 1; m <= 12; m++) { var k = y + '-' + pad(m); cells += '<button type="button" class="calM' + (k === tm ? ' today' : '') + (k === st.day.slice(0, 7) ? ' sel' : '') + '" data-ym="' + k + '"' + (k > tm ? ' disabled' : '') + '>' + esc(cap(new Date(y, m - 1, 15).toLocaleDateString('es-ES', { month: 'short' }).replace('.', ''))) + '</button>'; }
+      box.innerHTML = '<div class="calH"><button type="button" class="calNav" data-y="-1" aria-label="Año anterior">‹</button><b>' + y + '</b><button type="button" class="calNav" data-y="1" aria-label="Año siguiente"' + (y >= +tm.slice(0, 4) ? ' disabled' : '') + '>›</button></div><div class="calMs">' + cells + '</div><div class="calF"><button type="button" class="calHoy" data-ym="' + tm + '">Este mes</button><small>Un mes pasado se ve como quedó a final de mes.</small></div>'; };
+    paint(); document.body.appendChild(back); document.body.appendChild(box);
+    var r = btn.getBoundingClientRect(); box.style.top = (r.bottom + 6) + 'px'; box.style.left = Math.max(8, Math.min(innerWidth - 328, r.left)) + 'px';
+    back.onclick = closeCal;
+    box.onclick = function (e) { var n = e.target.closest('[data-y]'); if (n && !n.disabled) { y += Number(n.dataset.y); paint(); return; }
+      var k = e.target.closest('[data-ym]'); if (k && !k.disabled) { closeCal(); var dd = monthEnd(k.dataset.ym); if (dd !== st.day) { st.day = dd; load(); } } };
+    document.addEventListener('keydown', calKey);
   }
   function draw() {
     if (!st.me) return;
@@ -407,9 +438,8 @@ body.embed .days{background:var(--bg);border-bottom:0}
     main.innerHTML = h;
     var cols = document.getElementById('cols'); if (cols) columns(cols, d);
     main.querySelectorAll('[data-cl]').forEach(function (el) { var x = d[+el.dataset.cl]; if (x) columns(el, [x], true); });
-    main.querySelectorAll('.donutBox').forEach(wireDonut);
   }
-  function head(eb, title) { return '<div class="head"><div><div class="eb">' + esc(eb) + '</div><h1>' + esc(title) + '</h1></div><span class="sub">' + esc(cap(fdateY(st.day))) + '</span></div>'; }
+  function head(eb, title) { return '<div class="head"><div><div class="eb">' + esc(eb) + '</div><h1>' + esc(title) + '</h1></div><span class="sub">' + esc(st.tab === 'stock' ? 'Ahora mismo' : MONTH_TABS.indexOf(st.tab) >= 0 ? cap(fmonth(st.day.slice(0, 7))) + (st.day.slice(0, 7) >= today().slice(0, 7) ? ' · hasta hoy' : ' · el mes entero') : cap(fdateY(st.day))) + '</span></div>'; /* (4.7.2) */ }
   function unreadCard(x, wide) {
     return '<div class="card unread' + (wide ? ' span2' : '') + '"><div class="lh"><span class="dot" style="background:#bdb9b1"></span><h2>' + esc(zname(x.zona)) + '</h2><span class="pill warn">no se puede leer todavía</span></div><div class="why">' + ico('warn') + '<div>' +
       (x.notMine ? '<b>Este local ha publicado, pero todavía no para este móvil.</b> Pasa si el acceso se dio hace poco: en cuanto ese local tenga el programa abierto, vuelve a publicar sus números (cada 2 horas, o en menos de un minuto si cambia quién los ve).'
@@ -517,10 +547,21 @@ body.embed .days{background:var(--bg);border-bottom:0}
   }
   // (4.3.0) Cuánto lleva del objetivo del mes (lo pone el empresario en Ajustes → Empresa → Locales).
   function objBar(m) { var p = Math.round(m.facturacion / m.objetivo * 100); return '<div class="objB" data-obj="' + p + '"><div class="objT"><span>Objetivo de ' + esc(mname(m.ym)) + '</span><b class="num">' + money0(m.facturacion) + ' de ' + money0(m.objetivo) + ' · ' + p + ' %</b></div><div class="objBar"><i style="width:' + Math.min(100, Math.max(0, p)) + '%;background:' + (p >= 100 ? '#1baf7a' : 'var(--c, #ff2b91)') + '"></i></div></div>'; }
+  // (4.7.2) Cada persona UNA vez (sin la rosquilla que la repetía): su inicial, cuántos servicios, cuánto de media y qué
+  // parte del local; a la derecha lo vendido; debajo la barra del objetivo con la raya de dónde debería ir hoy y el % en
+  // verde (va bien), ámbar (un poco por detrás) o rojo (muy por detrás).
   function tabEquipo(d, bad) {
-    var ym = st.day.slice(0, 7); var h = head('Equipo · ' + mname(ym), 'Equipo') + unreadNote(bad) + '<p class="hint" style="margin:-4px 0 12px">La raya de cada barra: dónde debería ir hoy para llegar a su objetivo.</p><div class="grid g2b">';
-    d.forEach(function (x) { var m = x.mes && x.mes.ym === ym ? x.mes : null; if (!m) return; var eq = m.equipo || [];
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><h2>' + esc(name(x)) + '</h2></div>' + (eq.length ? '<table><thead><tr><th>Persona</th><th class="n">Ventas</th><th class="n hide-m">Serv.</th><th class="n">Objetivo</th></tr></thead><tbody>' + eq.map(function (e) { return '<tr><td><b>' + esc(e.nombre) + '</b></td><td class="n">' + money0(e.ventas) + '</td><td class="n hide-m">' + e.servicios + '</td><td class="n">' + (e.objetivo ? '<div class="eqObj"><div class="eqBar"><i style="width:' + Math.min(100, e.pct) + '%"></i><b style="left:' + paceNow(ym) + '%"></b></div><span class="pct">' + e.pct + ' %</span></div>' : '—') + '</td></tr>'; }).join('') /* (4.7.1) barra con la raya de dónde se debería ir hoy */ + '</tbody></table>' + donut(eq) : '<p class="empty">Sin ventas este mes.</p>') + '</div>'; });
+    var ym = st.day.slice(0, 7), ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; }), pace = paceNow(ym), all = [];
+    ms.forEach(function (x) { (x.mes.equipo || []).forEach(function (e) { all.push(e); }); });
+    var tot = sum(all, function (e) { return e.ventas; }), best = all.slice().sort(function (a, b) { return (b.ventas || 0) - (a.ventas || 0); })[0];
+    var h = head('Equipo · ' + mname(ym), 'Equipo') + unreadNote(bad);
+    h += '<div class="kpis k2">' + kpi('Equipo · ' + mname(ym).toLowerCase(), money0(tot), all.length + (all.length === 1 ? ' persona' : ' personas') + (ms.length > 1 ? ' · ' + ms.length + ' locales' : ''), 'hero') + kpi('Mejor', best && best.ventas > 0 ? esc(best.nombre) : '—', best && best.ventas > 0 ? money0(best.ventas) + (tot ? ' · ' + Math.round(best.ventas / tot * 100) + ' % del total' : '') : '') + '</div>';
+    h += '<p class="hint" id="eqHint" style="margin:-2px 0 12px">La raya fina de cada barra marca dónde debería ir hoy para llegar a su objetivo.</p><div class="grid g2b">';
+    ms.forEach(function (x) { var m = x.mes, eq = (m.equipo || []).slice().sort(function (a, b) { return (b.ventas || 0) - (a.ventas || 0); }), lt = sum(eq, function (e) { return e.ventas; });
+      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2><span class="pill">' + money0(lt) + '</span></div>' + (eq.length ? '<div class="eqL">' + eq.map(function (e) {
+        var sv = Number(e.servicios) || 0, pc = Number(e.pct) || 0, cl = pc >= pace ? 'ok' : pc >= pace * 0.85 ? 'warn' : 'bad';
+        return '<div class="eqR"><span class="eqAv">' + esc(String(e.nombre || '?').trim().charAt(0).toUpperCase()) + '</span><div class="eqM"><div class="eqT"><b>' + esc(e.nombre) + '</b><strong class="num">' + money0(e.ventas) + '</strong></div><small>' + sv + (sv === 1 ? ' servicio' : ' servicios') + (sv ? ' · ' + money0((e.ventas || 0) / sv) + ' de media' : '') + (lt ? ' · ' + Math.round((e.ventas || 0) / lt * 100) + ' % del local' : '') + '</small>' +
+          (e.objetivo ? '<div class="eqObj"><div class="eqBar"><i class="' + cl + '" style="width:' + Math.min(100, pc) + '%"></i><b style="left:' + pace + '%"></b></div><span class="pct ' + cl + '">' + pc + ' % obj.</span></div>' : '<small class="eqNo">Sin objetivo</small>') + '</div></div>'; }).join('') + '</div>' : '<p class="empty">Sin ventas este mes.</p>') + '</div>'; });
     return h + '</div>';
   }
   // (4.7.1) Como la opción 3: arriba cuántos hay por reponer y el valor; cada producto con su barra (la raya es el mínimo)
@@ -535,45 +576,27 @@ body.embed .days{background:var(--bg);border-bottom:0}
           return '<div class="stkR"><div class="stkT"><span class="nm">' + esc(p.nombre) + '</span>' + (pedir && hay < mn ? '<span class="pedir">PEDIR ' + pedir + '</span>' : '') + '<b class="num' + (hay <= 0 ? ' neg' : '') + '">' + hay + '</b><small>mín. ' + (p.minimo == null ? '—' : p.minimo) + '</small></div><div class="stkL"><i class="' + (lvl < 0.5 ? 'lo' : 'mid') + '" style="width:' + Math.min(100, hay / full * 100).toFixed(1) + '%"></i>' + (mn ? '<b style="left:' + (mn / full * 100).toFixed(1) + '%"></b>' : '') + '</div></div>'; }).join('') + '</div>' : '<p class="empty">Nada por debajo del mínimo.</p>') + '</div>'; });
     return h + '</div>';
   }
-  // (4.0.2) Clientas: solo atendidas, nuevas y ticket medio (sin el listado).
+  // (4.7.2) Clientas, más clara: arriba las atendidas con una barra de nuevas (rosa) y las que repiten (gris); el ticket
+  // medio y los cobros; lo que llega desde la app de las clientas con su anillo; y «Por local» solo si hay más de uno.
+  function ring(p) { var r = 26, c = 2 * Math.PI * r, v = Math.max(0, Math.min(100, p)); return '<svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="' + r + '" class="rbg"/><circle cx="32" cy="32" r="' + r + '" class="rfg" stroke-dasharray="' + (c * v / 100).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle">' + Math.round(v) + '%</text></svg>'; }
   function tabClientas(d, bad) {
     var ym = st.day.slice(0, 7); var ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; });
-    var at = sum(ms, function (x) { return x.mes.clientasAtendidas; }), nu = sum(ms, function (x) { return x.mes.nuevas; }), f = sum(ms, function (x) { return x.mes.facturacion; }), c = sum(ms, function (x) { return x.mes.cobros; });
+    var at = sum(ms, function (x) { return x.mes.clientasAtendidas; }), nu = Math.min(at, sum(ms, function (x) { return x.mes.nuevas; })), f = sum(ms, function (x) { return x.mes.facturacion; }), c = sum(ms, function (x) { return x.mes.cobros; }), rp = Math.max(0, at - nu), pn = at ? nu / at * 100 : 0;
     var h = head('Clientas · ' + mname(ym), 'Clientas') + unreadNote(bad);
-    h += '<div class="kpis k3">' + kpi('Atendidas', at, 'todos los locales', 'hero') + kpi('Nuevas', nu, at ? Math.round(nu / at * 100) + ' % de las atendidas' : '') + kpi('Ticket medio', money(c ? f / c : 0), c + ' cobros') + '</div>';
+    h += '<div class="card cliHero" id="cliHero"><span class="eb2">Atendidas · ' + esc(mname(ym).toLowerCase()) + '</span><strong class="num">' + at + '</strong>' +
+      '<div class="stack"><i class="nu" style="width:' + pn.toFixed(1) + '%"></i><i class="rp" style="width:' + (at ? (100 - pn).toFixed(1) : 0) + '%"></i></div>' +
+      '<div class="sLeg"><span><i class="nu"></i>Nuevas <b>' + nu + '</b>' + (at ? ' · ' + Math.round(pn) + ' %' : '') + '</span><span><i class="rp"></i>Repiten <b>' + rp + '</b>' + (at ? ' · ' + (100 - Math.round(pn)) + ' %' : '') + '</span></div></div>';
+    h += '<div class="kpis k2">' + kpi('Ticket medio', money(c ? f / c : 0), 'por cobro') + kpi('Cobros', c, ms.length > 1 ? 'todos los locales' : 'este mes') + '</div>';
     // (4.6.1) ¿Las clientas cogen cita desde la app? (los locales que ya lo mandan: desde la 4.6.1)
     var ca = ms.filter(function (x) { return x.mes.citasApp; });
     if (ca.length) { var tc = sum(ca, function (x) { return x.mes.citasApp.citas; }), ta = sum(ca, function (x) { return x.mes.citasApp.app; }), tn = sum(ca, function (x) { return x.mes.citasApp.nuevas; }), tr = sum(ca, function (x) { return x.mes.citasApp.recibidas; });
-      h += '<h3 id="citasApp" style="margin:16px 0 8px">Citas desde la app de las clientas</h3><div class="kpis k3">' + kpi('Desde la app', ta, 'de ' + tc + ' citas · ' + (tc ? Math.round(ta / tc * 100) : 0) + ' %', 'hero') + kpi('Nuevas por la app', tn, 'pidieron cita por primera vez') + kpi('Solicitudes', tr, 'recibidas este mes') + '</div>'; }
-    h += '<div class="grid g2b">';
-    ms.forEach(function (x) { var m = x.mes;
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2></div><div class="minis" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="mini"><span>Atendidas</span><strong class="num">' + (m.clientasAtendidas || 0) + '</strong></div><div class="mini"><span>Nuevas</span><strong class="num">' + (m.nuevas || 0) + '</strong></div><div class="mini"><span>Ticket medio</span><strong class="num">' + money(m.ticketMedio || 0) + '</strong></div></div>' + (m.citasApp ? '<div class="minis" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px"><div class="mini"><span>Citas por la app</span><strong class="num">' + (m.citasApp.app || 0) + '</strong></div><div class="mini"><span>% de las citas</span><strong class="num">' + (m.citasApp.pct || 0) + ' %</strong></div><div class="mini"><span>Nuevas por la app</span><strong class="num">' + (m.citasApp.nuevas || 0) + '</strong></div></div>' : '') + '</div>'; });
-    return h + '</div>';
-  }
-  // (4.0.2) Rosquilla de lo que ha generado cada una sobre el total del local; al pasar el ratón o tocar, sus cifras.
-  var DCOL = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d6', '#e34948'];
-  function donut(eq) {
-    var list = eq.filter(function (e) { return e.ventas > 0; }).sort(function (a, b) { return b.ventas - a.ventas; });
-    if (list.length > 8) { var rest = list.slice(7); list = list.slice(0, 7).concat([{ nombre: 'Otras', ventas: sum(rest, function (e) { return e.ventas; }), otras: true }]); }
-    var tot = sum(list, function (e) { return e.ventas; }); if (!tot) return '';
-    var R = 80, r = 52, cx = 85, cy = 85, a0 = -Math.PI / 2, segs = '';
-    list.forEach(function (e, i) { var frac = e.ventas / tot, a1 = a0 + frac * Math.PI * 2, gap = list.length > 1 ? 0.012 : 0; var s0 = a0 + gap, s1 = a1 - gap; var big = s1 - s0 > Math.PI ? 1 : 0;
-      var P = function (rr, a) { return (cx + rr * Math.cos(a)).toFixed(2) + ' ' + (cy + rr * Math.sin(a)).toFixed(2); };
-      var dd = frac >= 0.9999 ? 'M' + P(R, 0) + 'A' + R + ' ' + R + ' 0 1 1 ' + P(R, Math.PI) + 'A' + R + ' ' + R + ' 0 1 1 ' + P(R, 0) + 'M' + P(r, 0) + 'A' + r + ' ' + r + ' 0 1 0 ' + P(r, Math.PI) + 'A' + r + ' ' + r + ' 0 1 0 ' + P(r, 0) + 'Z'
-        : 'M' + P(R, s0) + 'A' + R + ' ' + R + ' 0 ' + big + ' 1 ' + P(R, s1) + 'L' + P(r, s1) + 'A' + r + ' ' + r + ' 0 ' + big + ' 0 ' + P(r, s0) + 'Z';
-      segs += '<path d="' + dd + '" fill="' + (e.otras ? '#b8b4ac' : DCOL[i % DCOL.length]) + '" fill-rule="evenodd" data-i="' + i + '"><title>' + esc(e.nombre) + ': ' + money0(e.ventas) + '</title></path>'; a0 = a1; });
-    var data = esc(JSON.stringify(list.map(function (e) { return [e.nombre, e.ventas]; })));
-    return '<div class="donutBox" data-tot="' + tot + '" data-list="' + data + '"><svg viewBox="0 0 170 170" role="img" aria-label="Lo que ha generado cada una">' + segs +
-      '<text class="donutC" x="85" y="80" text-anchor="middle" font-size="11" fill="#77736c" id="dcA">Total del local</text><text class="donutC" x="85" y="98" text-anchor="middle" font-size="16" font-weight="800" fill="#111113">' + money0(tot) + '</text></svg>' +
-      '<div class="dLeg">' + list.map(function (e, i) { return '<button type="button" data-i="' + i + '"><i style="background:' + (e.otras ? '#b8b4ac' : DCOL[i % DCOL.length]) + '"></i><span>' + esc(e.nombre) + '</span><b>' + money0(e.ventas) + '</b><small>' + Math.round(e.ventas / tot * 100) + ' %</small></button>'; }).join('') + '</div></div>';
-  }
-  function wireDonut(box) {
-    var list = JSON.parse(box.dataset.list || '[]'), tot = Number(box.dataset.tot) || 0, t = box.querySelectorAll('text.donutC'), lock = null;
-    var show = function (i) { box.classList.toggle('hot', i != null); box.querySelectorAll('path,.dLeg button').forEach(function (n) { n.classList.toggle('on', i != null && n.dataset.i === String(i)); });
-      if (i == null) { t[0].textContent = 'Total del local'; t[1].textContent = money0(tot); } else { var e = list[i]; t[0].textContent = e[0].length > 18 ? e[0].slice(0, 17) + '…' : e[0]; t[1].textContent = money0(e[1]) + ' · ' + Math.round(e[1] / tot * 100) + ' %'; } };
-    box.addEventListener('mouseover', function (e) { var n = e.target.closest('[data-i]'); if (n && lock == null) show(+n.dataset.i); });
-    box.addEventListener('mouseleave', function () { if (lock == null) show(null); });
-    box.addEventListener('click', function (e) { var n = e.target.closest('[data-i]'); if (!n) { lock = null; show(null); return; } var i = +n.dataset.i; lock = lock === i ? null : i; show(lock); });
+      h += '<div class="card appC" id="citasApp"><div class="ch"><h2>Desde la app de las clientas</h2></div><div class="appRow">' + ring(tc ? ta / tc * 100 : 0) + '<div class="appL">' +
+        '<div><span>Citas por la app</span><b class="num">' + ta + ' de ' + tc + '</b></div><div><span>Nuevas por la app</span><b class="num">' + tn + '</b></div><div><span>Solicitudes recibidas</span><b class="num">' + tr + '</b></div></div></div></div>'; }
+    if (ms.length > 1) {
+      h += '<div class="card" id="porLocal"><div class="ch"><h2>Por local</h2></div><div class="plL">' + ms.map(function (x) { var m = x.mes;
+        return '<div class="plR"><span class="dot" style="background:' + x.color + '"></span><b>' + esc(name(x)) + '</b><span><b class="num">' + (m.clientasAtendidas || 0) + '</b> atendidas · ' + (m.nuevas || 0) + ' nuevas · ' + money(m.ticketMedio || 0) + (m.citasApp ? ' · ' + (m.citasApp.app || 0) + ' por la app' : '') + '</span></div>'; }).join('') + '</div></div>';
+    }
+    return h;
   }
   // (4.0.2) «Elegir día»: un calendario como el de la agenda (no se puede elegir un día que todavía no ha llegado).
   function openCal(btn) {
