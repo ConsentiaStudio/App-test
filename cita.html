@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.7.3">
-<meta name="consentia-agenda-firma" content="nFwmCo7aIfdsSBpjEJ/PyjoG3pD8eASMQUQR4pI6f6EpUkK5AAawfmQgy/lWz2qfpUtsI8Ms8V7W4qCaOvypDg==">
+<meta name="consentia-agenda-version" content="4.7.4">
+<meta name="consentia-agenda-firma" content="bF9J9f8zkVhDIhZLKnxF7VO22xGH6AnVt4FZv+m6NI/keT1PWs7le3GlZUvZ4HkHmuVj805GKzoWyxh8t1LlCg==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-u8uQ2y5Aw5+b3VZTz3Mf0mtFxkY9xMdTPElI9sPsWuo='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-kTBm78Nghn2VLmB0t2QeuXRmTN3mMBHIreVGivGK+Co='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="cita.webmanifest">
 <link rel="apple-touch-icon" href="icono-180.png">
@@ -77,7 +77,7 @@ textarea{min-height:76px;resize:vertical}
 button.p{border:0;background:var(--pink);color:#fff;border-radius:14px;padding:15px 18px;font-size:16px;font-weight:750;width:100%}
 button.p:disabled{opacity:.45}
 button.s{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:650}
-button.s.bad{color:var(--bad)}
+button.s.bad{color:var(--bad);border-color:var(--bad)} /* (4.7.4) que se vea */
 button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight:650;padding:8px 2px}
 .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:750;background:#eee;color:#555}
 .tag.ok{background:#e4f6ea;color:var(--ok)}.tag.warn{background:#fff1d6;color:var(--warn)}.tag.bad{background:#fde7e7;color:var(--bad)}.tag.info{background:#e4eefc;color:#1d5fb4}
@@ -139,6 +139,10 @@ html[data-theme=oscuro] .top img{filter:invert(1)}
 .hero .hd{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.02em;text-transform:capitalize}.hero .hh{font-size:17px;font-weight:700;opacity:.9}.hero .hs{margin-top:10px;font-size:14px}.hero .hw{font-size:13px;opacity:.8}
 .hero .hb{display:flex;gap:8px;margin-top:14px}.hero .hb a,.hero .hb button{flex:1;height:42px;border-radius:12px;background:rgba(255,255,255,.16);color:#fff;border:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:750;text-decoration:none}
 .hero .hb svg,.cb svg,.calB svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero .hb{flex-wrap:wrap}.hero .hb>a,.hero .hb>button{flex:1 1 40%;min-width:0;white-space:nowrap;padding:0 8px}.hero .hb .calB svg{width:16px;height:16px;flex:none}.hero .hb .calB{margin:0;height:42px;border-radius:12px;background:rgba(255,255,255,.16);color:#fff;border:0;justify-content:center;font-size:12.5px;font-weight:750;padding:0 6px;gap:5px}
+.hero ul.hl{margin:10px 0 0;padding-left:20px;font-size:13.5px}.hero ul.hl li{margin:2px 0;opacity:.85}.hero ul.hl li.hs{margin-top:0;font-size:14.5px;font-weight:700;opacity:1}
+.hero button.anula{display:block;width:100%;height:44px;margin-top:10px;border:0;border-radius:12px;background:#fff;color:#d0103f;font-size:14.5px;font-weight:800}
+ul.cl{margin:2px 0 0;padding-left:18px;font-size:13px;color:var(--mute)}ul.cl li{margin:1px 0}
 .lbl{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--mute);margin:14px 2px 8px}
 .calB{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 11px;font-size:13px;font-weight:700}
 .aviso{display:flex;gap:10px;align-items:flex-start;border-radius:14px;padding:11px 13px;margin:0 0 10px;background:var(--soft);border:1px solid var(--pink);font-size:14px}
@@ -680,7 +684,8 @@ html[data-theme=oscuro] .ap .d.ok{background:#12301f}html[data-theme=oscuro] .ap
     }
     c.appendChild(el('div', { class: 'ap' }, [dateBadge(show.d, g === 'prox' ? 'ok' : g === 'pend' ? 'warn' : 'gone'), body]));
     body.appendChild(el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { class: 'sv-t', text: svTxt }), el('span', { class: 'tag ' + t[0], text: t[1] })]));
-    body.appendChild(el('div', { class: 'hint', text: dayText(show.d, true) + ' · ' + show.s + (show.du ? '–' + endOf(show.s, show.du) : '') + (show.emp ? ' con ' + show.emp : '') + (x && x.local && x.local.n ? ' · ' + x.local.n : '') }));
+    body.appendChild(el('div', { class: 'hint', text: dayText(show.d, true) + ' · ' + show.s + (show.du ? '–' + endOf(show.s, show.du) : '') }));
+    if (show.emp || (x && x.local && x.local.n)) body.appendChild(el('ul', { class: 'cl' }, [show.emp ? el('li', { text: 'con ' + show.emp }) : null, x && x.local && x.local.n ? el('li', { text: x.local.n }) : null])); /* (4.7.4) en puntos, como en la app del equipo */
     if (g === 'prox') body.appendChild(el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(show.d)) ? ' soon' : ''), text: whenTxt(show.d) }));
     if (x && x.msg && g !== 'pas') body.appendChild(msg(x.msg));
     if (x && st === 'completa' && x.msg && /\d{6,}/.test(String((S.zdata && S.zdata.local && S.zdata.local.tel) || ''))) body.appendChild(el('a', { class: 'tel', href: 'tel:' + String(S.zdata.local.tel).replace(/[^\d+]/g, ''), text: 'Llamar al ' + S.zdata.local.tel }));
@@ -696,9 +701,10 @@ html[data-theme=oscuro] .ap .d.ok{background:#12301f}html[data-theme=oscuro] .ap
     if (adr) { var a1 = el('a', { href: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(adr), target: '_blank', rel: 'noopener noreferrer', id: 'comoLlegar' }); a1.appendChild(ico(I.pin)); a1.appendChild(document.createTextNode('Cómo llegar')); bts.appendChild(a1); }
     if (tel.replace(/\D/g, '').length >= 6) { var a2 = el('a', { href: 'tel:' + tel, id: 'llamar' }); a2.appendChild(ico(I.phone)); a2.appendChild(document.createTextNode('Llamar')); bts.appendChild(a2); }
     var c = el('div', { class: 'hero', id: 'proxima', 'data-state': h.centro ? 'centro' : 'confirmada' }, [el('div', { class: 'hk' }, [el('small', { text: 'TU PRÓXIMA CITA' }), el('span', { text: '✓ Confirmada' })]), el('div', { class: 'hd', text: hd }), el('div', { class: 'hh', text: h.s + (h.e ? '–' + h.e : '') + ' · ' + whenTxt(h.d).toLowerCase() }),
-      el('div', { class: 'hs', text: (h.sv || []).join(' + ') || 'Cita' }), el('div', { class: 'hw', text: [h.emp ? 'con ' + h.emp : '', h.l || ''].filter(Boolean).join(' · ') }), h.msg ? el('div', { class: 'hw', style: 'margin-top:6px;opacity:1', text: '«' + h.msg + '»' }) : null, bts.children.length ? bts : null]);
-    var cb = el('button', { type: 'button', class: 'calB', id: 'alCalendario', style: 'background:rgba(255,255,255,.16);color:#fff;border:0', onclick: function () { icsDown(h); } }); cb.appendChild(ico(I.calAdd)); cb.appendChild(document.createTextNode('Añadir a mi calendario')); c.appendChild(cb);
-    if (h.r) c.appendChild(el('button', { class: 'lnk', type: 'button', style: 'color:#fff;opacity:.85;display:block;margin-top:6px', disabled: S.busy ? true : null, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(h.r, 'anula'); } }));
+      el('ul', { class: 'hl' }, [el('li', { class: 'hs', text: (h.sv || []).join(' + ') || 'Cita' }), h.emp ? el('li', { text: 'con ' + h.emp }) : null, h.l ? el('li', { text: h.l }) : null]), h.msg ? el('div', { class: 'hw', style: 'margin-top:6px;opacity:1', text: '«' + h.msg + '»' }) : null]);
+    // (4.7.4) «Añadir a mi calendario», en la misma fila que «Cómo llegar» (y «Llamar»); «Anular la cita», un botón que se ve.
+    var cb = el('button', { type: 'button', class: 'calB', id: 'alCalendario', onclick: function () { icsDown(h); } }); cb.appendChild(ico(I.calAdd)); cb.appendChild(document.createTextNode('Añadir a mi calendario')); var ll = bts.querySelector('#comoLlegar'); bts.insertBefore(cb, ll ? ll.nextSibling : bts.firstChild); /* (justo al lado de «Cómo llegar»; «Llamar», debajo) */ if (!c.contains(bts)) c.appendChild(bts);
+    if (h.r) c.appendChild(el('button', { class: 'anula', id: 'anularCita', type: 'button', disabled: S.busy ? true : null, text: 'Anular la cita', onclick: function () { if (confirm('¿Anular esta cita?')) answer(h.r, 'anula'); } }));
     return c;
   }
   // (4.7.1) «Añadir a mi calendario»: un archivo .ics con la cita (lo abre el calendario del móvil). No sale nada a internet.
@@ -728,7 +734,7 @@ html[data-theme=oscuro] .ap .d.ok{background:#12301f}html[data-theme=oscuro] .ap
     return S.avisos.map(function (t, i) { return el('div', { class: 'aviso', 'data-aviso': String(i) }, [el('div', {}, [el('b', { text: t[0] }), el('span', { class: 'hint', text: t[1] })]), el('button', { type: 'button', 'aria-label': 'Quitar el aviso', text: '×', onclick: function () { S.avisos.splice(i, 1); render(); } })]); });
   }
   function endOf(s, du) { var m = (+s.slice(0, 2)) * 60 + (+s.slice(3, 5)) + (+du || 0); return pad2(Math.floor(m / 60) % 24) + ':' + pad2(m % 60); }
-  function centroCard(x) { return el('div', { class: 'card', 'data-state': 'centro' }, [el('div', { class: 'ap' }, [dateBadge(x.d, 'ok'), el('div', { class: 'x' }, [el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('span', { class: 'tag ok', text: 'Confirmada' })]), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e + (x.emp ? ' con ' + x.emp : '') + (x.l ? ' · ' + x.l : '') }), el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(x.d)) ? ' soon' : ''), text: whenTxt(x.d) })])])]); }
+  function centroCard(x) { return el('div', { class: 'card', 'data-state': 'centro' }, [el('div', { class: 'ap' }, [dateBadge(x.d, 'ok'), el('div', { class: 'x' }, [el('div', { class: 'row', style: 'justify-content:space-between;flex-wrap:nowrap' }, [el('b', { text: (x.sv || []).join(' + ') || 'Cita' }), el('span', { class: 'tag ok', text: 'Confirmada' })]), el('div', { class: 'hint', text: dayText(x.d, true) + ' · ' + x.s + '–' + x.e }), x.emp || x.l ? el('ul', { class: 'cl' }, [x.emp ? el('li', { text: 'con ' + x.emp }) : null, x.l ? el('li', { text: x.l }) : null]) : null, el('div', { class: 'when' + (/^(Hoy|Mañana)$/.test(whenTxt(x.d)) ? ' soon' : ''), text: whenTxt(x.d) })])])]); }
   var TABS = [['prox', 'Próximas', 'n-ok', 'cal'], ['pend', 'Pendientes', 'n-warn', 'hour'], ['pas', 'Pasadas', '', 'check'], ['anu', 'Anuladas', '', 'x']]; // (4.7.1) con su icono
   function mis() {
     var rb = el('button', { type: 'button', class: 'refresh' + (S.mineBusy || S.clBusy ? ' spin' : ''), id: 'actualizar', 'aria-label': 'Actualizar', title: 'Actualizar', onclick: function () { S.info = ''; S.sent = null; loadMine(); if (store('cli')) showClient(); } }); rb.appendChild(ico(I.sync));
