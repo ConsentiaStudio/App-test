@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.7.2">
-<meta name="consentia-agenda-firma" content="h2ftzVE9g/7V4orUYgPrwSzyiOVnJsrigfDq+GFHhQMySEI9nvdudsiWDX5EzX0U5FJCe8Fx11B/oZSgaPlsDQ==">
+<meta name="consentia-agenda-version" content="4.7.3">
+<meta name="consentia-agenda-firma" content="v5GTsscyzLw4kjDgNtjsVIdZGqg3I7xKPxmuClT9IWgZJFlxbN1MxkeIKHzgcOZ6NJE6DxEJ0aw6MHZvtUQIBA==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-qQsgtz8PNj5Sdil2xRaqh0j+la2/pjeuD+A8fDWiyOI='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-YV3ZdAT/sDe4Ai8Un2AEG4kwMKBYd0UTy/quxXmF8hY='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -44,13 +44,6 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 .cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
 .cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--solid);color:#fff;border-color:var(--solid)}
 /* (4.5.1) Extras: varios a la vez */
-.cTabs.xMode{margin:0 0 10px}
-.xmHead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 8px;border-radius:14px;background:var(--solid);color:#fff;font-weight:700;font-size:14px}
-.xmHead span{flex:1}.xmHead .xmAdd{border:0;border-radius:10px;background:var(--pink);color:#fff;font:inherit;font-weight:800;padding:9px 14px}.xmHead .xmAdd:disabled{opacity:.4}
-.xmRow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line)}.xmRow.on{background:var(--pinkSoft);border-radius:10px}
-.xmName{flex:1;min-width:0}.xmName b{display:block;font-size:14.5px}.xmName small{display:block;color:var(--muted);font-size:12.5px}
-.xmStep{display:flex;align-items:center;gap:6px;flex:none}.xmStep button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:18px;font-weight:800}.xmStep button:disabled{opacity:.35}
-.xmN{min-width:58px;text-align:center;font-size:13px;font-weight:700}.xmAmt{width:84px;border:1.5px solid var(--line);border-radius:10px;padding:8px;font:inherit;text-align:right}
 /* (4.5.0) «Nueva cita» desde el móvil con Control total */
 body:has(.sheetBack) .fabCita{display:none}
 .sheet .nc{padding-bottom:4px}
@@ -354,15 +347,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .cItem .p{flex:none;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cItem .p s.antes{color:var(--muted);font-weight:400;font-size:12.5px} /* (4.3.1) packs: el precio sin el descuento del pack */
 .cItem .p.x{color:var(--pink);font-size:13.5px;max-width:46%;white-space:normal;text-align:right}
-.cItem:active,.xCard:active{background:var(--pinkSoft)}
-.xGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.xCard{display:flex;flex-direction:column;text-align:left;background:var(--card);border:0;border-radius:14px;overflow:hidden;padding:0;font:inherit;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,19,.06);-webkit-tap-highlight-color:transparent}
-.xCard .ph{display:block;width:100%;aspect-ratio:1/1;background:#efece6}
-.xCard .ph img{display:block;width:100%;height:100%;object-fit:cover}
-.xCard .ph.no{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffe9f3,var(--page));color:#e2a9c4;font:500 34px Didot,"Bodoni 72","Times New Roman",serif}
-.xCard .tx{display:block;padding:9px 11px 11px}
-.xCard b{display:block;font-size:14px;font-weight:600;line-height:1.25}
-.xCard small{display:block;margin-top:3px;font-size:12.5px;font-weight:700;color:var(--pink)}
+.cItem:active{background:var(--pinkSoft)}
 .cHint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
 /* (3.2.1) Índice de categorías / grupos y «‹ volver» */
 .cIndex .cItem b{font-weight:700}.cIndex .chev{flex:none;font-size:22px;line-height:1;color:var(--line3)}
@@ -375,18 +360,6 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:var(--page);margin-bottom:12px}
 .sheet .xPrecio{color:var(--pink);font-weight:700;margin-top:2px}
 .sheet .xAyuda{color:var(--ink2);font-size:13.5px;line-height:1.4}
-.stp{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}
-.sheet .xAyuda+.stp,.sheet .xPrecio+.stp{margin-top:12px}
-.stp>span{font-weight:600}
-.stp>div{display:flex;align-items:center;background:rgba(118,118,128,.14);border-radius:11px}
-.sheet .stp button{width:46px;height:40px;margin:0;padding:0;border:0;border-radius:11px;background:transparent;color:var(--ink);font:400 24px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.sheet .stp button[disabled]{opacity:.3}
-.stp output{min-width:64px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
-.stp input{width:128px;font:inherit;font-size:17px;font-weight:700;text-align:right;padding:9px 12px;border:1px solid var(--line3);border-radius:11px;background:var(--card)}
-.stp input:focus{outline:0;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,43,145,.18)}
-.xRes{margin-top:10px;padding:11px 12px;border-radius:12px;background:var(--page);font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
-.xRes.no{background:#fff4d6;color:#5c3d00;font-weight:600}
-.xRes:empty{display:none}
 .sheet button.calcBtn{background:var(--pink);margin-top:14px}
 .sheet button.calcBtn+button{margin-top:8px;background:transparent;color:var(--ink)}
 /* La cuenta */
@@ -512,10 +485,38 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .rbRow{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:14px}.rbRow.few{grid-template-columns:repeat(2,1fr)}.rbRow:has(> :only-child){grid-template-columns:1fr}
 .sheet button.rb{width:auto;margin:0;background:none;color:var(--ink);padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:700}
 .rbI{width:48px;height:48px;border-radius:50%;background:var(--field);display:grid;place-items:center}.rbI svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.rb.main .rbI{background:var(--solid);color:#fff}.rb.bad{color:#d0103f}.rb.bad .rbI{background:#fde4ec}html[data-theme=oscuro] .rb.bad .rbI{background:rgba(208,16,63,.22)}
+.rb.main .rbI{background:var(--solid);color:#fff}.rb.rbNo{color:#d0103f}.rb.rbNo .rbI{background:#fde4ec}html[data-theme=oscuro] .rb.rbNo{color:#ff6b8f}html[data-theme=oscuro] .rb.rbNo .rbI{background:rgba(208,16,63,.22)}
 .rb small{font-size:12px}
 .g .gh b{white-space:normal;overflow:hidden;text-overflow:clip;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.2} /* el nombre entero, en dos líneas si es largo */
 .status button.gonePill,.gonePill{border:0;background:#fde4ec;color:#c2103f;font:inherit;font-weight:800;font-size:12px;padding:3px 10px;border-radius:999px;white-space:nowrap}html[data-theme=oscuro] .status button.gonePill{background:rgba(208,16,63,.22);color:#ff6b8f}
+/* (4.7.3) Calculadora: un buscador para todo y los extras en categorías plegadas con − / + directo a la cuenta */
+.cSearchW{order:-1;margin:12px 12px 0}.cSearchW .cSearch{margin:0;padding-left:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239b9aa3' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center;background-size:18px}
+.xAcc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;overflow:hidden}
+.xAccH{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;color:var(--ink);font:inherit;text-align:left;padding:13px 14px}
+.xAccH b{flex:1;min-width:0;font-size:15px}.xAccH small{color:var(--muted);font-size:12.5px}.xAccH .chev{color:var(--muted);font-size:20px;line-height:1;transition:transform .15s}.xAcc.open .xAccH .chev{transform:rotate(90deg)}
+.xIn{font-size:11.5px;font-weight:800;color:#fff;background:var(--pink);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.xAccL{border-top:1px solid var(--line)}
+.xGrpH{padding:9px 12px 3px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line2)}.xAccL .xGrpH:first-child{border-top:0}.xGrpH+.xRowM{border-top:0}
+.xRowM{display:flex;align-items:center;gap:10px;padding:8px 10px;border-top:1px solid var(--line2)}.xAccL .xRowM:first-child,.sRes .xRowM:first-child{border-top:0}.xRowM.on{background:var(--pinkSoft)}
+.xTh{flex:none;width:40px;height:40px;border-radius:10px;overflow:hidden;padding:0;border:0;background:var(--field);display:grid;place-items:center;font-weight:900;font-size:15px}.xTh img{width:100%;height:100%;object-fit:cover;display:block}
+.xNm{flex:1;min-width:0}.xNm b{display:block;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xNm small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.xNm small em{font-style:normal;font-weight:800;color:var(--pink)}
+.xCtl{flex:none;display:flex;align-items:center;gap:4px}
+.xB{width:36px;height:36px;border-radius:50%;border:0;padding:0;background:var(--field);color:var(--ink);display:grid;place-items:center}.xB svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}.xB:active{filter:brightness(.92)}
+.xN{min-width:40px;text-align:center;font-weight:800;font-size:14px;line-height:1.05}.xN small{display:block;font-size:10.5px;font-weight:600;color:var(--muted)}
+.xUniW{display:flex;flex-direction:column;align-items:center;gap:1px}.xUniW small{font-size:9.5px;color:var(--muted)}.xAmt.xUni{width:56px;height:30px;font-size:14px;padding:0 6px}
+.xAmt{width:72px;height:36px;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-size:15px;font-weight:700;text-align:right;padding:0 8px}
+.sRes{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px}.sP{flex:none;font-weight:700;font-size:13.5px}
+.cBody>.cCat{margin:4px 2px 6px}
+/* (4.7.3) el total, oscuro; en rosa solo el importe y el número */
+.cTotal,html[data-theme=oscuro] .cTotal{background:#1c1a1f}html[data-theme=oscuro] .cTotal{background:var(--field);border:1px solid var(--line3)}
+.cTotal b{color:var(--pink)}.cTotal.flash{background:#2e2a33}html[data-theme=oscuro] .cTotal.flash{background:#2a2a31}
+/* (4.7.3) ficha de la cita */
+.sheet:has(> .shX){position:relative}.sheet:has(> .shX) .apWho{padding-right:30px}
+.sheet .shX{position:absolute;top:8px;right:8px;margin:0;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:var(--field);color:var(--ink);display:grid;place-items:center;z-index:3}
+.sheet .shX svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.apHero b.apDia{font-size:20px}.apHero b{font-size:20px}
+html[data-theme=oscuro] .apHero{background:#fff;color:#111113}html[data-theme=oscuro] .apHero em{background:rgba(17,17,19,.1)}
+ul.apCon{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:var(--muted)}ul.apCon li{margin:1px 0}ul.apCon b{color:var(--ink)}
 .goneRow{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.goneRow:last-of-type{border-bottom:0}
 .goneRow .h{text-decoration:line-through;color:var(--muted);flex:none;min-width:92px}.goneRow .gw{min-width:0}.goneRow .why{font-size:12.5px;font-weight:700;color:#c2103f;margin-top:2px}.goneRow.n .why{color:#a3164c}
 .accToast{position:fixed;left:50%;bottom:calc(var(--mh) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:var(--solid);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-shadow:0 10px 26px rgba(17,17,19,.25)}
@@ -596,7 +597,6 @@ header .tabs button.on{background:var(--solid);border-color:var(--solid);color:#
 .cList{border:1px solid var(--line);box-shadow:none;border-radius:18px}
 .cItem{border-bottom-color:var(--line2)}
 .cSearch{background:var(--field);color:var(--ink)}
-.xCard{border:1px solid var(--line);box-shadow:none}
 /* Clientas: todas en una lista, la inicial en un círculo y las VIP con su estrella */
 .cliList{gap:0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
 .cliItem{border:0;border-radius:0;border-top:1px solid var(--line2);background:var(--card);padding:12px 14px;gap:12px}
@@ -815,7 +815,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   // Esta página nunca usa «service workers»: si alguien hubiera instalado uno, se quita.
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { var here = location.origin + '/' + (location.pathname.split('/').filter(Boolean)[0] || '') + '/'; rs.forEach(function (r) { if (r.scope === location.origin + '/' || r.scope.indexOf(here) === 0) r.unregister(); }); }).catch(function () { }); } catch (e) { }
   // fotos: las fotos de los extras de cada centro, por la huella que trae su lista de precios (se bajan una vez).
-  var st = { centers: [], cur: 0, day: today(), msg: '', loading: false, ready: false, lastCheck: null, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', xGrp: '', xCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
+  var st = { centers: [], cur: 0, day: today(), msg: '', loading: false, ready: false, lastCheck: null, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
   st.want = wanted(); // centro pedido en la dirección (…/#getafe)
 
   /* ---------- lo que dejaron las versiones de antes ---------- */
@@ -936,11 +936,11 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   function apColor(a, e, d) { var done = a.st === 'c' || a.st === 'h', pc = done && /^#[0-9a-f]{6}$/i.test(d.pc || '') ? d.pc : ''; return { done: done, pc: pc, c: color(pc || a.col || e.c) }; }
   function stateTag(a) { return a.st === 'o' ? el('span', { class: 'tag o', text: 'Ofrecida' }) : a.st === 'c' ? el('span', { class: 'tag c', text: 'Cobrada' }) : a.st === 'h' ? el('span', { class: 'tag c', text: 'Hecha' }) : a.st === 'x' ? el('span', { class: 'tag x', text: 'Cancelada' }) : a.st === 'n' ? el('span', { class: 'tag n', text: 'No vino' }) : null; }
   // Ficha que sube desde abajo (el detalle de una cita o de un bloqueo, o las canceladas del día).
-  function sheet(kids, more, full) {
+  function sheet(kids, more, full, xTop) { // (4.7.3) xTop: una ✕ en la esquina de arriba en vez de «Cerrar» abajo
     var old = document.querySelector('.sheetBack'); if (old) old.remove();
     var back = el('div', { class: 'sheetBack' + (full ? ' full' : '') }); var close = function () { back.remove(); };
     if (typeof kids === 'function') kids = kids(close); // (4.6.0) la pantalla completa lleva su ✕ arriba (y no «Cerrar» abajo)
-    back.appendChild(el('div', { class: 'sheet' + (full ? ' full' : ''), id: 'ficha' }, kids.concat([more ? more(close) : null, full ? null : el('button', { id: 'cerrarFicha', type: 'button', text: 'Cerrar', on: { click: close } })])));
+    back.appendChild(el('div', { class: 'sheet' + (full ? ' full' : ''), id: 'ficha' }, (xTop ? [el('button', { id: 'cerrarFicha', class: 'shX', type: 'button', 'aria-label': 'Cerrar', title: 'Cerrar', on: { click: close } }, [svg(RB_ICONS.x)])] : []).concat(kids, [more ? more(close) : null, full || xTop ? null : el('button', { id: 'cerrarFicha', type: 'button', text: 'Cerrar', on: { click: close } })])));
     back.addEventListener('click', function (e) { if (e.target === back) close(); });
     document.body.appendChild(back);
   }
@@ -963,25 +963,27 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var t = mins(a.s), list = Array.isArray(a.sx) && a.sx.length ? a.sx.slice(0, 12) : a.sv ? [[txt(a.sv, 200), '', Math.max(0, mins(a.e) - mins(a.s))]] : [];
     return list.map(function (x) { var m = Math.max(0, Math.round(+x[2] || 0)), r = el('div', { class: 'svRow' }, [el('span', { class: 'svT', text: hm(t % 1440) }), el('b', {}, [x[1] ? el('i', { class: 'svM', style: 'background:' + color(x[1]) }) : null, txt(x[0], 80)]), el('small', { text: m ? durTxt(m) : '' })]); t += m; return r; });
   }
+  // (4.7.3) Retoques: ✕ en la esquina (sin «Cerrar»), «Cancelar cita», «Cambiar» sin color, con quién y la cabina en
+  // puntos, el día y la hora del mismo tamaño y, con el tema oscuro, el cuadro en blanco con letras negras.
   function apptSheet(a, who, d) {
     // «Calcular»: lleva los servicios de la cita a la calculadora (con los precios de ese centro).
     var can = d && calcOf(d) && Array.isArray(a.si) && a.si.some(function (i) { return calcOf(d).services[i]; });
     var w = WA_ST[a.w], lv = nivel(), cf = lv === 'control' || lv === 'gestion' ? cliOf(a, d) : null, ed = canEdit(a, d);
     var p = String(a.d || '').split('-'), du = mins(a.e) - mins(a.s); if (du <= 0) du += 1440;
-    var e = (d && d.employees || []).filter(function (x) { return x.id === a.emp; })[0], ec = color(e && e.c), k = cabOf(a, d);
+    var k = cabOf(a, d);
     var nts = notes(a).filter(Boolean).map(function (n) { if (n.className !== 'offTag') n.title = ''; return n; });
     var btns = [can ? rbtn('calcular', 'calc', 'Calcular', '', function () { closeSheet(); fromAppt(a, d); }) : null,
-      ed ? rbtn('editarCita', 'edit', 'Cambiar', 'main', function () { closeSheet(); citaForm(d, a); }) : null,
+      ed ? rbtn('editarCita', 'edit', 'Cambiar', '', function () { closeSheet(); citaForm(d, a); }) : null,
       cf ? rbtn('suFicha', 'ficha', 'Su ficha', '', function () { closeSheet(); cliSheet(cf.c, cf.x); }) : null,
-      ed ? rbtn('cancelarCita', 'x', 'Cancelar', 'bad', function () { if (!confirm('¿Cancelar la cita de ' + (txt(a.c, 80) || 'esta clienta') + '?')) return; closeSheet(); citaOrder('citaCancelar', { zona: d.$z, id: a.id }, 'Cita cancelada: la agenda se actualiza en unos segundos.'); }) : null].filter(Boolean);
+      ed ? rbtn('cancelarCita', 'x', 'Cancelar cita', 'rbNo', function () { if (!confirm('¿Cancelar la cita de ' + (txt(a.c, 80) || 'esta clienta') + '?')) return; closeSheet(); citaOrder('citaCancelar', { zona: d.$z, id: a.id }, 'Cita cancelada: la agenda se actualiza en unos segundos.'); }) : null].filter(Boolean);
     var sub = [cf && cf.x[2] ? cf.x[2] : '', a.vip ? 'VIP' : ''].filter(Boolean).join(' · ');
-    sheet([el('div', { class: 'apTopS' }, [el('div', { class: 'apHero', id: 'citaHora' }, [el('small', { text: p.length === 3 ? ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'][dow(a.d)] + ' ' + (+p[2]) : '' }), el('b', { text: txt(a.s, 5) }), el('span', { text: 'a ' + txt(a.e, 5) }), el('em', { text: durTxt(du) })]),
+    sheet([el('div', { class: 'apTopS' }, [el('div', { class: 'apHero', id: 'citaHora' }, [el('b', { class: 'apDia', text: p.length === 3 ? ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'][dow(a.d)] + ' ' + (+p[2]) : '' }), el('b', { text: txt(a.s, 5) }), el('span', { text: 'a ' + txt(a.e, 5) }), el('em', { text: durTxt(du) })]),
         el('div', { class: 'apWho' }, [el('h2', {}, [txt(a.c, 80) || 'Sin clienta', vipStar(a), stateTag(a)]), sub ? el('div', { class: 'apTel', text: sub }) : null,
-          el('div', { class: 'who' }, [el('span', { class: 'apAv', style: 'background:' + tint(ec, 0.18) + ';color:' + ec, text: String(who || '?').trim().charAt(0).toUpperCase() }), 'con ', el('b', { text: who }), k ? ' · ' + txt(k.n, 30) : ''])])]),
+          el('ul', { class: 'apCon' }, [el('li', {}, ['con ', el('b', { text: who })]), k ? el('li', { text: txt(k.n, 30) }) : null])])]), /* (4.7.3) con quién y la cabina, en puntos */
       a.sv || (a.sx && a.sx.length) ? el('div', { class: 'svBox' }, svRows(a)) : null,
       w ? el('div', { class: 'waLine' }, [waIco(a), ' ' + w[2]]) : null,
       nts.length ? el('div', { class: 'apNotes' }, nts) : null,
-      btns.length ? el('div', { class: 'rbRow' + (btns.length < 3 ? ' few' : '') }, btns) : null]);
+      btns.length ? el('div', { class: 'rbRow' + (btns.length < 3 ? ' few' : '') }, btns) : null], null, false, true);
   }
   var GONE_WHY = { w: 'Anulada por la clienta (WhatsApp)', k: 'Anulada por la clienta (avisó al centro)', c: 'Anulada en el centro', m: 'Se cambió a otra hora', r: 'Hueco ofrecido sin respuesta' };
   function goneWhy(a) { return a.st === 'n' ? 'No se presentó' : GONE_WHY[a.xr] || 'Cancelada'; }
@@ -1242,9 +1244,9 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var calc = calcOf(d), miss = 0; st.lines = []; st.disc = -1;
     (a.si || []).forEach(function (i) { var s = calc.services[i]; if (s) st.lines.push({ kind: 'service', name: txt(s.n, 80), detail: txt(s.c, 60), amount: r2(s.p) }); else miss++; });
     st.from = (txt(a.c, 80) || 'Sin clienta') + ' · ' + txt(a.s, 5) + (miss ? ' · ' + (miss === 1 ? 'falta 1 servicio que ya no está en la lista' : 'faltan ' + miss + ' servicios que ya no están en la lista') : '');
-    st.mode = 'calc'; st.cTab = 'extras'; st.xGrp = ''; st.xCat = ''; st.tk = false; st.cNode = null; st.cTop = true; render(); window.scrollTo(0, 0);
+    st.mode = 'calc'; st.cTab = 'extras'; st.tk = false; st.cNode = null; st.cTop = true; render(); window.scrollTo(0, 0);
   }
-  function goTab(id) { st.cTab = id; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.cTop = true; st.cNode = null; render(); } // (cNode = null: se rehace aunque sea la misma pestaña; la cuenta no se toca)
+  function goTab(id) { st.cq = ''; st.xOpen = {}; st.cTab = id; st.cCat = ''; st.cTop = true; st.cNode = null; render(); } // (cNode = null: se rehace aunque sea la misma pestaña; la cuenta no se toca)
   function modesBadge() { var b = document.querySelector('.modes small'); if (b) { var c = st.centers[st.cur]; b.textContent = st.lines.length ? money(totals(calcOf(c && c.data)).total) : ''; } }
 
   /* ---------- fotos de los extras ---------- */
@@ -1274,7 +1276,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   // La cuenta: en el móvil es una barra abajo (lo que lleva sumado) que al tocarla sube con sus líneas.
   function setTk(v) { st.tk = !!v && st.lines.length > 0; if (st.cNode) st.cNode.className = 'calc' + (st.tk ? ' tk' : ''); document.body.classList.toggle('tkOpen', st.tk); } // (3.2.1: tkOpen, para oscurecer también en el ordenador)
   function drawTicket(flash) {
-    if (!ticketBox) return; ticketBox.innerHTML = ''; totalBox.innerHTML = ''; var t = totals(calcData), n = st.lines.length;
+    if (!ticketBox) return; if (!flash && st.xRedraw) setTimeout(function () { if (st.xRedraw) st.xRedraw(); }, 0); ticketBox.innerHTML = ''; totalBox.innerHTML = ''; var t = totals(calcData), n = st.lines.length;
     if (!n && st.tk) setTk(false);
     ticketBox.appendChild(el('h4', {}, [el('span', { text: 'Cuenta' }), n ? el('button', { id: 'vaciar', type: 'button', text: 'Vaciar', on: { click: function () { st.lines = []; st.disc = -1; st.from = ''; drawTicket(); modesBadge(); } } }) : null, el('button', { class: 'x', id: 'cerrarCuenta', type: 'button', title: 'Cerrar', text: '×', on: { click: function () { setTk(false); } } })]));
     if (st.from) ticketBox.appendChild(el('div', { class: 'cHint', id: 'deCita', text: 'Cita de ' + st.from }));
@@ -1288,91 +1290,104 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     totalBox.appendChild(el('span', {}, ['Total', n ? el('i', { text: String(n) }) : el('small', { text: 'toca un servicio o un extra' }), n ? svg(CHEV) : null])); totalBox.appendChild(el('b', { text: money(t.total) }));
     totalBox.className = 'cTotal' + (flash ? ' flash' : ''); if (flash) { var tb = totalBox; setTimeout(function () { tb.className = 'cTotal'; }, 350); }
   }
-  // Un control de «menos / más» (nº de uñas, de colores, € por uña…).
-  function stepper(id, label, o) {
-    var out = el('output', { id: id }), less = el('button', { type: 'button', 'aria-label': 'Menos', text: '−' }), more = el('button', { type: 'button', 'aria-label': 'Más', text: '+' });
-    var draw = function () { out.textContent = o.fmt ? o.fmt(o.get()) : String(o.get()); if (o.get() <= o.min) less.setAttribute('disabled', ''); else less.removeAttribute('disabled'); if (o.get() >= o.max) more.setAttribute('disabled', ''); else more.removeAttribute('disabled'); };
-    var move = function (k) { return function () { o.set(Math.min(o.max, Math.max(o.min, r2(o.get() + k * o.step)))); draw(); o.change(); }; };
-    less.addEventListener('click', move(-1)); more.addEventListener('click', move(1)); draw();
-    return el('div', { class: 'stp' }, [el('span', { text: label }), el('div', {}, [less, out, more])]);
-  }
-  // La ficha de un extra: su foto en grande, su criterio, lo justo que hay que decir y cuánto es.
-  function addonSheet(a, calc) {
-    var fw = fewOf(a), nails = 10, foto = fotoOf(calc, a), fixed = a.mode === 'fixed' && !fw, open = a.mode === 'open', steps = a.mode === 'steps';
-    var range = a.mode === 'perNail' && (a.max == null || a.max === '' || +a.min !== +a.max);
-    var cMin = steps ? (+a.base > 0 ? +a.inc || 0 : 0) : 1, cMax = steps ? 30 : 10, cnt = steps ? +a.inc || 0 : Math.min(cMax, (+a.inc || 0) + 1);
-    var uMin = +a.min || 0, uMax = a.max == null || a.max === '' ? Math.max(99, uMin) : Math.max(uMin, +a.max), uni = uMin;
-    var amt = open ? el('input', { type: 'number', inputmode: 'decimal', min: '0', step: '0.5', placeholder: '0,00', id: 'xImporte', 'aria-label': 'Importe' }) : null;
-    var res = el('div', { class: 'xRes', id: 'xRes' }), addBtn = el('button', { class: 'calcBtn', id: 'xAdd', type: 'button' });
-    var price = function () { return addonPrice(a, cnt, open ? amt.value : uni, nails); };
-    var sync = function () { var pr = price(); res.className = 'xRes'; res.textContent = fixed || open ? '' : pr.detail + ' → ' + money(pr.amount); addBtn.textContent = 'Añadir · ' + (pr.amount > 0 || !fixed ? money(pr.amount) : 'sin coste'); };
-    var unitName = steps ? (function (t) { return t.charAt(0).toUpperCase() + t.slice(1); })(txt(a.us, 30) || 'unidades') : 'Uñas';
-    var kids = [foto ? el('img', { class: 'xFoto', id: 'xFoto', alt: '', src: foto }) : null, el('h2', { text: txt(a.n, 80) }), el('div', { class: 'xPrecio', text: addonText(a) }), a.help ? el('p', { class: 'xAyuda', text: txt(a.help, 200) }) : null,
-      fw ? stepper('xUnas', 'Uñas decoradas', { get: function () { return nails; }, set: function (v) { nails = v; }, min: 1, max: 10, step: 1, change: sync }) : null,
-      fixed || open || a.mode === 'fixed' ? null : stepper('xNum', unitName, { get: function () { return cnt; }, set: function (v) { cnt = v; }, min: cMin, max: cMax, step: 1, change: sync }),
-      range ? stepper('xUni', '€ por uña', { get: function () { return uni; }, set: function (v) { uni = v; }, min: uMin, max: uMax, step: 0.5, fmt: money, change: sync }) : null,
-      open ? el('div', { class: 'stp' }, [el('span', { text: 'Importe (€)' }), amt]) : null, res];
-    if (amt) amt.addEventListener('input', sync);
-    sheet(kids, function (close) {
-      addBtn.addEventListener('click', function () {
-        var pr = price();
-        if (!fixed && a.mode !== 'fixed' && !(pr.amount > 0)) { res.className = 'xRes no'; res.textContent = open ? 'Escribe el importe (el precio de su caja).' : 'Eso está incluido en el servicio: no hay suplemento que cobrar.'; return; }
-        addLine({ kind: 'addon', name: a.n, detail: fixed || pr.detail === txt(a.g, 60) ? a.g : (a.g === a.n ? '' : txt(a.g, 60) + ' · ') + pr.detail, amount: fixed ? +a.min || 0 : pr.amount }); close();
-      });
-      return addBtn;
-    });
-    sync(); if (amt) setTimeout(function () { try { amt.focus(); } catch (e) { } }, 60);
-  }
-  // (4.5.1) «Elegir varios a la vez», como en el programa: todos los extras en una lista con − / + (uñas, unidades o veces)
-  // o el importe, y arriba «Añadir N extras» que los pone todos en la cuenta de una vez.
-  function xModeBar() {
-    var b = function (m, t) { return el('button', { type: 'button', class: !!st.xMulti === m ? 'on' : '', id: m ? 'xVarios' : 'xCategorias', text: t, on: { click: function () { if (!!st.xMulti === m) return; st.xMulti = m; st.xPick = {}; st.cNode = null; render(); } } }); };
-    return el('div', { class: 'cTabs xMode' }, [b(false, 'Por categorías'), b(true, 'Varios a la vez')]);
-  }
   function xmPrice(a, x) {
     var fw = fewOf(a);
     if (a.mode === 'open') return addonPrice(a, 0, x.amt || 0, 10);
     if (fw && a.mode === 'fixed') return addonPrice(a, 1, a.min, x.n);
-    if (a.mode === 'perNail') return addonPrice(a, x.n, a.min, 10);
-    if (a.mode === 'steps') return addonPrice(a, x.n, '', 10);
+    if (a.mode === 'perNail') return addonPrice(a, x.n, x.u != null && x.u !== '' ? x.u : a.min, 10); // (4.7.3) u: el € por uña elegido (con horquilla)
+    if (a.mode === 'steps') return addonPrice(a, x.n, '', x.nl || 10); // (4.7.3) nl: en cuántas uñas (francesa en pocas uñas)
     return { amount: r2((+a.min || 0) * x.n), detail: txt(a.g, 60) };
   }
   function xmStart(a) { if (a.mode === 'perNail') return Math.max(1, Math.min(10, (+a.inc || 0) + 1)); if (a.mode === 'steps') return Math.max(1, +a.inc || 1); return 1; }
-  function xMultiList(body, calc, cats) {
-    st.xPick = st.xPick || {}; var P = st.xPick, box = el('div', { id: 'extrasVarios' }), head = el('div', { class: 'xmHead' }), list = el('div', { class: 'xmList' });
-    var picks = function () { return Object.keys(P).map(function (k) { return [calc.addons[+k], P[k]]; }).filter(function (p) { return p[0] && (p[0].mode === 'open' ? +p[1].amt > 0 : p[1].n > 0); }); };
-    var drawHead = function () {
-      var ps = picks(), sum = r2(ps.reduce(function (t, p) { return t + (xmPrice(p[0], p[1]).amount || 0); }, 0)); head.textContent = '';
-      head.appendChild(el('span', { text: ps.length ? nUn(ps.length, 'extra elegido', 'extras elegidos') + ' · ' + money(sum) : 'Pon cuántas uñas, unidades o veces' }));
-      head.appendChild(el('button', { type: 'button', id: 'xAddAll', class: 'xmAdd', disabled: ps.length ? null : 'disabled', text: ps.length > 1 ? 'Añadir ' + ps.length : 'Añadir', on: { click: function () {
-        var list2 = picks(); if (!list2.length) return;
-        list2.forEach(function (p) { var a = p[0], x = p[1], pr = xmPrice(a, x);
-          if (a.mode === 'fixed' && !fewOf(a)) { for (var i = 0; i < x.n; i++) addLine({ kind: 'addon', name: a.n, detail: a.g, amount: +a.min || 0 }); }
-          else addLine({ kind: 'addon', name: a.n, detail: pr.detail === txt(a.g, 60) ? a.g : (a.g === a.n ? '' : txt(a.g, 60) + ' · ') + pr.detail, amount: pr.amount }); });
-        toast(list2.length === 1 ? 'Añadido 1 extra a la cuenta.' : 'Añadidos ' + list2.length + ' extras a la cuenta.'); st.xPick = {}; P = st.xPick; fill(); } } }));
+  // (4.7.3) Los EXTRAS, de una sola forma (sin los dos modos de antes ni el botón de añadir): las categorías plegadas; al tocar
+  // una se abre debajo su lista, compacta (foto pequeña, nombre, precio y − / +). Cada «+» va DIRECTO a la cuenta y «−» lo
+  // quita: no hay botón «Añadir». En la cuenta, una línea por extra con su cantidad (x = nº del extra, n = cuántas).
+  // Los de importe libre (el precio de su caja): se escribe el importe y «+»; cada vez, una línea.
+  function xKind(a) { return a.mode === 'open' ? 'open' : a.mode === 'perNail' || (fewOf(a) && a.mode === 'fixed') ? 'nails' : a.mode === 'steps' ? 'steps' : 'times'; }
+  function xBase(a) { return a.mode === 'steps' && +a.base > 0; } // (francesa: el primer «+» es la básica, sin líneas de más)
+  function xFirst(a) { return xBase(a) ? Math.max(0, +a.inc || 0) : fewOf(a) && a.mode === 'fixed' ? 10 : xmStart(a); } // («de 1 a N uñas»: el primer «+», las 10; «−» baja uñas)
+  function xMax(a) { var k = xKind(a); return k === 'nails' ? 10 : k === 'steps' ? 30 : 20; }
+  function xLines(i) { return st.lines.filter(function (l) { return l.x === i; }); }
+  function xCount(i, a) { var ls = xLines(i); return a && a.mode === 'open' ? ls.length : ls.reduce(function (t, l) { return t + (l.n || 0); }, 0); }
+  function xRange(a) { return a.mode === 'perNail' && (a.max == null || a.max === '' || +a.min !== +a.max); } // (3 € – 5 € / uña: se elige el precio)
+  function xFewSteps(a) { return a.mode === 'steps' && !!fewOf(a); }
+  function xLineOf(a, i, n, amt, u, nl) {
+    var pr = xmPrice(a, { n: n, amt: amt, u: u, nl: nl }), k = xKind(a), det = pr.detail === txt(a.g, 60) ? txt(a.g, 60) : (a.g === a.n ? '' : txt(a.g, 60) + ' · ') + pr.detail;
+    if (k === 'times') det = txt(a.g, 60) + (n > 1 ? ' · ' + n + ' veces' : '');
+    return { kind: 'addon', name: txt(a.n, 80), detail: txt(det, 120), amount: r2(pr.amount), x: i, n: n, u: u, nl: nl };
+  }
+  function xUniOf(a, v) { var lo = +a.min || 0, hi = a.max == null || a.max === '' ? 9999 : Math.max(lo, +a.max), x = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isFinite(x) ? Math.min(hi, Math.max(lo, r2(x))) : lo; }
+  function xPlus(a, i, amt, uni, nls) {
+    if (a.mode === 'open') { var v = parseFloat(String(amt || '').replace(',', '.')); if (!(v > 0)) { toast('Escribe el importe (el precio de su caja).'); return false; } st.lines.push(xLineOf(a, i, 1, Math.min(9999, r2(v)))); }
+    else { var l = xLines(i)[0], n = l ? Math.min(xMax(a), l.n + 1) : xFirst(a), nl = xLineOf(a, i, n, undefined, xRange(a) ? xUniOf(a, uni != null ? uni : l && l.u) : undefined, xFewSteps(a) ? Math.max(1, Math.min(10, Math.round(+(nls != null ? nls : l && l.nl) || 10))) : undefined);
+      if (!(nl.amount > 0) && a.mode !== 'fixed') { toast('Eso está incluido en el servicio: sube una más para cobrar el suplemento.'); }
+      if (l) st.lines[st.lines.indexOf(l)] = nl; else st.lines.push(nl); }
+    drawTicket(true); modesBadge(); return true;
+  }
+  function xMinus(a, i) {
+    var ls = xLines(i), l = ls[ls.length - 1]; if (!l) return;
+    if (a.mode === 'open' || l.n <= (xBase(a) ? xFirst(a) : 1)) st.lines.splice(st.lines.indexOf(l), 1); else st.lines[st.lines.indexOf(l)] = xLineOf(a, i, l.n - 1, undefined, l.u, l.nl);
+    if (!st.lines.length) st.from = ''; drawTicket(); modesBadge();
+  }
+  // Al tocar la foto (o el nombre) de un extra con foto o explicación: se ve en grande, sin botones de añadir.
+  function xInfo(a, calc) {
+    var foto = fotoOf(calc, a); if (!foto && !a.help) return;
+    sheet([foto ? el('img', { class: 'xFoto', id: 'xFoto', alt: '', src: foto }) : null, el('h2', { text: txt(a.n, 80) }), el('div', { class: 'xPrecio', text: addonText(a) }), a.help ? el('p', { class: 'xAyuda', text: txt(a.help, 200) }) : null], null, false, true);
+  }
+  // Una fila: foto pequeña (o la inicial), nombre, precio (y lo que suma en la cuenta) y − n + (o el importe y +).
+  function xRowM(a, calc, redraw) {
+    var i = calc.addons.indexOf(a), has = xLines(i).length > 0, n = xCount(i, a), u = fotoOf(calc, a), wait = fotosWait(calc) && a.ph, k = xKind(a);
+    var sum = r2(xLines(i).reduce(function (t, l) { return t + l.amount; }, 0));
+    var unit = k === 'nails' ? (n === 1 ? 'uña' : 'uñas') : k === 'steps' ? ((txt(n === 1 ? a.u : a.us, 30) || 'unid.').split(' ')[0]) : k === 'open' ? (n === 1 ? 'caja' : 'cajas') : n === 1 ? 'vez' : 'veces';
+    var info = function () { xInfo(a, calc); };
+    var th = u ? el('button', { type: 'button', class: 'xTh', 'aria-label': 'Ver la foto', on: { click: info } }, [el('img', { alt: '', src: u })]) : el('span', { class: 'xTh no', text: wait ? '…' : txt(a.n, 1).toUpperCase(), style: 'color:' + color(calc.xc && calc.xc[txt(a.k || a.s || a.g, 60)]) });
+    var minus = el('button', { type: 'button', class: 'xB', 'data-xm': '-', 'aria-label': 'Quitar uno', disabled: has ? null : 'disabled', on: { click: function () { xMinus(a, i); redraw(); } } }, [svg(PM_ICONS.minus)]);
+    var amt = k === 'open' ? el('input', { type: 'number', inputmode: 'decimal', min: '0', step: '0.5', placeholder: '€', class: 'xAmt', 'aria-label': 'Importe de ' + txt(a.n, 60) }) : null;
+    var l0 = xLines(i)[0], uni = xRange(a) ? el('input', { type: 'number', inputmode: 'decimal', min: String(+a.min || 0), step: '0.5', class: 'xAmt xUni', value: String(l0 && l0.u != null ? l0.u : +a.min || 0), 'aria-label': '€ por uña de ' + txt(a.n, 60), title: '€ por uña' }) : null;
+    var nls = xFewSteps(a) ? el('input', { type: 'number', inputmode: 'numeric', min: '1', max: '10', step: '1', class: 'xAmt xUni', value: String(l0 && l0.nl ? l0.nl : 10), 'aria-label': 'En cuántas uñas', title: 'En cuántas uñas' }) : null;
+    if (nls) nls.addEventListener('change', function () { var v = Math.max(1, Math.min(10, Math.round(+nls.value || 10))); nls.value = String(v); var l = xLines(i)[0]; if (l) { st.lines[st.lines.indexOf(l)] = xLineOf(a, i, l.n, undefined, l.u, v); drawTicket(); modesBadge(); redraw(); } });
+    if (uni) uni.addEventListener('change', function () { uni.value = String(xUniOf(a, uni.value)); var l = xLines(i)[0]; if (l) { st.lines[st.lines.indexOf(l)] = xLineOf(a, i, l.n, undefined, +uni.value, l.nl); drawTicket(); modesBadge(); redraw(); } });
+    var plus = el('button', { type: 'button', class: 'xB', 'data-xm': '+', 'aria-label': 'Añadir uno', on: { click: function () { if (xPlus(a, i, amt && amt.value, uni ? uni.value : null, nls ? nls.value : null)) redraw(); } } }, [svg(PM_ICONS.plus)]);
+    if (amt) amt.addEventListener('keydown', function (e) { if (e.key === 'Enter') plus.click(); });
+    var shown = xBase(a) ? (n > xFirst(a) ? '+' + (n - xFirst(a)) : '✓') : String(n), unit2 = xBase(a) ? (n > xFirst(a) ? (txt(n - xFirst(a) === 1 ? a.u : a.us, 30) || 'de más').split(' ')[0] : 'básica') : unit;
+    return el('div', { class: 'xRowM' + (has ? ' on' : ''), 'data-x': txt(a.n, 80) }, [th, el('div', { class: 'xNm', on: { click: info } }, [el('b', { text: txt(a.n, 80) }), el('small', {}, [addonText(a), sum > 0 ? el('em', { text: ' · ' + money(sum) }) : null])]),
+      el('div', { class: 'xCtl' }, [uni ? el('label', { class: 'xUniW' }, [uni, el('small', { text: '€/uña' })]) : null, nls ? el('label', { class: 'xUniW' }, [nls, el('small', { text: 'uñas' })]) : null, has ? minus : null, has ? el('span', { class: 'xN' }, [shown, el('small', { text: unit2 })]) : null, amt, plus])]);
+  }
+  var PM_ICONS = { plus: [['path', { d: 'M12 5v14M5 12h14' }]], minus: [['path', { d: 'M5 12h14' }]] };
+  function xAccordion(box, calc, cats) {
+    st.xOpen = st.xOpen || {};
+    var draw = function () {
+      var y = (document.querySelector('#calculadora .cBody') || {}).scrollTop; box.textContent = '';
+      cats.forEach(function (c) { var all = []; c.groups.forEach(function (g) { all = all.concat(g.list); }); var on = !!st.xOpen[c.name] || cats.length === 1;
+        var inC = all.reduce(function (t, a) { return t + (xLines(calc.addons.indexOf(a)).length ? 1 : 0); }, 0);
+        var h = el('button', { type: 'button', class: 'xAccH', 'data-xcat': txt(c.name, 60), 'aria-expanded': on ? 'true' : 'false', on: { click: function () { if (on) delete st.xOpen[c.name]; else st.xOpen[c.name] = 1; draw(); } } },
+          [xcDot(calc, c.name), el('b', { text: txt(c.name, 60) }), inC ? el('span', { class: 'xIn', text: inC + ' en la cuenta' }) : el('small', { text: nUn(all.length, 'extra', 'extras') }), el('span', { class: 'chev', text: '›' })]);
+        var rows = []; if (on) c.groups.forEach(function (g) { if (c.groups.length > 1) rows.push(el('div', { class: 'xGrpH', text: txt(g.name, 60) })); g.list.forEach(function (a) { rows.push(xRowM(a, calc, draw)); }); }); // (con varios grupos, su nombre encima)
+        box.appendChild(el('div', { class: 'xAcc' + (on ? ' open' : '') }, [h, on ? el('div', { class: 'xAccL' }, rows) : null]));
+      });
+      box.appendChild(el('div', { class: 'cHint', text: '«/ uña» se cobra por cada uña decorada; el resto, una vez. Cada «+» va directo a la cuenta.' }));
+      var cb = document.querySelector('#calculadora .cBody'); if (cb && y) cb.scrollTop = y;
     };
-    var row = function (a, i) {
-      var x = P[i], n = x ? x.n : 0, kind = a.mode === 'open' ? 'open' : a.mode === 'perNail' || fewOf(a) ? 'nails' : a.mode === 'steps' ? 'steps' : 'times';
-      var unit = kind === 'nails' ? (n === 1 ? 'uña' : 'uñas') : kind === 'steps' ? (txt(a.us, 30) || 'unid.') : n === 1 ? 'vez' : 'veces';
-      var pr = x ? xmPrice(a, x) : null, ctl;
-      if (kind === 'open') { ctl = el('input', { type: 'number', inputmode: 'decimal', min: '0', step: '0.5', placeholder: '€', class: 'xmAmt', value: x && x.amt ? x.amt : '' }); ctl.addEventListener('input', function () { var v = parseFloat(String(ctl.value).replace(',', '.')); if (v > 0) P[i] = { n: 1, amt: v }; else delete P[i]; drawHead(); }); }
-      else ctl = el('div', { class: 'xmStep' }, [el('button', { type: 'button', 'data-xm': '-', disabled: n ? null : 'disabled', 'aria-label': 'Menos', text: '−', on: { click: function () { if (!x) return; if (x.n <= 1) delete P[i]; else P[i] = { n: x.n - 1 }; fill(); } } }), el('span', { class: 'xmN', text: n ? n + ' ' + unit : '—' }),
-        el('button', { type: 'button', 'data-xm': '+', 'aria-label': 'Más', text: '+', on: { click: function () { var max = a.mode === 'perNail' || (fewOf(a) && a.mode === 'fixed') ? 10 : a.mode === 'steps' ? 30 : 20; P[i] = { n: x ? Math.min(max, x.n + 1) : xmStart(a) }; fill(); } } })]);
-      return el('div', { class: 'xmRow' + (x ? ' on' : ''), 'data-x': txt(a.n, 80) }, [el('div', { class: 'xmName' }, [el('b', { text: txt(a.n, 80) }), el('small', { text: (a.g && a.g !== a.n ? txt(a.g, 60) + ' · ' : '') + addonText(a) + (pr && pr.amount > 0 ? ' → ' + money(pr.amount) : '') })]), ctl]);
-    };
-    var fill = function () {
-      var y = list.scrollTop; list.textContent = '';
-      cats.forEach(function (c) { var idx = []; c.groups.forEach(function (g) { g.list.forEach(function (a) { idx.push(calc.addons.indexOf(a)); }); });
-        if (!idx.length) return; list.appendChild(el('div', { class: 'cCat' }, [xcDot(calc, c.name), txt(c.name, 60)])); idx.forEach(function (i) { list.appendChild(row(calc.addons[i], i)); }); });
-      drawHead(); list.scrollTop = y;
-    };
-    box.appendChild(head); box.appendChild(list); body.appendChild(box); fill();
+    st.xRedraw = draw; draw();
+  }
+  // (4.7.3) El buscador de arriba mira en TODO (servicios, extras, bonos y packs) y lo enseña por apartados.
+  function searchAll(box, calc, k, plain) {
+    var hit = function (t) { return plain(t).indexOf(k) >= 0; }, any = false;
+    var sec = function (t, rows) { if (!rows.length) return; any = true; box.appendChild(el('div', { class: 'cCat' }, [t])); box.appendChild(el('div', { class: 'sRes' }, rows)); };
+    var add = function (name, small, price, fn) { return el('div', { class: 'xRowM' }, [el('div', { class: 'xNm' }, [el('b', { text: name }), el('small', { text: small })]), el('span', { class: 'sP', text: price }), el('div', { class: 'xCtl' }, [el('button', { type: 'button', class: 'xB', 'data-xm': '+', 'aria-label': 'Añadir', on: { click: fn } }, [svg(PM_ICONS.plus)])])]); };
+    var redraw = function () { box.textContent = ''; searchAll(box, calc, k, plain); };
+    st.xRedraw = redraw;
+    sec('Servicios', calc.services.filter(function (x) { return hit(x.n + ' ' + x.c); }).slice(0, 40).map(function (x) { return add(txt(x.n, 80), txt(x.c, 60) + (x.m ? ' · ' + x.m + ' min' : ''), money(x.p), function () { addLine({ kind: 'service', name: x.n, detail: x.c, amount: x.p }); }); }));
+    sec('Extras', calc.addons.filter(function (a) { return hit(a.n + ' ' + a.g + ' ' + (a.k || '')); }).slice(0, 40).map(function (a) { return xRowM(a, calc, redraw); }));
+    sec('Bonos', calc.bonos.filter(function (b) { return hit(b.n); }).map(function (b) { return add(txt(b.n, 80), nUn(+b.s || 1, 'sesión', 'sesiones'), money(b.p), function () { addLine({ kind: 'bono', name: b.n, detail: nUn(+b.s || 1, 'sesión', 'sesiones'), amount: b.p }); }); }));
+    sec('Packs', calc.packs.filter(function (pk) { return hit(pk.n); }).map(function (pk) { var it = (Array.isArray(pk.it) ? pk.it : []).slice(0, 30).map(function (x) { return txt(x, 90); }).filter(Boolean).join(' · '); return add(txt(pk.n, 80), it, money(pk.p), function () { addLine({ kind: 'pack', name: 'Pack ' + txt(pk.n, 70), detail: it, amount: pk.p }); }); }));
+    if (!any) box.appendChild(el('div', { class: 'none', text: 'Nada con ese nombre.' }));
   }
   function calcPane(c) {
     var d = c && c.data, calc = calcOf(d);
-    var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev + '|' + (st.xMulti ? 'v' : 'c');
+    var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev;
     if (st.cNode && st.cKey === key) { calcData = calc; drawTicket(); return st.cNode; } // (misma lista de precios: no se rehace lo que se estaba escribiendo)
-    if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; } // otro centro: otros precios
+    if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.cCat = ''; st.xOpen = {}; st.cq = ''; st.tk = false; } // otro centro: otros precios
     else if (st.cJson !== json) st.disc = -1; // han cambiado los precios del centro: el descuento se vuelve a elegir
     st.cJson = json;
     var pane = el('aside', { class: 'calc' + (st.tk && st.lines.length ? ' tk' : ''), id: 'calculadora', 'aria-label': 'Calculadora' });
@@ -1385,8 +1400,14 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     // antes. Igual en el ordenador, la tableta y el móvil. (Si solo hay una categoría o un grupo, se abre ese.)
     var tab = function (id, label) { return el('button', { type: 'button', class: st.cTab === id ? 'on' : '', 'data-tab': id, text: label, on: { click: function () { goTab(id); } } }); };
     pane.appendChild(el('div', { class: 'cTabs' }, [tab('serv', 'Servicios'), tab('extras', 'Extras'), calc.bonos.length ? tab('bonos', 'Bonos') : null, calc.packs.length ? tab('packs', 'Packs') : null]));
-    var body = el('div', { class: 'cBody' }); pane.appendChild(body);
+    var body = el('div', { class: 'cBody' });
     var plain = function (t) { return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+    // (4.7.3) Un solo buscador, como el de Clientas, encima de las pestañas: mira en servicios, extras, bonos y packs.
+    var sq = el('input', { class: 'cSearch', id: 'buscarCalc', type: 'search', placeholder: 'Buscar servicio, extra, bono…', autocomplete: 'off', value: st.cq || '' });
+    pane.insertBefore(el('div', { class: 'cSearchW' }, [sq]), pane.firstChild); pane.appendChild(body);
+    var fillBody = function () {
+    body.textContent = ''; st.xRedraw = null; var kq = plain(st.cq || '').trim();
+    if (kq) { searchAll(body, calc, kq, plain); return; }
     if (st.cTab === 'packs' && calc.packs.length) { // (4.3.1) los packs, como en Cobros
       var pl = el('div', { class: 'cList', id: 'packs' });
       calc.packs.forEach(function (pk) { var it = (Array.isArray(pk.it) ? pk.it : []).slice(0, 30).map(function (x) { return txt(x, 90); }).filter(Boolean).join(' · ');
@@ -1406,55 +1427,13 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
       // «‹ Extras» / «‹ <categoría>» vuelven un paso. El buscador, arriba, mira en todos. Al tocar un extra sube su ficha.
       var cats = []; calc.addons.forEach(function (a) { var cn = txt(a.k || a.s || a.g, 60) || 'Extras', c = cats.filter(function (x) { return x.name === cn; })[0]; if (!c) cats.push(c = { name: cn, groups: [] }); var g = c.groups.filter(function (x) { return x.name === a.g; })[0]; if (!g) c.groups.push(g = { name: a.g, list: [] }); g.list.push(a); });
       if (!cats.length) body.appendChild(el('div', { class: 'none', text: 'Este centro no tiene extras de uñas.' }));
-      else if ((body.appendChild(xModeBar()), st.xMulti)) xMultiList(body, calc, cats);
-      else {
-        if (cats.length === 1) st.xCat = cats[0].name; else if (st.xCat && !cats.some(function (c) { return c.name === st.xCat; })) { st.xCat = ''; st.xGrp = ''; }
-        var xq = el('input', { class: 'cSearch', id: 'buscarExtra', type: 'search', placeholder: 'Buscar un extra…', autocomplete: 'off' }), xl = el('div', { id: 'extras' }), wait = fotosWait(calc);
-        var go = function (a) { return function () { addonSheet(a, calc); }; };
-        var showList = function (shown, k) {
-          if (!shown.length) { xl.appendChild(el('div', { class: 'none', text: 'Ningún extra con ese nombre.' })); return; }
-          if (shown.some(function (a) { return fotoOf(calc, a) || (wait && a.ph); })) {
-            xl.appendChild(el('div', { class: 'xGrid' }, shown.slice(0, 80).map(function (a) { var u = fotoOf(calc, a);
-              return el('button', { class: 'xCard', type: 'button', 'data-x': txt(a.n, 80), on: { click: go(a) } }, [u ? el('span', { class: 'ph' }, [el('img', { alt: '', src: u })]) : el('span', { class: 'ph no', text: wait && a.ph ? '…' : txt(a.n, 1).toUpperCase() }), el('span', { class: 'tx' }, [el('b', { text: txt(a.n, 80) }), el('small', { text: addonText(a) })])]); })));
-          } else {
-            xl.appendChild(el('div', { class: 'cList' }, shown.slice(0, 80).map(function (a) { return el('button', { class: 'cItem', type: 'button', 'data-x': txt(a.n, 80), on: { click: go(a) } }, [el('b', {}, [txt(a.n, 80), k ? el('small', { text: txt(a.g, 60) }) : null]), el('span', { class: 'p x', text: addonText(a) })]); })));
-          }
-        };
-        var toTop = function () { var cb = document.querySelector('#calculadora .cBody'); if (cb) cb.scrollTop = 0; };
-        var hint = function () { xl.appendChild(el('div', { class: 'cHint', text: '«/ uña» se cobra por cada uña decorada; el resto, una vez. Si el diseño lleva varias técnicas, se añade cada una.' })); };
-        var nOpt = function (list) { return nUn(list.length, 'opción', 'opciones') + (list.some(function (a) { return a.ph; }) ? ' · con fotos' : ''); };
-        var fillX = function () {
-          var k = plain(xq.value).trim(); xl.innerHTML = '';
-          if (k) return showList(calc.addons.filter(function (a) { return plain(a.n + ' ' + a.g).indexOf(k) >= 0; }), k);
-          var C = cats.filter(function (c) { return c.name === st.xCat; })[0];
-          if (C && C.groups.length === 1) st.xGrp = C.groups[0].name; else if (C && st.xGrp && !C.groups.some(function (g) { return g.name === st.xGrp; })) st.xGrp = '';
-          if (!C) {
-            var catItem = function (c) { var all = []; c.groups.forEach(function (g) { all = all.concat(g.list); }); var one = c.groups.length === 1;
-              var at = { class: 'cItem', type: 'button', 'data-xcat': txt(c.name, 60), on: { click: function () { st.xCat = c.name; st.xGrp = one ? c.groups[0].name : ''; xq.value = ''; fillX(); toTop(); } } }; if (one) at['data-grp'] = txt(c.groups[0].name, 60);
-              return el('button', at, [el('b', {}, [xcDot(calc, c.name), txt(c.name, 60), el('small', { text: (one ? '' : nUn(c.groups.length, 'grupo', 'grupos') + ' · ') + nOpt(all) })]), el('span', { class: 'chev', text: '›' })]); };
-            xl.appendChild(el('div', { class: 'cIndex', id: 'grupos' }, [el('div', { class: 'cList' }, cats.map(catItem))]));
-            return hint();
-          }
-          if (!st.xGrp) {
-            xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverExtras', class: 'back', text: '‹ Extras', on: { click: function () { st.xCat = ''; st.xGrp = ''; fillX(); toTop(); } } }), el('b', {}, [xcDot(calc, C.name), txt(C.name, 60)])]));
-            xl.appendChild(el('div', { class: 'cList', id: 'gruposCat' }, C.groups.map(function (g) { return el('button', { class: 'cItem', type: 'button', 'data-grp': txt(g.name, 60), on: { click: function () { st.xGrp = g.name; xq.value = ''; fillX(); toTop(); } } }, [el('b', {}, [txt(g.name, 60), el('small', { text: nOpt(g.list) })]), el('span', { class: 'chev', text: '›' })]); })));
-            return hint();
-          }
-          var g = C.groups.filter(function (x) { return x.name === st.xGrp; })[0];
-          if (C.groups.length > 1) xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverCategoria', class: 'back', text: '‹ ' + txt(C.name, 40), on: { click: function () { st.xGrp = ''; fillX(); toTop(); } } }), el('b', { text: txt(g.name, 60) })]));
-          else if (cats.length > 1) xl.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverExtras', class: 'back', text: '‹ Extras', on: { click: function () { st.xCat = ''; st.xGrp = ''; fillX(); toTop(); } } }), el('b', {}, [xcDot(calc, C.name), txt(g.name, 60)])]));
-          showList(g.list, '');
-          hint();
-        };
-        xq.addEventListener('input', fillX);
-        body.appendChild(xq); body.appendChild(xl); fillX();
-      }
+      else { var xbox = el('div', { id: 'extras' }); body.appendChild(xbox); xAccordion(xbox, calc, cats); }
     } else {
       // (3.2.1) Servicios: primero el ÍNDICE de categorías (Manicuras, Pedicuras…); al tocar una, sus servicios
       // (Semipermanente…) y «‹ Categorías» para volver. El buscador mira en todos.
       var cats = []; calc.services.forEach(function (x) { if (cats.indexOf(x.c) < 0) cats.push(x.c); });
       if (cats.length === 1) st.cCat = cats[0]; else if (st.cCat && cats.indexOf(st.cCat) < 0) st.cCat = '';
-      var list = el('div', { id: 'servicios' }), q = el('input', { class: 'cSearch', type: 'search', placeholder: 'Buscar un servicio…', autocomplete: 'off' });
+      var list = el('div', { id: 'servicios' }), q = { value: '' }; /* (4.7.3) el buscador es el de arriba */
       var items = function (shown, k) { list.appendChild(el('div', { class: 'cList' }, shown.slice(0, 80).map(function (x) { return el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'service', name: x.n, detail: x.c, amount: x.p }); } } }, [el('b', {}, [txt(x.n, 80), el('small', { text: (k ? txt(x.c, 60) + (x.m ? ' · ' : '') : '') + (x.m ? x.m + ' min' : '') })]), el('span', { class: 'p', text: money(x.p) })]); }))); };
       var fill = function () {
         var k = plain(q.value).trim(); list.innerHTML = '';
@@ -1467,9 +1446,10 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
         if (cats.length > 1) list.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverServicios', class: 'back', text: '‹ Categorías', on: { click: function () { st.cCat = ''; fill(); } } }), el('b', {}, [catDot(calc, st.cCat), txt(st.cCat, 60)])]));
         items(calc.services.filter(function (x) { return x.c === st.cCat; }), '');
       };
-      q.addEventListener('input', fill);
-      body.appendChild(q); body.appendChild(list); fill();
+      body.appendChild(list); fill();
     }
+    };
+    sq.addEventListener('input', function () { st.cq = sq.value; fillBody(); }); fillBody();
     pane.appendChild(el('div', { class: 'tkBack', on: { click: function () { setTk(false); } } })); pane.appendChild(ticketBox); pane.appendChild(totalBox); drawTicket();
     return pane;
   }
@@ -1562,7 +1542,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     logout(); acc.msg = 'Han pasado 7 días desde que entraste: por seguridad, escribe tu contraseña otra vez.'; render(); return true;
   }
   function logout() { if (acc.me) { adel('sesion'); acc.me = null; acc.grant = null; acc.mk = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = ''; } // (se queda guardado, cifrado, para entrar con su contraseña)
-    st.loginAt = 0; st.cab = -1; st.calM = ''; st.centers = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cCat = ''; st.xGrp = ''; st.xCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
+    st.loginAt = 0; st.cab = -1; st.calM = ''; st.centers = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cq = ''; st.cCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
   function setView(v) { st.view = v; st.scroll = null; render(); }
 
   // (3.2.0) Fondo de la entrada: el logotipo (la C) pequeño y casi transparente, repartido AL AZAR pero cubriendo toda la
