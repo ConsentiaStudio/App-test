@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.7.3">
-<meta name="consentia-agenda-firma" content="v5GTsscyzLw4kjDgNtjsVIdZGqg3I7xKPxmuClT9IWgZJFlxbN1MxkeIKHzgcOZ6NJE6DxEJ0aw6MHZvtUQIBA==">
+<meta name="consentia-agenda-version" content="4.7.4">
+<meta name="consentia-agenda-firma" content="S6k2zdN9pKAtMrLBcT3Cd+Hn4irh0dLd7shBgZZ8faDhVri9kQEke3ggczeUdpUKrfpXLhp/5LTt1x4GLMG+Aw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-YV3ZdAT/sDe4Ai8Un2AEG4kwMKBYd0UTy/quxXmF8hY='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-T1mchFO70NP8Rx3jUsJoG40rkYPIAX/UG+5+I0lYQRg='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -350,12 +350,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .cItem:active{background:var(--pinkSoft)}
 .cHint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
 /* (3.2.1) Índice de categorías / grupos y «‹ volver» */
-.cIndex .cItem b{font-weight:700}.cIndex .chev{flex:none;font-size:22px;line-height:1;color:var(--line3)}
-.cBack{display:flex;align-items:center;gap:10px;margin:0 0 10px}
-.cBack .back{flex:none;border:1px solid #7c4dff;background:#7c4dff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:700;color:#fff;-webkit-tap-highlight-color:transparent} /* (3.2.3) «‹ Categorías» y «‹ Extras», en morado */
-.cBack .back:active{background:#6a3df0}
 .cSec+.cSec{margin-top:12px}.cSecName{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 4px 6px}
-.cBack b{flex:1;min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Ficha de un extra */
 .sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:var(--page);margin-bottom:12px}
 .sheet .xPrecio{color:var(--pink);font-weight:700;margin-top:2px}
@@ -557,7 +552,7 @@ header .tabs button.on{background:var(--solid);border-color:var(--solid);color:#
 .days button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;height:40px;min-width:40px}
 .days .hoy{border-radius:12px;letter-spacing:.06em}
 .days .d{border-radius:12px;font-weight:750}
-.days .d svg{stroke:var(--pink)}
+.days .d svg{stroke:var(--ink)} /* (4.7.4) como en Números */
 .status{color:var(--muted)}
 .status button,.status .cabSel{border-radius:10px;border-color:var(--line);background:var(--card);color:var(--ink)}
 /* la rejilla */
@@ -815,7 +810,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   // Esta página nunca usa «service workers»: si alguien hubiera instalado uno, se quita.
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { var here = location.origin + '/' + (location.pathname.split('/').filter(Boolean)[0] || '') + '/'; rs.forEach(function (r) { if (r.scope === location.origin + '/' || r.scope.indexOf(here) === 0) r.unregister(); }); }).catch(function () { }); } catch (e) { }
   // fotos: las fotos de los extras de cada centro, por la huella que trae su lista de precios (se bajan una vez).
-  var st = { centers: [], cur: 0, day: today(), msg: '', loading: false, ready: false, lastCheck: null, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', cCat: '', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
+  var st = { centers: [], cur: 0, day: today(), msg: '', loading: false, ready: false, lastCheck: null, view: 'cols', scroll: null, stale: '', fresh: '', want: '', mode: 'agenda', lines: [], disc: -1, from: '', cTab: 'serv', tk: false, cKey: '', cNode: null, fotos: {}, fRev: 0, loginAt: 0, cab: -1, calM: '' };
   st.want = wanted(); // centro pedido en la dirección (…/#getafe)
 
   /* ---------- lo que dejaron las versiones de antes ---------- */
@@ -870,6 +865,8 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   function temaBtn() { return el('button', { id: 'temaBtn', type: 'button', title: 'Tema claro u oscuro', 'aria-label': 'Tema claro u oscuro', on: { click: temaSheet } }, [svg(TEMA_ICON)]); }
   var ICON = {
     agenda: [['rect', { x: 3.5, y: 5, width: 17, height: 15.5, rx: 3.5 }], ['path', { d: 'M3.5 10h17M8 3v4M16 3v4' }], ['circle', { class: 'f', cx: 8.2, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 12, cy: 14.6, r: 1.15 }], ['circle', { class: 'f', cx: 15.8, cy: 14.6, r: 1.15 }]],
+    // (4.7.4) El calendario del selector de día, el mismo dibujo que el de Números (para que sean iguales).
+    cal: [['rect', { x: 4, y: 5, width: 16, height: 15, rx: 1 }], ['path', { d: 'M4 10h16M9 3v4M15 3v4' }]],
     calc: [['rect', { x: 5, y: 3, width: 14, height: 18, rx: 3.5 }], ['rect', { x: 8, y: 6, width: 8, height: 3.6, rx: 1.2 }], ['circle', { class: 'f', cx: 8.8, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 13.2, r: 1.1 }], ['circle', { class: 'f', cx: 8.8, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 12, cy: 17, r: 1.1 }], ['circle', { class: 'f', cx: 15.2, cy: 17, r: 1.1 }]]
   };
   function svg(parts) { var NS = 'http://www.w3.org/2000/svg', s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); parts.forEach(function (p) { var n = document.createElementNS(NS, p[0]); Object.keys(p[1]).forEach(function (k) { n.setAttribute(k, p[1][k]); }); s.appendChild(n); }); return s; }
@@ -1242,11 +1239,11 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   function addLine(l) { st.lines.push({ kind: l.kind, name: txt(l.name, 80), detail: txt(l.detail, 120), amount: r2(l.amount) }); drawTicket(true); modesBadge(); }
   function fromAppt(a, d) {
     var calc = calcOf(d), miss = 0; st.lines = []; st.disc = -1;
-    (a.si || []).forEach(function (i) { var s = calc.services[i]; if (s) st.lines.push({ kind: 'service', name: txt(s.n, 80), detail: txt(s.c, 60), amount: r2(s.p) }); else miss++; });
+    (a.si || []).forEach(function (i) { var s = calc.services[i]; if (s) st.lines.push({ kind: 'service', name: txt(s.n, 80), detail: txt(s.c, 60), amount: r2(s.p), s: i }); else miss++; });
     st.from = (txt(a.c, 80) || 'Sin clienta') + ' · ' + txt(a.s, 5) + (miss ? ' · ' + (miss === 1 ? 'falta 1 servicio que ya no está en la lista' : 'faltan ' + miss + ' servicios que ya no están en la lista') : '');
     st.mode = 'calc'; st.cTab = 'extras'; st.tk = false; st.cNode = null; st.cTop = true; render(); window.scrollTo(0, 0);
   }
-  function goTab(id) { st.cq = ''; st.xOpen = {}; st.cTab = id; st.cCat = ''; st.cTop = true; st.cNode = null; render(); } // (cNode = null: se rehace aunque sea la misma pestaña; la cuenta no se toca)
+  function goTab(id) { st.cq = ''; st.xOpen = {}; st.sOpen = {}; st.cTab = id; st.cTop = true; st.cNode = null; render(); } // (cNode = null: se rehace aunque sea la misma pestaña; la cuenta no se toca)
   function modesBadge() { var b = document.querySelector('.modes small'); if (b) { var c = st.centers[st.cur]; b.textContent = st.lines.length ? money(totals(calcOf(c && c.data)).total) : ''; } }
 
   /* ---------- fotos de los extras ---------- */
@@ -1370,6 +1367,31 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     };
     st.xRedraw = draw; draw();
   }
+  // (4.7.4) Los SERVICIOS como los extras: categorías plegadas, y en cada servicio − cuántos + (cada «+» es una línea más
+  // en la cuenta; «−» quita la última). En la cuenta, s = nº del servicio (también los que vienen de una cita).
+  function svLines(i) { return st.lines.filter(function (l) { return l.kind === 'service' && l.s === i; }); }
+  function svRowM(x, calc, redraw, withCat) {
+    var i = calc.services.indexOf(x), n = svLines(i).length;
+    var minus = el('button', { type: 'button', class: 'xB', 'data-xm': '-', 'aria-label': 'Quitar uno', on: { click: function () { var ls = svLines(i), l = ls[ls.length - 1]; if (l) { st.lines.splice(st.lines.indexOf(l), 1); if (!st.lines.length) st.from = ''; drawTicket(); modesBadge(); } redraw(); } } }, [svg(PM_ICONS.minus)]);
+    var plus = el('button', { type: 'button', class: 'xB', 'data-xm': '+', 'aria-label': 'Añadir uno', on: { click: function () { st.lines.push({ kind: 'service', name: txt(x.n, 80), detail: txt(x.c, 60), amount: r2(x.p), s: i }); drawTicket(true); modesBadge(); redraw(); } } }, [svg(PM_ICONS.plus)]);
+    return el('div', { class: 'xRowM' + (n ? ' on' : ''), 'data-sv': txt(x.n, 80) }, [el('div', { class: 'xNm' }, [el('b', { text: txt(x.n, 80) }), el('small', { text: (withCat ? txt(x.c, 60) + ' · ' : '') + money(x.p) + (x.m ? ' · ' + x.m + ' min' : '') })]),
+      el('div', { class: 'xCtl' }, [n ? minus : null, n ? el('span', { class: 'xN' }, [String(n), el('small', { text: n === 1 ? 'vez' : 'veces' })]) : null, plus])]);
+  }
+  function svAccordion(box, calc) {
+    st.sOpen = st.sOpen || {}; var cats = []; calc.services.forEach(function (x) { if (cats.indexOf(x.c) < 0) cats.push(x.c); });
+    var draw = function () {
+      var y = (document.querySelector('#calculadora .cBody') || {}).scrollTop; box.textContent = '';
+      if (!cats.length) { box.appendChild(el('div', { class: 'none', text: 'No hay servicios.' })); return; }
+      cats.forEach(function (c) { var all = calc.services.filter(function (x) { return x.c === c; }), on = !!st.sOpen[c] || cats.length === 1;
+        var inC = all.reduce(function (t, x) { return t + (svLines(calc.services.indexOf(x)).length ? 1 : 0); }, 0);
+        var h = el('button', { type: 'button', class: 'xAccH', 'data-scat': txt(c, 60), 'aria-expanded': on ? 'true' : 'false', on: { click: function () { if (on) delete st.sOpen[c]; else st.sOpen[c] = 1; draw(); } } },
+          [catDot(calc, c), el('b', { text: txt(c, 60) }), inC ? el('span', { class: 'xIn', text: inC + ' en la cuenta' }) : el('small', { text: nUn(all.length, 'servicio', 'servicios') }), el('span', { class: 'chev', text: '›' })]);
+        box.appendChild(el('div', { class: 'xAcc' + (on ? ' open' : '') }, [h, on ? el('div', { class: 'xAccL' }, all.map(function (x) { return svRowM(x, calc, draw); })) : null]));
+      });
+      var cb = document.querySelector('#calculadora .cBody'); if (cb && y) cb.scrollTop = y;
+    };
+    st.xRedraw = draw; draw();
+  }
   // (4.7.3) El buscador de arriba mira en TODO (servicios, extras, bonos y packs) y lo enseña por apartados.
   function searchAll(box, calc, k, plain) {
     var hit = function (t) { return plain(t).indexOf(k) >= 0; }, any = false;
@@ -1377,7 +1399,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var add = function (name, small, price, fn) { return el('div', { class: 'xRowM' }, [el('div', { class: 'xNm' }, [el('b', { text: name }), el('small', { text: small })]), el('span', { class: 'sP', text: price }), el('div', { class: 'xCtl' }, [el('button', { type: 'button', class: 'xB', 'data-xm': '+', 'aria-label': 'Añadir', on: { click: fn } }, [svg(PM_ICONS.plus)])])]); };
     var redraw = function () { box.textContent = ''; searchAll(box, calc, k, plain); };
     st.xRedraw = redraw;
-    sec('Servicios', calc.services.filter(function (x) { return hit(x.n + ' ' + x.c); }).slice(0, 40).map(function (x) { return add(txt(x.n, 80), txt(x.c, 60) + (x.m ? ' · ' + x.m + ' min' : ''), money(x.p), function () { addLine({ kind: 'service', name: x.n, detail: x.c, amount: x.p }); }); }));
+    sec('Servicios', calc.services.filter(function (x) { return hit(x.n + ' ' + x.c); }).slice(0, 40).map(function (x) { return svRowM(x, calc, redraw, true); })); // (4.7.4) con − / +
     sec('Extras', calc.addons.filter(function (a) { return hit(a.n + ' ' + a.g + ' ' + (a.k || '')); }).slice(0, 40).map(function (a) { return xRowM(a, calc, redraw); }));
     sec('Bonos', calc.bonos.filter(function (b) { return hit(b.n); }).map(function (b) { return add(txt(b.n, 80), nUn(+b.s || 1, 'sesión', 'sesiones'), money(b.p), function () { addLine({ kind: 'bono', name: b.n, detail: nUn(+b.s || 1, 'sesión', 'sesiones'), amount: b.p }); }); }));
     sec('Packs', calc.packs.filter(function (pk) { return hit(pk.n); }).map(function (pk) { var it = (Array.isArray(pk.it) ? pk.it : []).slice(0, 30).map(function (x) { return txt(x, 90); }).filter(Boolean).join(' · '); return add(txt(pk.n, 80), it, money(pk.p), function () { addLine({ kind: 'pack', name: 'Pack ' + txt(pk.n, 70), detail: it, amount: pk.p }); }); }));
@@ -1387,7 +1409,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var d = c && c.data, calc = calcOf(d);
     var json = JSON.stringify(d ? d.calc || null : null), key = (c ? c.key : '') + '|' + json + '|' + st.cTab + '|' + st.fRev;
     if (st.cNode && st.cKey === key) { calcData = calc; drawTicket(); return st.cNode; } // (misma lista de precios: no se rehace lo que se estaba escribiendo)
-    if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.cCat = ''; st.xOpen = {}; st.cq = ''; st.tk = false; } // otro centro: otros precios
+    if (st.cKey.split('|')[0] !== (c ? c.key : '')) { st.lines = []; st.disc = -1; st.from = ''; st.xOpen = {}; st.sOpen = {}; st.cq = ''; st.tk = false; } // otro centro: otros precios
     else if (st.cJson !== json) st.disc = -1; // han cambiado los precios del centro: el descuento se vuelve a elegir
     st.cJson = json;
     var pane = el('aside', { class: 'calc' + (st.tk && st.lines.length ? ' tk' : ''), id: 'calculadora', 'aria-label': 'Calculadora' });
@@ -1429,24 +1451,9 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
       if (!cats.length) body.appendChild(el('div', { class: 'none', text: 'Este centro no tiene extras de uñas.' }));
       else { var xbox = el('div', { id: 'extras' }); body.appendChild(xbox); xAccordion(xbox, calc, cats); }
     } else {
-      // (3.2.1) Servicios: primero el ÍNDICE de categorías (Manicuras, Pedicuras…); al tocar una, sus servicios
-      // (Semipermanente…) y «‹ Categorías» para volver. El buscador mira en todos.
-      var cats = []; calc.services.forEach(function (x) { if (cats.indexOf(x.c) < 0) cats.push(x.c); });
-      if (cats.length === 1) st.cCat = cats[0]; else if (st.cCat && cats.indexOf(st.cCat) < 0) st.cCat = '';
-      var list = el('div', { id: 'servicios' }), q = { value: '' }; /* (4.7.3) el buscador es el de arriba */
-      var items = function (shown, k) { list.appendChild(el('div', { class: 'cList' }, shown.slice(0, 80).map(function (x) { return el('button', { class: 'cItem', type: 'button', on: { click: function () { addLine({ kind: 'service', name: x.n, detail: x.c, amount: x.p }); } } }, [el('b', {}, [txt(x.n, 80), el('small', { text: (k ? txt(x.c, 60) + (x.m ? ' · ' : '') : '') + (x.m ? x.m + ' min' : '') })]), el('span', { class: 'p', text: money(x.p) })]); }))); };
-      var fill = function () {
-        var k = plain(q.value).trim(); list.innerHTML = '';
-        if (k) { var hit = calc.services.filter(function (x) { return plain(x.n + ' ' + x.c).indexOf(k) >= 0; }); if (!hit.length) list.appendChild(el('div', { class: 'none', text: 'Ningún servicio con ese nombre.' })); else items(hit, k); return; }
-        if (!cats.length) { list.appendChild(el('div', { class: 'none', text: 'No hay servicios.' })); return; }
-        if (!st.cCat) {
-          list.appendChild(el('div', { class: 'cList cIndex', id: 'categorias' }, cats.map(function (c0) { var n = calc.services.filter(function (x) { return x.c === c0; }).length; return el('button', { class: 'cItem', type: 'button', 'data-cat': txt(c0, 60), on: { click: function () { st.cCat = c0; q.value = ''; fill(); var cb = document.querySelector('#calculadora .cBody'); if (cb) cb.scrollTop = 0; } } }, [el('b', {}, [catDot(calc, c0), txt(c0, 60), el('small', { text: nUn(n, 'servicio', 'servicios') })]), el('span', { class: 'chev', text: '›' })]); })));
-          return;
-        }
-        if (cats.length > 1) list.appendChild(el('div', { class: 'cBack' }, [el('button', { type: 'button', id: 'volverServicios', class: 'back', text: '‹ Categorías', on: { click: function () { st.cCat = ''; fill(); } } }), el('b', {}, [catDot(calc, st.cCat), txt(st.cCat, 60)])]));
-        items(calc.services.filter(function (x) { return x.c === st.cCat; }), '');
-      };
-      body.appendChild(list); fill();
+      // (4.7.4) Servicios, igual que los extras: las categorías plegadas; al tocar una se abre debajo con sus servicios y
+      // − / + (directos a la cuenta). El buscador de arriba mira en todo.
+      var list = el('div', { id: 'servicios' }); body.appendChild(list); svAccordion(list, calc);
     }
     };
     sq.addEventListener('input', function () { st.cq = sq.value; fillBody(); }); fillBody();
@@ -1542,7 +1549,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     logout(); acc.msg = 'Han pasado 7 días desde que entraste: por seguridad, escribe tu contraseña otra vez.'; render(); return true;
   }
   function logout() { if (acc.me) { adel('sesion'); acc.me = null; acc.grant = null; acc.mk = ''; acc.estado = null; acc.nNode = null; acc.waits = {}; acc.inicio = null; acc.msg = ''; } // (se queda guardado, cifrado, para entrar con su contraseña)
-    st.loginAt = 0; st.cab = -1; st.calM = ''; st.centers = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cq = ''; st.cCat = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
+    st.loginAt = 0; st.cab = -1; st.calM = ''; st.centers = []; st.lines = []; st.disc = -1; st.from = ''; st.cKey = ''; st.cNode = null; st.cJson = ''; st.cTab = 'serv'; st.cq = ''; st.tk = false; st.fotos = {}; st.fRev++; ticketBox = totalBox = calcData = null; st.mode = 'agenda'; st.view = 'cols'; var sh = document.querySelector('.sheetBack'); if (sh) sh.remove(); forget(); render(); }
   function setView(v) { st.view = v; st.scroll = null; render(); }
 
   // (3.2.0) Fondo de la entrada: el logotipo (la C) pequeño y casi transparente, repartido AL AZAR pero cubriendo toda la
@@ -1664,7 +1671,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     // despliega el calendario del mes (para saltar a cualquier día sin ir de uno en uno).
     var dd = c && c.data;
     app.appendChild(el('div', { class: 'days' }, [el('button', { class: 'nav', text: '‹', title: 'Día anterior', 'aria-label': 'Día anterior', on: { click: function () { st.day = addDays(st.day, -1); render(); } } }), el('button', { class: 'hoy' + (st.day === today() ? ' on' : ''), text: 'Hoy', on: { click: function () { st.day = today(); render(); } } }), el('button', { class: 'nav', text: '›', title: 'Día siguiente', 'aria-label': 'Día siguiente', on: { click: function () { st.day = addDays(st.day, 1); render(); } } }),
-      el('button', { class: 'd', id: 'fecha', type: 'button', title: 'Elegir otro día en el calendario', 'aria-haspopup': 'dialog', on: { click: function () { calSheet(dd); } } }, [svg(ICON.agenda), el('span', { text: longDay(st.day) + (st.day.slice(0, 4) !== today().slice(0, 4) ? ' ' + st.day.slice(0, 4) : '') }), el('i', { text: '▾' })])]));
+      el('button', { class: 'd', id: 'fecha', type: 'button', title: 'Elegir otro día en el calendario', 'aria-haspopup': 'dialog', on: { click: function () { calSheet(dd); } } }, [svg(ICON.cal), el('span', { text: longDay(st.day) + (st.day.slice(0, 4) !== today().slice(0, 4) ? ' ' + st.day.slice(0, 4) : '') }), el('i', { text: '▾' })])]));
     var main = el('main');
     if (st.msg) main.appendChild(el('div', { class: 'warn', text: st.msg }));
     if (c && c.data && c.data.full && nivel() === 'control' && st.mode === 'agenda') setTimeout( /* (4.6.1) solo en la Agenda, no en la Calculadora */ function () { if (!document.getElementById('nuevaCita') && document.querySelector('main')) { var b = el('button', { id: 'nuevaCita', type: 'button', class: 'fabCita', text: '＋ Cita', title: 'Dar una cita', on: { click: function () { citaForm(c.data, null); } } }); document.body.appendChild(b); } }, 0);
