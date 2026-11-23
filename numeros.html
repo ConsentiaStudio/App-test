@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="panel">
-<meta name="consentia-agenda-version" content="4.7.4">
-<meta name="consentia-agenda-firma" content="ZAsMs/cNHYFAfXaS09m7vipoTVhwtw4WEVjyjsSpOn+jaRN3s0+YXr2XipiUHiVoG/RmDGAs8BF8Gp2EORxpCw==">
+<meta name="consentia-agenda-version" content="4.7.5">
+<meta name="consentia-agenda-firma" content="MBkuppDvtUKkr5O+d3Kfn/5AVHNbcEzbHu0wxH7Z0lSRYz9Q5p5cGRnB8FlSkY4fYa0RBVnLWVgv290xK0dOAw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-+690HYblQdNzfcBQGzTl8B7JPLiaaPAGt4Im7J8ftAA='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-Et/7VvjQrec7eSuHhF958fP+QCQr7TLB0ey7Jag4txg='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -263,6 +263,77 @@ body.embed .days{background:var(--bg);border-bottom:0}
 .stkL{position:relative;height:7px;border-radius:4px;background:var(--line2)}.stkL i{display:block;height:100%;border-radius:4px}.stkL i.lo{background:#e5484d}.stkL i.mid{background:#e0a100}.stkL b{position:absolute;top:-3px;height:13px;border-left:1.5px solid var(--muted)}
 .kpis.k2{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (min-width:900px){body.embed .tabsNav button{color:var(--ink)}body.embed .tabsNav button.on{color:#fff;background:var(--pink)}}
+
+/* ===================== (4.7.5) Números nuevo: recuadros de color, Locales de uno en uno (para 2 o para 30) y pantalla grande ===================== */
+:root{--barM:#c9c7cf}html[data-theme=oscuro]{--barM:#55545c}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+@media (min-width:600px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile{border-radius:16px;padding:12px 13px;min-width:0;background:color-mix(in srgb,var(--c) 13%,var(--card));color:var(--ink)}
+html[data-theme=oscuro] .tile{background:color-mix(in srgb,var(--c) 24%,#141418)}
+.tile>span{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800}.tile>span i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.tile strong{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tile strong span{font:inherit}
+.tile small{display:block;font-size:11.5px;opacity:.78;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cols2{display:grid;gap:12px}.cols2>div{display:grid;gap:12px;align-content:start;min-width:0}
+.payB{display:grid;gap:9px}.payB>div{display:flex;align-items:center;gap:10px;font-size:13px}.payB span{width:68px;flex:none}.payB b{width:42px;text-align:right}
+.pbar{flex:1;height:8px;border-radius:99px;background:var(--line2);overflow:hidden}.pbar i{display:block;height:100%;border-radius:99px}
+.cajaBad{display:flex;align-items:center;gap:10px;border-radius:14px;padding:9px 12px;margin-bottom:10px;background:color-mix(in srgb,#e5484d 12%,var(--card));border:1.5px solid #e5484d;color:#c62a30;font-size:13px;font-weight:700}
+html[data-theme=oscuro] .cajaBad{color:#ff8f93;background:color-mix(in srgb,#e5484d 22%,#141418)}
+.cajaBad>b{flex:none;width:22px;height:22px;border-radius:50%;background:#e5484d;color:#fff;display:grid;place-items:center;font-weight:900}
+.cajaBad.big strong{display:block;font-size:14px}.cajaBad.big small{display:block;font-weight:500;color:var(--ink2);font-size:12px;margin-top:1px}
+.cajaOk{display:flex;gap:8px;border-radius:14px;padding:9px 12px;margin-bottom:10px;background:var(--goodS);color:var(--good);font-size:12.5px;font-weight:700}
+.cajaNo{border-radius:14px;padding:9px 12px;margin-bottom:10px;background:var(--field);color:var(--muted);font-size:12.5px}
+.rank{display:flex;flex-direction:column}.rk{display:flex;align-items:center;gap:8px;padding:7px 0;border:0;background:none;text-align:left;width:100%;font-size:13px}
+.rk .n{width:16px;color:var(--muted);font-size:12px}.rk .dot{margin:0}.rk .nm{width:96px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk .rb{flex:1;height:8px;border-radius:99px;background:var(--line2);overflow:hidden}.rk .rb i{display:block;height:100%;border-radius:99px}.rk .v{width:68px;text-align:right}
+.rdot{display:inline-block;flex:none;width:8px;height:8px;border-radius:50%;background:#e5484d}
+.seeAll{display:block;width:100%;margin-top:10px;height:42px;border:1px solid var(--line3);border-radius:12px;background:var(--card);font-weight:800;font-size:13.5px}
+.locBar{display:flex;gap:8px;margin:0 -12px 12px;padding:0 12px}
+.locAll{flex:none;display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border:0;border-radius:14px;background:var(--ink);color:var(--bg);font-size:13.5px;font-weight:800}.locAll svg{width:16px;height:16px}.locAll .w{display:none}
+.locRow{flex:1;min-width:0;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:30px}
+.locRow::-webkit-scrollbar{display:none}
+.locChip{flex:none;scroll-snap-align:start;display:flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:14px;font-weight:800;white-space:nowrap}
+.locChip .dot{margin:0;background:var(--c)}.locChip.on{border:2px solid var(--c);color:var(--ink);background:color-mix(in srgb,var(--c) 13%,var(--card))}
+.objBar{position:relative;overflow:visible}.objBar>i{border-radius:99px}.objBar>b{position:absolute;top:-4px;bottom:-4px;border-left:2px solid var(--ink)}
+.chart .ln,.ch small .ln{display:inline-block;width:14px;border-top:2px solid #a20f3b;vertical-align:3px;margin-right:5px}
+.locSheet{width:440px;max-height:80vh;overflow:auto;padding:16px}
+@media (min-width:600px){.locSheet{top:8vh}}
+@media (max-width:599px){.locSheet{width:auto;max-height:86vh;overflow:auto}}
+.lsQ{display:flex;align-items:center;gap:8px;height:44px;border-radius:12px;background:var(--field);padding:0 12px;margin:4px 0 6px}.lsQ input{flex:1;border:0;background:transparent;outline:0;font-size:15px;min-width:0}.lsQ svg{width:17px;height:17px;color:var(--muted)}
+.lsH{font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 2px}.lsH.bad{color:#e5484d}
+.lsR{display:flex;align-items:center;gap:10px;width:100%;padding:10px 2px;border:0;border-top:1px solid var(--line2);background:none;text-align:left}.lsR .dot{margin:0}.lsR.on{background:var(--field)}
+.lsN{flex:1;min-width:0}.lsN b{display:block;font-size:14.5px}.lsN small{font-size:11.5px;font-weight:800;color:var(--muted)}.lsN small.ok{color:var(--good)}.lsN small.bad{color:#e5484d}
+.eqN{width:16px;flex:none;color:var(--muted);font-size:12px;align-self:center}.eqAv{background:color-mix(in srgb,var(--c) 18%,var(--card));color:var(--c)}
+html[data-theme=oscuro] .eqAv{background:var(--c);color:#fff}.eqLoc{font-weight:500;color:var(--muted);font-size:12px}
+.eqM .eqBar{position:relative;width:auto;height:6px}.eqM .eqBar i{background:var(--ink)}.eqM .eqBar b{border-left:2px solid var(--pink)}
+.bigLine{font-size:22px;font-weight:800;line-height:1.25;margin:2px 2px 12px;letter-spacing:-.01em}.bigLine .neg{color:#e5484d}.bigLine .pos{color:var(--good)}
+.frs{padding:0 14px;margin-bottom:12px}.fr{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line2)}.fr:first-child{border-top:0}
+.frI{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,var(--card));color:var(--c);font-weight:900}.frI svg{width:18px;height:18px}
+.frT{flex:1;min-width:0}.frT b{display:block;font-size:13.5px}.frT small{display:block;font-size:12px;color:var(--muted)}.frV{font-size:16px;white-space:nowrap}.frV.pedir{background:none;color:var(--ink);padding:0;font-size:15px;letter-spacing:0}
+.soft{background:color-mix(in srgb,var(--c) 12%,var(--card));border-color:transparent}html[data-theme=oscuro] .soft{background:color-mix(in srgb,var(--c) 22%,#141418)}.soft .appL>div{border-color:color-mix(in srgb,var(--c) 20%,transparent)}
+/* pantalla grande (tablet u ordenador): dos columnas y, a partir de 1000 px, las secciones a la izquierda */
+@media (min-width:900px){
+  .cols2{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}
+  .locFicha .cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .locAll .w{display:inline}
+  .bigLine{font-size:26px}
+}
+@media (min-width:1000px){
+  body.dash.embed #app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
+  body.embed .side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:#111113;color:#fff;padding:22px 14px 16px}
+  body.embed .side .brand{display:flex;align-items:center;gap:12px;padding:0 6px 18px;border-bottom:1px solid #2a2a30}
+  body.embed .side .brand img{width:30px;height:30px;filter:invert(1)}
+  body.embed .side .brand b{display:block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  body.embed .side .brand small{display:block;color:#9b9aa3;font-size:11px;margin-top:2px}
+  body.embed .side .grp{display:block;font-size:10.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#9b9aa3;padding:18px 10px 8px}
+  body.embed .tabsNav{display:flex;flex-direction:column;gap:4px;height:auto;padding:0;background:none;border:0;overflow:visible}
+  body.embed .tabsNav button{width:100%;height:42px;justify-content:flex-start;padding:0 12px;border:0;border-radius:10px;background:none;color:#d9d7d2;gap:10px;font-size:14px}
+  body.embed .tabsNav button svg.i{width:18px;height:18px}
+  body.embed .tabsNav button .l1{display:inline}
+  body.embed .tabsNav button.on{flex:none;width:100%;padding:0 12px;background:var(--pink);color:#fff}
+  body.embed .side .foot{display:none}
+  body.embed .days{padding:16px 28px 6px}
+  body.embed main{padding:12px 28px 30px;max-width:1400px}
+}
 </style>
 </head>
 <body>
@@ -289,7 +360,7 @@ body.embed .days{background:var(--bg);border-bottom:0}
   })();
   // Esta página no usa «service workers»: si alguien hubiera instalado uno, se quita.
   try { if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }).catch(function () {}); } catch (e) { }
-  var st = { me: null, zonas: [], data: null, day: today(), tab: 'resumen', msg: '', loading: false, files: {}, open: {} };
+  var st = { me: null, zonas: [], data: null, day: today(), tab: 'resumen', msg: '', loading: false, files: {}, open: {}, loc: null }; // (4.7.5) loc: el local que se ve en «Locales»
   var LOGO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACwCAMAAACYaRRsAAAAYFBMVEUAAAARERMRERIQEBIQEBIRERIQEBIUFBERERENDRAODhIODhIODhIPDxInJwAPDxIoKCgAAC4PDxERESI/PwAzMzMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC6i7dIAAAAIHRSTlMA/dGQbk6xFDErSWuJqQbNBgXiDwQFAAAAAAAAAAAAAGM6LtcAAAWzSURBVHja7Z3pcus6CIAtEGhx0tOz3Pd/1RsvSZzIThMLZHnGTNs/bdTPGCQEyG6aQw455JBDXkkIsbWIyMyXn9ZSWP5bH4nIbcfq6HQGkwgwkp/9AHa/po1oI7J5IWB9TcARwfwo0Lo6gMM7tIOg3x6YZiyB0RJFH4KP0T6aygNyeWBHiXLZhsTvaXoP2g2BE1xemqRcxLst+42A/bMxsH9t6rc/tFsAO3zGjT97582SXXHgxBrsOyuWv36KCwO7Z2sA/94Hv69KBlcSOHW2Dz47IS4FbJP14CNfHa8WSgEn3mZOHw4A19tSBDgx38/028tIbG0BYJ8ubSsuehzklz6wT2OwNQF4mAxAZXmNy/VbTeCQ8q79d1wCOKRxL6723RLAKS985U/mesAzkboXuHw1YDRyBjFdo7WArZFV8E3FVGyCyFNw05w0gR2IK/g6qVMpA16zJs/ZhAowzSUZSEYLKsCzmRInowYqZBDmLBSZKAB7o2IRoycrAM+nJZ3QwFTG47otWaXAv+cVjFK+QWUUbGK1wAuJ9VArsDdqJtzQ+XzmIAyM88DcVCphIfl/qhXYLgDbWoGXallxZxZhQqXA7RKw25lF/HE7swioVMG0BFzrNIx7A14s0GOdvM7sDDjuDdguAtud+VytwL92BuxgZ8De7AyYDuB37DCsj1xbZeC5/XLXKBDlZzUZYIAw+y+hVmB+RhsL2bh+QGUN42PUZzOq1518qQOTnw7EuaWTF+uGCPA3tBeru3rerS6cMbQysDNt1y7ib7ND9tYAtE2iG6V3vElbTkYtTdskmr4NM150OmlzabMG1AX+O4xC5tTzMmRvDIy2DePE8vqOJXB5A5YADjx0Fvr8YrA2cMOniwmP+u31HJvKgXHkhf4re2erDoyI42CtSHJGX8ND6BBG/w61A9t77zNfwSsGHhY3oPtOAXzNwEPsMGh1mNFO2TrWBMZJoNP3y2LzG3OJ9YDHyXecx+i6xNnMsqgasB1PJQDeJgu6/sLWBzxGvugCsPeh9zi8JxawMuDbaZWH2BXDnZirAn7aiMPklKAN4wVhNcDBTg8xEgE6118Ccp8nBYz9NbGrAdhZvp0HG8+Jdk7XnW7rBvPDiTCwtF7H0sCDbjFM8hLNdwuTbEoLYys/VWES9Hx8rdMwPo51uQ+w3kWkN6FPZ2+7HQekZWu3/uiw8q7ZG+y2y4KZW2XgYLBzOb8b4C57KVsE1gZGA6KtLeqZn/xMRNn88D+WLpawdiJFuhVHuWRA4kV29aKMdOOlVdcwyPY6KdfpzuL1Sd1KKBrRVW5YOzUTKd0sL8v7Kr7M9+4+eyIM/GJtRhGPBun+QlYGFu9+Q0XgU27J6LNpgiWUId/AGXSB5ZvflgNMEWCFthbWa8d1rNGW3ir2D1sjz/vCiCViqy8FYthbD/ziTOwrBV5syK31HMfixEbNzmyi2qM9YV8t2osHLOs9nrYUAEG1wEtu56sltprz2pfGAgSKXkdGYadkFb0OVRwYtMKfMX7FMhOFhBE7pVWTdR7XcA1V5CccrzUTY+bTjT7zO4E7qXdEmlXmCdJbgoLKUWFWXOSjwtrhVQNVlI8nWPVI9zdLq9hrB9YgbMWsHfXNPNCOs6cI1Y3AzPrR5t4w3YcSREGj4CJbwyhmFFYw5PvMKtbpKBTLbqSPQrXreYtsvZ0A8ThGqZ035xJf58diG2+bR+yheHouPpsFfrDvJYljUtmh0PsN93ajbGLy3O/3FBZ4u+xnouSfbfJ+zq9tNpD01QCvkSftw1vl72Py/Prl5+3T/Y7whhWdRMtmbA1/NIWHN6JsnLwPOPfWG0vee+eC99Se+MVLTzYRy+++ouWNV0oUsoz3mLmm2pMfmsFfvWioukeeOW8XXuAD3FZbYnCBLDKM4H/g4oGtr7Uy/QB+Ufjl+7/mkEMOOeSQQw45pCL5H6AxJmEsvijVAAAAAElFTkSuQmCC';
   var COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#6250d6', '#eda100', '#e34948', '#008300', '#e87ba4'];
   var PAYC = { Tarjeta: '#2a78d6', Efectivo: '#eb6834', Bizum: '#1baf7a' };
@@ -321,6 +392,7 @@ body.embed .days{background:var(--bg);border-bottom:0}
     reload: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/>', out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>', cal: '<rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 10h16M9 3v4M15 3v4"/>', warn: '<path d="M12 3l10 18H2zM12 10v5M12 18v.5"/>',
     resumen: '<rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/>', locales: '<path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v9h14v-9M10 21v-5h4v5"/>', // (4.7.1)
     equipo: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11a3 3 0 1 0 0-6M18 20c0-2.5-1.2-4.6-3-5.6"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>', // (4.7.5)
     stock: '<path d="M4 8l8-4 8 4v8l-8 4-8-4zM4 8l8 4 8-4M12 12v8"/>', clientas: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>' };
   function ico(k, cls) { return '<svg class="i' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24">' + P[k] + '</svg>'; }
 
@@ -385,7 +457,7 @@ body.embed .days{background:var(--bg);border-bottom:0}
     document.documentElement.className = ''; document.body.className = 'dash';
     var old = document.querySelector('.lockLogos'); if (old) old.remove();
     var nLoc = (st.data || []).length;
-    app.innerHTML = '<aside class="side"><div class="brand"><img src="' + LOGO + '" alt=""><div><b>Consentia</b><small>Panel de empresa</small></div></div><div class="grp">' + (nLoc ? nLoc + (nLoc === 1 ? ' local' : ' locales') : 'Locales') + '</div>' +
+    app.innerHTML = '<aside class="side"><div class="brand"><img src="' + LOGO + '" alt=""><div><b>Consentia</b><small>Números de la empresa</small></div></div><div class="grp">' + (nLoc ? nLoc + (nLoc === 1 ? ' local' : ' locales') : 'Locales') + '</div>' +
       '<nav class="tabsNav"' + (st.loading ? '' : ' id="tabs"') + '>' + TABS.map(function (t) { return '<button data-t="' + t[0] + '" class="' + (st.tab === t[0] ? 'on' : '') + '">' + ico(t[0]) + '<span class="l1">' + t[1] + '</span><span class="l2">' + t[2] + '</span></button>'; }).join('') + '</nav>' +
       '<div class="foot"><button id="sRe" type="button">Recargar</button><button id="sOut" type="button">Salir</button></div></aside>' +
       '<div class="mainCol"><div class="mtop"><img src="' + LOGO + '" alt=""><b>Panel</b><button id="tRe" type="button" aria-label="Recargar" title="Recargar">' + ico('reload') + '</button><button id="tOut" type="button" aria-label="Salir" title="Salir">' + ico('out') + '</button></div>' +
@@ -436,80 +508,82 @@ body.embed .days{background:var(--bg);border-bottom:0}
     var d = all.filter(function (x) { return x.dia || x.mes; }), bad = all.filter(function (x) { return !(x.dia || x.mes) && (x.notMine || x.error); });
     if (d.length || bad.length) h += ({ resumen: tabResumen, locales: tabLocales, equipo: tabEquipo, stock: tabStock, clientas: tabClientas })[st.tab](d, bad);
     main.innerHTML = h;
-    var cols = document.getElementById('cols'); if (cols) columns(cols, d);
+    var cols = document.getElementById('cols'); if (cols) columns(cols, d, false, { mono: true });
     main.querySelectorAll('[data-cl]').forEach(function (el) { var x = d[+el.dataset.cl]; if (x) columns(el, [x], true); });
+    // (4.7.5) Elegir local: la fila que se desliza, «🔍 N» (la lista entera) y, desde Resumen, la comparativa
+    main.querySelectorAll('[data-loc]').forEach(function (b) { b.onclick = function () { st.loc = b.dataset.loc; st.tab = 'locales'; draw(); window.scrollTo(0, 0); }; });
+    var lt = document.getElementById('locTodos'); if (lt) lt.onclick = openLocales;
+    var va = document.getElementById('verLocales'); if (va) va.onclick = function () { st.tab = 'locales'; draw(); openLocales(); };
+    var lr = document.getElementById('locRow'), on = lr && lr.querySelector('.on'); if (on && on.scrollIntoView) { var r1 = on.getBoundingClientRect(), r0 = lr.getBoundingClientRect(); if (r1.right > r0.right || r1.left < r0.left) lr.scrollLeft += r1.left - r0.left - 8; }
   }
-  function head(eb, title) { return '<div class="head"><div><div class="eb">' + esc(eb) + '</div><h1>' + esc(title) + '</h1></div><span class="sub">' + esc(st.tab === 'stock' ? 'Ahora mismo' : MONTH_TABS.indexOf(st.tab) >= 0 ? cap(fmonth(st.day.slice(0, 7))) + (st.day.slice(0, 7) >= today().slice(0, 7) ? ' · hasta hoy' : ' · el mes entero') : cap(fdateY(st.day))) + '</span></div>'; /* (4.7.2) */ }
   function unreadCard(x, wide) {
     return '<div class="card unread' + (wide ? ' span2' : '') + '"><div class="lh"><span class="dot" style="background:#bdb9b1"></span><h2>' + esc(zname(x.zona)) + '</h2><span class="pill warn">no se puede leer todavía</span></div><div class="why">' + ico('warn') + '<div>' +
       (x.notMine ? '<b>Este local ha publicado, pero todavía no para este móvil.</b> Pasa si el acceso se dio hace poco: en cuanto ese local tenga el programa abierto, vuelve a publicar sus números (cada 2 horas, o en menos de un minuto si cambia quién los ve).'
         : '<b>Los números de este local no se pueden abrir.</b> Pueden estar dañados: se vuelven a publicar solos en unas horas.') +
       (x.last ? '<br><span style="color:var(--muted)">Último resumen: ' + esc(fdate(x.last)) + '.</span>' : '') + '</div></div></div>';
   }
-  function unreadNote(bad) { return bad.length ? '<div class="msg warn">' + (bad.length === 1 ? 'Un local no se puede leer todavía' : bad.length + ' locales no se pueden leer todavía') + ' (' + bad.map(function (x) { return esc(zname(x.zona)); }).join(', ') + '): lo ves en «Por local».</div>' : ''; }
-  function tabResumen(d, bad) {
-    var ym = st.day.slice(0, 7), wk = addDays(st.day, -7), withDay = d.filter(function (x) { return x.dia && x.diaExacto; });
-    var f = sum(withDay, function (x) { return x.dia.facturacion; }), c = sum(withDay, function (x) { return x.dia.cobros; }), g = sum(withDay, function (x) { return x.dia.gastosTotal != null ? x.dia.gastosTotal : x.dia.gastos; });
-    var fw = sum(d, function (x) { return (x.serie[wk] || {}).facturacion; }), cmp = fw ? '<span class="' + (f >= fw ? 'up' : 'down') + '">' + pctTxt(f, fw) + '</span> frente al ' + esc(new Date(wk + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long' })) + ' pasado' : (st.day === today() ? 'hasta ahora' : '');
-    var h = head('Todos los locales', st.day === today() ? 'Hoy' : cap(fdate(st.day))) + unreadNote(bad);
-    h += '<div class="kpis">' + kpi('Facturación ' + (st.day === today() ? 'de hoy' : 'del día'), money(f), cmp, 'hero') + kpi('Cobros', c, 'ticket medio ' + money(c ? f / c : 0)) +
-      kpi('Citas', sum(withDay, function (x) { return x.dia.citas; }), sum(withDay, function (x) { return x.dia.porCobrar; }) + ' por cobrar · ' + sum(withDay, function (x) { return x.dia.noVino; }) + ' no vinieron') + kpi('Beneficio del día', sign(f - g), 'gastos ' + money(g) + (withDay.some(function (x) { return x.dia.gastosTotal != null; }) ? ' (con su parte de sueldos y fijos)' : '')) + '</div>';
-    var pm = {}; withDay.forEach(function (x) { var m = x.dia.porMetodo || {}; Object.keys(m).forEach(function (k) { pm[k] = (pm[k] || 0) + (Number(m[k]) || 0); }); });
+  function unreadNote(bad) { return bad.length ? '<div class="msg warn">' + (bad.length === 1 ? 'Un local no se puede leer todavía' : bad.length + ' locales no se pueden leer todavía') + ' (' + bad.map(function (x) { return esc(zname(x.zona)); }).join(', ') + '): lo ves en «Locales».</div>' : ''; }
+  // (4.7.5) Números nuevo (elegido en los bocetos): Resumen con recuadros de color (lo de hoy de todos los locales), un
+  // solo gráfico de 30 días (hoy en rosa), las formas de pago y, si hay más de un local, la comparativa de locales (que
+  // vale igual para 2 que para 30: el aviso de cajas sin cerrar, los 5 que más facturan y «Ver los N locales»).
+  // Fuera lo que se repetía: el título con la fecha (ya está arriba), «Noviembre por local», la tabla «Comparativa entre
+  // locales», los recuadros de debajo del gráfico y «Clientas nuevas» (está en Clientas).
+  function mshort(ym) { return new Date(ym + '-15T12:00:00').toLocaleDateString('es-ES', { month: 'short' }).replace('.', '') + '. ' + ym.slice(0, 4); }
+  function tile(lab, val, sub, c, id) { return '<div class="tile"' + (id ? ' id="' + id + '"' : '') + ' style="--c:' + c + '"><span><i></i>' + esc(lab) + '</span><strong class="num">' + val + '</strong>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>'; }
+  var TC = { rosa: '#ff2b91', verde: '#1d8a4a', lila: '#7c4dff', azul: '#2f6fd0', gris: '#6b6b72', ambar: '#e0a100' };
+  // La caja del día anterior de cada local (la publica cada local desde la 4.7.5; uno con una versión de antes: «sin dato»).
+  function cajaOf(x) { var c = x.dia && x.diaExacto && x.dia.cajaAyer; return !c ? null : c.cerrada === false ? 'mal' : c.cerrada === true ? 'ok' : null; }
+  function cajaDia(x) { var c = x.dia && x.dia.cajaAyer; return c && c.dia ? cap(new Date(c.dia + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric' })) : ''; }
+  function payBars(pm) {
     var pk = Object.keys(pm).filter(function (k) { return pm[k] > 0; }).sort(function (a, b) { return pm[b] - pm[a]; }), pt = sum(pk, function (k) { return pm[k]; });
-    var ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; });
-    var mf = sum(ms, function (x) { return x.mes.facturacion; }), mg = sum(ms, function (x) { return x.mes.gastos; }), mc = sum(ms, function (x) { return x.mes.cobros; }), ly = sum(ms, function (x) { return (x.mes.anioAnterior || {}).facturacion; });
-    var maxM = Math.max.apply(null, ms.map(function (x) { return Math.max(x.mes.facturacion || 0, (x.mes.anioAnterior || {}).facturacion || 0); }).concat([1]));
-    var tot30 = 0, gas30 = 0; d.forEach(function (x) { Object.keys(x.serie).forEach(function (k) { tot30 += Number(x.serie[k].facturacion) || 0; gas30 += gastoDia(x.serie[k]); }); });
-    h += '<div class="grid g2">' +
-      '<div class="card"><div class="ch"><h2>Facturación y gastos · últimos 30 días</h2><div class="legend">' + d.map(function (x) { return '<span><i style="background:' + x.color + '"></i>' + esc(name(x)) + '</span>'; }).join('') + '<span><i class="ln"></i>Gastos</span></div></div><div class="chart" id="cols"></div><div class="minis m3" style="margin-top:12px"><div class="mini"><span>Facturado · 30 días</span><strong class="num">' + money0(tot30) + '</strong></div><div class="mini"><span>Gastos</span><strong class="num">' + money0(gas30) + '</strong></div><div class="mini"><span>Beneficio</span><strong class="num ' + (tot30 - gas30 >= 0 ? 'pos' : 'neg') + '">' + money0(tot30 - gas30) + '</strong></div></div><p class="hint" style="margin:8px 0 0">Gastos: los del día y su parte de sueldos y gastos fijos. Los días sin barra, ese local no abrió o no tenía el programa abierto.</p></div>' + // (4.7.1)
-      '<div class="card"><div class="ch"><h2>Formas de pago · ' + (st.day === today() ? 'hoy' : 'ese día') + '</h2><small>' + c + ' cobros</small></div>' +
-        (pt ? '<div class="payRow">' + payRing(pk, pm, pt, c) + '<div class="pay">' + pk.map(function (k) { return '<div><i style="background:' + (PAYC[k] || '#6250d6') + '"></i>' + esc(k) + '<span style="color:var(--muted)">' + Math.round(pm[k] / pt * 100) + ' %</span><b class="num">' + money(pm[k]) + '</b></div>'; }).join('') + '</div></div>' : '<p class="empty">Ningún cobro ese día.</p>') +
-        '<h3 style="border-top:1px solid var(--line2);padding-top:14px">Bonos y clientas · ' + esc(mname(ym)) + '</h3><div class="minis m2" style="grid-template-columns:1fr 1fr"><div class="mini"><span>Bonos vendidos</span><strong class="num">' + sum(ms, function (x) { return (x.mes.bonos || {}).vendidos; }) + '</strong><small>' + money0(sum(ms, function (x) { return (x.mes.bonos || {}).importe; })) + '</small></div><div class="mini"><span>Clientas nuevas</span><strong class="num">' + sum(ms, function (x) { return x.mes.nuevas; }) + '</strong><small>de ' + sum(ms, function (x) { return x.mes.clientasAtendidas; }) + ' atendidas</small></div></div></div>' +
-      '<div class="card"><div class="ch"><h2>' + esc(mname(ym)) + ' por local</h2><small>' + (ly ? 'la raya negra: ' + esc(fmonth((Number(ym.slice(0, 4)) - 1) + ym.slice(4))) : 'facturación del mes') + '</small></div>' +
-        (ms.length ? '<div class="hbar">' + ms.map(function (x) { var m = x.mes, p = (m.anioAnterior || {}).facturacion || 0; return '<div class="hrow"><span class="nm"><span class="dot" style="background:' + x.color + '"></span>' + esc(name(x)) + '</span><div class="track"><div class="fill" style="width:' + (m.facturacion / maxM * 100).toFixed(1) + '%;background:' + x.color + '"></div>' + (p ? '<div class="prev" style="left:' + (p / maxM * 100).toFixed(1) + '%" title="' + esc(fmonth(m.anioAnterior.ym || '')) + ': ' + money0(p) + '"></div>' : '') + '</div><span class="v num">' + money0(m.facturacion) + '<small>' + (p ? pctTxt(m.facturacion, p) + ' · ' : '') + 'benef. ' + money0(m.beneficio) + '</small></span></div>'; }).join('') + '</div>' : '<p class="empty">Sin datos del mes.</p>') +
-        '<div class="minis" style="margin-top:16px"><div class="mini"><span>Facturación</span><strong class="num">' + money0(mf) + '</strong><small>' + (ly ? pctTxt(mf, ly) + ' que el año pasado' : 'todos los locales') + '</small></div><div class="mini"><span>Gastos</span><strong class="num">' + money0(mg) + '</strong><small>del mes</small></div><div class="mini"><span>Beneficio</span><strong class="num ' + (mf - mg >= 0 ? 'pos' : 'neg') + '">' + money0(mf - mg) + '</strong><small>facturación − gastos</small></div><div class="mini"><span>Ticket medio</span><strong class="num">' + money(mc ? mf / mc : 0) + '</strong><small>' + mc + ' cobros</small></div></div></div>' +
-      '<div class="card"><div class="ch"><h2>Comparativa entre locales</h2><small>' + esc(mname(ym)) + '</small></div><table><thead><tr><th>Local</th><th class="n">' + (st.day === today() ? 'Hoy' : 'Ese día') + '</th><th class="n">Mes</th><th class="n hide-m hide-n">Ticket</th><th class="n hide-m">Publicado</th></tr></thead><tbody>' +
-        d.map(function (x) { var m = x.mes && x.mes.ym === ym ? x.mes : null, late = x.dia && Date.now() - Date.parse(x.dia.at) > 3 * 3600e3 && st.day === today(); return '<tr><td><span class="dot" style="background:' + x.color + '"></span><b>' + esc(name(x)) + '</b></td><td class="n">' + (x.dia && x.diaExacto ? money(x.dia.facturacion) : '—') + '</td><td class="n">' + (m ? money0(m.facturacion) : '—') + '</td><td class="n hide-m hide-n">' + (m ? money(m.ticketMedio) : '—') + '</td><td class="n hide-m">' + (x.dia ? '<span class="pill ' + (late ? 'warn' : 'ok') + '">' + (late ? 'sin publicar · ' : '') + esc(rel(x.dia.at)) + '</span>' : '—') + '</td></tr>'; }).join('') +
-      '</tbody></table></div>' + goalCard(ms, ym) + svcCard(ms, ym) + '</div>'; // (4.7.1)
-    return h;
+    if (!pt) return '<p class="empty">Ningún cobro ese día.</p>';
+    return '<div class="payB">' + pk.map(function (k) { var p = Math.round(pm[k] / pt * 100); return '<div><span>' + esc(k) + '</span><div class="pbar"><i style="width:' + p + '%;background:' + (PAYC[k] || '#6250d6') + '"></i></div><b class="num">' + p + ' %</b></div>'; }).join('') + '</div>';
   }
-  // (4.7.1) Formas de pago en rosquilla, con el número de cobros en medio.
-  function payRing(pk, pm, pt, c) {
-    var R = 44, w = 14, C = 2 * Math.PI * R, off = 0, s = '<svg class="ring" width="110" height="110" viewBox="0 0 110 110" role="img" aria-label="Formas de pago">';
-    pk.forEach(function (k) { var L = C * pm[k] / pt; s += '<circle cx="55" cy="55" r="' + R + '" fill="none" stroke="' + (PAYC[k] || '#6250d6') + '" stroke-width="' + w + '" stroke-dasharray="' + Math.max(0, L - (pk.length > 1 ? 2 : 0)).toFixed(1) + ' ' + C.toFixed(1) + '" stroke-dashoffset="' + (-off).toFixed(1) + '" transform="rotate(-90 55 55)"/>'; off += L; });
-    return s + '<text x="55" y="55" text-anchor="middle" style="fill:var(--ink);font-size:20px;font-weight:800">' + c + '</text><text x="55" y="71" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">cobros</text></svg>';
+  function tabResumen(d, bad) {
+    var withDay = d.filter(function (x) { return x.dia && x.diaExacto; }), hoy = st.day === today();
+    var f = sum(withDay, function (x) { return x.dia.facturacion; }), c = sum(withDay, function (x) { return x.dia.cobros; }), g = sum(withDay, function (x) { return x.dia.gastosTotal != null ? x.dia.gastosTotal : x.dia.gastos; });
+    var h = unreadNote(bad);
+    h += '<div class="tiles">' + tile(hoy ? 'Facturado hoy' : 'Facturado ese día', money(f), (d.length > 1 ? d.length + ' locales · ' : '') + c + (c === 1 ? ' cobro' : ' cobros'), TC.rosa, 'tFact') +
+      tile('Beneficio', sign(f - g), 'gastos ' + money(g), TC.verde) +
+      tile('Citas', String(sum(withDay, function (x) { return x.dia.citas; })), sum(withDay, function (x) { return x.dia.porCobrar; }) + ' por cobrar', TC.lila) +
+      tile('Ticket medio', money(c ? f / c : 0), 'por cobro', TC.azul) + '</div>';
+    var pm = {}; withDay.forEach(function (x) { var m = x.dia.porMetodo || {}; Object.keys(m).forEach(function (k) { pm[k] = (pm[k] || 0) + (Number(m[k]) || 0); }); });
+    var left = '<div class="card"><div class="ch"><h2>Facturación · 30 días</h2><small>' + (hoy ? 'hoy en rosa' : 'ese día en rosa') + '</small></div><div class="chart" id="cols" data-mono="1"></div></div>' +
+      '<div class="card"><div class="ch"><h2>Formas de pago · ' + (hoy ? 'hoy' : 'ese día') + '</h2><small>' + c + ' cobros</small></div>' + payBars(pm) + '</div>';
+    var all = d.concat(bad); // (los que todavía no se pueden leer también cuentan: salen «sin cobros»)
+    return h + (all.length > 1 ? '<div class="cols2"><div>' + left + '</div><div>' + compareCard(all, hoy) + '</div></div>' : left);
   }
-  // (4.7.1) El objetivo del mes (la suma de los locales que lo tienen) en un anillo; la marca, dónde se debería ir hoy.
-  function goalCard(ms, ym) {
-    var wo = ms.filter(function (x) { return Number(x.mes.objetivo) > 0; }); if (!wo.length) return '';
-    var o = sum(wo, function (x) { return x.mes.objetivo; }), f = sum(wo, function (x) { return x.mes.facturacion; }), p = Math.round(f / o * 100), ritmo = paceNow(ym);
-    var R = 36, C = 2 * Math.PI * R, ring = '<svg class="ring" width="92" height="92" viewBox="0 0 92 92" role="img" aria-label="Objetivo"><circle cx="46" cy="46" r="' + R + '" fill="none" style="stroke:var(--line2)" stroke-width="10"/><circle cx="46" cy="46" r="' + R + '" fill="none" stroke="#ff2b91" stroke-width="10" stroke-linecap="round" stroke-dasharray="' + (C * Math.min(p, 100) / 100).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 46 46)"/><circle cx="46" cy="46" r="' + R + '" fill="none" style="stroke:var(--ink)" stroke-width="10" stroke-dasharray="2 ' + C.toFixed(1) + '" stroke-dashoffset="' + (-C * ritmo / 100).toFixed(1) + '" transform="rotate(-90 46 46)"/><text x="46" y="52" text-anchor="middle" style="fill:var(--ink);font-size:18px;font-weight:800">' + p + '%</text></svg>';
-    return '<div class="card goalCard"><div class="goalRow">' + ring + '<div><h2 style="margin:0 0 4px">Objetivo de ' + esc(mname(ym)) + '</h2><div class="hint" style="margin:0">' + money0(f) + ' de ' + money0(o) + (o > f ? ' · faltan <b style="color:var(--ink)">' + money0(o - f) + '</b>' : ' · ¡conseguido!') + '</div><div class="goalPace ' + (p >= ritmo ? 'pos' : 'neg') + '">' + (p >= ritmo ? 'Vas por delante del ritmo (' + ritmo + ' %)' : 'Vas por detrás del ritmo (' + ritmo + ' %)') + '</div></div></div></div>';
-  }
-  // (4.7.1) Servicios que más facturan este mes (todos los locales juntos), en barras.
-  function svcCard(ms, ym) {
-    var acc = {}; ms.forEach(function (x) { (x.mes.servicios || []).forEach(function (s) { var k = String(s.nombre || ''); if (!acc[k]) acc[k] = { nombre: k, veces: 0, importe: 0 }; acc[k].veces += Number(s.veces) || 0; acc[k].importe += Number(s.importe) || 0; }); });
-    var list = Object.keys(acc).map(function (k) { return acc[k]; }).sort(function (a, b) { return b.importe - a.importe; }).slice(0, 5); if (!list.length) return '';
-    var top = Math.max(list[0].importe, 1);
-    return '<div class="card"><div class="ch"><h2>Servicios que más facturan</h2><small>' + esc(mname(ym)) + '</small></div><div class="svBars">' + list.map(function (s, i) { return '<div class="svB"><div class="svT"><span>' + esc(s.nombre) + '</span><small>' + s.veces + ' veces</small><b class="num">' + money0(s.importe) + '</b></div><div class="svL"><i style="width:' + (s.importe / top * 100).toFixed(1) + '%;' + (i ? 'opacity:.55' : '') + '"></i></div></div>'; }).join('') + '</div></div>';
+  // (4.7.5) La comparativa de locales (en Resumen): sirve igual con 2 que con 30.
+  function compareCard(d, hoy) {
+    var mal = d.filter(function (x) { return cajaOf(x) === 'mal'; }), wd = d.filter(function (x) { return x.dia && x.diaExacto; });
+    var top = wd.slice().sort(function (a, b) { return (b.dia.facturacion || 0) - (a.dia.facturacion || 0); }).filter(function (x) { return x.dia.facturacion > 0; }).slice(0, 5), mx = Math.max.apply(null, top.map(function (x) { return x.dia.facturacion; }).concat([1]));
+    var cero = d.filter(function (x) { return !(x.dia && x.diaExacto && x.dia.facturacion > 0); });
+    var h = '<div class="card" id="cmpLoc"><div class="ch"><h2>Locales ' + (hoy ? 'hoy' : 'ese día') + '</h2><small>los que más facturan</small></div>';
+    if (mal.length) h += '<div class="cajaBad" id="cajasMal"><b>!</b><span>' + (mal.length === 1 ? '1 local con la caja sin cerrar' : mal.length + ' locales con la caja sin cerrar') + ' · ' + mal.slice(0, 4).map(function (x) { return esc(name(x)); }).join(', ') + (mal.length > 4 ? ' y ' + (mal.length - 4) + ' más' : '') + '</span></div>';
+    h += top.length ? '<div class="rank">' + top.map(function (x, i) { return '<button type="button" class="rk" data-loc="' + esc(x.zona) + '"><b class="n">' + (i + 1) + '</b><span class="dot" style="background:' + x.color + '"></span><span class="nm">' + esc(name(x)) + '</span><span class="rb"><i style="width:' + (x.dia.facturacion / mx * 100).toFixed(1) + '%;background:' + x.color + '"></i></span><b class="num v">' + money0(x.dia.facturacion) + '</b>' + (cajaOf(x) === 'mal' ? '<i class="rdot" title="Caja sin cerrar"></i>' : '') + '</button>'; }).join('') + '</div>' : '<p class="empty">Ningún local ha cobrado todavía.</p>';
+    if (cero.length && top.length) h += '<p class="hint" style="margin:8px 0 0">' + (cero.length === 1 ? '1 local sin cobros' : cero.length + ' locales sin cobros') + (hoy ? ' hoy' : ' ese día') + ' · ' + cero.slice(0, 4).map(function (x) { return esc(name(x)); }).join(', ') + (cero.length > 4 ? '…' : '') + '</p>';
+    return h + '<button type="button" class="seeAll" id="verLocales">Ver los ' + d.length + ' locales</button></div>';
   }
   function paceNow(ym) { var y = +ym.slice(0, 4), mo = +ym.slice(5, 7), dim = new Date(y, mo, 0).getDate(); return st.day.slice(0, 7) === ym ? Math.round(+st.day.slice(8, 10) / dim * 100) : 100; }
   function gastoDia(v) { return Number(v && (v.gastosTotal != null ? v.gastosTotal : v.gastos)) || 0; }
   // Columnas apiladas: un color por local, 30 días, y (4.0.2) la línea de los gastos de cada día; al pasar el dedo o el
   // ratón, las cifras de ese día.
-  function columns(el, d, small) {
+  function columns(el, d, small, opt) {
+    opt = opt || {}; // (4.7.5) mono: todos los locales juntos, en gris (el último día en rosa) y sin la línea de gastos
     var W = el.clientWidth || 600, H = small ? 140 : W < 500 ? 170 : 220, pl = 40, pb = 22, n = 30, bw = (W - pl) / n, from = addDays(st.day, -29);
     var days = []; for (var i = 0; i < n; i++) { var k = addDays(from, i); days.push({ k: k, v: d.map(function (x) { return Number((x.serie[k] || {}).facturacion) || 0; }), g: sum(d, function (x) { return gastoDia(x.serie[k]); }), has: d.some(function (x) { return !!x.serie[k]; }) }); }
-    var max = Math.max.apply(null, days.map(function (x) { return Math.max(sum(x.v, function (v) { return v; }), x.g); }).concat([1]));
+    var max = Math.max.apply(null, days.map(function (x) { return Math.max(sum(x.v, function (v) { return v; }), opt.mono ? 0 : x.g); }).concat([1]));
     var stepV = max > 4000 ? 2000 : max > 2000 ? 1000 : max > 800 ? 500 : max > 300 ? 200 : 100, top = Math.ceil(max / stepV) * stepV;
     var y = function (v) { return (H - pb) - v / top * (H - pb - 6); };
     var s = '<svg height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Facturación de los últimos 30 días">';
     for (var g = 0; g <= top; g += stepV) s += '<line x1="' + pl + '" x2="' + W + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="var(--grid)" style="stroke:var(--grid)"/><text x="' + (pl - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + (g >= 1000 ? (g / 1000).toLocaleString('es-ES') + ' mil' : g) + ' €</text>'; // (4.7.1) con su €
     days.forEach(function (x, i) {
       var x0 = pl + i * bw + 1, w = Math.max(2, bw - 3), base = 0, last = i === n - 1, segs = x.v.map(function (v, j) { return [v, j]; }).filter(function (p) { return p[0] > 0; });
+      if (opt.mono) { var tv0 = sum(x.v, function (v) { return v; }); segs = tv0 > 0 ? [[tv0, -1]] : []; }
+      var colr = function (j) { return j < 0 ? (last ? '#ff2b91' : 'var(--barM)') : d[j].color; };
       segs.forEach(function (p, si) { var y0 = y(base), y1 = y(base + p[0]); var gap = si ? 2 : 0; var topSeg = si === segs.length - 1, hh = Math.max(1, y0 - y1 - gap);
-        if (topSeg && hh > 4 && w > 6) s += '<path d="M' + x0 + ' ' + (y0 - gap) + 'V' + (y1 + 3) + 'q0 -3 3 -3h' + (w - 6) + 'q3 0 3 3V' + (y0 - gap) + 'z" fill="' + d[p[1]].color + '"/>';
-        else s += '<rect x="' + x0 + '" y="' + (y1) + '" width="' + w + '" height="' + hh + '" fill="' + d[p[1]].color + '"/>';
+        if (topSeg && hh > 4 && w > 6) s += '<path d="M' + x0 + ' ' + (y0 - gap) + 'V' + (y1 + 3) + 'q0 -3 3 -3h' + (w - 6) + 'q3 0 3 3V' + (y0 - gap) + 'z" style="fill:' + colr(p[1]) + '"/>';
+        else s += '<rect x="' + x0 + '" y="' + (y1) + '" width="' + w + '" height="' + hh + '" style="fill:' + colr(p[1]) + '"/>';
         base += p[0]; });
       var dd = new Date(x.k + 'T12:00:00');
       if ((n - 1 - i) % 7 === 0) s += '<text x="' + (x0 + w / 2) + '" y="' + (H - 6) + '" text-anchor="middle"' + (last ? ' style="fill:var(--ink);font-weight:700"' : '') + '>' + (last && st.day === today() ? 'hoy' : dd.getDate() + '/' + (dd.getMonth() + 1)) + '</text>';
@@ -518,84 +592,105 @@ body.embed .days{background:var(--bg);border-bottom:0}
     // la línea de los gastos (solo los días con resumen)
     var pts = days.map(function (x, i) { return x.has ? [pl + i * bw + bw / 2, y(x.g)] : null; });
     var seg = [], segs2 = []; pts.forEach(function (p) { if (p) seg.push(p); else if (seg.length) { segs2.push(seg); seg = []; } }); if (seg.length) segs2.push(seg);
+    if (opt.mono) segs2 = [];
     segs2.forEach(function (q) { if (q.length > 1) s += '<polyline points="' + q.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ') + '" fill="none" stroke="#a20f3b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'; });
     // (4.7.1) El último día, con su cifra a la vista (sin tener que tocar).
     (function () { var L = days[n - 1], tv = sum(L.v, function (v) { return v; }); if (small || !tv) return; var cx = pl + (n - 1) * bw + bw / 2, bx = Math.max(pl, Math.min(W - 84, cx - 78)), by = Math.max(2, y(tv) - 42);
       s += '<g class="lastTip"><rect x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="80" height="34" rx="8" style="fill:var(--ink)"/><text x="' + (bx + 40).toFixed(1) + '" y="' + (by + 14).toFixed(1) + '" text-anchor="middle" style="fill:var(--bg);font-size:9.5px">' + (st.day === today() ? 'Hoy' : esc(new Date(L.k + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }))) + '</text><text x="' + (bx + 40).toFixed(1) + '" y="' + (by + 27).toFixed(1) + '" text-anchor="middle" style="fill:var(--bg);font-size:12px;font-weight:800">' + esc(money(tv)) + '</text></g>'; })();
-    pts.forEach(function (p) { if (p) s += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="#a20f3b" stroke="var(--card)" style="stroke:var(--card)" stroke-width="1.5"/>'; });
+    if (!opt.mono) pts.forEach(function (p) { if (p) s += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="3" fill="#a20f3b" stroke="var(--card)" style="stroke:var(--card)" stroke-width="1.5"/>'; });
     el.innerHTML = s + '</svg>';
     var move = function (e) { var pt = e.touches ? e.touches[0] : e; var r = document.elementFromPoint(pt.clientX, pt.clientY); r = r && r.closest && r.closest('.hit'); if (!r) { tip.style.display = 'none'; return; } var x = days[+r.dataset.i];
-      tip.innerHTML = '<b>' + esc(fdate(x.k)) + '</b>' + d.map(function (l, j) { return esc(name(l)) + ' ' + money(x.v[j]); }).join('<br>') + (d.length > 1 ? '<br><b>Total ' + money(sum(x.v, function (v) { return v; })) + '</b>' : '') + (x.has ? '<br>Gastos ' + money(x.g) + '<br><b>Beneficio ' + money(sum(x.v, function (v) { return v; }) - x.g) + '</b>' : '');
+      tip.innerHTML = '<b>' + esc(fdate(x.k)) + '</b>' + (d.length > 6 ? '' : d.map(function (l, j) { return esc(name(l)) + ' ' + money(x.v[j]); }).join('<br>')) + /* (4.7.5) con muchos locales, solo el total */ (d.length > 1 ? '<br><b>Total ' + money(sum(x.v, function (v) { return v; })) + '</b>' : '') + (x.has ? '<br>Gastos ' + money(x.g) + '<br><b>Beneficio ' + money(sum(x.v, function (v) { return v; }) - x.g) + '</b>' : '');
       var b = r.getBoundingClientRect(); tip.style.display = 'block'; tip.style.left = Math.min(innerWidth - 90, Math.max(90, b.left + b.width / 2)) + window.scrollX + 'px'; tip.style.top = (el.getBoundingClientRect().top + window.scrollY + 6) + 'px'; };
     el.onmousemove = move; el.ontouchstart = move; el.ontouchmove = move; el.onmouseleave = function () { tip.style.display = 'none'; };
   }
+  // (4.7.5) Locales: UN local cada vez (la comparativa está en Resumen). Arriba, los locales en una fila que se desliza
+  // (primero los que tienen la caja sin cerrar, con su punto rojo) y «🔍 N», que abre la lista entera con buscador: así
+  // sirve igual con 2 que con 30 locales. Debajo, la ficha del elegido: la caja, cuatro recuadros (hoy, citas, el mes y
+  // el beneficio), el objetivo, los 30 días con los gastos, las formas de pago y lo que más factura.
+  function locOrder(all) { return all.slice().sort(function (a, b) { var ma = cajaOf(a) === 'mal' ? 0 : 1, mb = cajaOf(b) === 'mal' ? 0 : 1; return ma - mb || name(a).localeCompare(name(b), 'es'); }); }
+  function curLoc(all) { var o = locOrder(all); return all.filter(function (x) { return x.zona === st.loc; })[0] || o[0]; }
   function tabLocales(d, bad) {
-    var ym = st.day.slice(0, 7); var h = head((d.length + bad.length) + ((d.length + bad.length) === 1 ? ' local' : ' locales') + ' en la empresa', 'Por local') + '<div class="grid g2b">';
-    d.forEach(function (x, xi) {
-      var di = x.dia && x.diaExacto ? x.dia : null, m = x.mes && x.mes.ym === ym ? x.mes : null, sv = (m && m.servicios) || [], top = Math.max.apply(null, sv.map(function (s) { return s.importe; }).concat([1]));
-      var late = x.dia && Date.now() - Date.parse(x.dia.at) > 3 * 3600e3 && st.day === today();
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2>' + (x.dia ? '<span class="pill ' + (late ? 'warn' : 'ok') + '">publicado ' + esc(rel(x.dia.at)) + (x.dia.version ? ' · ' + esc(x.dia.version) : '') + '</span>' : '') + '</div>' +
-        '<div class="minis">' + (di ? '<div class="mini"><span>' + (st.day === today() ? 'Hoy' : 'Ese día') + '</span><strong class="num">' + money(di.facturacion) + '</strong><small>' + di.cobros + ' cobros</small></div><div class="mini"><span>Citas</span><strong class="num">' + di.citas + '</strong><small>' + di.porCobrar + ' por cobrar · ' + di.noVino + ' no vinieron</small></div>' : '<div class="mini"><span>' + (st.day === today() ? 'Hoy' : 'Ese día') + '</span><strong>—</strong><small>sin resumen de ese día</small></div><div class="mini"><span>Citas</span><strong>—</strong><small>&nbsp;</small></div>') +
-        (m ? '<div class="mini"><span>' + esc(mname(ym)) + '</span><strong class="num">' + money0(m.facturacion) + '</strong><small>' + ((m.anioAnterior || {}).facturacion ? pctTxt(m.facturacion, m.anioAnterior.facturacion) + ' que el año pasado' : m.cobros + ' cobros') + '</small></div><div class="mini"><span>Beneficio del mes</span><strong class="num ' + (m.beneficio >= 0 ? 'pos' : 'neg') + '">' + money0(m.beneficio) + '</strong><small>gastos ' + money0(m.gastos) + '</small></div>' : '') + '</div>' +
-        (m && Number(m.objetivo) > 0 ? objBar(m) : '') + // (4.3.0) el objetivo del mes del local
-        '<h3>Facturación y gastos · 30 días <small style="font-weight:500;color:var(--muted)"><i class="ln" style="display:inline-block;width:14px;border-top:2px solid #a20f3b;vertical-align:3px;margin:0 4px 0 6px"></i>gastos</small></h3><div class="chart" data-cl="' + xi + '"></div>' +
-        (di && Object.keys(di.porMetodo || {}).length ? '<h3>Formas de pago · ' + (st.day === today() ? 'hoy' : 'ese día') + '</h3><div class="pay">' + Object.keys(di.porMetodo).map(function (k) { return '<div><i style="background:' + (PAYC[k] || '#6250d6') + '"></i>' + esc(k) + '<b class="num">' + money(di.porMetodo[k]) + '</b></div>'; }).join('') + '</div>' : '') +
-        (sv.length ? '<h3>Servicios que más facturan · ' + esc(mname(ym)) + '</h3><div class="svc">' + sv.slice(0, 6).map(function (s) { return '<div><span>' + esc(s.nombre) + '</span><span class="num" style="text-align:right;color:var(--muted)">' + s.veces + '</span><b class="num" style="text-align:right">' + money0(s.importe) + '</b><div class="bar"><i style="width:' + Math.round(s.importe / top * 100) + '%"></i></div></div>'; }).join('') + '</div>' : '') + '</div>';
-    });
-    bad.forEach(function (x) { h += unreadCard(x, d.length % 2 === 0); });
-    return h + '</div>';
+    var all = d.concat(bad), x = curLoc(all); if (!x) return '';
+    st.loc = x.zona; var h = '';
+    if (all.length > 1) h += '<div class="locBar"><button type="button" class="locAll" id="locTodos">' + ico('search') + '<span>' + all.length + '</span><span class="w"> locales</span></button><div class="locRow" id="locRow">' +
+      locOrder(all).map(function (y) { return '<button type="button" class="locChip' + (y.zona === x.zona ? ' on' : '') + '" data-loc="' + esc(y.zona) + '" style="--c:' + (y.dia || y.mes ? y.color : '#bdb9b1') + '"><span class="dot"></span>' + esc(y.dia || y.mes ? name(y) : zname(y.zona)) + (cajaOf(y) === 'mal' ? '<i class="rdot" title="Caja sin cerrar"></i>' : '') + '</button>'; }).join('') + '</div></div>';
+    if (!(x.dia || x.mes)) return h + unreadCard(x);
+    var hoy = st.day === today(), ym = st.day.slice(0, 7), di = x.dia && x.diaExacto ? x.dia : null, m = x.mes && x.mes.ym === ym ? x.mes : null, ck = cajaOf(x);
+    h += '<div class="locFicha" id="locFicha" data-zona="' + esc(x.zona) + '" style="--c:' + x.color + '">';
+    h += ck === 'mal' ? '<div class="cajaBad big" id="cajaLocal"><b>!</b><span><strong>La caja del ' + esc(cajaDia(x).toLowerCase()) + ' está sin cerrar</strong><small>Ciérrala desde el ordenador de ' + esc(name(x)) + '.</small></span></div>'
+      : ck === 'ok' ? '<div class="cajaOk" id="cajaLocal">✓ <span>Caja del ' + esc(cajaDia(x).toLowerCase()) + ' cerrada' + (x.dia.at ? ' · publicado ' + esc(rel(x.dia.at)) : '') + '</span></div>'
+      : '<div class="cajaNo" id="cajaLocal">Caja: sin dato' + (x.dia && x.dia.version ? ' (este local tiene la ' + esc(x.dia.version) + ': lo manda desde la 4.7.5)' : '') + (x.dia && x.dia.at ? ' · publicado ' + esc(rel(x.dia.at)) : '') + '</div>';
+    h += '<div class="tiles">' + tile(hoy ? 'Hoy' : 'Ese día', di ? money(di.facturacion) : '—', di ? di.cobros + (di.cobros === 1 ? ' cobro' : ' cobros') : 'sin resumen de ese día', x.color) +
+      tile(hoy ? 'Citas de hoy' : 'Citas', di ? String(di.citas) : '—', di ? di.porCobrar + ' por cobrar' : '', TC.lila) +
+      (m ? tile(mname(ym), money0(m.facturacion), (m.anioAnterior || {}).facturacion ? pctTxt(m.facturacion, m.anioAnterior.facturacion) + ' que ' + esc(mshort(m.anioAnterior.ym || ym)) : m.cobros + ' cobros', TC.azul) +
+        tile('Beneficio del mes', '<span class="' + (m.beneficio >= 0 ? 'pos' : 'neg') + '">' + (m.beneficio > 0 ? '+' : '') + money0(m.beneficio) + '</span>', 'gastos ' + money0(m.gastos), TC.verde) : '') + '</div>';
+    var left = (m && Number(m.objetivo) > 0 ? '<div class="card">' + objBar(m) + '</div>' : '') +
+      '<div class="card"><div class="ch"><h2>Facturación y gastos · 30 días</h2><small><i class="ln"></i>gastos</small></div><div class="chart" data-cl="' + d.indexOf(x) + '"></div></div>';
+    var sv = (m && m.servicios) || [], top = Math.max.apply(null, sv.map(function (s) { return s.importe; }).concat([1]));
+    var right = (di ? '<div class="card"><div class="ch"><h2>Formas de pago · ' + (hoy ? 'hoy' : 'ese día') + '</h2><small>' + di.cobros + ' cobros</small></div>' + payBars(di.porMetodo || {}) + '</div>' : '') +
+      (sv.length ? '<div class="card"><div class="ch"><h2>Lo que más factura</h2><small>' + esc(mname(ym)) + ' · veces · €</small></div><div class="svBars">' + sv.slice(0, 5).map(function (s) { return '<div class="svB"><div class="svT"><span>' + esc(s.nombre) + '</span><small>' + s.veces + ' ×</small><b class="num">' + money0(s.importe) + '</b></div><div class="svL"><i style="width:' + (s.importe / top * 100).toFixed(1) + '%;background:' + x.color + '"></i></div></div>'; }).join('') + '</div></div>' : '');
+    return h + '<div class="cols2"><div>' + left + '</div><div>' + right + '</div></div></div>';
   }
-  // (4.3.0) Cuánto lleva del objetivo del mes (lo pone el empresario en Ajustes → Empresa → Locales).
-  function objBar(m) { var p = Math.round(m.facturacion / m.objetivo * 100); return '<div class="objB" data-obj="' + p + '"><div class="objT"><span>Objetivo de ' + esc(mname(m.ym)) + '</span><b class="num">' + money0(m.facturacion) + ' de ' + money0(m.objetivo) + ' · ' + p + ' %</b></div><div class="objBar"><i style="width:' + Math.min(100, Math.max(0, p)) + '%;background:' + (p >= 100 ? '#1baf7a' : 'var(--c, #ff2b91)') + '"></i></div></div>'; }
-  // (4.7.2) Cada persona UNA vez (sin la rosquilla que la repetía): su inicial, cuántos servicios, cuánto de media y qué
-  // parte del local; a la derecha lo vendido; debajo la barra del objetivo con la raya de dónde debería ir hoy y el % en
-  // verde (va bien), ámbar (un poco por detrás) o rojo (muy por detrás).
+  // (4.3.0) Cuánto lleva del objetivo del mes (lo pone el empresario en Ajustes → Empresa → Locales); (4.7.5) con la raya
+  // de dónde debería ir hoy.
+  function objBar(m) { var p = Math.round(m.facturacion / m.objetivo * 100), r = paceNow(m.ym); return '<div class="objB" data-obj="' + p + '"><div class="objT"><span>Objetivo de ' + esc(mname(m.ym)) + '</span><b class="num">' + money0(m.facturacion) + ' de ' + money0(m.objetivo) + ' · ' + p + ' %</b></div><div class="objBar"><i style="width:' + Math.min(100, Math.max(0, p)) + '%;background:' + (p >= 100 ? '#1baf7a' : 'var(--c, #ff2b91)') + '"></i><b style="left:' + r + '%"></b></div><div class="hint" style="margin-top:6px">La raya: dónde deberías ir hoy.</div></div>'; }
+  // (4.7.5) La lista de TODOS los locales, con buscador: primero los que necesitan atención (caja sin cerrar), luego de la A a la Z.
+  function openLocales() {
+    closeCal(); var all = (st.data || []).filter(function (x) { return x.dia || x.mes || x.notMine || x.error; }), q = '';
+    var back = document.createElement('div'); back.className = 'calBack'; back.id = 'calBack';
+    var box = document.createElement('div'); box.className = 'calBox locSheet'; box.id = 'calBox'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Elegir local');
+    var row = function (x) { var ok = cajaOf(x), di = x.dia && x.diaExacto ? x.dia : null; return '<button type="button" class="lsR' + (x.zona === st.loc ? ' on' : '') + '" data-loc="' + esc(x.zona) + '"><span class="dot" style="background:' + (x.dia || x.mes ? x.color : '#bdb9b1') + '"></span><span class="lsN"><b>' + esc(x.dia || x.mes ? name(x) : zname(x.zona)) + '</b><small class="' + (ok === 'mal' ? 'bad' : ok === 'ok' ? 'ok' : '') + '">' + (ok === 'mal' ? '! Caja sin cerrar' : ok === 'ok' ? '✓ Caja al día' : x.dia || x.mes ? 'Caja: sin dato' : 'No se puede leer todavía') + '</small></span><b class="num">' + (di ? money(di.facturacion) : '—') + '</b></button>'; };
+    var paint = function () {
+      var f = all.filter(function (x) { return !q || (name(x) + ' ' + x.zona).toLowerCase().indexOf(q) >= 0; }), mal = f.filter(function (x) { return cajaOf(x) === 'mal'; }), rest = f.filter(function (x) { return cajaOf(x) !== 'mal'; }).sort(function (a, b) { return name(a).localeCompare(name(b), 'es'); });
+      box.querySelector('#lsList').innerHTML = (mal.length ? '<div class="lsH bad">Necesitan atención · ' + mal.length + '</div>' + mal.map(row).join('') : '') + (rest.length ? '<div class="lsH">Todos · de la A a la Z</div>' + rest.map(row).join('') : '') + (!f.length ? '<p class="empty">Ningún local con ese nombre.</p>' : '');
+    };
+    box.innerHTML = '<div class="calH"><b style="font-size:19px">Elegir local</b><button type="button" class="calNav" id="lsX" aria-label="Cerrar">✕</button></div><label class="lsQ">' + ico('search') + '<input id="lsQ" type="search" placeholder="Buscar local…" autocomplete="off"></label><div id="lsList"></div>';
+    document.body.appendChild(back); document.body.appendChild(box); paint(); if (innerWidth >= 600) box.style.left = Math.max(8, (innerWidth - box.offsetWidth) / 2) + 'px';
+    back.onclick = closeCal; box.querySelector('#lsX').onclick = closeCal;
+    box.querySelector('#lsQ').oninput = function (e) { q = String(e.target.value || '').trim().toLowerCase(); paint(); };
+    box.onclick = function (e) { var b = e.target.closest('[data-loc]'); if (b) { closeCal(); st.loc = b.dataset.loc; st.tab = 'locales'; draw(); window.scrollTo(0, 0); } };
+    document.addEventListener('keydown', calKey);
+  }
+  // (4.7.5) Equipo: todas en una sola lista, de la que más vende a la que menos (con su local si hay más de uno); arriba
+  // el total y «Mejor». La barra del objetivo con la raya de dónde debería ir hoy y el % en verde, ámbar o rojo.
   function tabEquipo(d, bad) {
     var ym = st.day.slice(0, 7), ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; }), pace = paceNow(ym), all = [];
-    ms.forEach(function (x) { (x.mes.equipo || []).forEach(function (e) { all.push(e); }); });
-    var tot = sum(all, function (e) { return e.ventas; }), best = all.slice().sort(function (a, b) { return (b.ventas || 0) - (a.ventas || 0); })[0];
-    var h = head('Equipo · ' + mname(ym), 'Equipo') + unreadNote(bad);
-    h += '<div class="kpis k2">' + kpi('Equipo · ' + mname(ym).toLowerCase(), money0(tot), all.length + (all.length === 1 ? ' persona' : ' personas') + (ms.length > 1 ? ' · ' + ms.length + ' locales' : ''), 'hero') + kpi('Mejor', best && best.ventas > 0 ? esc(best.nombre) : '—', best && best.ventas > 0 ? money0(best.ventas) + (tot ? ' · ' + Math.round(best.ventas / tot * 100) + ' % del total' : '') : '') + '</div>';
-    h += '<p class="hint" id="eqHint" style="margin:-2px 0 12px">La raya fina de cada barra marca dónde debería ir hoy para llegar a su objetivo.</p><div class="grid g2b">';
-    ms.forEach(function (x) { var m = x.mes, eq = (m.equipo || []).slice().sort(function (a, b) { return (b.ventas || 0) - (a.ventas || 0); }), lt = sum(eq, function (e) { return e.ventas; });
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + '</h2><span class="pill">' + money0(lt) + '</span></div>' + (eq.length ? '<div class="eqL">' + eq.map(function (e) {
-        var sv = Number(e.servicios) || 0, pc = Number(e.pct) || 0, cl = pc >= pace ? 'ok' : pc >= pace * 0.85 ? 'warn' : 'bad';
-        return '<div class="eqR"><span class="eqAv">' + esc(String(e.nombre || '?').trim().charAt(0).toUpperCase()) + '</span><div class="eqM"><div class="eqT"><b>' + esc(e.nombre) + '</b><strong class="num">' + money0(e.ventas) + '</strong></div><small>' + sv + (sv === 1 ? ' servicio' : ' servicios') + (sv ? ' · ' + money0((e.ventas || 0) / sv) + ' de media' : '') + (lt ? ' · ' + Math.round((e.ventas || 0) / lt * 100) + ' % del local' : '') + '</small>' +
-          (e.objetivo ? '<div class="eqObj"><div class="eqBar"><i class="' + cl + '" style="width:' + Math.min(100, pc) + '%"></i><b style="left:' + pace + '%"></b></div><span class="pct ' + cl + '">' + pc + ' % obj.</span></div>' : '<small class="eqNo">Sin objetivo</small>') + '</div></div>'; }).join('') + '</div>' : '<p class="empty">Sin ventas este mes.</p>') + '</div>'; });
-    return h + '</div>';
+    ms.forEach(function (x) { (x.mes.equipo || []).forEach(function (e) { all.push({ e: e, x: x }); }); });
+    all.sort(function (a, b) { return (b.e.ventas || 0) - (a.e.ventas || 0); });
+    var tot = sum(all, function (a) { return a.e.ventas; }), best = all[0] && all[0].e, nsv = sum(all, function (a) { return a.e.servicios; });
+    var h = unreadNote(bad) + '<div class="kpis k2">' + kpi('Equipo · ' + mname(ym).toLowerCase(), money0(tot), all.length + (all.length === 1 ? ' persona' : ' personas') + ' · ' + nsv + ' servicios' + (ms.length > 1 ? ' · ' + ms.length + ' locales' : ''), 'hero') + kpi('Mejor', best && best.ventas > 0 ? esc(best.nombre) : '—', best && best.ventas > 0 ? money0(best.ventas) + (tot ? ' · ' + Math.round(best.ventas / tot * 100) + ' % del total' : '') : '') + '</div>';
+    if (!all.length) return h + '<div class="card"><p class="empty">Sin ventas este mes.</p></div>';
+    h += '<div class="card"><div class="eqL">' + all.map(function (a, i) { var e = a.e, sv = Number(e.servicios) || 0, pc = Number(e.pct) || 0, cl = pc >= pace ? 'ok' : pc >= pace * 0.85 ? 'warn' : 'bad';
+      return '<div class="eqR"><b class="eqN">' + (i + 1) + '</b><span class="eqAv" style="--c:' + a.x.color + '">' + esc(String(e.nombre || '?').trim().charAt(0).toUpperCase()) + '</span><div class="eqM"><div class="eqT"><b>' + esc(e.nombre) + (ms.length > 1 ? ' <small class="eqLoc">· ' + esc(name(a.x)) + '</small>' : '') + '</b><strong class="num">' + money0(e.ventas) + '</strong></div><small>' + sv + (sv === 1 ? ' servicio' : ' servicios') + (sv ? ' · ' + money0((e.ventas || 0) / sv) + ' de media' : '') + '</small>' +
+        (e.objetivo ? '<div class="eqObj"><div class="eqBar"><i style="width:' + Math.min(100, pc) + '%"></i><b style="left:' + pace + '%"></b></div><span class="pct ' + cl + '">' + pc + ' %</span></div>' : '<small class="eqNo">Sin objetivo</small>') + '</div></div>'; }).join('') + '</div></div>';
+    return h + '<p class="hint" id="eqHint" style="margin:8px 2px 0">Ordenadas por lo vendido. La raya: dónde deberían ir hoy para llegar a su objetivo.</p>';
   }
-  // (4.7.1) Como la opción 3: arriba cuántos hay por reponer y el valor; cada producto con su barra (la raya es el mínimo)
-  // y «PEDIR n» (lo que falta para tener el doble del mínimo).
+  // (4.7.5) Stock en frases: «Hay N cosas que pedir.» y cada producto con lo que queda, el mínimo y cuánto pedir (lo que
+  // falta para tener el doble del mínimo); al final, lo que vale todo el stock.
   function tabStock(d, bad) {
-    var ym = st.day.slice(0, 7), ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; });
-    var nb = sum(ms, function (x) { return ((x.mes.stock || {}).bajos || []).length; }), val = sum(ms, function (x) { return (x.mes.stock || {}).valor; });
-    var h = head('Stock', 'Stock') + unreadNote(bad) + '<div class="kpis k2">' + kpi('Por reponer', '<span class="' + (nb ? 'neg' : '') + '">' + nb + '</span>', nb ? 'productos bajo el mínimo' : 'todo en orden') + kpi('Valor del stock', money0(val), ms.length > 1 ? 'todos los locales' : '') + '</div><div class="grid g2b">';
-    ms.forEach(function (x) { var m = x.mes, b = (m.stock || {}).bajos || [];
-      h += '<div class="card loc" style="--c:' + x.color + '"><div class="lh"><span class="dot" style="background:' + x.color + '"></span><h2>' + esc(name(x)) + ' · por reponer</h2><span class="pill">valor ' + money0((m.stock || {}).valor) + '</span></div>' +
-        (b.length ? '<div class="stk">' + b.map(function (p) { var mn = Number(p.minimo) || 0, hay = Number(p.hay) || 0, full = Math.max(mn * 2, hay, 1), pedir = Math.max(0, mn * 2 - hay), lvl = mn ? hay / mn : 1;
-          return '<div class="stkR"><div class="stkT"><span class="nm">' + esc(p.nombre) + '</span>' + (pedir && hay < mn ? '<span class="pedir">PEDIR ' + pedir + '</span>' : '') + '<b class="num' + (hay <= 0 ? ' neg' : '') + '">' + hay + '</b><small>mín. ' + (p.minimo == null ? '—' : p.minimo) + '</small></div><div class="stkL"><i class="' + (lvl < 0.5 ? 'lo' : 'mid') + '" style="width:' + Math.min(100, hay / full * 100).toFixed(1) + '%"></i>' + (mn ? '<b style="left:' + (mn / full * 100).toFixed(1) + '%"></b>' : '') + '</div></div>'; }).join('') + '</div>' : '<p class="empty">Nada por debajo del mínimo.</p>') + '</div>'; });
-    return h + '</div>';
+    var ym = st.day.slice(0, 7), ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; }), list = [];
+    ms.forEach(function (x) { ((x.mes.stock || {}).bajos || []).forEach(function (p) { list.push({ p: p, x: x }); }); });
+    list.sort(function (a, b) { return (Number(a.p.hay) || 0) - (Number(b.p.hay) || 0); });
+    var val = sum(ms, function (x) { return (x.mes.stock || {}).valor; });
+    var h = unreadNote(bad) + '<div class="bigLine" id="stkFrase">' + (list.length ? 'Hay <span class="neg">' + (list.length === 1 ? '1 cosa' : list.length + ' cosas') + '</span> que pedir.' : 'Todo el stock está <span class="pos">en orden</span>.') + '</div>';
+    if (list.length) h += '<div class="card frs stk">' + list.map(function (a) { var p = a.p, mn = p.minimo == null ? null : Number(p.minimo), hay = Number(p.hay) || 0, pedir = mn ? Math.max(0, mn * 2 - hay) : 0, out = hay <= 0;
+      return '<div class="fr stkR"><span class="frI" style="--c:' + (out ? '#e5484d' : '#e0a100') + '">' + ico('stock') + '</span><div class="frT"><b class="nm">' + esc(p.nombre) + '</b><small>' + (ms.length > 1 ? esc(name(a.x)) + ' · ' : '') + (out ? 'no queda ninguno' : 'quedan ' + hay) + (mn != null ? (out ? ' · ' : ', ') + 'el mínimo es ' + mn : '') + '</small></div>' + (pedir ? '<b class="frV pedir">pide ' + pedir + '</b>' : '') + '</div>'; }).join('') + '</div>';
+    return h + '<div class="card frs"><div class="fr"><span class="frI" style="--c:#1d8a4a">€</span><div class="frT"><b>Lo que vale todo el stock</b>' + (ms.length > 1 ? '<small>los ' + ms.length + ' locales</small>' : '') + '</div><b class="frV num">' + money0(val) + '</b></div></div>';
   }
-  // (4.7.2) Clientas, más clara: arriba las atendidas con una barra de nuevas (rosa) y las que repiten (gris); el ticket
-  // medio y los cobros; lo que llega desde la app de las clientas con su anillo; y «Por local» solo si hay más de uno.
-  function ring(p) { var r = 26, c = 2 * Math.PI * r, v = Math.max(0, Math.min(100, p)); return '<svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="' + r + '" class="rbg"/><circle cx="32" cy="32" r="' + r + '" class="rfg" stroke-dasharray="' + (c * v / 100).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle">' + Math.round(v) + '%</text></svg>'; }
+  function ring(p, c) { var r = 26, ci = 2 * Math.PI * r, v = Math.max(0, Math.min(100, p)); return '<svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="' + r + '" class="rbg"/><circle cx="32" cy="32" r="' + r + '" class="rfg"' + (c ? ' style="stroke:' + c + '"' : '') + ' stroke-dasharray="' + (ci * v / 100).toFixed(1) + ' ' + ci.toFixed(1) + '" transform="rotate(-90 32 32)"/><text x="32" y="37" text-anchor="middle">' + Math.round(v) + '%</text></svg>'; }
+  // (4.7.5) Clientas con recuadros de color: atendidas, nuevas, las que repiten y el ticket medio; y lo que llega desde la
+  // app de las clientas en su recuadro lila.
   function tabClientas(d, bad) {
     var ym = st.day.slice(0, 7); var ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; });
-    var at = sum(ms, function (x) { return x.mes.clientasAtendidas; }), nu = Math.min(at, sum(ms, function (x) { return x.mes.nuevas; })), f = sum(ms, function (x) { return x.mes.facturacion; }), c = sum(ms, function (x) { return x.mes.cobros; }), rp = Math.max(0, at - nu), pn = at ? nu / at * 100 : 0;
-    var h = head('Clientas · ' + mname(ym), 'Clientas') + unreadNote(bad);
-    h += '<div class="card cliHero" id="cliHero"><span class="eb2">Atendidas · ' + esc(mname(ym).toLowerCase()) + '</span><strong class="num">' + at + '</strong>' +
-      '<div class="stack"><i class="nu" style="width:' + pn.toFixed(1) + '%"></i><i class="rp" style="width:' + (at ? (100 - pn).toFixed(1) : 0) + '%"></i></div>' +
-      '<div class="sLeg"><span><i class="nu"></i>Nuevas <b>' + nu + '</b>' + (at ? ' · ' + Math.round(pn) + ' %' : '') + '</span><span><i class="rp"></i>Repiten <b>' + rp + '</b>' + (at ? ' · ' + (100 - Math.round(pn)) + ' %' : '') + '</span></div></div>';
-    h += '<div class="kpis k2">' + kpi('Ticket medio', money(c ? f / c : 0), 'por cobro') + kpi('Cobros', c, ms.length > 1 ? 'todos los locales' : 'este mes') + '</div>';
+    var at = sum(ms, function (x) { return x.mes.clientasAtendidas; }), nu = Math.min(at, sum(ms, function (x) { return x.mes.nuevas; })), f = sum(ms, function (x) { return x.mes.facturacion; }), c = sum(ms, function (x) { return x.mes.cobros; }), rp = Math.max(0, at - nu);
+    var h = unreadNote(bad) + '<div class="tiles t2" id="cliHero">' + tile('Atendidas', String(at), esc(mname(ym).toLowerCase()), TC.gris) + tile('Nuevas', String(nu), at ? Math.round(nu / at * 100) + ' % del total' : '', TC.rosa) +
+      tile('Repiten', String(rp), at ? Math.round(rp / at * 100) + ' %' : '', TC.azul) + tile('Ticket medio', money(c ? f / c : 0), c + ' cobros', TC.verde) + '</div>';
     // (4.6.1) ¿Las clientas cogen cita desde la app? (los locales que ya lo mandan: desde la 4.6.1)
     var ca = ms.filter(function (x) { return x.mes.citasApp; });
     if (ca.length) { var tc = sum(ca, function (x) { return x.mes.citasApp.citas; }), ta = sum(ca, function (x) { return x.mes.citasApp.app; }), tn = sum(ca, function (x) { return x.mes.citasApp.nuevas; }), tr = sum(ca, function (x) { return x.mes.citasApp.recibidas; });
-      h += '<div class="card appC" id="citasApp"><div class="ch"><h2>Desde la app de las clientas</h2></div><div class="appRow">' + ring(tc ? ta / tc * 100 : 0) + '<div class="appL">' +
+      h += '<div class="card appC soft" id="citasApp" style="--c:' + TC.lila + '"><div class="ch"><h2>Desde la app de las clientas</h2></div><div class="appRow">' + ring(tc ? ta / tc * 100 : 0, TC.lila) + '<div class="appL">' +
         '<div><span>Citas por la app</span><b class="num">' + ta + ' de ' + tc + '</b></div><div><span>Nuevas por la app</span><b class="num">' + tn + '</b></div><div><span>Solicitudes recibidas</span><b class="num">' + tr + '</b></div></div></div></div>'; }
-    if (ms.length > 1) {
-      h += '<div class="card" id="porLocal"><div class="ch"><h2>Por local</h2></div><div class="plL">' + ms.map(function (x) { var m = x.mes;
-        return '<div class="plR"><span class="dot" style="background:' + x.color + '"></span><b>' + esc(name(x)) + '</b><span><b class="num">' + (m.clientasAtendidas || 0) + '</b> atendidas · ' + (m.nuevas || 0) + ' nuevas · ' + money(m.ticketMedio || 0) + (m.citasApp ? ' · ' + (m.citasApp.app || 0) + ' por la app' : '') + '</span></div>'; }).join('') + '</div></div>';
-    }
     return h;
   }
   // (4.0.2) «Elegir día»: un calendario como el de la agenda (no se puede elegir un día que todavía no ha llegado).
@@ -621,7 +716,7 @@ body.embed .days{background:var(--bg);border-bottom:0}
   function closeCal() { ['calBack', 'calBox'].forEach(function (id) { var n = document.getElementById(id); if (n) n.remove(); }); document.removeEventListener('keydown', calKey); }
 
   /* ---------------- arranque ---------------- */
-  var rz; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { var c = document.getElementById('cols'); if (c && st.data) columns(c, st.data.filter(function (x) { return x.dia || x.mes; })); }, 200); });
+  var rz; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { var c = document.getElementById('cols'); if (c && st.data) columns(c, st.data.filter(function (x) { return x.dia || x.mes; }), false, { mono: true }); }, 200); });
   if (!C) { app.innerHTML = '<div class="lwrap"><div class="lcard"><div class="msg bad">Este navegador no puede descifrar (hace falta https y un navegador actual).</div></div></div>'; return; }
   if (!cfg.repo) { app.innerHTML = '<div class="lwrap"><div class="lcard"><div class="msg bad">Esta página solo funciona desde su dirección de GitHub Pages.</div></div></div>'; return; }
   // (4.2.0) Dentro de la app: espera la clave de ese móvil y sus locales (de la propia app, misma dirección).
