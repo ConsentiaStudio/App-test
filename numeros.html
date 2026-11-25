@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="panel">
-<meta name="consentia-agenda-version" content="4.7.5">
-<meta name="consentia-agenda-firma" content="MBkuppDvtUKkr5O+d3Kfn/5AVHNbcEzbHu0wxH7Z0lSRYz9Q5p5cGRnB8FlSkY4fYa0RBVnLWVgv290xK0dOAw==">
+<meta name="consentia-agenda-version" content="4.7.6">
+<meta name="consentia-agenda-firma" content="PbXuxIj1o+OYsL+VRdnKtWAA9u8GfXSCABROSXUqEwxL3kYOc+FuI2NgDQ6pmnS1twxWylAJ+V2Nqjm8hkH1AQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-Et/7VvjQrec7eSuHhF958fP+QCQr7TLB0ey7Jag4txg='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-paVsx+xk0VETrTRlCfBKhuFnx6KsWmCk/uG3AiT8dLA='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -97,7 +97,7 @@ body.embed .tabsNav button{flex-direction:column;align-items:center;justify-cont
 body.embed .tabsNav button svg.i{width:20px;height:20px;stroke-width:1.7}
 body.embed .tabsNav button.on{color:var(--pink)}
 body.embed .days{top:0}
-body.embed main{padding-bottom:28px}
+body.embed main{padding-bottom:calc(104px + env(safe-area-inset-bottom))} /* (4.7.6) lo que tapa la barra de abajo de la app */
 @media (min-width:900px){
   body.dash.embed #app{display:block}
   body.embed .side{position:static;height:auto;padding:0;background:var(--card);display:block}
@@ -332,7 +332,7 @@ html[data-theme=oscuro] .eqAv{background:var(--c);color:#fff}.eqLoc{font-weight:
   body.embed .tabsNav button.on{flex:none;width:100%;padding:0 12px;background:var(--pink);color:#fff}
   body.embed .side .foot{display:none}
   body.embed .days{padding:16px 28px 6px}
-  body.embed main{padding:12px 28px 30px;max-width:1400px}
+  body.embed main{padding:12px 28px calc(104px + env(safe-area-inset-bottom));max-width:1400px}
 }
 </style>
 </head>
@@ -658,8 +658,8 @@ html[data-theme=oscuro] .eqAv{background:var(--c);color:#fff}.eqLoc{font-weight:
     var ym = st.day.slice(0, 7), ms = d.filter(function (x) { return x.mes && x.mes.ym === ym; }), pace = paceNow(ym), all = [];
     ms.forEach(function (x) { (x.mes.equipo || []).forEach(function (e) { all.push({ e: e, x: x }); }); });
     all.sort(function (a, b) { return (b.e.ventas || 0) - (a.e.ventas || 0); });
-    var tot = sum(all, function (a) { return a.e.ventas; }), best = all[0] && all[0].e, nsv = sum(all, function (a) { return a.e.servicios; });
-    var h = unreadNote(bad) + '<div class="kpis k2">' + kpi('Equipo · ' + mname(ym).toLowerCase(), money0(tot), all.length + (all.length === 1 ? ' persona' : ' personas') + ' · ' + nsv + ' servicios' + (ms.length > 1 ? ' · ' + ms.length + ' locales' : ''), 'hero') + kpi('Mejor', best && best.ventas > 0 ? esc(best.nombre) : '—', best && best.ventas > 0 ? money0(best.ventas) + (tot ? ' · ' + Math.round(best.ventas / tot * 100) + ' % del total' : '') : '') + '</div>';
+    var tot = sum(all, function (a) { return a.e.ventas; }), nsv = sum(all, function (a) { return a.e.servicios; });
+    var h = unreadNote(bad) + '<div class="kpis" style="grid-template-columns:1fr">' + kpi('Equipo · ' + mname(ym).toLowerCase(), money0(tot), all.length + (all.length === 1 ? ' persona' : ' personas') + ' · ' + nsv + ' servicios' + (ms.length > 1 ? ' · ' + ms.length + ' locales' : ''), 'hero') + '</div>'; // (4.7.6) sin «Mejor»: no todas hacen las mismas horas
     if (!all.length) return h + '<div class="card"><p class="empty">Sin ventas este mes.</p></div>';
     h += '<div class="card"><div class="eqL">' + all.map(function (a, i) { var e = a.e, sv = Number(e.servicios) || 0, pc = Number(e.pct) || 0, cl = pc >= pace ? 'ok' : pc >= pace * 0.85 ? 'warn' : 'bad';
       return '<div class="eqR"><b class="eqN">' + (i + 1) + '</b><span class="eqAv" style="--c:' + a.x.color + '">' + esc(String(e.nombre || '?').trim().charAt(0).toUpperCase()) + '</span><div class="eqM"><div class="eqT"><b>' + esc(e.nombre) + (ms.length > 1 ? ' <small class="eqLoc">· ' + esc(name(a.x)) + '</small>' : '') + '</b><strong class="num">' + money0(e.ventas) + '</strong></div><small>' + sv + (sv === 1 ? ' servicio' : ' servicios') + (sv ? ' · ' + money0((e.ventas || 0) / sv) + ' de media' : '') + '</small>' +
