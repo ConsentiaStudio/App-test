@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.7.6">
-<meta name="consentia-agenda-firma" content="vRN6b0cWWY4PiW4B93zKuoOeCThFIncjOpkEPIfCtO2RMGCQJB8JdLaepn6tS4WBgEXQXh7kfTM+SyGaCmTBAw==">
+<meta name="consentia-agenda-version" content="4.7.7">
+<meta name="consentia-agenda-firma" content="9gRo+08vDJwhJpsdr5l/zY5qoowpeuURLfQ12Bj9bmc1dws2UDP4jjzh14cr+0D8KGu3WBpZ5KHDk4pC/e2OAw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-/X/xicIUK9e2xoA4tExy15e6BROd5gob9AITGxH4RKo='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-6VHvb8FlmZiE0w7bL54XOfwMVgBq2+noE+iOxh8badQ='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -243,6 +243,8 @@ html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--pag
 .login #entrar:active{transform:translateY(1px)}
 .login #entrar svg{stroke:#fff;width:18px;height:18px}
 .login .lfoot{margin:24px 0 0;text-align:center;font-size:13px}
+.login .kitLnk{margin-top:40px;font-size:11.5px;opacity:.6} /* (4.7.7) el kit, discreto: es solo de la empresaria */
+.login .instSteps{margin:14px 0} /* (4.7.7) los pasos del iPhone en la tarjeta */
 .login .bad,.login .warn{text-align:left;margin-top:14px}
 @media (max-width:560px){
   .lwrap{align-content:start;padding:14px 16px 30px}
@@ -842,9 +844,12 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); INST.prompt = e; });
   function isStandalone() { try { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
   function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+  // (4.7.7) En el iPhone, Safari y la app instalada NO comparten nada: lo que se pide en Safari no lo ve el icono.
+  function iosSafari() { return isIOS() && !isStandalone() && window.parent === window; }
+  function iosApp() { return isIOS() && isStandalone(); }
   function instKv(v) { return temaDb().then(function (db) { return new Promise(function (res) { var tx = db.transaction('k', v === undefined ? 'readonly' : 'readwrite'), os = tx.objectStore('k'); var q = v === undefined ? os.get('instalar') : os.put(v, 'instalar'); q.onsuccess = function () { res(q.result); }; q.onerror = function () { res(null); }; tx.oncomplete = function () { db.close(); }; }); }); }
   async function instCheck() {
-    if (INST.shown || isStandalone() || window.parent !== window || navigator.webdriver) return; INST.shown = true;
+    if (INST.shown || isStandalone() || window.parent !== window || navigator.webdriver || acc.iosFirst) return; INST.shown = true;
     var android = /android/i.test(navigator.userAgent); if (!isIOS() && !android && !INST.prompt) return;
     var until = 0; try { until = +(await instKv()) || 0; } catch (e) { } if (until > Date.now() || document.querySelector('.sheetBack')) return;
     var steps = isIOS() ? [['Toca ', 'Compartir', ' abajo en Safari'], ['Elige ', 'Añadir a pantalla de inicio', ''], ['Toca ', 'Añadir', ' arriba a la derecha']]
@@ -2038,6 +2043,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   /* ---------- pantallas de acceso (sin entrar todavía) ---------- */
   function accScreen(card) {
     if (acc.kit) return screenKit(card), true;
+    if (acc.inv && acc.iosFirst && !acc.rec) return screenIosFirst(card), true; // (4.7.7)
     if (acc.inv && acc.state !== 'activo' && acc.state !== 'pendiente') return screenRequest(card), true;
     if (acc.state === 'pendiente' && acc.me) return screenWait(card), true;
     if (acc.state === 'rechazada') return screenRejected(card), true;
@@ -2062,7 +2068,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var exp = acc.inv && Date.now() > acc.inv.exp;
     card([el('div', { class: 'eyebrow', text: 'Pedir acceso' }), el('h1', { text: 'Solicitar acceso' }),
       el('p', { text: 'Escribe tu nombre y apellido y elige tu contraseña. El Administrador del local o la empresaria tienen que aprobarlo antes de que puedas entrar.' }),
-      exp ? el('div', { class: 'bad', text: 'Este QR ha caducado (dura 30 minutos). Pide otro en el local.' }) : form, errBox(), el('p', { class: 'lfoot', text: 'Tu contraseña no sale de este móvil.' })]);
+      exp ? el('div', { class: 'bad', id: 'qrCaducado', text: 'Este QR ha caducado (dura 30 minutos). Pide otro en el local.' + (iosApp() ? ' En el iPhone: borra este icono de la pantalla de inicio, escanea el QR nuevo y sigue los pasos que salen en Safari.' : '') }) : form, errBox(), el('p', { class: 'lfoot', text: 'Tu contraseña no sale de este móvil.' })]);
   }
   function screenWait(card) {
     card([el('div', { class: 'eyebrow', text: 'Pedir acceso' }), el('h1', { text: 'Esperando aprobación' }), el('p', { text: (acc.rec && acc.rec.name ? acc.rec.name + ' · ' : '') + 'Cuando lo aprueben, esta pantalla se abre sola. Si cierras la app, al volver solo te pedirá tu contraseña.' }),
@@ -2098,12 +2104,26 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     card([el('div', { class: 'eyebrow', text: 'Kit de recuperación' }), el('h1', { text: 'Recuperar el control' }), el('p', { text: 'Con el kit que imprimiste, este móvil pasa a tener Control total. Lo hace un ordenador de la empresa en 1 o 2 minutos.' }), form, errBox(),
       el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', text: 'Volver', on: { click: function () { acc.kit = false; acc.msg = ''; render(); } } })])]);
   }
+  // (4.7.7) iPhone, en Safari, recién escaneado el QR: primero se instala la app y la solicitud se hace DENTRO de ella
+  // (la invitación se queda en la dirección, detrás de «#», y el icono la guarda; nunca se manda a ningún servidor).
+  function screenIosFirst(card) {
+    var ml = document.querySelector('link[rel="manifest"]'); if (ml) ml.remove(); // sin manifiesto, el icono guarda ESTA dirección (con la invitación), no la de inicio
+    var hh = new Date(acc.inv.exp), hora = String(hh.getHours()).padStart(2, '0') + ':' + String(hh.getMinutes()).padStart(2, '0');
+    var steps = [['Toca ', 'Compartir', ' abajo en Safari'], ['Elige ', 'Añadir a pantalla de inicio', ''], ['Toca ', 'Añadir', ' arriba a la derecha'], ['Abre la app desde el ', 'icono nuevo', ' y pide acceso allí']];
+    card([el('div', { class: 'eyebrow', text: 'Pedir acceso · iPhone' }), el('h1', { text: 'Primero, instala la app' }),
+      el('p', { text: 'En el iPhone, Safari y la app de la pantalla de inicio no comparten nada: si pides acceso aquí, la app instalada no lo sabrá. Por eso se pide desde la app.' }),
+      el('div', { class: 'instSteps', id: 'pasosIphone' }, steps.map(function (x, i) { return el('div', { class: 'instStep' }, [el('i', { text: String(i + 1) }), el('span', {}, [x[0], el('b', { text: x[1] }), x[2]])]); })),
+      el('div', { class: 'warn', id: 'hastaHora', text: 'Este QR vale hasta las ' + hora + '. Si caduca, pide otro en el local.' }), errBox(),
+      el('p', { class: 'lfoot' }, [el('button', { class: 'lnk', type: 'button', id: 'seguirSafari', text: 'Prefiero usarla solo en Safari', on: { click: function () { acc.iosFirst = false; acc.msg = ''; dropHash(); render(); } } })])]);
+  }
   // (4.3.0) Un móvil sin acceso: solo puede escanear el QR del local o recuperar el control con el kit.
+  // (4.7.7) El kit, discreto (es solo de la empresaria); en la app instalada del iPhone, qué hacer si se pidió en Safari.
   function screenEntry(card) {
     card([el('div', { class: 'eyebrow', text: 'Agenda y calculadora' }), el('h1', { text: 'Bienvenida' }),
       el('p', { id: 'escanea', text: 'Escanea el QR del local con la cámara del móvil para pedir acceso. El QR sale en el ordenador del local: Ajustes → Accesos a la app.' }),
+      iosApp() ? el('div', { class: 'warn', id: 'iphoneAyuda', text: '¿Pediste acceso desde Safari? Esta app no lo ve (en el iPhone no comparten nada). Sigue entrando por Safari, o borra este icono, escanea un QR nuevo del local y sigue los pasos que salen.' }) : null,
       st.msg ? el('div', { class: 'warn', text: st.msg }) : null, st.fresh ? el('div', { class: 'warn', id: 'nueva', text: 'La página se ha actualizado (versión ' + st.fresh + ').' }) : null, errBox(),
-      el('p', { class: 'lfoot', id: 'accAyuda' }, [el('button', { class: 'lnk', type: 'button', id: 'conKit', text: 'Recuperar con el kit', on: { click: function () { acc.kit = true; acc.msg = ''; render(); } } })])]);
+      el('p', { class: 'lfoot kitLnk', id: 'accAyuda' }, [el('button', { class: 'lnk', type: 'button', id: 'conKit', text: 'Solo la empresaria: recuperar con el kit', on: { click: function () { acc.kit = true; acc.msg = ''; render(); } } })])]);
   }
 
   /* ---------- la barra de abajo según el acceso ---------- */
@@ -2311,7 +2331,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   async function bootAcc() {
     if (!SC || !window.indexedDB || !cfg.repo) return false;
     var rec = await aget('yo'), inv = readInvite(location.hash);
-    if (inv) { st.want = ''; if (!rec) { acc.inv = inv; dropHash(); return true; } dropHash(); }
+    if (inv) { st.want = ''; if (!rec) { acc.inv = inv; if (iosSafari() && Date.now() < inv.exp) acc.iosFirst = true; else dropHash(); return true; } dropHash(); } // (4.7.7) iPhone: primero instalar
     if (!rec) return false;
     acc.rec = rec; acc.state = rec.state;
     var s = await aget('sesion');
@@ -2327,7 +2347,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   // Si en este aparato hay una sesión de menos de 7 días, se entra sin escribir la contraseña.
   forget(); st.ready = false; st.booting = true; render();
   bootAcc().catch(function () { return false; }).then(function (a) { st.booting = false; if (a === 'listo') return; st.ready = true; render(); });
-  window.addEventListener('hashchange', function () { var inv = readInvite(location.hash); if (inv && !acc.rec) { acc.inv = inv; acc.msg = ''; dropHash(); render(); } });
+  window.addEventListener('hashchange', function () { var inv = readInvite(location.hash); if (inv && !acc.rec) { acc.inv = inv; acc.msg = ''; if (iosSafari() && Date.now() < inv.exp) acc.iosFirst = true; else dropHash(); render(); } });
   setInterval(function () { if (v2On() && !document.hidden) refresh(); }, 5 * 60 * 1000);
   // (4.3.1) Lo que puede ver este móvil se mira cada 15 s (un archivo pequeño, sin la API): si le cambian el acceso (otro
   // nivel, otros locales) o se lo quitan, se nota al momento, sin esperar a la vuelta de 5 minutos.
