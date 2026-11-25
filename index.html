@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.7.5">
-<meta name="consentia-agenda-firma" content="Gzt0VAOVVMnKZwPwgFP4rfqaCXwX8EPXRDGSgUcGlm3e7I55MeQnvXj7M18sf8AAkk7Ykmg7FeX4C6Rda0cIBQ==">
+<meta name="consentia-agenda-version" content="4.7.6">
+<meta name="consentia-agenda-firma" content="vRN6b0cWWY4PiW4B93zKuoOeCThFIncjOpkEPIfCtO2RMGCQJB8JdLaepn6tS4WBgEXQXh7kfTM+SyGaCmTBAw==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-B5bXe5twp1g9JsQ04Qhk3M7+cDXzA68R9jfdFaUzylo='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-/X/xicIUK9e2xoA4tExy15e6BROd5gob9AITGxH4RKo='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -461,7 +461,9 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .accPill.agenda{background:#eaf2fd;color:#1f5fbf}.accPill.numeros{background:#e3f5ea;color:#1d8a4a}.accPill.control{background:var(--pinkSoft);color:#c2006b}
 .accPill.ok{background:#e3f5ea;color:#1d8a4a}.accPill.w{background:#fff4d6;color:#7a5600}
 .accCodeS{font:800 18px ui-monospace,Consolas,monospace;letter-spacing:.12em}
-.accFrame{display:block;width:100%;border:0;height:calc(100vh - var(--hh,56px) - var(--mh) - env(safe-area-inset-bottom) - 16px);background:var(--bg)}
+/* (4.7.6) Números llega hasta abajo, por detrás de la barra translúcida, como las demás pestañas (antes acababa 16 px antes
+   y se veía una franja blanca); el espacio de la barra lo deja la propia página de Números (body.embed main). */
+.accFrame{display:block;width:100%;border:0;height:calc(100vh - var(--hh,56px));height:calc(100dvh - var(--hh,56px));background:var(--bg)}
 .accQr{display:flex;flex-direction:column;align-items:center;margin-top:12px}.accQr svg{width:240px;height:240px;max-width:100%}
 .sheet select{width:100%;margin-top:12px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .sheet button.danger{background:#c2103f}
@@ -1082,7 +1084,11 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     sq.addEventListener('input', drawSvc);
 
     /* 3 · cuándo */
+    // (4.7.6) «Abrir mes»: los días de un mes sin abrir no se pueden elegir (lo vuelve a comprobar el ordenador).
+    var shut = function (k) { return !!(d.ou && String(k).slice(0, 7) > d.ou); };
+    var monthTxt = function (ym) { return ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][+String(ym).slice(5) - 1] + ' de ' + String(ym).slice(0, 4); };
     var day = el('input', { type: 'date', id: 'cDia', value: edit && !(mover && a.d < today()) ? a.d : (st.day && st.day >= today() ? st.day : today()), min: edit && !mover ? '' : today() });
+    if (d.ou) { var ouY = +d.ou.slice(0, 4), ouM = +d.ou.slice(5); var ouL = new Date(ouY, ouM, 0); day.max = ouY + '-' + String(ouM).padStart(2, '0') + '-' + String(ouL.getDate()).padStart(2, '0'); } // (4.7.6)
     var time = el('input', { type: 'time', id: 'cHora', step: '300', value: edit ? txt(a.s, 5) : '' });
     var dur = el('input', { type: 'number', id: 'cDur', min: '5', max: '600', step: '5', value: edit ? String(a.du || 30) : '30', inputmode: 'numeric' });
     var note = el('input', { type: 'text', id: 'cNota', maxlength: '200', placeholder: 'Opcional', value: edit && a.n ? txt(a.n, 200) : '' });
@@ -1093,8 +1099,8 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var drawDays = function () {
       days.innerHTML = ''; var t0 = today(), first = edit && !mover && a.d < t0 ? a.d : t0, list2 = []; for (var i = 0; i < 21; i++) list2.push(addD(first, i)); if (list2.indexOf(day.value) < 0 && day.value) list2.unshift(day.value);
       list2.forEach(function (k) { var lbl = k === t0 ? 'Hoy' : k === addD(t0, 1) ? 'Mañana' : DN[dow(k)];
-        var cz = dayClosed(d, k); /* (4.6.1) «Cerrado», como en la app de las clientas (se puede elegir igualmente) */
-        days.appendChild(el('button', { type: 'button', class: 'ncDay' + (k === day.value ? ' on' : '') + (cz ? ' closed' : ''), 'data-d': k, title: cz ? 'El centro está cerrado ese día' : null, on: { click: function () { day.value = k; drawDays(); drawSlots(); warn(); } } }, [el('small', { text: lbl }), el('b', { text: String(+k.slice(8, 10)) }), cz ? el('em', { text: 'Cerrado' }) : null])); });
+        var cz = dayClosed(d, k); /* (4.6.1) «Cerrado», como en la app de las clientas (se puede elegir igualmente) */ var no = shut(k); /* (4.7.6) mes sin abrir: no se puede elegir */
+        days.appendChild(el('button', { type: 'button', class: 'ncDay' + (k === day.value ? ' on' : '') + (cz || no ? ' closed' : ''), 'data-d': k, disabled: no ? 'disabled' : null, title: no ? 'Mes sin abrir: no se dan citas' : cz ? 'El centro está cerrado ese día' : null, on: { click: function () { if (no) return; day.value = k; drawDays(); drawSlots(); warn(); } } }, [el('small', { text: lbl }), el('b', { text: String(+k.slice(8, 10)) }), no ? el('em', { text: 'Sin abrir' }) : cz ? el('em', { text: 'Cerrado' }) : null])); });
       var on = days.querySelector('.on'); if (on) setTimeout(function () { try { on.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) { } }, 0);
     };
     var drawEmps = function () { empBar.innerHTML = ''; emps.forEach(function (e) { empBar.appendChild(el('button', { type: 'button', class: 'ncEmp' + (e.id === empSel ? ' on' : ''), 'data-e': e.id, style: e.id === empSel ? 'border-color:' + color(e.c) + ';background:' + tint(color(e.c), 0.14) : '', on: { click: function () { empSel = e.id; drawEmps(); drawSlots(); warn(); } } }, [el('span', { class: 'ncDot', style: 'background:' + color(e.c) }), txt(e.n, 40)])); }); };
@@ -1168,6 +1174,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
         if (open === 'cli' && !okStep('cli')) return toast(newC ? 'Escribe su nombre y su teléfono.' : 'Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
         if (open === 'serv' && !pick.length) return toast('Elige al menos un servicio.'); next(open); } } });
       var giveB = el('button', { type: 'button', class: 'ncNext', id: 'guardarCita', text: mover ? 'Mover la cita' : edit ? 'Guardar los cambios' : '✓ Dar la cita', on: { click: async function () {
+        if (shut(day.value) && !(edit && a.d === day.value)) return toast('La agenda está abierta hasta ' + monthTxt(d.ou) + ': más adelante no se dan citas.'); // (4.7.6)
         if (mover && day.value < today()) return toast('Una cita cobrada solo se mueve hacia delante: hoy o un día que venga.');
         if (!edit && !client && !(newC && nn.value.trim() && nt.value.replace(/\D/g, '').length >= 9)) return toast('Elige a la clienta de la lista o crea una nueva (nombre y teléfono).');
         if (!pick.length) return toast('Elige al menos un servicio.'); if (!day.value || !time.value) return toast('Elige el día y la hora (toca una hora libre o escribe otra).'); if (!empSel) return toast('Elige con quién.');
@@ -1640,7 +1647,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     else if (pane === st.cNode) { var cb2 = pane.querySelector('.cBody'); if (cb2 && cbTop) cb2.scrollTop = cbTop; if (foc && pane.contains(foc)) { try { foc.focus({ preventScroll: true }); } catch (e) { } } }
   }
   // (3.2.1) Calendario del mes (una ficha, como las demás): ‹ mes ›, la semana empieza en lunes, hoy en rosa y el día
-  // elegido en negro. Los días fuera de lo publicado (de 7 días antes a 30 después) se ven más claros: se puede ir, pero
+  // elegido en negro. Los días fuera de lo publicado (desde la 4.7.6, del mes pasado a un año después) se ven más claros: se puede ir, pero
   // la página avisa de que ese día no está publicado.
   var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
   function calSheet(d) {
@@ -1692,6 +1699,7 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
     var old = (Date.now() - Date.parse(d.at)) / 60000;
     if (old > 75) main.appendChild(el('div', { class: 'warn', text: 'Esta agenda se publicó ' + ago(d.at) + '. Si el ordenador del centro está apagado o sin Internet, los últimos cambios no aparecen.' }));
     if (day < d.from || day > d.to) main.appendChild(el('div', { class: 'warn', text: 'Ese día está fuera de lo publicado (del ' + longDay(d.from) + ' al ' + longDay(d.to) + ').' }));
+    if (d.ou && day.slice(0, 7) > d.ou) main.appendChild(el('div', { class: 'warn', id: 'mesSinAbrir', text: 'Mes sin abrir: la agenda está abierta hasta el final de ' + ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][+d.ou.slice(5) - 1] + '. No se dan citas más adelante.' })); // (4.7.6)
     var emps = (d.employees || []).map(function (e) { return { id: e.id, n: txt(e.n, 40), c: color(e.c), sch: e.sch, x: e.x }; });
     var known = {}; emps.forEach(function (e) { known[e.id] = true; });
     var cabs = Array.isArray(d.cabins) ? d.cabins : []; if (st.cab >= cabs.length) st.cab = -1;
