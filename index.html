@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="consentia-agenda-version" content="4.7.7">
-<meta name="consentia-agenda-firma" content="9gRo+08vDJwhJpsdr5l/zY5qoowpeuURLfQ12Bj9bmc1dws2UDP4jjzh14cr+0D8KGu3WBpZ5KHDk4pC/e2OAw==">
+<meta name="consentia-agenda-version" content="4.7.8">
+<meta name="consentia-agenda-firma" content="T7YRjzhtb1OIE6DAvUxFRKZHgL6rZRaS7hnWKa25UwhVK7QLJo0KnvT+o6kEyiR3c/1nKeTUsZOGXXH28IJtBA==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-6VHvb8FlmZiE0w7bL54XOfwMVgBq2+noE+iOxh8badQ='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-zcqbrxfr629Mo6SZuxfFVHEV6k4Jt5HiKjbik+5OPKg=' 'sha256-BzlOZclQEHV18qBKjgm7U6dpz2KF7tsXS/3VSUuFTLA='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; frame-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#111113">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -42,7 +42,7 @@ header button svg{width:15px;height:15px;vertical-align:-3px;fill:none;stroke:cu
 .fabCita{position:fixed;right:14px;bottom:78px;z-index:30;border:0;border-radius:999px;background:var(--solid);color:#fff;font:inherit;font-weight:800;font-size:15px;padding:13px 18px;box-shadow:0 4px 14px rgba(0,0,0,.28)}
 .cForm label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 4px}.cForm input,.cForm select{width:100%;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--card);box-sizing:border-box;margin:0}
 .cRes{display:flex;flex-direction:column;gap:4px;margin-top:6px}.cItem{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:11px;font:inherit;font-size:15px;font-weight:700}
-.cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}.cChip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700}.cChip.on{background:var(--solid);color:#fff;border-color:var(--solid)}
+.cChips{display:flex;flex-wrap:wrap;gap:6px;max-height:190px;overflow:auto}.cCat{width:100%;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 /* (4.5.1) Extras: varios a la vez */
 /* (4.5.0) «Nueva cita» desde el móvil con Control total */
 body:has(.sheetBack) .fabCita{display:none}
@@ -61,7 +61,6 @@ body:has(.sheetBack) .fabCita{display:none}
 .cliCita .cd{flex:none;width:92px}.cliCita .cd b{display:block;text-transform:capitalize;font-size:14px}.cliCita .cd small,.cliCita .cs small{color:var(--muted);font-size:12px}
 .cliCita .cs{flex:1;min-width:0}.cliCita .cs b{display:block;font-size:14px}
 .cliCita.x{opacity:.6}.cliCita.x .cs b{text-decoration:line-through}
-.sheet .cliGo{background:var(--pink);color:#fff;border:0;font-weight:800}
 /* (4.6.0) «＋ Cita» a pantalla completa, por apartados que se pliegan (como la app de las clientas) */
 .sheetBack.full{align-items:stretch}
 .sheet.full{max-height:none;height:100%;border-radius:0;padding:0;background:var(--page);display:flex;flex-direction:column;overflow:auto}
@@ -73,15 +72,9 @@ body:has(.sheetBack) .fabCita{display:none}
 .sheet.full .cForm.nc{flex:1;padding:4px 16px 8px}
 .ncSec{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
 .ncSec.on{border:1.5px solid var(--pink)}
-.sheet .nc .ncHd{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;padding:14px;text-align:left;color:var(--ink);border-radius:0}
-.ncHd .ncN{flex:none;width:26px;height:26px;font-size:13px}
 .ncSec.done .ncN{background:#1d8a4a}.ncSec.todo .ncN{background:transparent;border:2px solid var(--line3);color:var(--muted);box-sizing:border-box}
-.ncSec.todo .ncTit{color:var(--muted);font-weight:650}
-.ncTit{flex:1;min-width:0;font-size:15px}.ncTit small{display:block;font-size:11.5px;color:var(--muted);font-weight:800;letter-spacing:.04em}.ncTit b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ncTit em{display:block;font-style:normal;font-size:12.5px;color:var(--muted)}
-.ncCh{flex:none;color:#c4006a;font-weight:800;font-size:13px}
 .ncBody{padding:0 14px 14px}.ncSec:not(.on) .ncBody{display:none}
 .ncBody>label:first-child{margin-top:0}
-.sheet .nc .ncGo{display:block;width:100%;margin-top:12px;background:var(--solid);color:#fff;border-radius:12px;padding:12px;font-weight:800;font-size:15px}
 .sheet.full .ncBar{position:sticky;bottom:0;margin:0;padding:10px 14px calc(14px + env(safe-area-inset-bottom));background:transparent;border:0}
 .sheet.full .ncBar{display:block}
 .sheet.full .ncBarIn{display:flex;align-items:center;gap:10px;background:var(--solid);color:#fff;border-radius:16px;padding:8px 8px 8px 16px;box-shadow:0 8px 24px rgba(17,17,19,.25)}
@@ -100,8 +93,6 @@ body:has(.sheetBack) .fabCita{display:none}
 .sheet .nc .ncLink{background:none;color:var(--pink);padding:6px 4px;font-weight:800}
 .ncNew{margin-top:8px}
 .ncCats{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}.ncCats::-webkit-scrollbar{display:none}
-.sheet .nc .ncPill{flex:none;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700;white-space:nowrap}
-.sheet .nc .ncPill.on{background:var(--solid);color:#fff;border-color:var(--solid)}
 .ncList{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:none;overflow:visible}
 .ncList .cCat{margin:8px 0 0}
 .sheet .nc .ncSvc{display:flex;align-items:center;gap:10px;width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;text-align:left;font-weight:600}
@@ -208,14 +199,12 @@ main{padding:10px 12px 40px;max-width:720px;margin:0 auto}
 .blk{background:repeating-linear-gradient(135deg,#111 0 7px,#2b2b2b 7px 14px);color:#fff;border-left-color:#000}
 .blk .w b{text-transform:uppercase;letter-spacing:.1em}
 .none{color:var(--muted);padding:10px 12px;font-size:13px}
-.note{font-size:12px;color:var(--muted);text-align:center;margin:14px 0}
 .warn{background:#fff4d6;border:1px solid #ecd18c;color:#5c3d00;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
 .bad{background:#fde4ec;border:1px solid #eeb3c4;color:#6d0a28;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:13px}
 /* (4.0.1) La entrada, igual que la del panel de empresa: arriba a la izquierda la C con «Consentia Studio», las C pequeñas
    de fondo y, en el centro, una tarjeta blanca con la contraseña. No se desplaza (ni «rebota» en el móvil). */
 html.lock,html.lock body{height:100%;overflow:hidden;overscroll-behavior:none}
 html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--page)}
-.lockBg{display:none}
 .lockLogos{position:fixed;top:0;left:0;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:0}
 .lockLogo{position:absolute;display:block;user-select:none;-webkit-user-drag:none}
 .lwrap{position:relative;z-index:1;height:100%;overflow:auto;display:grid;grid-template-columns:minmax(0,440px);justify-content:center;align-content:center;padding:40px 18px}
@@ -237,7 +226,6 @@ html.lock body{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--pag
 .login .pwBox input{flex:1;min-width:0;height:100%;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 10px 0 11px;font:inherit;font-size:16px;text-align:left;color:var(--ink);-webkit-appearance:none;appearance:none}
 .login .pwBox input:focus{outline:0;box-shadow:none}
 .login .pwBox input::placeholder{color:var(--muted)}
-.login .pwEye{flex:none;width:48px;height:100%;margin:0;padding:0;border:0;border-radius:0 8px 8px 0;background:transparent;box-shadow:none;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .login #entrar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;margin-top:16px;padding:0;border:0;border-radius:8px;background:var(--solid);color:#fff;font:inherit;font-size:15.5px;font-weight:700;box-shadow:0 12px 24px -14px rgba(17,17,19,.7);cursor:pointer}
 .login #entrar[disabled]{opacity:.6}
 .login #entrar:active{transform:translateY(1px)}
@@ -352,7 +340,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .cItem:active{background:var(--pinkSoft)}
 .cHint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
 /* (3.2.1) Índice de categorías / grupos y «‹ volver» */
-.cSec+.cSec{margin-top:12px}.cSecName{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 4px 6px}
+
 /* Ficha de un extra */
 .sheet .xFoto{display:block;width:100%;max-height:38vh;object-fit:contain;border-radius:12px;background:var(--page);margin-bottom:12px}
 .sheet .xPrecio{color:var(--pink);font-weight:700;margin-top:2px}
@@ -432,9 +420,7 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .accPage .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c2006b}
 .accPage h1{margin:6px 0 2px;font-size:27px;letter-spacing:-.02em;line-height:1.1}
 .accPage .sub{color:var(--muted);margin:2px 0 14px;font-size:14px}
-.accGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
 .accCard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
-.accGrid .accCard{margin:0}
 .accCard>small{display:block;color:var(--muted);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin:4px 0 6px}
 .accCard>b{display:block;font-size:15px}
 .accCard strong{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:2px 0}
@@ -450,9 +436,6 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .accBtn{display:block;width:100%;margin:10px 0 0;padding:13px;border:1px solid var(--ink);border-radius:12px;background:var(--solid);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
 .accBtn.pink{background:var(--pink);border-color:var(--pink)}.accBtn.ghost{background:var(--card);color:var(--ink)}
 .accTwo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.accSeg{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(118,118,128,.16);margin:0 0 12px;overflow-x:auto}
-.accSeg button{flex:1 0 auto;height:36px;border:0;border-radius:9px;background:transparent;color:var(--ink2);font:inherit;font-size:13.5px;font-weight:600;padding:0 10px;white-space:nowrap}
-.accSeg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(17,17,19,.12)}
 .accLv,.accZ{margin:4px 0 8px}
 .accOpt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:6px 0;cursor:pointer}
 .accOpt:has(input:checked){border-color:var(--pink);background:#fff7fb}
@@ -476,7 +459,6 @@ body.has-modes .pA main:not(.wide),body.has-modes .pC{padding-bottom:calc(var(--
 .apHero span{font-size:11.5px;opacity:.85}.apHero em{font-style:normal;font-size:10.5px;font-weight:800;margin-top:4px;background:rgba(255,255,255,.18);border-radius:999px;padding:1px 10px}
 .apWho{min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px}.apWho h2{font-size:18px;line-height:1.2}
 .apTel{font-size:12.5px;color:var(--muted)}.apWho .who{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.apWho .who b{color:var(--ink)}
-.apAv{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:900;flex:none}
 .svBox{background:var(--field);border-radius:12px;padding:2px 12px;margin:2px 0 8px}
 .svRow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}.svRow:last-child{border-bottom:0}
 .svRow .svT{font:700 12.5px ui-monospace,Consolas,monospace;color:var(--muted);flex:none;min-width:40px}.svRow b{flex:1;min-width:0;font-size:14px}.svRow small{color:var(--muted);font-size:12px;flex:none}
@@ -882,7 +864,6 @@ html[data-theme=oscuro] .upd{background:#2b2210;color:#ffd98a;border-color:#5a47
   function addDays(k, n) { var p = k.split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2] + n); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   function longDay(k) { var p = String(k).split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]); var t = d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }); return t.charAt(0).toUpperCase() + t.slice(1); }
   function ago(iso) { var m = Math.round((Date.now() - Date.parse(iso)) / 60000); if (!(m >= 0)) return ''; if (m < 1) return 'ahora mismo'; if (m < 60) return 'hace ' + m + ' min'; var h = Math.floor(m / 60); if (h < 48) return 'hace ' + h + ' h'; return 'hace ' + Math.floor(h / 24) + ' días'; }
-  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
   function color(c) { return /^#[0-9a-f]{6}$/i.test(String(c || '')) ? c : '#999999'; }
   // (3.2.4) Los servicios de una cita, cada uno con la marca de su color (el de su categoría, como en el programa); sin
   // colores (agenda de antes), el texto de siempre. Y la estrella de las clientas VIP.
