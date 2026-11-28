@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="consentia-pagina" content="cita">
-<meta name="consentia-agenda-version" content="4.7.7">
-<meta name="consentia-agenda-firma" content="eQ4LKL8Y3tlpfuTDwg0LJ1OUBktcbZbXVn0rMN8pEKwPlKEg0QjOs8DtapAN1os2qp491238onDJgo8L0lIoCA==">
+<meta name="consentia-agenda-version" content="4.7.8">
+<meta name="consentia-agenda-firma" content="Y+zr4A0XCoLiIdcYQBFguAOx2bxMd7pTOm5bzoDyfRqZaN0HGp1Pk+tbGUuWCaGruDsPz53OYZxeuVapvhhuDQ==">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-kTBm78Nghn2VLmB0t2QeuXRmTN3mMBHIreVGivGK+Co='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-htyAUJWZBfYtWHxcoZZqSRxhCYLalc3lTRY5iqUb+gc='; connect-src https://api.github.com https://raw.githubusercontent.com; img-src data: 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="cita.webmanifest">
 <link rel="apple-touch-icon" href="icono-180.png">
@@ -39,15 +39,13 @@ h2{font-size:17px;margin:0 0 8px;letter-spacing:-.01em}h3{font-size:12px;margin:
 .hint{color:var(--mute);font-size:13.5px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 /* pasos */
-.steps{display:flex;gap:6px;margin:2px 2px 6px}.steps i{flex:1;height:4px;border-radius:2px;background:var(--line)}.steps i.on{background:var(--pink)}
-.stepT{font-size:12.5px;color:var(--mute);font-weight:700;margin:0 2px;text-transform:uppercase;letter-spacing:.06em}
+
 /* locales */
 .loc{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;color:var(--ink)}
 .loc .ic{width:42px;height:42px;border-radius:12px;background:var(--bg);display:grid;place-items:center;flex:none}.loc .ic svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .loc b{display:block;font-size:16px}.loc small{color:var(--mute)}.loc.on{border-color:var(--pink);background:var(--soft)}.loc .ck{margin-left:auto}
 /* servicios */
-.cats{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
-.pill{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:650;color:var(--ink);white-space:nowrap}.pill.on{background:var(--solid);border-color:var(--solid);color:#fff}
+
 .sv{display:flex;gap:12px;align-items:center;padding:13px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;font-weight:400;cursor:pointer}
 .sv input{position:absolute;opacity:0;pointer-events:none}
 .sv .ck{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}
@@ -88,7 +86,6 @@ button.lnk{border:0;background:none;color:var(--mute);font-size:14px;font-weight
 .sum b{flex:1;font-size:14px;line-height:1.25}.sum button.p{width:auto;padding:12px 18px}
 .sum button.bk{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:12px 12px;font-size:15px;font-weight:700}
 .photo{max-width:100%;max-height:200px;border-radius:12px;display:block;margin-top:8px}
-.big{font-size:19px;font-weight:800;letter-spacing:-.01em}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:14px 2px}.check input{width:22px;height:22px;margin-top:1px;accent-color:var(--pink);flex:none}
 .full{text-align:center;padding:24px 16px}.full .ic{font-size:40px;line-height:1}.full h2{font-size:19px;margin:10px 0 6px}
 a.tel{display:block;margin-top:14px;text-decoration:none;text-align:center;border-radius:14px;padding:14px 18px;background:var(--pink);color:#fff;font-size:17px;font-weight:750}
@@ -364,7 +361,6 @@ html[data-theme=oscuro] .ap .d.ok{background:#12301f}html[data-theme=oscuro] .ap
     });
     return Object.keys(out).sort().map(function (k) { return { s: k, emps: out[k] }; });
   }
-  function daysWith() { var z = S.zdata, du = totals().m; return Object.keys(z.days || {}).sort().filter(function (d) { return times(d).length; }); }
   function shrinkPhoto(file) {
     return new Promise(function (ok, no) {
       if (!file || !/^image\//.test(file.type)) return no(new Error('Elige una foto.'));
